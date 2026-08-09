@@ -1,6 +1,6 @@
 # Research Log — Experiment 01: The Vanishing Absorber
 
-Chronological recovery log. Dedicated derivation files preserve full algebra; this file records **why the direction changed**.
+Chronological recovery log. Dedicated files preserve detailed algebra; this file records **why the direction changed**.
 
 ---
 
@@ -8,77 +8,48 @@ Chronological recovery log. Dedicated derivation files preserve full algebra; th
 
 Starting question:
 
-> Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
+> Can an ideal photodetector be made arbitrarily small, fast, sensitive, and still absorb essentially every incident photon?
 
-The project explicitly refused to assume the answer or optimize for a paper-shaped result.
+The project explicitly refused to assume a theorem or optimize for a paper-shaped result.
 
 ---
 
 ## One-port absorber
 
-A one-port resonator showed that unity monochromatic absorption can survive arbitrarily weak material loss through critical coupling, but useful temporal response narrows.
+A one-port resonator showed that unity monochromatic absorption can survive arbitrarily weak absorber loss through critical coupling.
 
-A factor-of-two distinction was established between optical absorption FWHM and small-signal absorbed-power bandwidth.
+The useful temporal response narrows as the internal loss rate decreases, and a factor-of-two distinction was established between absorption spectral FWHM and small-signal absorbed-power bandwidth.
 
-Direction: determine whether absorber loss rate must scale with active material volume.
+Direction: ask whether absorber loss must scale with active material volume.
 
 ---
 
 ## Active-volume route killed
 
-A shrinking-gap field-concentration counterexample retained finite optical participation while active material volume tended to zero.
+A field-concentration counterexample retained finite optical participation while active material volume tended to zero.
 
 Conclusion:
 
-> geometric active volume alone is not a universal detector resource.
+> active semiconductor volume alone is not a universal detector resource.
 
-Direction: descend to microscopic transition physics.
-
----
-
-## Microscopic / LDOS / deep-strong branches
-
-Finite absorber number did not impose a one-photon speed limit.
-
-LDOS bounds became conditional on environment geometry and emitter extent.
-
-Pushing weak-coupling enhancement eventually entered nonperturbative light-matter physics.
-
-A Hopfield model reproduced deep-strong decoupling and yielded a fixed-target supporting lemma in which at least one required reservoir access vanished as internal coupling became arbitrarily large with fixed external resources.
-
-Direction: generalize beyond one resonance.
+Direction: descend to microscopic coupling and access resources.
 
 ---
 
-## Finite passive network
+## Microscopic / passive-network / active-control branches
 
-A passive multimode network gave the harmonic integrated-transfer bound
+Finite absorber count did not impose a one-photon speed limit.
+
+A finite passive multimode network produced the harmonic integrated-transfer bound
 
 ```math
-\boxed{
 \mathcal I_{L\to R}
-\le
-\frac{2LR}{L+R}.
-}
+\le\frac{2LR}{L+R}.
 ```
 
-This survived arbitrary finite internal mode overlap/interference under its assumptions.
+But direct feedthrough, continuum reservoirs, pumped conversion, temporal-mode capture, adaptive branching, and output-record capacity exposed genuine extra resources.
 
-Direct feedthrough and continuum reservoirs then exposed the scope: extra external channels are genuine extra resources.
-
-Direction: test active/adaptive control.
-
----
-
-## Active/adaptive control
-
-Pumped conversion and time-dependent matching showed that active control can beat stationary matching only by spending pump/control resources.
-
-Known-arrival temporal-mode capture can be perfect, but unknown arrival requires more storage/output capacity.
-
-Adaptive feedforward can export the missing rank into the output record.
-
-An unrestricted output continuum therefore kills a universal finite detector-only space-time capacity theorem.
+An unrestricted output continuum killed the attempted universal finite detector-only space-time capacity theorem.
 
 Direction:
 
@@ -86,482 +57,581 @@ Direction:
 
 ---
 
-## Semiconductor contact / filter branch
+## Semiconductor extraction and HgCdTe high-field transport
 
-Fermi-reservoir detailed balance linked fast extraction to reverse loading.
+Fermi-reservoir detailed balance tied rapid extraction to reverse loading.
 
-Lifetime broadening gave a single-resonance low-temperature leakage floor, but multipole filters showed that spectral width is not an architecture-independent speed variable: steeper filtering can be bought with more internal delay/state weight.
+Multipole filters showed that spectral width is not a universal carrier-speed variable.
 
-Direction: use narrow-gap HgCdTe high-field transport directly.
-
----
-
-## HgCdTe BTBT / TAT / nonlocal impact ionization
-
-A simplified HgCdTe/Kane direct-BTBT model collapsed onto
+A simplified HgCdTe direct-BTBT model collapsed to
 
 ```math
-j=x^2e^{-1/x}.
+j=x^2e^{-1/x},
 ```
 
-Primary high-field transport literature killed the shortcut `v=mu F` at high field.
+but primary high-field transport work killed low-field `v=mu F` extrapolation.
 
-TAT could activate before direct BTBT depending on trap spectrum.
+TAT and nonlocal impact-ionization/hot-carrier history could become important before direct BTBT.
 
-A nonlocal mean-energy surrogate replaced a bulk impact-ionization onset field with carrier history:
+A path-dependent mean-energy state was introduced:
 
 ```math
-\boxed{
 \frac{d\varepsilon}{dx}
 =S_c(x)-\frac{\varepsilon}{\ell_E(x)}.
-}
 ```
 
-Direction: ask whether heterostructure grading can preserve carrier drive while changing tunneling geometry.
+Direction: use material grading to alter tunneling geometry without throwing away useful carrier drive.
 
 ---
 
 ## Homogeneous field shaping no-go
 
-Within the stated homogeneous local transport/WKB model, nonuniform electric field alone did not improve the fixed-transit leakage optimum; uniform field won.
+Within the stated homogeneous local transport/WKB model, redistributing electric field did not improve the fixed-transit leakage optimum; uniform field won.
 
 Conclusion:
 
-> a real escape requires material heterogeneity, not merely electric-field reshaping.
+> a true escape requires material heterogeneity.
 
 ---
 
-## Graded-band HgCdTe direct-Zener escape
+## Graded-band HgCdTe
 
-For linear conduction and valence edges,
+For linear band edges,
 
 ```math
 S_v=S_c-G,
-```
-
-with
-
-```math
+\qquad
 G=-dE_g/dx.
 ```
 
-At fixed conduction slope, the direct-Zener WKB action increased strongly as the valence slope approached zero.
+At fixed conduction-band drive, direct-Zener action increases strongly as the valence-band slope approaches zero.
 
-This separated
-
-```text
-useful conduction-band drive
-```
-
-from
-
-```text
-relative conduction/valence overlap geometry.
-```
-
-Direction: test self-consistent electrostatics.
-
----
-
-## Quasi-neutral p-type self-consistency
-
-A uniformly depleted multi-micron graded layer produced an excessive `N_eff L^2` Poisson burden.
-
-For a quasi-neutral p-type region,
+For quasi-neutral p-type material,
 
 ```math
 \frac{dE_v}{dx}
 \simeq
-k_BT\frac{d}{dx}\ln(N_A/N_v).
+k_BT\frac{d}{dx}\ln(N_A/N_v),
 ```
 
-Nearly constant `N_A/N_v` gave
+so nearly constant `N_A/N_v` gives
 
 ```math
-E_v\approx\text{constant}
-```
-
-and therefore
-
-```math
+E_v\approx\text{constant},
+\qquad
 S_c\approx G.
 ```
 
-So equilibrium charge neutrality can naturally produce the favorable graded band geometry.
-
-Direction: locate the remaining electrostatic/leakage cost.
+Thus quasi-neutral grading can naturally separate useful minority-electron drive from the ordinary same-direction direct-Zener geometry.
 
 ---
 
-## Collection boundary
+## Boundary and nonlocal hot-electron cost
 
 Barrier-free entry into a wider-gap collection region requires
 
 ```math
-qV_b\ge\alpha\Delta E_g^{(b)}.
+qV_b\ge\alpha\Delta E_g^{(b)},
 ```
 
-Any nonnegative field over width `w` obeys
+and any nonnegative field over width `w` obeys
 
 ```math
 F_{\max}\ge V_b/w.
 ```
 
-Thus delta doping can redistribute the field but cannot make the required compensation voltage field-free.
+For local inverse-field leakage mechanisms the boundary has finite voltage capacity.
 
-For local inverse-field tunneling constraints, the boundary has a finite voltage capacity
-
-```math
-V_b\le\int F_{\rm allow}(x)dx.
-```
-
-At minimum compensation the total conduction edge is flat, so the boundary can relax hot electrons while the local gap rises.
-
-Direction: combine absorber hot-electron history and boundary local leakage.
-
----
-
-## Graded nonlocal II phase boundary
-
-For a linear quasi-neutral graded absorber and constant energy-relaxation length,
+The graded absorber's mean-energy dynamics produced the conditional phase boundary
 
 ```math
-\varepsilon(L)
-=\Delta E_g
-\frac{1-e^{-L/\ell_E}}
-{L/\ell_E}.
-```
-
-With threshold surrogate
-
-```math
-E_{\rm th}=\chi E_g,
-```
-
-the deterministic mean-energy boundary became
-
-```math
-\boxed{
 \zeta_{\rm II}(r,\chi)
 =
 \frac{\chi}
 {\chi+(1-e^{-r})/r}.
-}
 ```
 
-This revealed a new penalty migration:
+This revealed a penalty migration:
 
-> grading can suppress direct-Zener geometry while preserving the conduction-band work that heats the useful electron.
+> grading can suppress one direct-Zener geometry while preserving the conduction-band work that heats the useful electron.
 
-A Lambert-W inversion converted aggressive grading into a required relaxation distance/time.
-
----
-
-## Device phase map
-
-The absorber and boundary constraints were kept separate:
-
-```math
-\mathcal M_{\rm II}
-```
-
-for nonlocal carrier-energy safety and
-
-```math
-\mathcal M_b
-```
-
-for local TAT/BTBT voltage capacity.
-
-A boundary cooling length was added rather than treating the wide-gap boundary as a zero-time heat sink.
-
-Direction: reconnect this transport model to the photon's absorption position.
-
----
-
-## Optical reconnection — graded absorption length
-
-For a photon inside the graded gap range, only the portion where
-
-```math
-E_g(x)<E_\gamma
-```
-
-can participate in ordinary above-gap absorption.
-
-For a linear gap, the eligible fraction is
-
-```math
-f_{\rm opt}
-=\frac{E_\gamma-E_{g,\rm out}}
-{E_{g,\rm in}-E_{g,\rm out}}.
-```
-
-This reconnected transport to the original absorption gedanken.
+Direction: reconnect transport to where photons are actually absorbed.
 
 ---
 
 ## Spectral generation geometry
 
-Critical correction to the full-span transport picture:
+Inside a monotonic graded gap, wavelength determines which part of the absorber is energetically available.
 
-A photon with
-
-```math
-E_{g,\rm out}<E_\gamma<E_{g,\rm in}
-```
-
-cannot generate a carrier at the high-gap entrance.
-
-Its first allowed generation position is
+For a linear gap,
 
 ```math
-\boxed{
-x_\gamma
-=\frac{E_{g,\rm in}-E_\gamma}{G}.
-}
+x_g(E_\gamma)
+=\frac{E_{g,\rm in}-E_\gamma}{G}
 ```
 
-The maximum remaining transport distance is
-
-```math
-\boxed{
-d_\gamma
-=\frac{E_\gamma-E_{g,\rm out}}{G}.
-}
-```
-
-Thus wavelength naturally sorts generation position and transit distance.
+inside the graded interval.
 
 The exact conditional generation distribution in optical-depth coordinates is
 
 ```math
-\boxed{
 p(y|{\rm abs})
-=\frac{e^{-y}}
-{1-e^{-\tau_\gamma}}.
-}
+=\frac{e^{-y}}{1-e^{-\tau_\gamma}}.
 ```
 
-Direction: calculate wavelength-resolved timing.
+This created a natural map
+
+```text
+wavelength
+-> generation-position distribution
+-> carrier path length / timing.
+```
 
 ---
 
-## Cold-downstream-photoelectron assumption corrected
+## Photoexcitation correction
 
-The first spectral timing pass treated every generated electron as cold at the local conduction edge.
+The first timing pass incorrectly treated every downstream photoelectron as cold.
 
-That was wrong when
-
-```math
-E_\gamma>E_g(x).
-```
-
-Introduce
+For local photon excess,
 
 ```math
 \varepsilon_{\rm gen}
 =\xi_e(E_\gamma-E_g).
 ```
 
-The symmetric two-band optical transition gives `xi_e=1/2`.
+A symmetric two-band model gives `xi_e=1/2`; a simplified flat-heavy-hole HgCdTe Kane channel motivates `xi_e approximately 1` as a limiting case.
 
-Primary HgCdTe Kane work instead contains a nearly flat heavy-hole band and observed heavy-hole-to-electron transitions. In that limiting channel,
+Important correction:
 
-```math
-\xi_e\approx1.
-```
-
-The corrected finite-relaxation exit energy is
-
-```math
-\boxed{
-\varepsilon_{\rm out}(u)
-=
-K+(\xi_eu-K)e^{-(\delta E-u)/K}.
-}
-```
-
-Its maximum over generation position is
-
-```math
-\boxed{
-\varepsilon_{\max}
-=
-\max\left[
-K(1-e^{-\delta E/K}),
-\xi_e\delta E
-\right].
-}
-```
-
-For `xi_e=1`, the maximum is simply `delta E`, independent of relaxation length.
-
-This separated transit geometry from hot-electron energy more sharply.
+> excess photon energy is not automatically persistent **forward longitudinal velocity**. Momentum-space scattering must be modeled separately.
 
 ---
 
-## Corrected wavelength-resolved ballistic transit
+## 2026-08-09 — Ballistic entrance-gap timing maximum
 
-A two-band/Kane transit kernel was derived for arbitrary initial photoelectron excess.
+A directed-ballistic high-optical-depth model predicted
 
-The exact generation distribution can be integrated against it to obtain mean collection time and generation-position timing spread.
+```text
+inside graded gap:
+higher photon energy -> generation moves upstream -> delay rises
 
-Numerical checks showed that timing spread versus optical depth is not generically monotonic; the earlier simplified `higher QE -> lower jitter` statement was withdrawn.
-
----
-
-## 2026-08-09 — Entrance-gap spectral timing peak
-
-A stronger structure emerged when the photon sweep was extended above the entrance gap.
-
-### Inside the graded gap range
-
-As photon energy rises, the first allowed generation point moves upstream. High-optical-depth ballistic delay increases.
-
-### Above the entrance gap
-
-Once
-
-```math
-E_\gamma>E_{g,\rm in},
+above entrance gap:
+generation pinned at entrance -> extra photon energy raises initial carrier speed -> delay falls.
 ```
 
-the entire absorber is optically allowed. Generation can move no farther upstream. Additional photon energy instead raises initial electron kinetic energy, reducing transit time.
-
-Therefore the high-optical-depth ballistic model predicts
+Hence that model gave a maximum at
 
 ```math
-\boxed{
-T(E_\gamma)
-\text{ is maximal at }
 E_\gamma=E_{g,\rm in}.
-}
 ```
 
-or
+A deterministic mean-energy-relaxation calculation preserved the peak over the tested parameter range.
+
+At that stage the peak looked like the leading detector-specific prediction.
+
+---
+
+## Momentum-scattering attack kills universal peak
+
+A strong-scattering drift-diffusion model gives
+
+```math
+\langle T|d\rangle=d/v_d,
+```
+
+and therefore a **rise into a plateau**, not a decline, after the entrance becomes optically allowed.
+
+An underdamped stochastic surrogate showed that the short-wave shape can vary with the initial longitudinal momentum distribution:
+
+```text
+persistent forward memory -> decline
+rapid randomization -> plateau
+symmetric hot longitudinal spread -> decline not guaranteed.
+```
+
+Conclusion:
+
+> the entrance-gap timing maximum is model specific, not transport independent.
+
+The more robust object is the switch in how photon energy enters the initial-value problem.
+
+---
+
+## Entrance-gap initial-condition switch
+
+In the sharp-generation limit,
+
+```math
+x_g(E_\gamma)
+=\max\left[0,\frac{E_{g,\rm in}-E_\gamma}{G}\right],
+```
+
+while the excess energy available at the earliest point is
+
+```math
+u_g(E_\gamma)
+=\max(0,E_\gamma-E_{g,\rm in}).
+```
+
+Below the entrance gap, wavelength primarily moves generation position. Above it, generation is pinned and photon energy changes the injected carrier state.
+
+This suggested using the wavelength scan as an **inverse transport measurement** rather than merely looking for a peak/cusp.
+
+---
+
+## Spectral timing velocity inversion
+
+For path-additive delay and downstream collection,
+
+```math
+T(x_g)=\int_{x_g}^L\frac{dx}{v_{\rm eff}(x)}.
+```
+
+In the sharp linear-gap limit,
+
+```math
+\frac{dT}{dE_\gamma}
+=\frac1{Gv_{\rm eff}[x_g(E_\gamma)]}.
+```
+
+This exposed the core idea:
+
+> a monotonic gap can act as an internal spectral position encoder.
+
+Finite optical depth then turned the point formula into a known spatial convolution.
+
+---
+
+## Full linear inverse replaces differentiation
+
+Let
+
+```math
+q(x)=1/v_{\rm eff}(x)
+```
+
+inside a local path-additive interpretation.
+
+For known wavelength-dependent generation density `p_i(x)`, mean timing can be written as a linear operator on `q`.
+
+Synthetic tests showed smooth nonuniform profiles could be reconstructed under controlled finite-depth/noise conditions, but singular-value analysis immediately exposed a hard limitation:
+
+> wavelength count is not spatial degree-of-freedom count.
+
+Broader optical kernels destroy fine spatial modes.
+
+Direction: collide with primary detector literature before promoting the inverse.
+
+---
+
+## Prior-art collisions narrow the candidate severely
+
+Primary literature already establishes
+
+- wavelength-dependent photodiode generation depth and bandwidth;
+- graded-bandgap acceleration;
+- graded HgCdTe response-time modeling;
+- position-resolved HgCdTe impulse response using localized excitation.
+
+Perrais et al. already measured HgCdTe timing versus localized generation position.
+
+Sang et al. 2022 already write a wavelength- and depth-dependent generation rate
+
+```math
+G_L(z,\lambda)
+=\alpha(z,\lambda)\phi_0
+\exp\left[-\int_0^z\alpha(u,\lambda)du\right]
+```
+
+and combine it with graded-HgCdTe transport/response-time forward modeling.
+
+Therefore the candidate is **not** new spectral-generation/timing physics.
+
+It narrowed to:
+
+> use the known forward optical kernels **in reverse** against measured timing data to reconstruct internal transport.
+
+A 2024 same-group paper titled `Potential application of HgCdTe detector with composition gradient in laser measurement` remains an unresolved close collision because full technical text has not been recovered.
+
+---
+
+## Differential phase makes the inverse experimentally plausible
+
+For the timing distribution,
+
+```math
+H_\lambda(\Omega)
+=\langle e^{-i\Omega T_\lambda}\rangle.
+```
+
+Low-frequency cumulants give
+
+```math
+\arg H_\lambda
+=-\Omega\langle T_\lambda\rangle+O(\Omega^3),
+```
+
+```math
+\ln|H_\lambda|
+=-\frac{\Omega^2}{2}\operatorname{Var}(T_\lambda)+O(\Omega^4).
+```
+
+Thus differential phase measures differential mean delay without requiring direct picosecond pulse-width resolution.
+
+This also suggested a second inverse for timing broadening.
+
+---
+
+## Two-moment inverse
+
+Under additive conditional timing cumulants,
+
+```math
+\mu_i=\int K_i(s)q_1(s)ds,
+```
+
+and
+
+```math
+\sigma_i^2
+=\int K_i(s)q_2(s)ds
++\operatorname{Var}_{p_i}[m(X)].
+```
+
+The optical generation-position broadening is calculable after the mean-delay profile is estimated.
+
+In a local high-Peclet drift-diffusion approximation only,
+
+```math
+q_1=1/v,
+\qquad
+q_2\simeq2D/v^3.
+```
+
+Synthetic tests showed separate slow-transport and high-broadening regions can be numerically distinguished in a controlled normalized problem.
+
+---
+
+## Real-device orientation correction
+
+The 2023 Xu et al. sample geometry forced an important correction.
+
+Its PN junction is at the **high-Cd end**. Long-wave carriers generated deeper toward the low-Cd side return toward that junction.
+
+Therefore for front collection
+
+```math
+T_0(x)=\int_0^xq(s)ds,
+```
+
+and the correct kernel is the generation **survival function**
 
 ```math
 \boxed{
-\lambda_{\rm peak}\simeq hc/E_{g,\rm in}.
+S_i(s)=P(X_g\ge s|\lambda_i,{\rm abs}).
 }
 ```
 
-The predicted shape is
-
-```text
-near output cutoff:
-T -> 0 in the ideal transport limit
-
-through graded gap range:
-T rises
-
-entrance-gap wavelength:
-T maximum
-
-shorter wavelength:
-T falls
-
-very high photon energy:
-T -> L/v_K.
-```
-
-This is the strongest current detector-specific prediction.
-
----
-
-## First relaxation robustness attack
-
-The spectral timing calculation was repeated using
+For downstream collection the kernel is instead the CDF
 
 ```math
-\frac{d\varepsilon}{dx}
-=G-\frac{\varepsilon}{\ell_E}
+F_i(s)=P(X_g\le s).
 ```
 
-and local Kane group velocity
+This orientation correction is now canonical.
+
+---
+
+## Common-delay / broadening identifiability correction
+
+The earlier synthetic inverse appended a wavelength-independent timing offset and recovered it numerically.
+
+That was not proof of structural identifiability.
+
+At the collection boundary the timing kernel tends to unity for every wavelength, so sufficiently boundary-localized internal delay is spectrally degenerate with a common electronics/optical delay.
+
+The same issue applies to second-cumulant broadening.
+
+Conclusion:
+
+> spectral timing robustly identifies **differential spatial transport modes**. Absolute common/boundary timing components require calibration, a gauge constraint, or a physical prior.
+
+Differential phase naturally removes the common wavelength mode.
+
+---
+
+## Published 2023 sample B selected as calibration structure
+
+Xu et al. report sample B with
+
+```text
+processed thickness ~3.7 um
+nominal FTIR x ~0.316
+nonlinear interdiffusion region completely removed
+junction at high-Cd end
+linear-gradient field ~100-200 V/cm over the measured temperature range.
+```
+
+The paper gives the fitted composition model
 
 ```math
-\frac{v}{v_K}
-=
-\frac{2\sqrt{\varepsilon(\varepsilon+E_g)}}
-{2\varepsilon+E_g}.
+x(z)
+=x_s+s(d-z)
++(1-x_s-sd)
+\left\{
+1-\left[
+\operatorname{erf}\left(2z/\Delta z\right)
+\right]^3
+\right\},
 ```
 
-Across
+but the actual sample-B fit parameters are only available graphically in the accessible article.
 
-```text
-Eg,in/Eg,out = 1.5, 2, 3
-L/ell_E = 0 to 10,
-```
+The authors infer that the `100-200 V/cm` linear-gradient field does not strongly affect carrier motion in sample B.
 
-the delay maximum remained at the entrance-gap photon energy.
+Therefore sample B is best treated as a **smooth calibration case**.
 
-Energy relaxation increased the peak delay but did not move it in the tested deterministic mean-energy model.
-
-This is not yet a drift-diffusion or Monte Carlo proof.
+Sample A retains part of the nonlinear region with local field near `2e3 V/cm` and is the better future transport-contrast case.
 
 ---
 
-## Prior-art collision on the spectral timing prediction
+## Real HgCdTe absorption replaces toy power law
 
-Primary literature already covers
+Moazzami et al. 2005 provide
 
-- graded HgCdTe response-time improvement;
-- graded spectral QE;
-- tunable-pulse HgCdTe timing;
-- heavy-hole-to-electron Kane transitions.
-
-The closest graded high-speed papers found use fixed short-wave excitation for impulse/frequency response rather than sweeping through the graded infrared absorption edge.
-
-The focused search did not locate an inspected primary source explicitly deriving or measuring
-
-```text
-lambda
--> generation-position distribution
--> corrected graded transit distribution
+```math
+\alpha(E,x,T)
+=K(x,T)
+\left(\frac{E-E_g}{E}\right)^{n(x,T)},
+\qquad E>E_g,
 ```
 
-or the entrance-gap timing maximum.
+with empirical composition- and temperature-dependent `K,n` over the relevant HgCdTe range.
 
-Status:
+The correct Hansen-Schmit-Casselman gap relation with `+0.832x^3` is used.
 
-**candidate underexplored/testable analytic prediction; priority unproven.**
-
-Negative search is not novelty evidence.
+A machine-readable `0.132x^3` transcription seen in one 2022 article is treated as a typo and is not used.
 
 ---
 
-## Proposed decisive experiment
+## Dimensional sample-B forward matrix
 
-A tunable-wavelength impulse/group-delay experiment is now specified in
+Because the exact fitted sample-B `x(z)` is unavailable, the present envelope takes `x=0.316` conditionally as the low-Cd endpoint and brackets the linear field by `100, 150, 200 V/cm`.
 
-`HGCDTE_PROPOSED_SPECTRAL_TIMING_EXPERIMENT.md`.
+At 300 K,
 
-Measure one graded detector under fixed bias, temperature, spot, pulse energy, and readout while sweeping through
-
-```text
-near output cutoff
--> graded-gap range
--> entrance-gap wavelength
--> shorter wavelengths.
+```math
+E_{g,\rm low}=0.312314\ {\rm eV},
+\qquad
+\lambda_{g,\rm low}=3.9699\ {\rm um}.
 ```
 
-Use differential low-frequency group delay or normalized impulse centroid as the primary observable because a wavelength-independent common electronics transfer cancels in differences.
+The field bracket implies high-Cd local-gap wavelengths of approximately
 
-A strong validation would be a timing extremum near the independently predicted entrance-gap wavelength, ideally shifting with the temperature dependence of that entrance gap.
+```text
+100 V/cm -> 3.5494 um
+150 V/cm -> 3.3708 um
+200 V/cm -> 3.2094 um.
+```
+
+For the central 150 V/cm envelope, the Moazzami optical model gives approximately
+
+```text
+2.80 um: Pabs=0.998, mean depth=0.677 um
+3.88 um: Pabs=0.070, mean depth=3.523 um.
+```
+
+Thus the conditional mean generation depth moves by
+
+```math
+\boxed{\approx2.85\ {\rm um}.}
+```
+
+At illustrative `v_eff=1e5 m/s`, that is about `28.5 ps` or `10.25 degrees` at `1 GHz`.
+
+This is a measurement scale, not a sample-B transport prediction.
+
+---
+
+## Real optical matrix reveals few-mode limit
+
+Using
+
+```text
+80 spatial cells
+0.01 um wavelength steps
+Pabs >= 0.05
+cell-integrated front-collection survival kernels,
+```
+
+the relative singular-mode counts above `[1e-1,1e-2,1e-3,1e-4]` are
+
+```text
+100 V/cm -> [2,5,10,20]
+150 V/cm -> [2,5,10,21]
+200 V/cm -> [2,5,11,23].
+```
+
+The earlier pre-cell-integration central `22` at `1e-4` is superseded by `21`.
+
+Conclusion:
+
+> the real few-micron structure supports a **few-mode band-limited transport tomography**, not a pointwise velocity image.
+
+---
+
+## Phase-noise stress test
+
+A synthetic anomaly was imposed on the real central sample-B optical matrix:
+
+```text
+baseline v = 1e5 m/s
+25% slowdown
+center = 2.30 um
+Gaussian sigma = 0.35 um
+f = 1 GHz.
+```
+
+After removing the smooth/common wavelength mode, the anomaly produces only about
+
+```math
+\boxed{0.935^\circ}
+```
+
+peak-to-peak spectral phase.
+
+A rank-3 reconstruction at `0.10 degree` independent per-wavelength phase noise gives roughly
+
+```text
+17.5% median error relative to the recoverable rank-3 target
+0.13 um 90%-quantile peak-location error.
+```
+
+At `0.25 degree`, localization degrades strongly.
+
+Five-mode recovery is already noise dominated near `0.10 degree` for this anomaly.
+
+Therefore the realistic first target is about **3-4 smooth differential transport modes**, not a finely sampled velocity curve.
 
 ---
 
 ## Current frontier
 
-Do not return to abstract detector resource theorems.
+The surviving candidate is now very narrow:
+
+> **Use a known graded-HgCdTe optical profile and wavelength-resolved complex RF response to reconstruct a finite set of differential internal mean-delay and timing-broadening modes without physically scanning generation position.**
+
+Priority remains unproven.
 
 Do not write a manuscript yet.
 
-The next decisive routes are
+The next decisive work is experimental/data-facing:
 
-1. test the timing peak with a stronger momentum-scattering / drift-diffusion / Monte Carlo transport model; or
-2. locate/reanalyze wavelength-resolved timing data on a compositionally graded HgCdTe detector.
+1. obtain or digitize the actual 2023 sample-B `x(z)` fit;
+2. build a realistic wavelength × RF-frequency covariance model for a tunable-MWIR complex-response measurement;
+3. fit multiple RF frequencies rather than one phase point;
+4. validate the recovered modes against localized-position timing or calibrated microscopic transport;
+5. read the unresolved 2024 laser-measurement paper before any novelty language.
 
-If the spectral timing peak survives stronger transport physics and remains absent from prior literature, reassess publication significance then.
+Further generic inverse algebra has lower value than these collisions.
