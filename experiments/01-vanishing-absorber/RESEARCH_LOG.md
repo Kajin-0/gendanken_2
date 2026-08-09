@@ -1,12 +1,14 @@
 # Research Log — Experiment 01: The Vanishing Absorber
 
-This file records why the research direction changed. Failed and superseded branches are preserved intentionally.
+This file is chronological. It records **why the research direction changed**, including counterexamples, prior-art collisions, and branches that were deliberately stopped.
+
+Detailed equations remain in the dedicated derivation files; this log preserves the path.
 
 ---
 
 ## 2026-08-08 — Experiment opened
 
-Starting question:
+Question:
 
 > Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
 
@@ -20,192 +22,90 @@ passive optical confinement
 -> recover absorption
 
 possible cost
--> increased photon dwell time / reduced bandwidth.
+-> photon dwell time / bandwidth.
 ```
 
-The schematic `eta^2 B <= C V` relation was treated only as a conjectural target.
+No theorem was assumed.
 
 ---
 
-## One-port resonator — first exact model
+## One-port resonance
 
-Derived
+The one-port absorber was derived exactly.
 
-```math
-A(\omega)
-=
-\frac{4\gamma_e\gamma_a}
-{(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2}
-```
+Critical coupling permits unity monochromatic absorption, but if the absorptive decay rate tends to zero the absorbed-power modulation bandwidth also tends to zero.
 
-and absorbed-power modulation bandwidth
+A separate toy bulk-dark-event optimization unexpectedly preferred mild overcoupling rather than exact critical coupling.
 
-```math
-B_{3\rm dB}
-=\frac{\gamma_e+\gamma_a}{2\pi}.
-```
-
-At critical coupling,
-
-```math
-A_0=1,
-\qquad
-B_{3\rm dB}=\gamma_a/\pi.
-```
-
-The optical absorptance FWHM and detector modulation bandwidth were found to differ by a factor of two at critical coupling.
-
-A toy independent bulk-dark-event metric was unexpectedly optimized at
-
-```math
-\gamma_e=2\gamma_a,
-\qquad
-A_0=8/9,
-```
-
-not exact critical coupling.
-
-Direction: test whether `gamma_a` must scale with active volume.
+**Direction:** determine whether absorptive decay must scale with active volume.
 
 ---
 
 ## Active-volume route falsified
 
-A shrinking-gap dielectric capacitor family was constructed with fixed capacitance and finite electric-energy participation while
+A shrinking-gap dielectric capacitor kept finite energy participation and finite absorptive decay while
 
 ```math
-V_a\to0.
-```
-
-The field grows as the gap shrinks, allowing
-
-```math
-\gamma_a=\text{finite},
+V_a\to0,
 \qquad
 \gamma_a/V_a\to\infty.
 ```
 
-This killed the universal active-volume-only route.
+The hoped-for active-volume-only theorem failed.
 
-Direction: replace continuum volume with microscopic transition resources.
-
----
-
-## Thermal input channel
-
-Exact Bose counting including bunching showed that when the signal and thermal background enter through the same optical channel, the chosen sensitivity-speed metric is optimized at critical coupling and depends on thermal mode occupation rather than active volume.
-
-This was retained as an external-background result, not an internal-dark-count theorem.
+**Direction:** replace geometric volume by microscopic optical resources.
 
 ---
 
-## Single microscopic transition
+## Thermal input / microscopic absorber / LDOS chain
 
-A two-level optical transition plus irreversible dark state remained linear in the one-photon one-excitation sector.
+A one-channel thermal-background calculation produced a clean critical-coupling sensitivity-speed relation, but it was explicitly external background, not internal dark counts.
 
-Finite absorber number / saturation therefore did not create the missing speed ceiling.
+A finite two-level absorber remained linear in the one-photon one-excitation sector, so finite absorber count/saturation did not supply the missing speed limit.
 
-Prior-art collision with Young, Sarovar & Leonard's quantum detector work closed several tempting novelty branches.
+Finite-transition LDOS bounds and finite-emitter form factors regularized some weak-coupling divergences, but oscillator-strength/extent inequalities still allowed the formal rate to approach `O(omega)` where perturbative Purcell/Markov theory failed.
 
-Direction: constrain finite-transition optical coupling.
+**Direction:** treat light and matter nonperturbatively.
 
 ---
 
-## LDOS / finite emitter / oscillator-strength branch
+## Nonperturbative Hopfield branch
 
-Bandwidth-averaged LDOS theory supplied conditional coupling ceilings when material, environment, bandwidth, and emitter separation are constrained.
+A TRK-consistent Hopfield model reproduced deep-strong light-matter decoupling in detector-transfer language: peak matching could survive while external transfer linewidth collapsed.
 
-A finite transition-density form factor regularized the point-dipole ultraviolet divergence.
-
-Oscillator-strength / extent inequalities still failed to close the problem before the formal enhanced rate reached
+A stronger fixed-target retuning attack held one dressed mode at fixed positive detector frequency while `g -> infinity`. With fixed local optical/detector bath resources,
 
 ```math
-\Gamma/\omega_0=O(1),
+\min(\Gamma_L,\Gamma_R)\to0.
 ```
 
-where weak-coupling Purcell/Markov theory breaks down.
+A targeted literature search found extensive deep-strong-decoupling prior art but no inspected source stating that exact fixed-target two-reservoir corollary.
 
-Direction: diagonalize light and matter nonperturbatively.
-
----
-
-## Nonperturbative Hopfield capture
-
-A TRK-consistent two-mode Hopfield model showed that deep internal light-matter coupling can leave each resolved polariton perfectly rate matched while its external linewidth collapses.
-
-This reproduced established deep-strong light-matter decoupling / Purcell-breakdown physics in detector-transfer language.
-
-Counterexample proposed: retune bare frequencies so the useful dressed pole stays at a fixed detector frequency.
-
----
-
-## Fixed-target Hopfield retuning theorem
-
-Holding a lower dressed mode at fixed
-
-```math
-\omega_y=\omega_t>0
-```
-
-while allowing bare-frequency retuning and taking `g -> infinity` gave
-
-```math
-\min(\Gamma_L,\Gamma_R)\to0
-```
-
-for fixed local optical and detector reservoir resources.
-
-Thus peak transfer and linewidth cannot both remain finite for the resolved target mode.
-
-Targeted prior-art search found deep-strong decoupling, dressed decay suppression, heat-current suppression, and multimode decoupling, but no inspected source stating the exact fixed-target two-reservoir theorem.
-
-Status kept conservative:
+Status remained
 
 > **candidate distinct supporting lemma; priority unproven.**
 
----
+Allowing the external reservoirs themselves to scale showed the result could be escaped only by spending new reservoir resource; the minimum bare resource grew asymptotically as `sqrt(g)` for fixed peak/linewidth targets.
 
-## Reservoir-engineering escape quantified
-
-Allowing the bare optical/detector reservoirs themselves to scale showed that the Hopfield no-go can be escaped by spending new external-access resource.
-
-For target peak `eta_*` and linewidth `W_*`, at least one bare reservoir resource must grow asymptotically as `sqrt(g)` in the optimized fixed-target branch.
-
-Direction: test multimode optics.
+**Direction:** attack with multimode optics.
 
 ---
 
-## Multimode passive audit
+## Passive multimode branch
 
-A spectator strong-coupling sector killed any theorem based only on the largest internal coupling anywhere in the Hamiltonian.
+A disconnected spectator sector killed any theorem based only on the largest internal coupling anywhere in a multimode Hamiltonian.
 
-A bank of narrow useful resonances could tile a broad spectrum if useful mode count/density increased.
+A bank of narrow resonances showed that useful mode count/density could tile a broad band.
 
-This exposed integrated optical-to-detector transfer as a more robust quantity than individual linewidth.
+This motivated integrated transfer rather than individual linewidth.
 
----
-
-## Harmonic passive multimode theorem
-
-The optical-to-detector transfer area was identified as an `H2` norm.
-
-A first pass gave the loose bound
+The finite passive optical-to-detector transfer area became an `H2` norm. A preliminary
 
 ```math
-\mathcal I\le2\min(L,R).
+\mathcal I\le2\min(L,R)
 ```
 
-This was immediately superseded by a sharper Gramian-eigenbasis argument:
-
-```math
-\frac{\mathcal I}{2}
-=
-\sum_i
-\frac{\ell_i r_i}
-{\ell_i+r_i+\iota_i},
-```
-
-and therefore
+bound was immediately superseded by the exact harmonic result
 
 ```math
 \boxed{
@@ -215,283 +115,76 @@ and therefore
 }
 ```
 
-A single passive resonance saturates it. Multimode equality requires common access ratio and no participating parasitic loss.
-
-A numerical regression and a 4,000-network private stress test found no violations.
-
-Direction: attack direct feedthrough and structured continua.
-
----
-
-## Direct-feedthrough attack
-
-Allowing a nonzero frequency-independent prompt block `D_RL` made the total all-frequency `H2` area diverge.
-
-This was recorded as a real scope failure, not patched away: ideal feedthrough inserts infinite Markov bandwidth.
-
-Over a finite band, prompt strength and resonant transfer can be bounded separately by an `L2` triangle inequality.
-
-Direction: count prompt bandwidth as a boundary resource.
-
----
-
-## Structured-reservoir audit
-
-Reaction-coordinate / pseudomode logic showed that finite passive augmented realizations still obey the harmonic theorem.
-
-If the augmented models converge in `H2` and terminal access budgets converge to finite values, the continuum limit inherits the same bound.
-
-Thus spectral complexity alone is not an escape under finite passive embedding assumptions.
-
----
-
-## Thermodynamic optical-access bridge
-
-Yu, Raman & Fan's known one-free-space-channel thermodynamic coupling-rate ceiling was converted carefully from energy-decay to repository amplitude-decay convention:
+The Gramian eigenbasis gives
 
 ```math
-L_B\le W/(4\pi).
+\frac{\mathcal I}{2}
+=
+\sum_i
+\frac{\ell_i r_i}
+{\ell_i+r_i+\iota_i}.
 ```
 
-Combining with the harmonic access theorem gave a restricted receiving-side requirement
+A single matched resonance saturates the theorem.
 
-```math
-R_B
-\ge
-\frac{\eta}{1-\eta}
-\frac{W}{4\pi}.
-```
+Random passive-network stress tests found no violations.
 
-The collision with existing broadband-absorption/rate-matching theory was documented explicitly.
-
-Direction: remove the ideal one-way detector-sink assumption.
+**Direction:** attack direct feedthrough and structured continua.
 
 ---
 
-## Thermal irreversibility
+## Direct feedthrough / continuum audits
 
-For an `e <-> d` detector transition with energy release `Delta`, local detailed balance gives
+An ideal frequency-independent prompt optical-to-detector block makes the all-frequency `H2` area divergent. This was retained as a real scope failure: the prompt path imports infinite Markov bandwidth.
 
-```math
-k_\uparrow/k_\downarrow
-=e^{-\Delta/(k_BT)}.
-```
+Finite passive reaction-coordinate/pseudomode embeddings continued to obey the harmonic bound when terminal budgets and `H2` limits remained finite.
 
-Combining with the restricted detector-access requirement produced a reverse-activation / energy-bias relation.
-
-A crucial restraint emerged:
-
-> reverse activation is not automatically an observable dark count.
-
-A complete detector cycle was needed.
+**Conclusion:** spectral complexity is not free under those assumptions, but unrestricted prompt/continuum resources lie outside the theorem.
 
 ---
 
-## Major 2026 prior-art collision — autonomous detector machines
+## Optical-access / thermodynamic bridge and major prior-art collisions
 
-Schwarzhans et al., PRX Quantum 7, 033001 (2026), were found to already provide an autonomous nonequilibrium detector with work source, amplification/reset, internal dark counts, efficiency, jitter, dead time, and entropy production.
+Known one-channel thermodynamic optical-coupling theory was combined with the passive harmonic bound to obtain a receiving-side access requirement.
 
-Their transient thermodynamic protocol starts with the target excitation already represented inside the target system and explicitly leaves capture as a possible additional source of cost/inefficiency.
+Local detailed balance then tied forward detector relaxation to reverse thermal activation.
 
-Direction changed: do not reinvent generic detector thermodynamics; compare it to propagating optical capture.
+Before building a generic detector cycle, a major prior-art collision appeared:
 
----
+- Young, Sarovar & Leonard (2018) already treat incoming quantum fields, absorption, detector amplification, efficiency, dark counts, and timing.
+- Schwarzhans et al. (2026) already treat autonomous nonequilibrium detector work, amplification/reset, internal dark counts, jitter, dead time, and entropy production.
 
-## Major 2018 prior-art collision — incoming-field detector framework
+The latter explicitly starts its thermodynamic analysis after the excitation is already captured.
 
-Young, Sarovar & Leonard, PRA 98, 063835 (2018), already treat a quantized incoming few-photon field, absorption, detector dynamics, amplification, efficiency, dark counts, and timing in one framework.
+A three-level capture-machine testbed was still useful for separating gross click rate from net thermodynamic current and for showing that readiness pumping restores, but does not exceed, a fully ready absorptive population factor unless actual optical gain is introduced.
 
-This killed the generic claim that unifying capture and amplification is new.
-
-The narrowed candidate junction became:
-
-```text
-externally normalized spectral capture/access constraints
-+
-autonomous thermodynamic detector work/reset/dark-count accounting.
-```
-
-A targeted search found no exact primary source at this intersection, but only as a negative search result.
-
----
-
-## Unified three-level capture machine
-
-A minimal analytic testbed was built with
-
-```text
-|0> reset/ground
-|1> ready
-|2> optically activated
-```
-
-and edges
-
-```text
-0 <-> 1 : reset/work
-1 <-> 2 : incident optical channel
-2 <-> 0 : counted output.
-```
-
-The ready-state photon conversion retained the familiar two-access matching structure while output photon energy could exceed input energy by consuming stored ready-state free energy.
-
-The exact reversible three-edge steady state showed
-
-```math
-R_+
-\neq
-J_D
-```
-
-in general: gross forward click events and net thermodynamic detector current are different observables when reverse jumps exist.
-
-This distinction prevented a false dark-count theorem.
-
----
-
-## Readiness and NESS optical response
-
-The reset pair gave stationary readiness
-
-```math
-p_r
-=1/(1+e^{-\mathcal A_r}).
-```
-
-A serial reference model separated capture access, bandwidth, back-end efficiency, and readiness bias.
-
-Weak-probe optical response around the nonequilibrium steady state was proportional to
-
-```math
-p_1-p_2.
-```
-
-In the non-inverted absorbing regime,
-
-```math
-0\le p_1-p_2\le1.
-```
-
-Therefore incoherent readiness pumping can restore but not exceed the fully ready passive absorptive population factor.
-
-Direction: if the passive front end is to be beaten, use genuinely active/coherent optical control.
-
----
-
-## Publication-boundary audit
-
-A focused review concluded:
+A publication-boundary audit concluded:
 
 > **Continue the research. Do not write a manuscript yet.**
 
-The passive/autonomous chain is coherent but currently vulnerable to the criticism that the principal formulas are corollaries or compositions of established frameworks.
-
-A stronger opportunity is to quantify the explicit active resource required to beat the passive envelope.
+**Direction:** attack with genuinely active/coherent capture.
 
 ---
 
-## Active two-mode frequency-converter baseline
+## Active frequency conversion
 
-A pump-linearized two-mode converter gave
-
-```math
-T(\delta)
-=
-\frac{4G^2\Gamma_a\Gamma_b}
-{|(\Gamma_a-i\delta)(\Gamma_b-i\delta)+G^2|^2}.
-```
-
-Unit peak requires
+A pumped two-mode converter gave a known architecture-level baseline:
 
 ```math
-G^2=\Gamma_a\Gamma_b.
+G_{\min}=W/(2\sqrt2),
 ```
 
-The largest FWHM for fixed `G` occurs for symmetric rates, giving
-
-```math
-G_{\min}=W/(2\sqrt2).
-```
-
-If `G=g_0 sqrt(N_p)`,
+and for `G=g_0 sqrt(N_p)`,
 
 ```math
 N_p\ge W^2/(8g_0^2).
 ```
 
-Direct prior-art collision with established quantum-frequency-conversion theory means this is a calibrated baseline, not a novelty claim.
+Multimode allocation showed the apparent gain from splitting the band disappears if total nonlinear coupling strength is fixed.
 
----
+A traveling-wave calculation showed the pump exponent depends on the first nonzero phase-mismatch derivative; dispersion engineering migrates rather than universally removes the cost.
 
-## Active multimode allocation
-
-Splitting the target band among many converters can reduce pump photons only if each added mode brings new nonlinear coupling strength for free.
-
-With aggregate budget
-
-```math
-\sum_i g_i^2\le G_0^2,
-```
-
-Cauchy-Schwarz gives
-
-```math
-N_{p,\rm tot}
-\ge W^2/(8G_0^2).
-```
-
-The hidden resource moved from pump photons to aggregate nonlinear coupling strength.
-
----
-
-## Traveling-wave active converter
-
-The cavity-specific objection was attacked with undepleted three-wave mixing.
-
-For shortest-branch unit conversion,
-
-```math
-qL=\pi/2.
-```
-
-The first half-maximum phase-mismatch constant is
-
-```math
-x_{1/2}\approx1.25457202234609.
-```
-
-If the first nonzero local mismatch derivative is order `m`,
-
-```math
-\Delta k\simeq D_m\delta^m/m!,
-```
-
-then
-
-```math
-q
-\propto
-|D_m|W^m,
-```
-
-and pump flux scales as `W^(2m)` in that fixed-device local-dispersion model.
-
-This showed penalty migration into phase-matching dispersion, not a universal exponent.
-
----
-
-## Active singular-value resource
-
-A finite pumped conversion Hamiltonian
-
-```math
-H_{\rm conv}/\hbar
-=\mathbf b^\dagger K\mathbf a+h.c.
-```
-
-was decomposed into singular conversion channels.
-
-If `M_c` orthogonal channels each require efficiency `eta` in interaction time `tau`,
+A singular-value formulation produced the finite-mode bookkeeping bound
 
 ```math
 \|K\|_F^2
@@ -500,42 +193,15 @@ If `M_c` orthogonal channels each require efficiency `eta` in interaction time `
 \arcsin^2\sqrt\eta.
 ```
 
-For pump-generated
+The unresolved physical quantity became the device's pump-to-conversion operator strength.
 
-```math
-K=\sum_p\alpha_pK_p,
-```
-
-with pump photons `N_p=sum |alpha_p|^2` and pump-to-conversion Gram operator `C`,
-
-```math
-N_p
-\ge
-\frac{M_c\arcsin^2\sqrt\eta}
-{\lambda_{\max}(C)\tau^2}.
-```
-
-Schmidt-mode conversion is established prior theory. The unresolved device/material resource became
-
-```math
-\Lambda=\lambda_{\max}(C).
-```
-
-Direction: attack genuinely time-dependent control before trying to prove a static material bound on `Lambda`.
+**Direction:** attack with explicit time dependence.
 
 ---
 
-## Time-dependent known-mode capture
+## Known-time time-dependent capture
 
-A scalar time-controlled one-port loader was analyzed:
-
-```math
-\dot a
-=-\kappa(t)a
-+\sqrt{2\kappa(t)}s_{\rm in}.
-```
-
-Perfect zero-reflection loading uniquely requires
+For one controlled lossless storage mode, perfect zero-reflection loading of a known photon mode requires
 
 ```math
 \kappa(t)
@@ -544,9 +210,7 @@ Perfect zero-reflection loading uniquely requires
 {2\int_{-\infty}^{t}P_{\rm in}(t')dt'}.
 ```
 
-Hard finite pulse onsets generically require singular ideal coupling, matching established tunable single-photon absorber theory.
-
-For bounded coupling `kappa <= kappa_max` over loading time `tau`, an exact Cauchy-Schwarz calculation gives
+With bounded coupling over loading duration `tau`,
 
 ```math
 \eta_{\rm cap}
@@ -554,104 +218,356 @@ For bounded coupling `kappa <= kappa_max` over loading time `tau`, an exact Cauc
 1-e^{-2\kappa_{\max}\tau}.
 ```
 
-Thus known-time dynamic loading trades passive spectral matching for coupling-strength x loading-time resource.
+Thus dynamic control can beat a stationary frequency match for one scheduled temporal mode.
+
+**Direction:** remove knowledge of arrival time.
 
 ---
 
-## Unknown arrival — temporal-mode capacity
+## Unknown arrival and adaptive control
 
-The known-mode result was then challenged with arrival-time uncertainty.
+For a fixed linear map accepting `M` orthogonal possible temporal inputs into `r` retained modes,
 
-For a fixed linear capture protocol into `r` coherent storage dimensions and `M` orthogonal possible temporal input modes,
+```math
+\sum_j\eta_j\le r.
+```
+
+Adaptive feedforward defeats the `r`-only statement. Modeling `d` successful Kraus branches gave the exact finite-instrument extension
 
 ```math
 \boxed{
-\sum_{j=1}^{M}\eta_j\le r.
+\sum_j\eta_j\le rd.
 }
 ```
 
-Therefore
+with a tight partition construction.
+
+For a uniform input ensemble, successful branch entropy obeys
 
 ```math
-r\ge M\eta
+H_{\rm branch|succ}
+\ge
+\max[0,\ln(M\bar\eta/r)].
 ```
 
-is necessary for uniform target efficiency, and equal-prior average efficiency is at most `r/M`.
-
-Interpretation:
-
-> perfect dynamic matching of one scheduled temporal mode is not an always-on detector solution.
-
-Unknown arrival requires storage-mode capacity, adaptive information, repeated reuse/reset, or an irreversible output continuum.
+A deterministic numerical regression was added.
 
 ---
 
-## Always-on temporal coverage — background and dead time
+## Output-continuum counterexample — abstract space-time branch closed
 
-Accepting many temporal modes also accepts thermal-background photon modes.
+The tempting Landauer conclusion failed as a universal detector statement.
 
-For `M` accepted modes with thermal occupation `nbar` and efficiency at least `eta`,
+A detector can export branch/arrival-time information as its useful output instead of erasing it locally.
+
+One output quantum spread among `D_out` orthogonal temporal modes can carry `ln D_out` nats at fixed event energy.
+
+A restricted bosonic record condition was written as
 
 ```math
-N_{\rm bg}
+D_{\rm out}
+g(N_{\rm out}/D_{\rm out})
 \ge
-\bar n M\eta.
+\ln(M\bar\eta/r),
 ```
 
-The long-time one-channel limit reproduces
-
-```math
-R_{\rm bg}
-\simeq
-\bar n\eta W/(2\pi).
-```
-
-In a minimal nonparalyzable detector with dead time `tau_d` and otherwise perfect raw efficiency,
-
-```math
-\eta_{\rm ext}
-\le
-\frac1{1+\bar nW\tau_d/(2\pi)}.
-```
-
-This closed the known-time/unknown-time gedanken at model level:
+but the key counterexample was conceptual:
 
 ```text
-scheduled mode
--> dynamic control can match it
+unrestricted output continuum
+-> arbitrarily large record dimension
+-> no universal finite internal space-time detector capacity.
+```
 
-always-on detector
--> must accept many temporal modes
--> irreversible output capacity restores coverage
--> admitted background consumes dead-time capacity.
+**Decision:** stop stacking abstract resource coordinates. Return to actual semiconductor physics.
+
+---
+
+## Semiconductor Fermi-contact mapping
+
+For one photoexcited state coupled weakly to a Fermi contact,
+
+```math
+\frac{k_{\rm in}}{k_{\rm out}}
+=
+\zeta e^{-(E-\mu)/(k_BT)}.
+```
+
+If extraction competes with recombination,
+
+```math
+k_{\rm out}
+=2\pi\eta_{\rm col}B_{\rm evt},
+```
+
+so
+
+```math
+k_{\rm in}
+=
+2\pi\zeta\eta_{\rm col}B_{\rm evt}
+ e^{-(E-\mu)/(k_BT)}.
+```
+
+This made the access concept concrete: stronger tunnel coupling speeds extraction and reverse loading together; the directionality comes from energy/chemical-potential bias.
+
+But moving the collecting level many `kBT` above the Fermi level looked like an escape.
+
+**Direction:** include finite spectral linewidth.
+
+---
+
+## Resonant energy filter — zero-temperature lifetime-broadening leakage
+
+For one unit-peak Breit-Wigner resonance centered `Delta` above a zero-temperature filled source,
+
+```math
+R_{\rm leak}
+=
+\frac{\Gamma_E}{2h}
+\left[
+\frac\pi2
+-\arctan(2\Delta/\Gamma_E)
+\right].
+```
+
+With the one-pole lifetime bandwidth `B=Gamma_E/h`, the sharp-filter limit gives
+
+```math
+R_{\rm leak}
+\simeq
+hB^2/(4\Delta).
+```
+
+This showed that zero thermal occupation does not eliminate leakage once extraction broadening overlaps the occupied Fermi sea.
+
+**Direction:** attack with higher-order filters.
+
+---
+
+## Multipole energy-filter counterexample
+
+An `N`th-order Butterworth-type probability can suppress the occupied-side tail as
+
+```math
+R_N
+\sim
+\frac{\Gamma_E}{2h(2N-1)}
+\left(\frac{\Gamma_E}{2\Delta}\right)^{2N-1}.
+```
+
+Thus the single-Lorentzian `B^2/Delta` law is not universal at fixed FWHM.
+
+But the causal minimum-phase group delay grows as
+
+```math
+\tau_g(0)
+\sim
+4N\hbar/(\pi\Gamma_E).
+```
+
+**Correction:** spectral FWHM is not an architecture-independent carrier-speed metric.
+
+Wigner-Smith/Friedel theory gives mature delay/DOS/state-count structure, but pursuing another abstract filter theorem looked unlikely to add enough detector-specific physics.
+
+**Direction:** return to narrow-gap field-driven collection.
+
+---
+
+## Fixed-thickness field-driven collection
+
+For a carrier crossing thickness `L`, the rectangular Ramo-current convention gives
+
+```math
+B_{\rm tr}
+=c_t v_d/L,
+\qquad
+c_t\simeq0.44295.
+```
+
+At low field `v_d=mu F`, with generic Kane BTBT `J=A F^2e^{-F_K/F}`, eliminating field gives
+
+```math
+J(B_{\rm tr})
+=
+A
+\left(\frac{LB_{\rm tr}}{c_t\mu}\right)^2
+\exp\left[-\frac{F_Kc_t\mu}{LB_{\rm tr}}\right].
+```
+
+At fixed thickness, more field-driven transit speed means more direct tunneling.
+
+But shrinking `L` is a clean escape: it shortens transit and reduces the field needed for the same speed.
+
+**Direction:** test the `L -> 0` quantum limit.
+
+---
+
+## Ballistic single-barrier small-`L` audit
+
+For a rectangular barrier separating dark and useful carrier energies by `Delta E`, eliminating thickness and optimizing barrier placement gave
+
+```math
+\mathcal T_d
+\gtrsim
+\exp\left[-
+\frac{2c_t\Delta E}
+{\hbar B_{\rm tr}}
+\right].
+```
+
+The effective mass cancels in the simple parabolic model.
+
+Multi-barrier structures remain a real escape, and the associated quantum speed scale `Delta E/h` is typically tens of THz for MWIR/LWIR gaps.
+
+**Verdict:** useful asymptotic ceiling, probably not the practical HgCdTe bottleneck.
+
+---
+
+## HgCdTe Kane scale audit
+
+Using the simplified narrow-gap relation
+
+```math
+E_g=2m_Kv_K^2
+```
+
+with experimentally supported
+
+```math
+v_K\simeq1.07\times10^6\ {\rm m/s},
+```
+
+the characteristic direct-tunneling field becomes approximately
+
+```math
+F_K
+\simeq
+\frac{\pi E_g^2}{4q\hbar v_K}
+\propto\lambda_c^{-2}.
+```
+
+The corresponding Kane length
+
+```math
+\ell_K=\hbar v_K/E_g
+```
+
+grows as
+
+```math
+\ell_K\propto\lambda_c.
+```
+
+Long wavelength therefore becomes less forgiving in both field and microscopic length scales.
+
+The single-barrier quantum transit scale remained far above practical detector bandwidths, while BTBT field scales were technologically plausible.
+
+**Direction:** normalize the actual HgCdTe BTBT law.
+
+---
+
+## Normalized HgCdTe direct-BTBT frontier
+
+A published uniform-field HgCdTe BTBT expression was combined with `V=FL` and the simplified Kane-mass substitution
+
+```math
+m^*=E_g/(2v_K^2).
+```
+
+This gives
+
+```math
+J_{\rm BTBT}
+=
+\frac{q^3L}{4\pi^3\hbar^2v_K}
+F^2e^{-F_K/F}.
+```
+
+Define
+
+```math
+x=F/F_K,
+\qquad
+j=J/J_K.
+```
+
+Then the full simplified family collapses to
+
+```math
+\boxed{j=x^2e^{-1/x}.}
+```
+
+with
+
+```math
+F_K
+=\frac{\pi^3\hbar c^2}{qv_K\lambda_c^2},
+```
+
+```math
+J_K
+=\frac{q\pi^3c^4L}{4v_K^3\lambda_c^4}.
+```
+
+Thus
+
+```math
+F_K\propto\lambda_c^{-2},
+\qquad
+J_K\propto L\lambda_c^{-4}.
+```
+
+The exact inverse is
+
+```math
+F_{\max}^{\rm BTBT}
+=
+\frac{F_K}
+{2W_0[\tfrac12\sqrt{J_K/J_*}]}.
+```
+
+A standard-library regression script was added:
+
+```text
+numerics/hgcdte_btbt_normalized_sweep.py
+```
+
+The isolated direct-BTBT model gives multi-kV/cm field ceilings for representative low dark-current targets.
+
+---
+
+## High-field transport prevents the next shortcut
+
+A primary Monte Carlo study of `Hg_0.8Cd_0.2Te` at 77 K reports non-ohmic/hot-electron and impact-ionization behavior already around `100 V/cm` and states that analytical velocity interpolation formulas were produced.
+
+The currently accessible primary-source text does not expose the interpolation coefficients.
+
+Therefore the project **refused** to extrapolate low-field mobility into the multi-kV/cm BTBT regime or invent an arbitrary saturation-velocity formula.
+
+The physically correct next expression is
+
+```math
+\boxed{
+B_{\rm tr,max}
+=\frac{c_t}{L}
+\,v_d(F_{\max}^{\rm BTBT}).
+}
 ```
 
 ---
 
 ## Current direction
 
-The strongest unresolved abstraction is now a common **space-time mode resource law** for an actively controlled always-on detector.
+The project has finally earned a concrete HgCdTe transport question.
 
-The candidate accounting should include
+Next:
 
-```text
-accepted spatiotemporal mode count
-+
-pump/control norm
-+
-irreversible output rank/capacity
-+
-background occupation
-+
-reset/dead-time capacity.
-```
+1. obtain a primary-source high-field `v_d(F)` interpolation or digitizable curve for a definite HgCdTe composition/density/temperature;
+2. combine it with the normalized BTBT inversion;
+3. determine whether BTBT actually reaches its target before hot-electron/impact-ionization physics becomes the controlling limit;
+4. only then add TAT/SRH and compare to real detector response data.
 
-Before promoting any theorem, attack it with
+If another mechanism intervenes first, that mechanism becomes the next branch.
 
-- noncommuting time-dependent controls;
-- adaptive measurement/feedforward;
-- time-switched energy trapping;
-- large-rank output continua;
-- active gain / non-Foster matching.
-
-No manuscript should be opened yet.
+**No manuscript yet. No novelty claim.**
