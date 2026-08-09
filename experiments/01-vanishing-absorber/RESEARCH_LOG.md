@@ -450,19 +450,244 @@ Current status:
 
 ---
 
+## 2026-08-08 — Direct-feedthrough attack
+
+The finite-network theorem assumed no direct optical-to-detector feedthrough.
+
+Allowing
+
+```math
+G_{RL}(i\omega)=D_{RL}+G_{\rm res}(i\omega)
+```
+
+produced a real scope failure: if `D_RL` is nonzero and exactly frequency independent, the all-frequency transfer area diverges.
+
+The extreme example
+
+```math
+G_{RL}=1
+```
+
+is a passive Markov scattering map with unit transfer at every frequency and no internal state.
+
+This kills any attempted all-frequency theorem based only on finite internal `L,R` traces once arbitrary ideal feedthrough is admitted.
+
+The reason is physically transparent: a constant feedthrough inserts an infinite-bandwidth prompt channel by assumption.
+
+Over a finite angular-frequency band `W`, the exact `L2` triangle inequality gives
+
+```math
+\boxed{
+\sqrt{\mathcal I_B}
+\le
+\sqrt{\frac{W}{2\pi}}\,\|D_{RL}\|_F
++
+\sqrt{\frac{2LR}{L+R}}.
+}
+```
+
+The strictly proper resonant excess remains subject to the harmonic theorem.
+
+Direction change:
+
+> prompt transfer is another boundary resource—channel strength and usable bandwidth—not a free internal-mode escape.
+
+---
+
+## 2026-08-08 — Structured-reservoir / continuum audit
+
+A structured passive reservoir was reframed using the standard augmented-system idea: collective reaction-coordinate/pseudomode degrees of freedom are moved into the explicit system, leaving a simpler residual terminal reservoir.
+
+Every finite passive augmented realization obeys the harmonic bound.
+
+If a sequence satisfies
+
+```math
+G_n\to G \quad\text{in }H2,
+```
+
+with finite limiting terminal budgets
+
+```math
+L_n\to L,
+\qquad
+R_n\to R,
+```
+
+then continuity gives
+
+```math
+\boxed{
+\|G\|_{H2}^2
+\le
+\frac{2LR}{L+R}.
+}
+```
+
+Thus infinite internal spectral complexity does not by itself evade the access theorem under finite-budget `H2`-convergent passive embeddings.
+
+The remaining continuum escape routes are now explicit:
+
+- direct/high-frequency feedthrough;
+- divergent terminal access budgets;
+- failure of `H2` convergence;
+- a residual bath that cannot be reduced to bounded passive access;
+- active, nonlinear, or time-varying dynamics.
+
+This is a conditional limit argument, not a universal continuum theorem.
+
+---
+
+## 2026-08-08 — Thermodynamic optical-access bridge
+
+The next step asked whether prior electromagnetic theory bounds the optical-side access budget itself.
+
+Yu, Raman & Fan's thermodynamic broadband-coupling result bounds, for one free-space radiation channel and optical modes in angular-frequency interval `W`, the sum of **energy-decay** rates by
+
+```math
+\sum_m\gamma_{m,n}
+\le
+\frac{W}{2\pi}.
+```
+
+Auditing conventions was essential: the repository uses amplitude-decay rates, so
+
+```math
+\gamma_{\rm energy}=2\Gamma_{\rm amplitude}.
+```
+
+Hence the aggregate optical access satisfies
+
+```math
+\boxed{
+L_B\le\frac{W}{4\pi}.
+}
+```
+
+Combining this established one-sided optical ceiling with the harmonic two-access theorem yielded the restricted detector-facing condition
+
+```math
+\boxed{
+\overline T_B
+\le
+\frac{R_B}{R_B+W/(4\pi)}.
+}
+```
+
+Therefore achieving band-averaged transfer at least `eta` requires
+
+```math
+\boxed{
+R_B
+\ge
+\frac{\eta}{1-\eta}
+\frac{W}{4\pi}.
+}
+```
+
+This was not interpreted as discovery of rate matching: the 2012 broadband-absorption theory already contains the external/internal decay-rate matching structure, and newer multiresonant work treats overlapping modes explicitly.
+
+Direction change:
+
+> once the optical side is pushed to its known thermodynamic ceiling, the unresolved resource is the irreversible detector reservoir itself.
+
+---
+
+## 2026-08-08 — Thermal irreversibility cost
+
+The detector reservoir was then stripped of its ideal one-way assumption.
+
+Take an active state `|e>` and lower-energy dark/localized state `|d>` with
+
+```math
+\Delta=E_e-E_d>0
+```
+
+coupled to a thermal reservoir at temperature `T`.
+
+Local detailed balance gives
+
+```math
+\boxed{
+\frac{k_\uparrow}{k_\downarrow}
+=e^{-\Delta/(k_BT)}.
+}
+```
+
+Using the minimal population/amplitude convention
+
+```math
+k_\downarrow=2R_B,
+```
+
+the optical-access bridge requires
+
+```math
+\boxed{
+k_\downarrow
+\ge
+\frac{\eta}{1-\eta}
+\frac{W}{2\pi}.
+}
+```
+
+Therefore at fixed `Delta,T` the minimum reverse thermal-activation rate also rises linearly with bandwidth:
+
+```math
+\boxed{
+k_\uparrow
+\ge
+\frac{\eta}{1-\eta}
+\frac{W}{2\pi}
+\exp[-\Delta/(k_BT)].
+}
+```
+
+If the allowed reverse-activation rate is `D_rev`, then
+
+```math
+\boxed{
+\Delta
+\ge
+k_BT
+\ln\!\left[
+\frac{\eta W}
+{2\pi(1-\eta)D_{\rm rev}}
+\right]
+}
+```
+
+whenever the logarithm argument exceeds one.
+
+At fixed efficiency and absolute reverse-rate budget, the required energy bias grows only logarithmically with bandwidth, while the required forward localization rate grows linearly.
+
+A crucial restraint emerged:
+
+> `D_rev` is not automatically a detector dark-count rate.
+
+Whether reverse activation creates an observable false count depends on readout and reset topology.
+
+---
+
 ## Current direction
 
-The original active-volume question has transformed into an access-resource problem.
+The project has reached the point where further progress requires a **complete detector cycle**, not another isolated optical rate.
 
-The strongest surviving structure is:
+The next model is
 
-> **In a finite passive linear detector network, internal mode complexity can redistribute useful transfer in frequency, but the total frequency-integrated optical-to-detector transfer is bounded by the harmonic mean of the aggregate optical and irreversible detector access budgets.**
+```text
+|g> -- photon --> |e>
+|e> <-> |d>       thermal detector bath
+|d> -- readout/reset --> |g>.
+```
 
-Next attacks:
+It must distinguish
 
-1. deeper systems/network/scattering prior-art search for the harmonic trace inequality;
-2. direct finite-band feedthrough/bypass accounting;
-3. strongly structured and genuinely infinite-dimensional passive reservoirs;
-4. microscopic mapping of the two access traces onto semiconductor detector resources;
-5. only then reintegrate dark-event, reverse-rate, amplification, and reset thermodynamics;
-6. manuscript decision only after those tests.
+- registered forward counts;
+- reverse thermal activation;
+- spontaneous false-count pathways;
+- reset and dead time;
+- net thermodynamic cycle current;
+- free-energy / reservoir resources that make readout directional.
+
+Only after this cycle is solved should reverse activation be connected to an actual dark-count rate or the project be assessed as a possible paper.
