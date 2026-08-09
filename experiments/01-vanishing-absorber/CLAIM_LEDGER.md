@@ -1,28 +1,31 @@
 # Claim Ledger — Experiment 01
 
 **Updated:** 2026-08-08  
-**Status:** exploratory; passive/autonomous baseline mapped; active/time-dependent escapes under audit; no novelty claim  
-**Purpose:** separate known ingredients, internally derived results, invalidated routes, model-level compositions, and open claims.
+**Status:** exploratory; abstract universal routes repeatedly narrowed or invalidated; current active branch is material-specific HgCdTe extraction/BTBT normalization; no novelty claim
+
+This ledger records what is known, derived here, invalidated, or still open. Historical detail remains in `RESEARCH_LOG.md` and the dedicated derivation files.
 
 ---
 
-## 1. Current organizing variables
+## 1. Active organizing question
 
-The original active-volume target has been replaced by
+The original target
 
 ```text
-optical access
+small active volume
 +
-detector-side irreversible access
+high absorption
 +
-active pump/control resource
+high speed
 +
-number of accepted spatiotemporal modes
-+
-ready/reset capacity
-+
-external background occupation.
+low noise
 ```
+
+has evolved into the concrete semiconductor question
+
+> **For HgCdTe at a specified cutoff wavelength, temperature, collection thickness, and allowed dark-current density, what carrier-transit speed is achievable before high-field transport and tunneling intervene?**
+
+The current load-bearing unknown is the real high-field velocity law `v_d(F)` for a stated material/composition/temperature.
 
 ---
 
@@ -31,25 +34,27 @@ external background occupation.
 Do not claim novelty for
 
 - temporal coupled-mode theory / critical coupling;
-- propagating few-photon detector models with absorption and amplification (Young, Sarovar & Leonard 2018);
-- autonomous detector thermodynamics, internal dark counts, jitter/dead time and entropy production (Schwarzhans et al. 2026);
-- `H2`/Lyapunov/passive-system theory;
+- `H_2`, Lyapunov, scattering-passive network theory;
 - LDOS/material power-bandwidth bounds;
-- broadband thermodynamic optical-coupling bounds;
-- Bode-Fano passive matching limits and active/time-modulated violations;
 - deep-strong light-matter decoupling;
-- quantum frequency conversion, Schmidt/temporal conversion modes and pump-shaped converters;
-- dynamically impedance-matched single-photon absorption;
-- multimode quantum-memory / time-bandwidth capacity;
-- local detailed balance, optical Bloch response and stochastic thermodynamics.
+- quantum frequency conversion and Schmidt temporal modes;
+- dynamically matched single-photon capture;
+- adaptive quantum instruments / Kraus-rank accounting;
+- Landauer/Holevo/bosonic information-capacity theory;
+- Fermi-contact detailed balance;
+- Breit-Wigner/Landauer resonant transport;
+- Butterworth/filter-order and Wigner-Smith delay theory;
+- HgCdTe Kane/nonparabolic band structure;
+- HgCdTe BTBT, TAT, impact ionization, resonant-tunneling dark-current engineering;
+- high-field Monte Carlo transport in HgCdTe.
 
 ---
 
-## 3. Invalidated / stopped general routes
+## 3. Stopped / invalidated general routes
 
-### H1 — active-volume-only theorem — STOPPED
+### H1 — universal active-volume law — STOPPED
 
-An explicit field-concentrating continuum family has
+A passive field-concentrating continuum counterexample has
 
 ```math
 V_a\to0,
@@ -57,50 +62,58 @@ V_a\to0,
 \gamma_a/V_a\to\infty.
 ```
 
-Do not revive universal `eta^2 B <= C V_a` without new explicit constraints.
+Do not revive universal relations of the form
 
-### H2 — finite absorber count as one-photon speed limit — STOPPED
+```text
+eta^2 B <= C V_a
+```
+
+without new explicit constraints.
+
+### H2 — finite absorber count as the one-photon speed limit — STOPPED
 
 The one-photon one-excitation sector remains linear.
 
-### H3 — largest multimode internal coupling as universal control parameter — STOPPED
+### H3 — finite detector storage rank as an always-on capacity — STOPPED
 
-Spectator strong-coupling sectors are counterexamples.
+Adaptive branching gives
 
-### H4 — all-frequency passive harmonic theorem with arbitrary ideal feedthrough — INVALID EXTENSION
+```math
+\sum_j\eta_j\le rd,
+```
 
-A constant prompt transfer block carries infinite Markov bandwidth.
+and an unrestricted output continuum can make `d` effectively unbounded by exporting arrival-time information.
 
-### H5 — generic propagating-field capture + amplification as novelty — STOPPED
+### H4 — local Landauer work as universal adaptive detector cost — STOPPED
 
-Young et al. 2018 already cover it.
+Branch information can be exported in the useful output rather than erased locally. Output time-bandwidth can substitute for output energy.
 
-### H6 — generic autonomous thermodynamic detector cycle as novelty — STOPPED
+### H5 — single-Lorentzian `R_leak ~ hB^2/(4Delta)` as universal electronic speed/leakage law — STOPPED
 
-Schwarzhans et al. 2026 already cover it.
+Higher-order filters can suppress the tail much more strongly at the same spectral FWHM.
 
-### H7 — universal `pump resource ~ W^2` active theorem — NOT SUPPORTED
+### H6 — spectral FWHM as architecture-independent carrier speed — STOPPED
 
-`W^2` appears in particular cavity and first-order traveling-wave architectures but the exponent depends on mode allocation, interaction time, dispersion, and control architecture.
+Multipole filters have growing group/Wigner delay at fixed FWHM.
+
+### H7 — faster semiconductor collection always requires larger field — STOPPED
+
+Reducing collection thickness can increase transit speed while reducing the field required for a specified speed.
+
+### H8 — largest internal coupling anywhere as a universal detector control parameter — STOPPED
+
+Disconnected/spectator strong-coupling sectors are counterexamples.
 
 ---
 
-## 4. Canonical passive finite-network result
+## 4. Retained passive finite-network result
 
-For a finite stable passive strictly proper network,
+For a finite stable passive strictly proper optical-to-detector network, with
 
 ```math
 L=\operatorname{Tr}\Gamma_L,
 \qquad
 R=\operatorname{Tr}\Gamma_R,
-```
-
-and
-
-```math
-\mathcal I_{L\to R}
-=\int\frac{d\omega}{2\pi}
-\operatorname{Tr}[G_{RL}^\dagger G_{RL}],
 ```
 
 ### D1 — exact Gramian decomposition
@@ -125,318 +138,24 @@ and
 }
 ```
 
-A single passive resonance saturates it.
+A matched one-mode passive resonance saturates it.
 
-### D3 — fixed-band access requirement
-
-```math
-\boxed{
-\overline T_B
-\le
-\frac{4\pi LR}{W(L+R)}.
-}
-```
-
-Thus target `Tbar_B >= T_*` requires
-
-```math
-\boxed{
-\frac{LR}{L+R}
-\ge
-\frac{T_*W}{4\pi}.
-}
-```
-
-**Status:** exact internally derived detector-facing passivity corollary; mathematical ingredients prior; exact formula priority unassessed; no novelty claim.
+**Status:** exact detector-facing passivity corollary; standard mathematical ingredients; exact priority unassessed; no novelty claim.
 
 ---
 
-## 5. Passive scope results
+## 5. Retained active/time-domain resource results
 
-### D4 — finite-band direct feedthrough accounting
+### D3 — finite pumped conversion strength
 
 For
 
 ```math
-G_{RL}=D_{RL}+G_{\rm res},
-```
-
-```math
-\boxed{
-\sqrt{\mathcal I_B}
-\le
-\sqrt{\frac{W}{2\pi}}\|D_{RL}\|_F
-+
-\sqrt{\frac{2LR}{L+R}}.
-}
-```
-
-### D5 — conditional structured-reservoir extension
-
-If finite passive augmented models converge in `H2` with finite limiting terminal budgets,
-
-```math
-\boxed{
-\|G\|_{H2}^2
-\le
-\frac{2LR}{L+R}.
-}
-```
-
----
-
-## 6. Restricted passive optical-to-thermal compositions
-
-Prior one-free-space-channel coupling theory gives, in amplitude-rate convention,
-
-```math
-L_B\le W/(4\pi).
-```
-
-### D6 — detector-side access requirement
-
-```math
-\boxed{
-R_B
-\ge
-\frac{\eta}{1-\eta}
-\frac{W}{4\pi}.
-}
-```
-
-### D7 — thermal reverse-activation requirement
-
-For energy release `Delta`,
-
-```math
-k_\uparrow/k_\downarrow=e^{-\Delta/(k_BT)},
-```
-
-and with `k_down=2R_B`,
-
-```math
-\boxed{
-k_\uparrow
-\ge
-\frac{\eta}{1-\eta}
-\frac{W}{2\pi}e^{-\Delta/(k_BT)}.
-}
-```
-
-Reverse activation is not automatically an observable dark count.
-
----
-
-## 7. Unified passive/autonomous detector testbed
-
-For the three-level machine
-
-```text
-|0> reset/ground
-|1> ready
-|2> optical activation
-```
-
-### D8 — ready-state frequency-converting capture
-
-```math
-\boxed{
-T_{L\to R}(\omega)
-=
-\frac{4\Gamma_L\Gamma_R}
-{(\omega-\omega_L)^2
-+(\Gamma_L+\Gamma_R+\Gamma_I)^2}.
-}
-```
-
-### D9 — gross forward click versus net current
-
-For reversible rates `u,d,a,b,c,e` and
-
-```math
-Z=ac+ae+au+bd+be+bu+cd+cu+de,
-```
-
-```math
-\boxed{
-R_+
-=\frac{c(ae+au+de)}{Z},
-}
-```
-
-```math
-\boxed{
-J_D
-=\frac{uac-dbe}{Z}.
-}
-```
-
-These are distinct observables when reverse jumps matter.
-
-### D10 — readiness factor
-
-```math
-p_r
-=\frac1{1+e^{-\mathcal A_r}},
-\qquad
-\mathcal A_r=\ln(u/d).
-```
-
-In the dilute serial reference limit,
-
-```math
-\boxed{
-\overline\eta_{\rm ext}
-\le
-\frac{\eta_D}{1+e^{-\mathcal A_r}}
-\frac{R_C}{R_C+W/(4\pi)}.
-}
-```
-
-### D11 — non-inverted NESS optical response
-
-```math
-\boxed{
-\rho_{21}^{(1)}
-=
-\frac{i\Omega}{2}
-\frac{p_1-p_2}{\gamma_\perp+i\Delta}.
-}
-```
-
-In the absorbing regime,
-
-```math
-0\le p_1-p_2\le1.
-```
-
-Incoherent readiness pumping cannot exceed the fully ready absorptive population factor. True optical inversion/gain is a distinct active resource.
-
----
-
-## 8. Supporting Hopfield results
-
-### D12 — fixed-target retuning no-go
-
-For fixed lower dressed target `omega_t`, fixed local bath resources and `g -> infinity`,
-
-```math
-\boxed{
-\min(\Gamma_L,\Gamma_R)\to0.
-}
-```
-
-**Status:** candidate distinct supporting lemma; priority unproven.
-
-### D13 — reservoir compensation
-
-For target peak/linewidth, at least one bare bath resource grows as
-
-```math
-\boxed{
-\max(\gamma_L,\gamma_R)
-\ge
-\Gamma_*\sqrt{1+2g/\omega_t}.
-}
-```
-
----
-
-## 9. Active frequency-conversion results
-
-### D14 — two-mode pumped converter
-
-```math
-\boxed{
-T(\delta)
-=
-\frac{4G^2\Gamma_a\Gamma_b}
-{|(\Gamma_a-i\delta)(\Gamma_b-i\delta)+G^2|^2}.
-}
-```
-
-Unit peak requires
-
-```math
-G^2=\Gamma_a\Gamma_b.
-```
-
-For target unit-peak FWHM `W`, the minimum `G` is
-
-```math
-\boxed{
-G_{\min}=W/(2\sqrt2)
-}
-```
-
-at `Gamma_a=Gamma_b=G`.
-
-If `G=g_0 sqrt(N_p)`,
-
-```math
-\boxed{
-N_p\ge W^2/(8g_0^2).
-}
-```
-
-**Status:** architecture baseline with direct quantum-frequency-conversion prior art; not a novelty target.
-
-### D15 — discrete multimode pump allocation
-
-If independent subchannels satisfy `N_i >= W_i^2/(8g_i^2)` and
-
-```math
-\sum_i g_i^2\le G_0^2,
-```
-
-then
-
-```math
-\boxed{
-N_{p,\rm tot}
-\ge
-W^2/(8G_0^2).
-}
-```
-
-Conditional on finite aggregate nonlinear coupling resource.
-
-### D16 — traveling-wave local-dispersion scaling
-
-If
-
-```math
-\Delta k(\delta)\simeq D_m\delta^m/m!,
-```
-
-then shortest-branch unit conversion with FWHM `W` requires
-
-```math
-\boxed{
-q
-=
-\frac{\pi|D_m|}
-{2^{m+2}m!x_{1/2}}
-W^m,
-\qquad
-x_{1/2}\approx1.25457202234609.
-}
-```
-
-Pump flux scales as `W^(2m)` within this architecture. Not universal.
-
----
-
-## 10. Active singular-value pump resource
-
-For finite number-conserving pumped conversion,
-
-```math
 H_{\rm conv}/\hbar
-=\mathbf b^\dagger K\mathbf a+h.c.
+=\mathbf b^\dagger K\mathbf a+h.c.,
 ```
 
-If `M_c` orthogonal singular channels each need efficiency at least `eta` in time `tau`,
+`M_c` orthogonal conversion channels with efficiency at least `eta` in time `tau` require
 
 ```math
 \boxed{
@@ -447,186 +166,468 @@ If `M_c` orthogonal singular channels each need efficiency at least `eta` in tim
 }
 ```
 
-If
+### D4 — exact known-mode loading schedule
 
-```math
-K=\sum_p\alpha_pK_p,
-\qquad
-N_p=\sum_p|\alpha_p|^2,
-```
-
-with
-
-```math
-C_{pq}=\operatorname{Tr}(K_p^\dagger K_q),
-\qquad
-\Lambda=\lambda_{\max}(C),
-```
-
-then
+For one time-controlled storage mode,
 
 ```math
 \boxed{
-N_p
-\ge
-\frac{M_c\arcsin^2\sqrt\eta}
-{\Lambda\tau^2}.
-}
-```
-
-Schmidt-mode conversion is established prior theory. The finite-pump bookkeeping has unassessed priority.
-
-`Lambda` remains an unbounded device/material resource in the current analysis.
-
----
-
-## 11. Time-dependent known-mode capture
-
-For one lossless time-controlled storage mode,
-
-```math
-\dot a=-\kappa(t)a+\sqrt{2\kappa(t)}s_{\rm in},
-```
-
-### D17 — exact zero-reflection schedule
-
-```math
-\boxed{
-\kappa_{\rm perfect}(t)
+\kappa(t)
 =
 \frac{P_{\rm in}(t)}
 {2\int_{-\infty}^{t}P_{\rm in}(t')dt'}.
 }
 ```
 
-Hard finite pulse onsets generically make this coupling singular.
-
-### D18 — bounded-coupling loading limit
-
-If `0 <= kappa(t) <= kappa_max` for loading duration `tau`,
+With bounded coupling,
 
 ```math
 \boxed{
 \eta_{\rm cap}
-\le
-1-e^{-2\kappa_{\max}\tau}.
+\le1-e^{-2\kappa_{\max}\tau}.
+}
+```
+
+### D5 — adaptive finite-instrument capacity
+
+For `d` successful branches each terminating in at most `r` retained modes,
+
+```math
+\boxed{
+\sum_j\eta_j\le rd.
+}
+```
+
+For equal-prior inputs and average success `eta_bar`, successful branch entropy obeys
+
+```math
+\boxed{
+H_{\rm branch|succ}
+\ge
+\max\left[0,\ln(M\bar\eta/r)\right].
+}
+```
+
+These results remain supporting insights, not current publication targets.
+
+---
+
+## 6. Semiconductor Fermi-contact result
+
+Canonical file: `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`.
+
+For one electronic state weakly coupled to a Fermi contact,
+
+```math
+\boxed{
+\frac{k_{\rm in}}
+{k_{\rm out}}
+=
+\zeta
+\exp[-(E-\mu)/(k_BT)].
+}
+```
+
+If extraction competes with recombination,
+
+```math
+\eta_{\rm col}
+=\frac{k_{\rm out}}
+{k_{\rm out}+k_r},
+```
+
+```math
+B_{\rm evt}
+=\frac{k_{\rm out}+k_r}{2\pi},
+```
+
+so
+
+```math
+\boxed{
+k_{\rm out}
+=2\pi\eta_{\rm col}B_{\rm evt},
+}
+```
+
+and
+
+```math
+\boxed{
+k_{\rm in}
+=
+2\pi\zeta\eta_{\rm col}B_{\rm evt}
+\exp[-(E-\mu)/(k_BT)].
+}
+```
+
+**Scope:** sequential weak tunneling. `k_in` is reverse loading hazard, not automatically dark current/count.
+
+---
+
+## 7. Lifetime-broadened resonant-filter result
+
+Canonical file: `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`.
+
+For a unit-peak Breit-Wigner resonance centered `Delta` above a zero-temperature filled source,
+
+```math
+\boxed{
+R_{\rm leak}
+=
+\frac{\Gamma_E}{2h}
+\left[
+\frac\pi2
+-
+\arctan\left(\frac{2\Delta}{\Gamma_E}\right)
+\right].
+}
+```
+
+For a one-pole lifetime bandwidth `B_evt=Gamma_E/h`, sharp-filter asymptotic:
+
+```math
+\boxed{
+R_{\rm leak}
+\simeq
+\frac{hB_{\rm evt}^2}{4\Delta}.
+}
+```
+
+**Status:** exact one-resonance model result; not universal once higher-order filters are admitted.
+
+---
+
+## 8. Multipole energy-filter result
+
+Canonical file: `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`.
+
+For
+
+```math
+\mathcal T_N(E)
+=
+\frac1{1+[2(E-E_0)/\Gamma_E]^{2N}},
+```
+
+sharp-stopband leakage is
+
+```math
+\boxed{
+R_N
+\simeq
+\frac{\Gamma_E}
+{2h(2N-1)}
+\left(
+\frac{\Gamma_E}{2\Delta}
+\right)^{2N-1}.
+}
+```
+
+Minimum-phase Butterworth center group delay:
+
+```math
+\boxed{
+\tau_g(0)
+=
+\frac{2\hbar}{\Gamma_E}
+\csc\left(\frac{\pi}{2N}\right)
+\sim
+\frac{4N\hbar}{\pi\Gamma_E}.
+}
+```
+
+**Interpretation:** filter order is a real rejection resource, but it carries internal-state/delay cost. No universal delay-leakage theorem was established.
+
+---
+
+## 9. Fixed-thickness field-driven collection
+
+Canonical file: `FIELD_DRIVEN_COLLECTION_TUNNELING.md`.
+
+For one constant-velocity transit under the rectangular Ramo-pulse convention,
+
+```math
+\boxed{
+B_{\rm tr}
+=c_t\frac{v_d}{L},
+\qquad
+c_t\simeq0.44295.
+}
+```
+
+In the low-field drift model `v_d=mu F` and a generic Kane law
+
+```math
+J=A F^2e^{-F_K/F},
+```
+
+### D6 — fixed-thickness transit/BTBT relation
+
+```math
+\boxed{
+J(B_{\rm tr})
+=
+A
+\left(
+\frac{LB_{\rm tr}}
+{c_t\mu}
+\right)^2
+\exp\left[-
+\frac{F_Kc_t\mu}
+{LB_{\rm tr}}
+\right].
+}
+```
+
+At fixed `L`, this is monotonic increasing in `B_tr`.
+
+**Scope:** low-field mobility model only. The branch explicitly records thinning `L` as a counterexample to universality.
+
+---
+
+## 10. Small-`L` ballistic barrier audit
+
+Canonical file: `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`.
+
+For one rectangular barrier separating dark and useful carrier energies by `Delta E`, optimize barrier placement at fixed useful ballistic transit bandwidth.
+
+### D7 — optimized one-barrier exponent
+
+```math
+\boxed{
+\mathcal T_d
+\gtrsim
+\exp\left[-
+\frac{2c_t\Delta E}
+{\hbar B_{\rm tr}}
+\right].
+}
+```
+
+Equivalent inverse-transit-rate form:
+
+```math
+\mathcal T_d
+\gtrsim
+\exp[-2\Delta E/(\hbar\Omega_{\rm tr})].
+```
+
+The effective mass cancels in the ideal parabolic model.
+
+**Scope:** one barrier only. Multi-barrier/resonant structures are explicit counterexamples.
+
+---
+
+## 11. HgCdTe Kane scaling
+
+Canonical file: `HGCDTE_KANE_SCALE_AUDIT.md`.
+
+Using the simplified narrow-gap relation
+
+```math
+E_g=2m_Kv_K^2,
+```
+
+with `v_K ~= 1.07e6 m/s`, and identifying the tunneling mass with `m_K` for a scaling audit:
+
+### D8 — characteristic BTBT field
+
+```math
+\boxed{
+F_K
+\simeq
+\frac{\pi E_g^2}
+{4q\hbar v_K}
+=
+\frac{\pi^3\hbar c^2}
+{qv_K\lambda_c^2}.
+}
+```
+
+Hence
+
+```math
+\boxed{F_K\propto\lambda_c^{-2}.}
+```
+
+### D9 — Kane length
+
+```math
+\boxed{
+\ell_K
+=\frac{\hbar v_K}{E_g}
+=\frac{v_K}{2\pi c}\lambda_c,
+}
+```
+
+so
+
+```math
+\boxed{\ell_K\propto\lambda_c.}
+```
+
+**Status:** material scaling, not calibrated junction theory.
+
+---
+
+## 12. Current canonical HgCdTe BTBT normalization
+
+Canonical file: `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`.
+
+Start from the published uniform-field HgCdTe BTBT form
+
+```math
+J_{\rm BTBT}
+=
+\frac{q^3\sqrt{2m^*}F V}
+{4\pi^3\hbar^2E_g^{1/2}}
+\exp\left[-
+\frac{\pi\sqrt{m^*}E_g^{3/2}}
+{2\sqrt2q\hbar F}
+\right].
+```
+
+With `V=FL` and the simplified Kane-mass substitution
+
+```math
+m^*=E_g/(2v_K^2),
+```
+
+### D10 — HgCdTe simplified BTBT law
+
+```math
+\boxed{
+J_{\rm BTBT}
+=
+\frac{q^3L}{4\pi^3\hbar^2v_K}
+F^2e^{-F_K/F}.
+}
+```
+
+Define
+
+```math
+x=F/F_K,
+\qquad
+j=J/J_K.
+```
+
+### D11 — universal normalized shape within this model
+
+```math
+\boxed{j=x^2e^{-1/x}.}
+```
+
+with
+
+```math
+\boxed{
+F_K
+=\frac{\pi^3\hbar c^2}
+{qv_K\lambda_c^2},
+}
+```
+
+```math
+\boxed{
+J_K
+=\frac{q\pi^3c^4L}
+{4v_K^3\lambda_c^4}.
 }
 ```
 
 Thus
 
 ```math
-\boxed{
-\kappa_{\max}\tau
-\ge
-\frac12\ln\frac1{1-\eta}.
-}
+F_K\propto\lambda_c^{-2},
+\qquad
+J_K\propto L\lambda_c^{-4}.
 ```
 
-Dynamic perfect capture is established prior theory; these identities are supporting time-domain resource statements, not novelty claims.
-
----
-
-## 12. Temporal uncertainty / storage-mode capacity
-
-For a fixed linear capture map into `r` coherent storage dimensions and `M` orthogonal possible temporal input modes,
-
-### D19 — exact mode-sum bound
+### D12 — exact inversion
 
 ```math
 \boxed{
-\sum_{j=1}^{M}\eta_j\le r.
+x(j)
+=\frac1{2W_0[1/(2\sqrt j)]}.
 }
 ```
 
-Hence uniform target efficiency requires
-
-```math
-\boxed{r\ge M\eta,}
-```
-
-and equal-prior average efficiency obeys
-
-```math
-\boxed{\overline\eta\le r/M.}
-```
-
-Arrival-time prior information is therefore a resource. This is a linear-algebra/multimode-capacity statement, not a novelty claim.
-
----
-
-## 13. Always-on temporal coverage and background/dead time
-
-If `M` accepted temporal modes have thermal occupation at least `nbar` and signal efficiency at least `eta`,
+Therefore
 
 ```math
 \boxed{
-N_{\rm bg}\ge\bar n M\eta.
+F_{\max}^{\rm BTBT}
+=
+\frac{F_K}
+{2W_0[\tfrac12\sqrt{J_K/J_*}]}.
 }
 ```
 
-In the long-time one-channel continuum limit,
+**Status:** exact nondimensionalization after explicit simplifying substitutions; no novelty claim.
 
-```math
-R_{\rm bg}\simeq\bar n\eta W/(2\pi).
+Regression:
+
+```text
+numerics/hgcdte_btbt_normalized_sweep.py
 ```
 
-For the stated minimal nonparalyzable dead-time model with otherwise perfect raw efficiency,
+---
+
+## 13. Critical caveat on speed conversion
+
+### H9 — using low-field `mu F` at the BTBT field ceiling — FORBIDDEN
+
+Primary 77 K Monte Carlo work on `Hg_0.8Cd_0.2Te` reports hot-electron/non-ohmic and impact-ionization behavior around `100 V/cm`.
+
+The direct-BTBT-only field ceilings from the simplified model can be several `kV/cm`.
+
+Therefore the next speed calculation must use a traceable high-field `v_d(F)` model:
 
 ```math
 \boxed{
-\eta_{\rm ext}
-\le
-\frac1{1+\bar n W\tau_d/(2\pi)}.
+B_{\rm tr,max}
+=
+\frac{c_t}{L}
+\,v_d(F_{\max}^{\rm BTBT}).
 }
 ```
 
-**Status:** model-level composition of accepted thermal modes and dead-time blocking; not universal.
+Do not invent a generic saturation law merely to complete a plot.
 
 ---
 
-## 14. Publication status
-
-`PUBLICATION_BOUNDARY_AUDIT.md` verdict:
-
-> **continue research; do not write a manuscript yet.**
-
-Current passive/autonomous results are coherent but vulnerable to the criticism that they are corollaries/compositions of established theories. A stronger new result should quantify the resource required to beat the passive envelope.
-
----
-
-## 15. Explicit non-claims
+## 14. Explicit non-claims
 
 Do not claim
 
-- a universal sensitivity-speed-dark-count-entropy theorem;
-- novelty of the harmonic passive bound;
-- novelty of dynamic single-photon capture;
-- a universal active `W^2` pump law;
-- a universal bound on nonlinear coupling resource `Lambda`;
-- a universal dead-time formula;
-- that known-time dynamic loading solves unknown-arrival photodetection;
-- a material-specific infrared limit;
-- publication priority of the passive/autonomous or active-mode-resource junctions.
+- a universal photodetector sensitivity-speed theorem;
+- a universal HgCdTe speed-dark-current theorem;
+- that direct BTBT is always the first practical dark-current limiter;
+- that the simplified Kane tunneling mass is quantitatively exact at every cutoff;
+- that `E_g=hc/lambda_c` is a precision bandgap model;
+- that `v_K` is the drift saturation velocity;
+- that the direct-BTBT-only field table is a safe operating-field table;
+- novelty of the normalized `j=x^2 exp(-1/x)` collapse;
+- readiness for a manuscript.
 
 ---
 
-## 16. Current frontier
+## 15. Current promotion criterion
 
-The next candidate generalization is a **space-time mode resource law** for an actively controlled always-on detector.
+The next result can be promoted only after a traceable high-field velocity model is coupled to the normalized BTBT inversion.
 
-A useful theorem would have to place, in one inequality,
+Required sequence:
 
-```text
-accepted spatiotemporal mode count
-+
-pump/control norm
-+
-irreversible output capacity
-+
-background occupation
+1. obtain primary-source `v_d(F)` coefficients/curve for a specified HgCdTe composition, carrier density and temperature;
+2. compute `F_max(J_*,lambda_c,L)`;
+3. compute
+
+```math
+B_{\rm tr,max}=c_t v_d(F_{\max})/L;
 ```
 
-without assuming a particular cavity, waveguide, gating schedule, or known arrival time.
-
-Before promoting such a statement, actively search for counterexamples using noncommuting time-dependent control, adaptive feedback, and continuously monitored output reservoirs.
+4. identify whether hot-carrier/impact-ionization physics intervenes before the direct-BTBT target is reached;
+5. only then add TAT/SRH and compare with real detector data;
+6. perform a focused prior-art search on any resulting normalized frontier before novelty language.
