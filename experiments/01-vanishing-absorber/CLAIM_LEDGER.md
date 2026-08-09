@@ -1,14 +1,14 @@
 # Claim Ledger — Experiment 01
 
 **Updated:** 2026-08-08  
-**Status:** exploratory; multiple naive bounds invalidated; exact finite-passive-network harmonic access bound derived; no novelty claim  
-**Purpose:** distinguish prior theory, internal derivations, invalidated routes, candidate distinct lemmas, and explicit non-claims.
+**Status:** exploratory; naive volume and absorber-count bounds invalidated; harmonic passive-access theorem plus restricted optical/thermal corollaries derived; no novelty claim  
+**Purpose:** distinguish prior theory, internal derivations, invalidated routes, conditional results, and explicit non-claims.
 
 ---
 
 ## 1. Active organizing question
 
-The original detector question was
+The original question was
 
 ```math
 V_a\to0,
@@ -20,37 +20,87 @@ B\to\infty,
 \mathrm{noise}\to0?
 ```
 
-The active resource is no longer geometric volume.
-
-The strongest current organizing concept is
+The surviving organizing concept is no longer geometric volume. It is
 
 ```text
 optical access
 +
-irreversible detector/material access.
+irreversible detector/material access
++
+thermodynamic cost of making that detector access effectively one-way.
 ```
 
 ---
 
-## 2. Prior ingredients — not repository novelty
+## 2. Prior ingredients — never claim as repository novelty
 
-Do not claim priority for:
+Established ingredients include
 
-- one-port temporal coupled-mode theory or critical coupling;
-- `H_2` norms, Lyapunov Gramians, or passive state-space realizations;
-- optical material-response / bandwidth-averaged LDOS bounds;
-- deep-strong light-matter decoupling / breakdown of the Purcell effect;
-- dark-state quantum photodetector architectures;
-- multimode/quasinormal-mode broadband absorption bounds;
-- Bose thermal photon bunching.
+- temporal coupled-mode theory and critical coupling;
+- `H2` norms, Lyapunov Gramians, passive state-space systems;
+- optical material-response / LDOS power-bandwidth bounds;
+- deep-strong light-matter decoupling and Purcell-effect collapse;
+- quantum dark-state detector architectures;
+- reaction-coordinate / pseudomode treatment of structured reservoirs;
+- Bose thermal photon bunching;
+- thermodynamic upper bounds on sums of external optical coupling rates;
+- multiresonant broadband absorption theory;
+- local/KMS detailed balance for thermal reservoirs;
+- Bode-Fano causal matching limits.
 
 ---
 
-## 3. Derived supporting results
+## 3. Invalidated general routes
 
-### D1 — One-port detector modulation bandwidth
+### H1 — active volume
 
-Canonical file: `ONE_PORT_RESONATOR_DYNAMICS.md`.
+`ACTIVE_VOLUME_COUNTEREXAMPLE.md` gives an ideal passive continuum family with
+
+```math
+V_a\to0,
+\qquad
+\gamma_a=\text{constant},
+\qquad
+\gamma_a/V_a\to\infty.
+```
+
+Therefore the general statements
+
+```text
+passivity alone bounds gamma_a/V_a
+```
+
+and
+
+```text
+eta^2 B <= C V_a
+```
+
+are **STOPPED** unless new explicit constraints are added.
+
+### H2 — finite absorber count / saturation
+
+For one photon, a two-level absorber remains linear in the one-excitation sector.
+
+Finite absorber count alone is **STOPPED** as the missing universal one-photon speed resource in the Markov/RWA model.
+
+### H3 — largest internal multimode coupling
+
+A spectator sector can carry arbitrarily large internal coupling without affecting the detector transfer block.
+
+Any theorem based only on
+
+```text
+largest internal coupling anywhere -> infinity
+```
+
+is **STOPPED**.
+
+---
+
+## 4. Supporting one-port and thermal-channel results
+
+### D1 — one-port modulation bandwidth
 
 ```math
 \boxed{
@@ -62,32 +112,24 @@ B_{3\rm dB}
 At critical coupling,
 
 ```math
-\gamma_e=\gamma_a,
-\qquad
-A_0=1,
-\qquad
 B_{3\rm dB}=\gamma_a/\pi.
 ```
 
-### D2 — Independent bulk-dark-event toy optimum
+### D2 — toy independent bulk-dark-event optimum
 
-Under the stated Poisson bulk-event model,
+For the stated Poisson bulk-event model, the chosen sensitivity-speed metric is optimized at
 
 ```math
 \gamma_e=2\gamma_a,
 \qquad
-A_0=8/9
+A_0=8/9.
 ```
 
-optimizes the chosen sensitivity-speed metric.
+Not universal.
 
-This is not universal.
+### D3 — one thermal optical channel
 
-### D3 — Thermal input-channel result
-
-Canonical file: `THERMAL_INPUT_CHANNEL.md`.
-
-For one thermal signal/background channel,
+Exact Bose counting gives
 
 ```math
 \boxed{
@@ -98,103 +140,31 @@ For one thermal signal/background channel,
 
 at critical coupling.
 
-This is not an internal-dark-count theorem.
+This is a thermal input-background result, not an internal-dark-count theorem.
 
 ---
 
-## 4. Invalidated volume route
+## 5. Microscopic weak- and strong-coupling supporting results
 
-Canonical file: `ACTIVE_VOLUME_COUNTEREXAMPLE.md`.
+### D4 — conditional finite-transition LDOS ceiling
 
-An explicit ideal continuum family has
+Finite bandwidth-averaged coupling is bounded when passive material response, admissible environment, finite signal bandwidth, and nonzero emitter-environment separation are fixed.
 
-```math
-V_a\to0,
-\qquad
-\gamma_a=\text{constant},
-\qquad
-\gamma_a/V_a\to\infty.
-```
+### D5 — finite-emitter regularization
 
-### H1 — STOPPED
+Finite transition density removes the literal point-dipole ultraviolet divergence.
 
-```text
-passivity alone bounds gamma_a/V_a
-```
+### D6 — oscillator-strength/extent insufficiency
 
-is false in the admitted local-linear continuum model with arbitrary ideal field concentration.
+Those inequalities alone do not close the perturbative problem before the formal enhanced rate reaches `O(omega_0)`, where the weak-coupling Markov/Purcell picture fails.
 
-### H2 — STOPPED
+### D7 — symmetric deep-strong Hopfield narrowing
 
-A universal active-volume-only law of the form
+A resolved dressed transfer resonance may remain perfectly rate matched while its linewidth collapses as deep-strong coupling increases.
 
-```text
-eta^2 B <= C V_a
-```
+The mechanism is prior deep-strong decoupling physics.
 
-is unsupported and should not be revived without new explicit constraints on the full environment or microscopic material resources.
-
----
-
-## 5. Invalidated finite-absorber route
-
-Canonical file: `MICROSCOPIC_SINGLE_TRANSITION.md`.
-
-For one photon, a two-level absorber remains linear in the one-excitation sector.
-
-### H3 — STOPPED
-
-Finite absorber number / saturation alone is not the missing one-photon speed limit in the Markov/RWA model.
-
----
-
-## 6. Weak-coupling microscopic results
-
-Canonical files:
-
-- `FINITE_TRANSITION_LDOS_BANDWIDTH_BOUND.md`
-- `FINITE_EMITTER_FORM_FACTOR.md`
-- `OSCILLATOR_STRENGTH_EXTENT_STRESS_TEST.md`
-
-### D4 — Conditional LDOS bandwidth ceiling
-
-Finite bandwidth-averaged coupling is bounded when passive material response, allowed environment, finite bandwidth, and nonzero emitter-environment separation are fixed.
-
-### D5 — Finite-emitter regularization
-
-Finite transition density regularizes the literal point-dipole ultraviolet divergence.
-
-### D6 — Insufficiency of oscillator-strength/extent inequalities alone
-
-Those inequalities do not close the perturbative problem before the formal rate reaches `O(omega_0)`, where the Markov/Purcell picture ceases to be controlled.
-
-This is an insufficiency result, not an achievable-divergence claim.
-
----
-
-## 7. Nonperturbative Hopfield results
-
-Canonical files:
-
-- `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
-- `HOPFIELD_RETUNING_NO_GO.md`
-
-### D7 — Symmetric deep-strong transfer narrowing
-
-Equal local bath scales give matched dressed rates
-
-```math
-\Gamma_{\pm,L}
-=\Gamma_{\pm,R}
-=\frac{\gamma}
-{2\sqrt{1+(g/\omega_0)^2}}.
-```
-
-Peak transfer may stay at one while transfer linewidth collapses.
-
-This mechanism is established prior deep-strong decoupling physics.
-
-### D8 — Fixed-target retuning theorem
+### D8 — fixed-target Hopfield retuning theorem
 
 Hold
 
@@ -204,7 +174,7 @@ Hold
 
 while retuning bare frequencies and taking `g -> infinity`.
 
-For fixed local optical and detector bath resources,
+For fixed local optical and detector reservoir resources,
 
 ```math
 \boxed{
@@ -212,37 +182,21 @@ For fixed local optical and detector bath resources,
 }
 ```
 
-Thus resolved peak transfer and linewidth cannot both stay bounded away from zero.
+Peak transfer and linewidth cannot both stay bounded away from zero for the resolved target mode.
 
 **Status:** candidate distinct supporting lemma; priority unproven.
 
-No inspected source in the targeted sweep stated the exact fixed-target two-reservoir retuning result. That is a negative search result only.
+### D9 — reservoir compensation cost
 
----
-
-## 8. Reservoir-compensation resource result
-
-Canonical file: `HOPFIELD_RESERVOIR_RESOURCE_COST.md`.
-
-If
-
-```math
-T_0\ge\eta_*>0,
-\qquad
-\Delta\omega_{\rm FWHM}\ge W_*>0,
-```
-
-then
+For target peak transfer `eta_*` and FWHM `W_*`, define
 
 ```math
 \Gamma_*
 =\frac{W_*}{4}
-\left(1-\sqrt{1-\eta_*}\right)
+\left(1-\sqrt{1-\eta_*}\right).
 ```
 
-is the required minimum dressed access rate.
-
-Across every allowed fixed-target bare-frequency retuning,
+Then the fixed-target two-mode model requires
 
 ```math
 \boxed{
@@ -253,39 +207,15 @@ Across every allowed fixed-target bare-frequency retuning,
 }
 ```
 
-The `sqrt(g)` asymptotic scaling is sharp within the two-mode model.
-
-This is not a universal strong-reservoir theorem.
+This shows reservoir engineering is an additional resource; it is not forbidden.
 
 ---
 
-## 9. Multimode escape audit
-
-Canonical file: `MULTIMODE_ESCAPE_AUDIT.md`.
-
-### H4 — STOPPED naive multimode statement
-
-A theorem based only on
-
-```text
-largest internal coupling anywhere in the full system -> infinity
-```
-
-is false because a spectator sector can carry that coupling without affecting the useful detector block.
-
-### D9 — Mode density is an explicit resource
-
-A growing bank of narrow matched resonances can preserve finite integrated/broadband response if useful resonance count/density increases sufficiently rapidly.
-
-This motivated replacing individual linewidth by frequency-integrated transfer.
-
----
-
-## 10. Canonical passive multimode theorem
+## 6. Canonical passive multimode theorem
 
 Canonical file: `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`.
 
-Consider a finite stable passive linear system
+For a finite stable passive linear network with no direct `L -> R` feedthrough,
 
 ```math
 A=-iH-(\Gamma_L+\Gamma_R+\Gamma_I),
@@ -293,44 +223,32 @@ A=-iH-(\Gamma_L+\Gamma_R+\Gamma_I),
 H=H^\dagger,
 ```
 
-with
-
-```math
-B_LB_L^\dagger=2\Gamma_L,
-\qquad
-C_R^\dagger C_R=2\Gamma_R,
-```
-
-and no direct `L -> R` feedthrough.
-
-Let
+and
 
 ```math
 L=\operatorname{Tr}\Gamma_L,
 \qquad
-R=\operatorname{Tr}\Gamma_R.
+R=\operatorname{Tr}\Gamma_R,
 ```
 
-Define
+define
 
 ```math
 \mathcal I_{L\to R}
 =
 \int_{-\infty}^{\infty}
 \frac{d\omega}{2\pi}
-\operatorname{Tr}
-\left[G_{RL}^\dagger(i\omega)G_{RL}(i\omega)\right].
+\operatorname{Tr}[G_{RL}^\dagger G_{RL}].
 ```
 
-### D10 — Exact Gramian-basis decomposition
+### D10 — exact Gramian decomposition
 
-If `Q_L` is the controllability Gramian and `ell_i`, `r_i`, `iota_i` are the diagonal optical/detector/parasitic rates in its eigenbasis, then
+In the controllability-Gramian eigenbasis,
 
 ```math
 \boxed{
 q_i
-=\frac{\ell_i}
-{\ell_i+r_i+\iota_i}
+=\frac{\ell_i}{\ell_i+r_i+\iota_i}
 }
 ```
 
@@ -341,16 +259,11 @@ and
 \frac{\mathcal I_{L\to R}}2
 =
 \sum_i
-\frac{\ell_i r_i}
-{\ell_i+r_i+\iota_i}.
+\frac{\ell_i r_i}{\ell_i+r_i+\iota_i}.
 }
 ```
 
-The internal Hamiltonian disappears from this diagonal energy-partition identity.
-
-### D11 — Exact harmonic access bound
-
-Cauchy-Schwarz gives
+### D11 — exact harmonic access bound
 
 ```math
 \boxed{
@@ -360,32 +273,25 @@ Cauchy-Schwarz gives
 }
 ```
 
-This is stronger than the earlier loose bound
+The earlier loose inequality `I <= 2 min(L,R)` is superseded.
 
-```math
-\mathcal I_{L\to R}
-\le2\min(L,R),
-```
+The harmonic bound is tight; a single passive resonance saturates it.
 
-which is now historical only.
+### D12 — equality condition
 
-The harmonic bound is tight; one passive internal resonance saturates it exactly.
-
-### D12 — Equality structure
-
-Saturation requires no participating parasitic loss and a common access ratio across every transfer-active Gramian direction:
+Saturation requires no participating parasitic loss and
 
 ```math
 \boxed{
-\ell_i/r_i=L/R.
+\ell_i/r_i=L/R
 }
 ```
 
-This is the aggregate multimode analogue of rate matching.
+for every transfer-active Gramian direction.
 
-### D13 — Fixed-band access floor
+### D13 — fixed-band access floor
 
-For target angular bandwidth `W`,
+For target band width `W`,
 
 ```math
 \boxed{
@@ -395,13 +301,7 @@ For target angular bandwidth `W`,
 }
 ```
 
-Thus
-
-```math
-\overline T_B\ge T_*
-```
-
-requires
+Therefore `Tbar_B >= T_*` requires
 
 ```math
 \boxed{
@@ -411,76 +311,257 @@ requires
 }
 ```
 
-For matched total budgets `L=R=Gamma_access`,
+**Status:** exact internally derived detector-facing passivity corollary. Mathematical ingredients are prior theory. No novelty claim.
+
+---
+
+## 7. Direct-feedthrough audit
+
+Canonical file: `DIRECT_FEEDTHROUGH_AND_BAND_LIMIT.md`.
+
+### D14 — all-frequency theorem does not include ideal feedthrough
+
+If
+
+```math
+G_{RL}=D_{RL}+G_{\rm res}
+```
+
+with nonzero frequency-independent `D_RL`, then the total all-frequency `H2` area diverges.
+
+Thus the no-feedthrough assumption is genuinely load-bearing.
+
+A pure prompt map
+
+```math
+G_{RL}=1
+```
+
+is an explicit passive Markov counterexample to any finite all-frequency theorem based only on internal `L,R` traces.
+
+This does not imply physical infinite-bandwidth photodetection; the ideal feedthrough inserts that bandwidth by assumption.
+
+### D15 — finite-band prompt + resonant accounting
+
+For angular-frequency band width `W`,
 
 ```math
 \boxed{
-\Gamma_{\rm access}
-\ge
-\frac{T_*W}{2\pi}.
+\sqrt{\mathcal I_B}
+\le
+\sqrt{\frac{W}{2\pi}}\,\|D_{RL}\|_F
++
+\sqrt{\frac{2LR}{L+R}}.
 }
 ```
 
-This is an external-access resource law, not an absolute bandwidth limit.
-
-**Status:** exact internally derived passivity corollary. The mathematical ingredients (`H_2`, Lyapunov, scattering passivity) are prior theory. No novelty claim is made.
+The resonant excess `G_RL-D_RL` continues to obey the harmonic theorem.
 
 ---
 
-## 11. Verification
+## 8. Structured-reservoir audit
 
-### V1
+Canonical file: `STRUCTURED_RESERVOIR_ACCESS_AUDIT.md`.
 
-`numerics/one_port_time_domain_check.py` independently checks the one-port modulation response.
+### D16 — conditional continuum extension
 
-### V2
+For passive finite augmented realizations `G_n` with
 
-`numerics/passive_multimode_h2_stress.py` checks
+```math
+G_n\to G \quad\text{in }H2,
+```
 
-- `0 <= Q_L <= I`;
-- the exact Gramian-eigenbasis identity;
-- the harmonic transfer-area bound;
-- exact single-mode saturation;
-- direct numerical frequency integration for a representative multimode system.
+and finite limiting terminal access
 
-A private 4,000-network stress test across dimensions `1,2,4,8` found no violation; the diagonal identity agreed to roughly `3e-15` in the sampled networks.
+```math
+L_n\to L,
+\qquad
+R_n\to R,
+```
+
+one obtains
+
+```math
+\boxed{
+\|G\|_{H2}^2
+\le
+\frac{2LR}{L+R}.
+}
+```
+
+Thus structured spectral complexity alone does not evade the access theorem under finite passive embedding assumptions.
+
+Possible escapes are direct/high-frequency feedthrough, divergent boundary access, failure of `H2` convergence, nonreducible residual strong coupling, or active/nonlinear/time-varying physics.
+
+This is conditional, not a universal continuum theorem.
 
 ---
 
-## 12. Explicit non-claims
+## 9. Thermodynamic optical-access bridge
 
-Do **not** claim that:
+Canonical file: `THERMODYNAMIC_OPTICAL_ACCESS_BRIDGE.md`.
+
+Prior thermodynamic theory bounds the sum of **energy-decay** rates from optical modes in angular-frequency interval `W` into one free-space channel:
+
+```math
+\sum_m\gamma_{m,n}
+\le
+\frac{W}{2\pi}.
+```
+
+The repository uses amplitude-decay rates, so
+
+```math
+\boxed{
+L_B\le\frac{W}{4\pi}.
+}
+```
+
+Combining with D11 gives, under the restricted band/modal assumptions,
+
+### D17 — one-channel detector-access requirement
+
+```math
+\boxed{
+\overline T_B
+\le
+\frac{R_B}{R_B+W/(4\pi)}.
+}
+```
+
+Hence achieving `Tbar_B >= eta` requires
+
+```math
+\boxed{
+R_B
+\ge
+\frac{\eta}{1-\eta}
+\frac{W}{4\pi}.
+}
+```
+
+**Status:** restricted corollary with strong prior-art overlap. Thermodynamic external-coupling bounds and radiative/internal rate matching are established theory.
+
+---
+
+## 10. Thermal irreversibility result
+
+Canonical file: `THERMAL_IRREVERSIBILITY_COST.md`.
+
+Model a detector localization transition
+
+```text
+|e> -> |d>
+```
+
+with energy release
+
+```math
+\Delta=E_e-E_d>0
+```
+
+into a thermal bath at temperature `T`.
+
+Local detailed balance gives
+
+```math
+\boxed{
+\frac{k_\uparrow}{k_\downarrow}
+=e^{-\Delta/(k_BT)}.
+}
+```
+
+Using the minimal convention
+
+```math
+k_\downarrow=2R_B,
+```
+
+and D17 yields
+
+### D18 — minimum forward localization rate
+
+```math
+\boxed{
+k_\downarrow
+\ge
+\frac{\eta}{1-\eta}
+\frac{W}{2\pi}.
+}
+```
+
+### D19 — minimum reverse thermal-activation rate at fixed bias
+
+```math
+\boxed{
+k_\uparrow
+\ge
+\frac{\eta}{1-\eta}
+\frac{W}{2\pi}
+\exp[-\Delta/(k_BT)].
+}
+```
+
+### D20 — minimum energy bias for fixed reverse-activation budget
+
+If
+
+```math
+k_\uparrow\le D_{\rm rev},
+```
+
+then, when the logarithm argument exceeds unity,
+
+```math
+\boxed{
+\Delta
+\ge
+k_BT
+\ln\!\left[
+\frac{\eta W}
+{2\pi(1-\eta)D_{\rm rev}}
+\right].
+}
+```
+
+`D_rev` is a reverse thermal-activation budget, **not automatically an observable dark-count rate**.
+
+---
+
+## 11. Explicit non-claims
+
+Do not claim that
 
 - active volume fundamentally limits detector bandwidth;
-- finite absorber count fundamentally limits one-photon bandwidth;
-- the fixed-target Hopfield theorem is novel or universal;
+- finite absorber number fundamentally limits one-photon speed;
+- the Hopfield fixed-target theorem is universal or novel;
 - the harmonic access theorem is novel;
-- mode count cannot improve broadband response;
-- the harmonic theorem covers direct feedthrough, active gain, time variation, nonlinear/saturating dynamics, or all infinite-dimensional reservoirs;
-- the abstract access traces have already been mapped to HgCdTe or another semiconductor material limit;
+- direct feedthrough is impossible;
+- every structured reservoir satisfies the finite-embedding assumptions;
+- D17 is universal beyond its one-free-space-channel/modal setting;
+- `D_rev` equals detector dark counts;
+- a minimum reset work has been derived;
+- the project has a universal sensitivity-speed-dark-count theorem;
 - the project is ready for a manuscript.
 
 ---
 
-## 13. Current organizing statement
+## 12. Current frontier
 
-Within the finite passive linear class:
+Build the complete minimal detector cycle
 
-> **Internal electromagnetic complexity can redistribute useful detector transfer in frequency, but it cannot replace simultaneous access to the optical input and irreversible detector reservoirs. The full frequency-integrated transfer is bounded by the harmonic mean of their aggregate access budgets.**
+```text
+|g> -- photon --> |e>
+|e> <-> |d>       thermal detector bath
+|d> -- readout/reset --> |g>.
+```
 
-This is the strongest surviving model-level structure.
+The next result must explicitly define
 
-It is not yet a novelty claim.
+1. what transition produces a recorded count;
+2. false-count pathways without an input photon;
+3. reset dynamics and work/reservoir resource;
+4. dead time and steady-state count statistics;
+5. how optical access `L`, detector access `R`, bandwidth, efficiency, and observable dark counts fit into one consistent cycle.
 
----
-
-## 14. Next promotion criteria
-
-Before any manuscript decision:
-
-1. search passive network, microwave matching, quantum linear-system, and scattering literature specifically for the harmonic trace inequality;
-2. test whether direct finite-band feedthrough admits a clean resource extension;
-3. test genuinely infinite-dimensional / strongly structured passive reservoirs;
-4. map `L` and `R` onto microscopic detector resources;
-5. then add dark-event, thermal reverse-rate, amplification, and reset thermodynamics;
-6. only after those attacks reassess publication significance.
+Only then reassess whether a detector-specific paper has emerged.
