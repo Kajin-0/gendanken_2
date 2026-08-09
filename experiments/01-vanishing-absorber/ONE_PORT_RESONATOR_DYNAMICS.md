@@ -15,7 +15,7 @@ The derivation is intentionally restricted to one linear optical resonance. It i
 
 ## 2. Normalization
 
-Use one temporal coupled-mode convention throughout.
+Use the `exp(-i omega t)` convention throughout.
 
 Let
 
@@ -43,7 +43,7 @@ For a one-port resonance with a lossless background reflection of phase `pi`, ch
 
 ```math
 \boxed{
-\dot a=(i\omega_0-\Gamma)a+\sqrt{2\gamma_e}\,s_+
+\dot a=(-i\omega_0-\Gamma)a+\sqrt{2\gamma_e}\,s_+
 }
 ```
 
@@ -247,7 +247,13 @@ This is the steady-state manifestation of the increasing photon dwell time.
 
 The relevant detector bandwidth is not automatically the optical spectral linewidth. Derive the absorbed-power response explicitly.
 
-Set the optical carrier exactly on resonance and apply a small real amplitude modulation:
+Set the optical carrier exactly on resonance and factor out `exp(-i omega_0 t)` from both the cavity and incident fields. Denote the resulting slowly varying envelopes again by `a(t)` and `s_+(t)`. Their resonant equation is
+
+```math
+\dot a=-\Gamma a+\sqrt{2\gamma_e}\,s_+.
+```
+
+Apply a small real amplitude modulation:
 
 ```math
 s_+(t)=s_0+\delta s(t),
@@ -255,7 +261,7 @@ s_+(t)=s_0+\delta s(t),
 |\delta s|\ll |s_0|.
 ```
 
-The steady-state carrier amplitude is
+The steady-state carrier envelope is
 
 ```math
 a_0=\frac{\sqrt{2\gamma_e}}{\Gamma}s_0.
@@ -356,26 +362,25 @@ Using `Q_L = omega_0/(2 Gamma)`, the modulation bandwidth can also be written
 
 ```math
 \boxed{
-B_{3\rm dB}=\frac{f_0}{2Q_L} \times \frac{1}{2}
-=\frac{f_0}{4Q_L}.
+B_{3\rm dB}=\frac{f_0}{2Q_L}.
 }
 ```
 
-Equivalently,
+Meanwhile
 
 ```math
 \boxed{
-B_{3\rm dB}=\frac{\Gamma}{2\pi}.
+\Delta f_{\rm abs,FWHM}=\frac{f_0}{Q_L}.
 }
 ```
 
-The explicit `f_0/(4Q_L)` form is retained only to emphasize the photon-lifetime scaling.
+Both are equivalent to the decay-rate expressions above.
 
 ---
 
 ## 8. Large-signal turn-on is different again
 
-If the incident field is switched suddenly from zero to a constant resonant amplitude at `t=0`,
+If the incident resonant field is switched suddenly from zero to a constant amplitude at `t=0`,
 
 ```math
 a(t)=a_{\rm ss}\left(1-e^{-\Gamma t}\right).
@@ -685,7 +690,7 @@ It must **not** be promoted to a geometry-independent photodetector bound.
 
 ## 13. Numerical falsification check
 
-A direct time-domain integration of
+A direct time-domain integration of the resonant-envelope equation
 
 ```math
 \dot a=-\Gamma a+\sqrt{2\gamma_e}\,s(t)
@@ -783,7 +788,32 @@ The next stage should therefore attack `gamma_a/V`, not yet add HgCdTe-specific 
 
 ---
 
-## 16. Prior-theory anchors
+## 16. Convention-audit correction
+
+The first draft of this note contained two redundant-convention errors that were caught before promotion into the canonical state:
+
+1. it combined the `exp(-i omega t)` drive convention with the opposite sign of the resonant frequency in the amplitude equation;
+2. it incorrectly rewrote `B_3dB = Gamma/(2 pi)` as `f_0/(4 Q_L)`.
+
+With the convention used here,
+
+```math
+Q_L=\frac{\omega_0}{2\Gamma}
+```
+
+so the correct relation is
+
+```math
+\boxed{
+B_{3\rm dB}=\frac{f_0}{2Q_L}.
+}
+```
+
+The decay-rate derivation and optimized-coupling result are unchanged by these corrections.
+
+---
+
+## 17. Prior-theory anchors
 
 The temporal coupled-mode structure used here is established resonator theory. Relevant primary/background sources include:
 
