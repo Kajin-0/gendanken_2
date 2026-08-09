@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **open theoretical exploration**  
+**Current mode:** **open theoretical exploration; one-resonance model closed at stated assumptions**  
 
 This is the first operational file a new agent should read.
 
@@ -16,9 +16,9 @@ Other agents may edit `main` concurrently.
 
 Before every repository write:
 
-1. fetch the latest `main` head;
-2. compare it with the last-seen head;
-3. inspect relevant intervening commits;
+1. fetch the latest `main` head or current target;
+2. compare with the last-seen state;
+3. inspect relevant intervening changes;
 4. fetch the exact current target blob immediately before replacing an existing file;
 5. never force a write against a stale blob SHA;
 6. if `main` changes during a long task, recheck before writing;
@@ -37,7 +37,7 @@ Agents must distinguish among:
 - **definition** — chosen notation or metric;
 - **known result** — established theory used as an input;
 - **derived result** — obtained here from stated assumptions;
-- **checked result** — independently verified analytically or numerically;
+- **checked result** — independently or numerically verified;
 - **conjecture** — plausible but unproved statement;
 - **empirical assumption** — material/device behavior imported from experiment or literature;
 - **invalidated result** — a claim shown to fail;
@@ -59,9 +59,37 @@ Question:
 
 > Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
 
-The current intuition is that shrinking active volume can suppress intrinsic carrier-generation noise, while passive resonant or trapping structures can recover optical absorption. The central question is whether the required electromagnetic dwell time, bandwidth, mode coupling, material response, or another physical mechanism necessarily restores a penalty.
+The initial one-resonance question has now been answered within its assumptions.
 
-This is a question, not a conclusion.
+For a passive one-port resonance with external amplitude-decay rate `gamma_e` and active-material absorptive amplitude-decay rate `gamma_a`,
+
+```math
+A(\omega)=
+\frac{4\gamma_e\gamma_a}
+{(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2},
+```
+
+and the resonant small-signal absorbed-power bandwidth is
+
+```math
+B_{3\rm dB}
+=
+\frac{\gamma_e+\gamma_a}{2\pi}.
+```
+
+At critical coupling,
+
+```math
+\gamma_e=\gamma_a,
+\qquad
+A_0=1,
+\qquad
+B_{3\rm dB}=\frac{\gamma_a}{\pi}.
+```
+
+Thus a vanishingly weak absorber can retain unity monochromatic absorption in this model only by becoming proportionally narrow in absorbed-power response.
+
+The broader volume question remains open because `gamma_a proportional to V` is not generally established.
 
 Canonical state:
 
@@ -70,6 +98,10 @@ Canonical state:
 Claim/conjecture boundary:
 
 `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
+
+Detailed one-port derivation:
+
+`experiments/01-vanishing-absorber/ONE_PORT_RESONATOR_DYNAMICS.md`
 
 Research chronology:
 
@@ -83,7 +115,7 @@ Artifact map:
 
 ## 4. Natural research sequence
 
-Do not mechanically imitate another project. For the current problem, use the shortest sequence demanded by the physics.
+Do not mechanically imitate another project. Use the shortest sequence demanded by the physics.
 
 A typical progression is:
 
@@ -91,7 +123,7 @@ A typical progression is:
 2. strip away nonessential engineering complications;
 3. write the smallest model that answers one question exactly;
 4. check units, normalization, signs, conservation laws, and limiting cases;
-5. identify what assumption creates the apparent tradeoff;
+5. identify the assumption that creates the apparent tradeoff;
 6. search for counterexamples that evade that assumption;
 7. generalize only after the simple model is understood;
 8. compare with known fundamental bounds and primary literature;
@@ -104,19 +136,19 @@ If the logic points somewhere unexpected, change direction.
 
 ## 5. Required checks for load-bearing results
 
-For any equation that could become central to a paper, perform as many of the following as are applicable:
+For any equation that could become central to a paper, perform as many of the following as apply.
 
 ### Dimensional analysis
 
-Every term must have consistent physical units. Record nontrivial unit checks.
+Every term must have consistent physical units. Record nontrivial checks.
 
 ### Limiting cases
 
-Check physically interpretable limits, for example:
+Check physically interpretable limits, including where applicable:
 
 - absorber volume or thickness tending to zero;
 - weak and strong absorption;
-- critical coupling and severe under/over-coupling;
+- under-coupling, critical coupling, and over-coupling;
 - zero dark generation;
 - narrowband and broadband limits;
 - vanishing optical loss outside the active material;
@@ -126,15 +158,21 @@ A formula that behaves incorrectly in an obvious limit is not publication-ready.
 
 ### Independent derivation
 
-When a numerical coefficient or scaling exponent is load-bearing, seek a conceptually distinct derivation rather than algebraically rearranging the same argument.
+When a numerical coefficient or scaling exponent is load-bearing, seek a conceptually distinct derivation rather than an algebraic rearrangement of the same argument.
 
 ### Numerical falsification
 
 Use numerics to try to break the analytic result. A useful numerical test should not merely encode the target formula and reproduce it.
 
+Current one-port time-domain check:
+
+`experiments/01-vanishing-absorber/numerics/one_port_time_domain_check.py`
+
+The time-domain ODE integration is an independent check of the modulation transfer function. The coupling-ratio grid scan in that script is only an algebra regression and must not be described as an independent physical derivation.
+
 ### Counterexample search
 
-Actively search architectures or regimes that could evade the proposed statement: multi-resonant structures, traveling-wave absorption, antennas, slow light, nonreciprocal systems, gain, avalanche multiplication, photoconductive gain, nonlocal response, strongly dispersive media, etc., as relevant.
+Actively search architectures or regimes that could evade the proposed statement: multi-resonant structures, traveling-wave absorption, antennas, slow light, nonreciprocal systems, gain, avalanche multiplication, photoconductive gain, nonlocal response, strongly dispersive media, time-varying systems, etc., as relevant.
 
 A counterexample is progress.
 
@@ -150,7 +188,8 @@ Do not conflate:
 - carrier collection efficiency;
 - photoconductive or avalanche gain;
 - electrical responsivity;
-- optical bandwidth;
+- optical spectral linewidth;
+- absorbed-power modulation bandwidth;
 - carrier-response bandwidth;
 - readout bandwidth;
 - NEP;
@@ -158,7 +197,9 @@ Do not conflate:
 
 Define exactly which quantity appears in every bound.
 
-Likewise, do not use "bandwidth" without identifying the transfer function and the convention used to measure it (e.g. FWHM, `-3 dB`, equivalent noise bandwidth, integrated absorption bandwidth).
+Do not use `bandwidth` without identifying the transfer function and convention: FWHM, `-3 dB`, equivalent noise bandwidth, integrated absorption bandwidth, etc.
+
+The current one-port calculation explicitly established that optical absorptance FWHM and absorbed-power modulation `-3 dB` bandwidth differ by a factor of two at critical coupling.
 
 ---
 
@@ -179,6 +220,8 @@ For every noise expression state:
 
 If a factor of two is convention-dependent, say so rather than hiding it.
 
+The current toy `NEP` result uses independent bulk dark events, one collected charge per event, unity post-absorption collection, no internal gain, and a one-sided shot-noise convention. Do not generalize it silently.
+
 ---
 
 ## 8. Literature protocol
@@ -195,6 +238,8 @@ For each potentially novelty-bearing idea:
 
 Do not cite a review as evidence of priority when the original source is available.
 
+The temporal coupled-mode equations themselves are prior theory and must never be presented as novel.
+
 ---
 
 ## 9. Documentation rules
@@ -206,14 +251,14 @@ This is the recovery point. It should answer:
 - What question are we currently asking?
 - What has actually been established?
 - What is conjectural?
-- What failed?
+- What failed or was corrected?
 - What is the next decisive calculation?
 
 Keep it compact enough that a fresh agent can recover quickly.
 
 ### `CLAIM_LEDGER.md`
 
-This is the epistemic boundary. Record active claims, conjectures, known ingredients, invalidated claims, and explicit non-claims.
+This is the epistemic boundary. Record active claims, conjectures, known ingredients, invalidated claims, explicit non-claims, and material corrections.
 
 ### `RESEARCH_LOG.md`
 
@@ -225,21 +270,25 @@ This prevents historical files from competing with active work. Never delete use
 
 ### Dedicated audit files
 
-Create a dedicated audit only when a calculation becomes substantial enough that keeping it inside `CURRENT_STATE.md` would obscure recovery. Do not generate dozens of ceremonial files before the physics requires them.
+Create a dedicated audit only when a calculation becomes substantial enough that keeping it inside `CURRENT_STATE.md` would obscure recovery. Do not generate ceremonial files before the physics requires them.
 
 ---
 
 ## 10. Reproducibility
 
-When numerics begin:
+Numerical work belongs under
 
-- place scripts under `experiments/01-vanishing-absorber/numerics/`;
-- state software versions once they matter;
+`experiments/01-vanishing-absorber/numerics/`.
+
+Rules:
+
+- state software dependencies once they matter;
 - keep independent checks logically separate from the analytic derivation they test;
 - include benchmark parameters and expected tolerances;
-- prefer small deterministic regression tests for publication-critical constants or asymptotics.
+- prefer small deterministic regression tests for publication-critical constants or asymptotics;
+- do not add continuous-integration machinery merely for appearance.
 
-Do not add continuous-integration machinery merely for appearance. Add it when stable calculations exist that are worth protecting against regression.
+Current numerical state requires only the Python standard library for the one-port time-domain check.
 
 ---
 
@@ -251,24 +300,40 @@ For a fresh agent:
 2. `README.md`
 3. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
 4. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-5. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-6. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
-7. only then read specialized derivations, numerics, or historical branches.
+5. `experiments/01-vanishing-absorber/ONE_PORT_RESONATOR_DYNAMICS.md`
+6. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
+7. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+8. only then read specialized numerics, future literature audits, or historical branches.
 
 ---
 
 ## 12. Current next step
 
-Do not jump directly to a geometry-independent theorem.
+Do **not** restart the one-port cavity derivation unless a concrete contradiction is found.
 
-Start with the simplest one-port passive resonant absorber and establish exactly:
+The load-bearing open assumption is now the relation between active material amount and absorptive decay rate.
 
-1. its frequency-dependent absorptance;
-2. the condition for unity on-resonance absorption;
-3. the associated optical energy-decay time;
-4. the correct definition of temporal detection bandwidth;
-5. how the absorber's material loss/volume enters these quantities.
+For weak dielectric loss,
 
-Then ask whether shrinking the absorbing material necessarily narrows the usable detection bandwidth, and under precisely which assumptions.
+```math
+\gamma_a
+=
+\frac{\omega\epsilon_0}{4U}
+\int_{V_a}
+\epsilon''(\mathbf r,\omega)|\mathbf E|^2\,dV.
+```
 
-Only after that result is secure should the project attempt a general Maxwell/material-response bound.
+The next question is:
+
+> **Can passive electromagnetic design make `gamma_a/V` grow without bound as active volume tends to zero while preserving a physically meaningful incident channel and material model?**
+
+Proceed in this order:
+
+1. identify the weakest assumptions under which `gamma_a/V` could be bounded;
+2. search primary electromagnetic-limit literature for bounds on absorption, local field concentration, material susceptibility, and frequency-integrated response;
+3. construct explicit counterexample candidates before trying to prove a theorem;
+4. distinguish fixed-frequency field enhancement from frequency-integrated or time-domain capability;
+5. determine whether any bound concerns geometric material volume, oscillator strength, susceptibility integral, or another more physical resource;
+6. only if a bounded quantity survives those attacks should it be combined with the dark-event model.
+
+Do not add HgCdTe-specific carrier transport yet. The next bottleneck is electromagnetic, not semiconductor-specific.
