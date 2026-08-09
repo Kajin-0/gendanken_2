@@ -2,122 +2,104 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **open theoretical exploration; access-resource chain now reaches thermal irreversibility; next model is the complete detector cycle; no novelty claim**  
+**Current mode:** **open theoretical exploration; passive/autonomous baseline mapped; active and time-dependent capture under adversarial audit; no novelty claim**  
 
-This is the first operational file a new agent should read.
+Read this file first.
 
-The repository starts from thought experiments and follows the physics. Do not assume the current result is true beyond its stated model, novel, important, or destined to become a paper.
-
----
-
-## 1. Mandatory concurrency protocol
-
-Other agents may edit `main` concurrently.
-
-Before every repository write:
-
-1. fetch the latest `main` state;
-2. compare with the last-seen state;
-3. inspect relevant intervening changes;
-4. fetch the exact current target blob immediately before replacing an existing file;
-5. never overwrite a stale blob SHA;
-6. preserve concurrent work and make narrowly scoped edits.
-
-**Live `main` overrides every snapshot and recovery note.**
+The project starts from thought experiments and follows the physics. Counterexamples are progress. Do not force the work toward the original active-volume idea or toward a paper.
 
 ---
 
-## 2. Epistemic labels are mandatory
+## 1. Mandatory repository protocol
 
-Distinguish explicitly among
+Before every write:
 
-- **definition**;
+1. fetch live `main` / current target;
+2. inspect intervening changes if needed;
+3. fetch the exact current blob SHA immediately before replacing a file;
+4. never overwrite a stale SHA;
+5. preserve concurrent work and failed branches.
+
+**Live `main` overrides all snapshots.**
+
+---
+
+## 2. Mandatory epistemic labels
+
+Use explicitly:
+
 - **known result**;
 - **derived result**;
 - **checked result**;
-- **candidate distinct lemma** — internally derived, not found in a targeted search, but priority unproven;
+- **candidate distinct lemma — priority unproven**;
 - **conjecture**;
-- **empirical/model assumption**;
+- **model assumption**;
 - **invalidated result**;
 - **superseded result**;
 - **open question**.
 
-Never promote a negative literature search, numerical observation, or restricted corollary into a novelty or universality claim.
+Never convert a negative literature search into a novelty claim.
 
-No `first`, `new fundamental`, `unprecedented`, or `universal` language without a focused primary-source audit and claim-ledger update.
+No `new`, `first`, `fundamental`, or `universal` language without a focused primary-source audit and `CLAIM_LEDGER.md` update.
 
 ---
 
-## 3. Current research path
-
-**Experiment 01: The vanishing absorber**
-
-> Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
-
-The path has been forced by counterexamples:
+## 3. Current path
 
 ```text
-one-port weak absorber
--> dwell-time penalty in absorptive decay rate
+weak passive resonance
+-> bandwidth penalty in loss rate
 
 active volume
--> killed: field concentration can defeat volume scaling
+-> killed by field concentration
 
-finite absorber count
--> killed: one-photon sector remains linear
+finite absorber number
+-> killed as one-photon speed resource
 
 finite transition / LDOS / emitter extent
--> conditional weak-coupling bounds, then perturbation theory fails
+-> conditional bounds, then perturbative theory fails
 
-nonperturbative Hopfield coupling
--> dressed optical/detector access can collapse
+nonperturbative Hopfield
+-> dressed external access can collapse
 
-multimode internal structure
--> integrated transfer, not individual linewidth, is the robust object
+multimode passive network
+-> exact harmonic integrated-transfer access law
 
-finite passive network
--> harmonic two-access transfer-area theorem
+direct feedthrough / structured continuum
+-> scope/resource audits
 
-direct prompt path
--> genuine new broadband boundary resource
+passive optical access + autonomous detector thermodynamics
+-> coherent junction mapped, but publication audit says not manuscript-ready
 
-structured continuum
--> still obeys harmonic theorem under finite-budget H2-convergent passive embeddings
+active frequency conversion
+-> pump coupling buys bandwidth; architecture-level resource laws
 
-free-space thermodynamic optical coupling ceiling
--> converts target bandwidth/efficiency into minimum detector-reservoir access
+known-time dynamic loading
+-> arbitrary temporal-mode matching possible with controlled coupling
+-> bounded coupling x loading-time resource
 
-thermal detector bath
--> detailed balance converts that access into a reverse-activation / energy-bias requirement
+unknown arrival
+-> finite storage has temporal-mode rank limit
+-> always-on detector requires many output modes / irreversible continuum
+-> accepted thermal modes create background and dead-time occupancy
 
-NEXT
--> complete cyclic detector with explicit readout/reset and actual dark-count definition.
+CURRENT FRONTIER
+-> common space-time mode resource law for actively controlled always-on detection.
 ```
 
 ---
 
-## 4. Canonical strongest general finite-network result
+## 4. Canonical finite passive theorem
 
-Read:
-
-`experiments/01-vanishing-absorber/PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
+Read `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`.
 
 For a finite stable passive strictly proper network,
-
-```math
-A=-iH-(\Gamma_L+\Gamma_R+\Gamma_I),
-\qquad H=H^\dagger,
-```
-
-with
 
 ```math
 L=\operatorname{Tr}\Gamma_L,
 \qquad
 R=\operatorname{Tr}\Gamma_R,
 ```
-
-the integrated optical-to-detector transfer obeys
 
 ```math
 \boxed{
@@ -127,11 +109,11 @@ the integrated optical-to-detector transfer obeys
 }
 ```
 
-In the left controllability-Gramian eigenbasis,
+In the controllability-Gramian eigenbasis,
 
 ```math
 \boxed{
-\frac{\mathcal I_{L\to R}}2
+\frac{\mathcal I}{2}
 =
 \sum_i
 \frac{\ell_i r_i}
@@ -139,9 +121,7 @@ In the left controllability-Gramian eigenbasis,
 }
 ```
 
-A single passive resonance saturates the bound. Equality in multimode form requires no participating parasitic loss and a common access ratio `ell_i/r_i = L/R`.
-
-For target angular-frequency width `W`,
+For band width `W`,
 
 ```math
 \boxed{
@@ -151,281 +131,261 @@ For target angular-frequency width `W`,
 }
 ```
 
-Interpret this as an **external-access resource law**, not an absolute detector bandwidth limit.
+Interpret as an external-access resource law, not an absolute bandwidth theorem.
 
-The mathematical ingredients are standard `H2`, Lyapunov, and passivity theory. Novelty is not claimed.
+The math uses standard `H2`/Lyapunov/passivity machinery. Novelty is not claimed.
 
 ---
 
-## 5. Scope attacks already completed
+## 5. Important passive scope limits
 
 ### Direct feedthrough
 
-Read `DIRECT_FEEDTHROUGH_AND_BAND_LIMIT.md`.
+A frequency-independent prompt path makes the all-frequency `H2` area divergent; it inserts infinite Markov bandwidth.
 
-An ideal nonzero frequency-independent prompt block makes the total all-frequency `H2` area divergent. This is a real counterexample to overextending the harmonic theorem.
-
-For finite band width `W`,
+For finite band `W`,
 
 ```math
-\boxed{
 \sqrt{\mathcal I_B}
 \le
-\sqrt{\frac{W}{2\pi}}\,\|D_{RL}\|_F
+\sqrt{W/(2\pi)}\|D_{RL}\|_F
 +
-\sqrt{\frac{2LR}{L+R}}.
-}
+\sqrt{2LR/(L+R)}.
 ```
-
-Prompt channel strength/bandwidth is a new resource; do not call it a free bypass.
 
 ### Structured reservoirs
 
-Read `STRUCTURED_RESERVOIR_ACCESS_AUDIT.md`.
+The harmonic theorem survives passive finite-budget `H2`-convergent augmentations. A continuum escape must violate those assumptions or use active/nonlinear/time-dependent physics.
 
-If finite passive augmented realizations satisfy
+---
+
+## 6. Current prior-art boundary
+
+### Young, Sarovar & Leonard (2018)
+
+Already unify incoming quantized photon fields, absorption, amplification/monitored states, efficiency, dark counts, and timing.
+
+### Schwarzhans et al. (2026)
+
+Already treat autonomous nonequilibrium detector work source, amplification/reset, entropy production, internal dark counts, jitter and dead time.
+
+Do not reinvent either as novelty.
+
+The narrowed candidate gap is spectral/passive capture-resource constraints **plus** autonomous thermodynamic detector accounting. A targeted search has not found the exact intersection; priority remains unproven.
+
+`PUBLICATION_BOUNDARY_AUDIT.md` currently says **continue research; do not write a manuscript yet**.
+
+---
+
+## 7. Active frequency-conversion branch
+
+Read:
+
+- `ACTIVE_FREQUENCY_CONVERTER_BASELINE.md`
+- `MULTIMODE_ACTIVE_PUMP_RESOURCE.md`
+- `TRAVELING_WAVE_ACTIVE_CONVERTER.md`
+- `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
+
+Two-mode critical converter:
 
 ```math
-G_n\to G \text{ in }H2,
-\qquad
-L_n\to L<\infty,
-\qquad
-R_n\to R<\infty,
+G_{\min}=W/(2\sqrt2).
 ```
 
-then
+For `G=g_0 sqrt(N_p)`,
+
+```math
+N_p\ge W^2/(8g_0^2).
+```
+
+This `W^2` scaling is architecture specific, not universal.
+
+Finite-mode singular-value resource:
+
+```math
+H_{\rm conv}/\hbar
+=\mathbf b^\dagger K\mathbf a+h.c.
+```
+
+If `M_c` orthogonal conversion channels each achieve efficiency `eta` in time `tau`,
 
 ```math
 \boxed{
-\|G\|_{H2}^2
+\|K\|_F^2
+\ge
+\frac{M_c}{\tau^2}
+\arcsin^2\sqrt\eta.
+}
+```
+
+For pump amplitudes `alpha_p`,
+
+```math
+K=\sum_p\alpha_pK_p,
+\qquad
+N_p=\sum_p|\alpha_p|^2,
+```
+
+```math
+C_{pq}=\operatorname{Tr}(K_p^\dagger K_q),
+\qquad
+\Lambda=\lambda_{\max}(C),
+```
+
+```math
+\boxed{
+N_p
+\ge
+\frac{M_c\arcsin^2\sqrt\eta}
+{\Lambda\tau^2}.
+}
+```
+
+Schmidt-mode conversion is established prior theory. `Lambda` remains an unbounded device/material resource in the current analysis.
+
+---
+
+## 8. Time-dependent known-mode capture
+
+Read `TIME_DEPENDENT_CAPTURE_AUDIT.md`.
+
+For one controlled lossless storage mode,
+
+```math
+\dot a=-\kappa(t)a+\sqrt{2\kappa(t)}s_{\rm in}.
+```
+
+Perfect zero-reflection loading requires
+
+```math
+\boxed{
+\kappa(t)
+=
+\frac{P_{\rm in}(t)}
+{2\int_{-\infty}^{t}P_{\rm in}(t')dt'}.
+}
+```
+
+Finite-support pulses with ordinary hard leading edges generically require singular ideal coupling.
+
+With `kappa <= kappa_max` during duration `tau`,
+
+```math
+\boxed{
+\eta_{\rm cap}
 \le
-\frac{2LR}{L+R}.
+1-e^{-2\kappa_{\max}\tau}.
 }
 ```
 
-A continuum escape must violate one of those assumptions or use active/nonlinear/time-dependent physics.
-
----
-
-## 6. Current optical-to-thermal resource chain
-
-### Optical access
-
-Read `THERMODYNAMIC_OPTICAL_ACCESS_BRIDGE.md`.
-
-Prior thermodynamic theory bounds the sum of **energy-decay** coupling rates from modes in angular band `W` into one free-space channel by
-
-```math
-\sum_m\gamma_{m,n}\le\frac{W}{2\pi}.
-```
-
-Repository rates are amplitude-decay rates, so
+Thus
 
 ```math
 \boxed{
-L_B\le\frac{W}{4\pi}.
-}
-```
-
-Combining with the harmonic theorem gives the restricted necessary condition
-
-```math
-\boxed{
-R_B
+\kappa_{\max}\tau
 \ge
-\frac{\eta}{1-\eta}
-\frac{W}{4\pi}
+\frac12\ln\frac1{1-\eta}.
 }
 ```
 
-for band-averaged transfer `>= eta` in the stated one-free-space-channel/modal setting.
+Dynamic single-photon capture is established prior research. Do not claim novelty.
 
-This has strong prior-art overlap with broadband absorption/rate-matching theory. Do not claim the matching structure as new.
+---
 
-### Thermal irreversibility
+## 9. Unknown arrival / temporal-mode capacity
 
-Read `THERMAL_IRREVERSIBILITY_COST.md`.
+Read `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`.
 
-For detector localization `|e> <-> |d>` with energy release `Delta` into a thermal bath,
+For a fixed linear capture map into `r` coherent storage modes and `M` orthogonal possible temporal input modes,
 
 ```math
 \boxed{
-\frac{k_\uparrow}{k_\downarrow}
-=e^{-\Delta/(k_BT)}.
+\sum_j\eta_j\le r.
 }
 ```
 
-With the minimal convention `k_down = 2R_B`, the restricted optical requirement gives
+Hence uniform efficiency requires
+
+```math
+\boxed{r\ge M\eta,}
+```
+
+and equal-prior average efficiency obeys
+
+```math
+\boxed{\overline\eta\le r/M.}
+```
+
+This is why known-time dynamic loading is not an always-on detector counterexample.
+
+To cover many possible arrival modes, add storage dimension, adaptation, repeated reset/reuse, or an irreversible output continuum.
+
+---
+
+## 10. Always-on thermal-mode / dead-time result
+
+Read `ALWAYS_ON_TEMPORAL_COVERAGE.md`.
+
+For `M` accepted modes with thermal occupation at least `nbar` and efficiency `eta`,
+
+```math
+N_{\rm bg}\ge\bar nM\eta.
+```
+
+In a long-time one-channel band of angular width `W`,
+
+```math
+R_{\rm bg}\simeq\bar n\eta W/(2\pi).
+```
+
+In the stated minimal nonparalyzable model with dead time `tau_d`, an otherwise perfect raw detector obeys
 
 ```math
 \boxed{
-k_\downarrow
-\ge
-\frac{\eta}{1-\eta}
-\frac{W}{2\pi}
+\eta_{\rm ext}
+\le
+\frac1{1+\bar nW\tau_d/(2\pi)}.
 }
 ```
 
-and
-
-```math
-\boxed{
-k_\uparrow
-\ge
-\frac{\eta}{1-\eta}
-\frac{W}{2\pi}
-e^{-\Delta/(k_BT)}.
-}
-```
-
-If `k_up <= D_rev`, then
-
-```math
-\boxed{
-\Delta
-\ge
-k_BT
-\ln\!\left[
-\frac{\eta W}
-{2\pi(1-\eta)D_{\rm rev}}
-\right]
-}
-```
-
-when the logarithm argument exceeds one.
-
-**Critical:** `D_rev` is a reverse thermal-activation rate, not automatically a detector dark-count rate.
+This is model-level background blocking, not a universal dead-time theorem.
 
 ---
 
-## 7. Supporting nonperturbative branch
+## 11. Invalidated routes — do not restart casually
 
-Keep for mechanism/provenance:
-
-- `HOPFIELD_RETUNING_NO_GO.md`
-- `HOPFIELD_RESERVOIR_RESOURCE_COST.md`
-- `HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
-- `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
-
-The fixed-target two-mode lemma has status **candidate distinct supporting lemma; priority unproven**. Deep-strong decoupling itself is established prior physics.
-
-Do not elevate the Hopfield branch above the more general access theorem.
-
----
-
-## 8. Invalidated routes — do not restart casually
-
-### Active-volume-only theorem — STOPPED
-
-`ACTIVE_VOLUME_COUNTEREXAMPLE.md` defeats universal `eta^2 B <= C V_a` and `gamma_a/V_a <= constant` under admitted ideal field concentration.
-
-### Finite absorber count as missing one-photon speed limit — STOPPED
-
-The one-excitation sector remains linear.
-
-### Largest internal coupling as universal multimode control parameter — STOPPED
-
-Spectator-sector counterexample.
-
-### `2 min(L,R)` bound — SUPERSEDED
-
-Use the harmonic bound.
-
-### Harmonic all-frequency theorem with arbitrary ideal feedthrough — INVALID EXTENSION
-
-A constant prompt path is an explicit counterexample because it carries infinite bandwidth by assumption.
+- active-volume-only theorem;
+- finite absorber number as missing one-photon speed limit;
+- largest internal coupling as universal multimode parameter;
+- `2 min(L,R)` bound (superseded by harmonic bound);
+- all-frequency harmonic theorem with ideal feedthrough;
+- generic capture+amplification novelty;
+- generic autonomous thermodynamic detector novelty;
+- universal active `pump ~ W^2` law;
+- treating known-time dynamic matching as an always-on broadband detector solution.
 
 ---
 
-## 9. Noise/thermodynamic discipline
+## 12. Current next step
 
-Never conflate
+Do **not** jump to a manuscript.
 
-- thermal input photons;
-- reverse thermal activation;
-- observable dark counts;
-- reset events;
-- net thermodynamic current;
-- raw monitored transitions;
-- amplification/readout noise.
+Try to formulate—and then break—a common **space-time mode resource law** for an actively controlled always-on detector.
 
-A transition is a dark count only after the detector's monitored output and cycle topology say it is.
+The candidate resource accounting should include
 
-For every rate/noise formula state
+1. accepted spatiotemporal mode count;
+2. pump/control norm;
+3. irreversible detector-output capacity;
+4. background occupation of accepted modes;
+5. reset/dead-time resource.
 
-- physical process;
-- counting convention;
-- equilibrium vs driven operation;
-- reservoir temperature/chemical potential where relevant;
-- whether the quantity is a forward rate, reverse rate, net current, or observed event rate;
-- reset/dead-time assumptions.
+Before promoting any theorem, attack it with
 
----
+- noncommuting time-dependent controls;
+- adaptive/measurement-based coupling;
+- active feedforward;
+- time-switched energy trapping;
+- output continua with large mode rank.
 
-## 10. Required checks
-
-For load-bearing results apply, as relevant:
-
-1. explicit assumptions and normalization;
-2. dimensional checks;
-3. limiting cases;
-4. independent derivation;
-5. numerical falsification;
-6. adversarial counterexamples;
-7. primary-source prior-art collision;
-8. exact domain of validity;
-9. claim-ledger and research-log update.
-
-A counterexample is progress.
-
----
-
-## 11. Canonical reading order
-
-For a fresh agent:
-
-1. `AGENTS.md`
-2. `README.md`
-3. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
-4. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-5. `experiments/01-vanishing-absorber/PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
-6. `experiments/01-vanishing-absorber/DIRECT_FEEDTHROUGH_AND_BAND_LIMIT.md`
-7. `experiments/01-vanishing-absorber/STRUCTURED_RESERVOIR_ACCESS_AUDIT.md`
-8. `experiments/01-vanishing-absorber/THERMODYNAMIC_OPTICAL_ACCESS_BRIDGE.md`
-9. `experiments/01-vanishing-absorber/THERMAL_IRREVERSIBILITY_COST.md`
-10. `experiments/01-vanishing-absorber/HOPFIELD_RESERVOIR_RESOURCE_COST.md`
-11. `experiments/01-vanishing-absorber/HOPFIELD_RETUNING_NO_GO.md`
-12. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-13. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
-14. older files only for provenance.
-
----
-
-## 12. Current next step — complete minimal detector cycle
-
-Do **not** call reverse activation a dark count yet.
-
-Build
-
-```text
-|g> -- photon --> |e>
-|e> <-> |d>       thermal detector bath
-|d> -- readout/reset --> |g>.
-```
-
-The model must explicitly determine
-
-1. what physical jump produces a registered count;
-2. what transitions can produce a count with no signal photon;
-3. forward/reverse thermal rates;
-4. reset/readout forward and reverse rates or explicit nonequilibrium bias;
-5. steady-state state probabilities;
-6. raw count rate versus net cycle current;
-7. dead time / maximum count throughput;
-8. entropy/free-energy affinity of a directional detector cycle.
-
-A useful minimal mathematical language is a three-state continuous-time Markov cycle, but do not assume a one-way reset unless the work/reservoir resource producing it is stated.
-
-Only after this cycle is solved should the project decide whether a genuine efficiency-bandwidth-dark-count thermodynamic statement survives.
-
-Do not add HgCdTe-specific transport yet.
+Do not add HgCdTe-specific transport until this abstract detector-resource question has either survived or failed.
