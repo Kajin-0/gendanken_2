@@ -2,16 +2,27 @@
 
 Requires NumPy only.
 
-The analytic theorem is not used to compute the directly integrated transfer
-spectrum.  The script performs three separate checks:
+The canonical analytic result is
 
-1. solve the controllability Lyapunov equation for random passive networks and
-   verify 0 <= Q_L <= I;
-2. verify the derived H2 transfer area never exceeds
-   2 min(Tr Gamma_L, Tr Gamma_R);
-3. for one deterministic three-mode network, integrate the actual frequency-
-   domain transfer matrix over a large finite window and compare that numerical
-   integral with the independently computed Gramian/H2 value.
+    I_LR <= 2 L R / (L + R),
+
+where
+
+    I_LR = integral Tr[G_RL^dagger G_RL] d omega / (2 pi),
+    L = Tr Gamma_L,
+    R = Tr Gamma_R.
+
+The script performs independent numerical checks of:
+
+1. the passive controllability-Gramian inequality 0 <= Q_L <= I;
+2. the diagonal Lyapunov identity
+
+       q_i = ell_i / (ell_i + r_i + iota_i)
+
+   in the eigenbasis of Q_L;
+3. the harmonic transfer-area bound;
+4. direct frequency integration of a representative multimode transfer matrix
+   versus the separately computed Gramian/H2 area.
 
 This is a falsification/regression test, not a proof.
 """
@@ -24,11 +35,11 @@ import numpy as np
 SEED = 20260808
 TOL_EIG = 2e-10
 TOL_BOUND = 2e-10
+TOL_DIAGONAL_IDENTITY = 2e-9
 DIRECT_REL_TOL = 5e-3
 
 
 def hermitian_psd_sqrt(matrix: np.ndarray) -> np.ndarray:
-    """Return the Hermitian positive-semidefinite square root."""
     vals, vecs = np.linalg.eigh(matrix)
     vals = np.maximum(vals, 0.0)
     return (vecs * np.sqrt(vals)) @ vecs.conj().T
@@ -48,10 +59,7 @@ def random_psd(
 
 
 def solve_continuous_lyapunov(A: np.ndarray, source: np.ndarray) -> np.ndarray:
-    """Solve A X + X A^dagger + source = 0 by vectorization.
-
-    Implemented directly with NumPy so SciPy is not required.
-    """
+    """Solve A X + X A^dagger + source = 0 by vectorization."""
     n = A.shape[0]
     operator = np.kron(np.eye(n), A) + np.kron(A.conj(), np.eye(n))
     rhs = -source.reshape(n * n, order="F")
@@ -85,6 +93,36 @@ def h2_area_from_gramian(
     return area, q_l
 
 
+def harmonic_bound(gamma_l: np.ndarray, gamma_r: np.ndarray) -> float:
+    left = float(np.real(np.trace(gamma_l)))
+    right = float(np.real(np.trace(gamma_r)))
+    if left + right == 0.0:
+        return 0.0
+    return 2.0 * left * right / (left + right)
+
+
+def diagonal_identity_error(
+    q_l: np.ndarray,
+    gamma_l: np.ndarray,
+    gamma_r: np.ndarray,
+    gamma_i: np.ndarray,
+) -> float:
+    """Check q_i = ell_i/(ell_i+r_i+iota_i) in the Q eigenbasis."""
+    q_values, U = np.linalg.eigh(q_l)
+
+    left_diag = np.real(np.diag(U.conj().T @ gamma_l @ U))
+    right_diag = np.real(np.diag(U.conj().T @ gamma_r @ U))
+    loss_diag = np.real(np.diag(U.conj().T @ gamma_i @ U))
+    total_diag = left_diag + right_diag + loss_diag
+
+    mask = total_diag > 1e-12
+    if not np.any(mask):
+        return 0.0
+
+    predicted = left_diag[mask] / total_diag[mask]
+    return float(np.max(np.abs(q_values[mask] - predicted)))
+
+
 def direct_frequency_area(
     A: np.ndarray,
     gamma_l: np.ndarray,
@@ -115,35 +153,67 @@ def direct_frequency_area(
 
 def random_stress() -> None:
     rng = np.random.default_rng(SEED)
+
     print("Random passive-network stress test")
-    print("n   trials   max(area/bound)   min eig(Q)   max eig(Q)")
+    print(
+        "n   trials   max(area/harmonic)   min eig(Q)   "
+        "max eig(Q)   max diag error"
+    )
 
     for n, trials in ((1, 100), (2, 100), (4, 100), (8, 100)):
         max_ratio = 0.0
         min_q = np.inf
         max_q = -np.inf
+        max_diag_error = 0.0
 
         for _ in range(trials):
-            A, gamma_l, gamma_r, _ = make_passive_network(rng, n)
+            A, gamma_l, gamma_r, gamma_i = make_passive_network(rng, n)
             area, q_l = h2_area_from_gramian(A, gamma_l, gamma_r)
-            bound = 2.0 * min(
-                float(np.real(np.trace(gamma_l))),
-                float(np.real(np.trace(gamma_r))),
-            )
+            bound = harmonic_bound(gamma_l, gamma_r)
 
             eig_q = np.linalg.eigvalsh(q_l)
+            diag_error = diagonal_identity_error(
+                q_l,
+                gamma_l,
+                gamma_r,
+                gamma_i,
+            )
+
             min_q = min(min_q, float(eig_q[0]))
             max_q = max(max_q, float(eig_q[-1]))
             max_ratio = max(max_ratio, area / bound)
+            max_diag_error = max(max_diag_error, diag_error)
 
             assert eig_q[0] >= -TOL_EIG
             assert eig_q[-1] <= 1.0 + TOL_EIG
+            assert diag_error <= TOL_DIAGONAL_IDENTITY
             assert area <= bound * (1.0 + TOL_BOUND)
 
         print(
-            f"{n:<3d} {trials:<8d} {max_ratio:>16.9f} "
-            f"{min_q:>12.3e} {max_q:>12.9f}"
+            f"{n:<3d} {trials:<8d} {max_ratio:>18.9f} "
+            f"{min_q:>12.3e} {max_q:>12.9f} "
+            f"{max_diag_error:>14.3e}"
         )
+
+
+def single_mode_tightness_check() -> None:
+    """One passive resonance must exactly saturate the harmonic bound."""
+    gamma_l = 0.37
+    gamma_r = 1.13
+
+    A = np.array([[-(gamma_l + gamma_r) - 1j * 0.71]], dtype=complex)
+    left = np.array([[gamma_l]], dtype=complex)
+    right = np.array([[gamma_r]], dtype=complex)
+
+    area, _ = h2_area_from_gramian(A, left, right)
+    bound = harmonic_bound(left, right)
+
+    print("\nSingle-mode tightness check")
+    print(f"Exact H2 area          = {area:.12g}")
+    print(f"Harmonic bound         = {bound:.12g}")
+    print(f"Relative difference    = {abs(area - bound) / bound:.3e}")
+
+    assert np.isclose(area, bound, rtol=1e-12, atol=1e-12)
 
 
 def direct_spectral_check() -> None:
@@ -153,10 +223,7 @@ def direct_spectral_check() -> None:
 
     gramian_area, _ = h2_area_from_gramian(A, gamma_l, gamma_r)
     direct_area = direct_frequency_area(A, gamma_l, gamma_r)
-    bound = 2.0 * min(
-        float(np.real(np.trace(gamma_l))),
-        float(np.real(np.trace(gamma_r))),
-    )
+    bound = harmonic_bound(gamma_l, gamma_r)
 
     rel_error = abs(direct_area - gramian_area) / gramian_area
 
@@ -164,16 +231,15 @@ def direct_spectral_check() -> None:
     print(f"Gramian/H2 area       = {gramian_area:.12g}")
     print(f"Direct spectral area  = {direct_area:.12g}")
     print(f"Relative difference   = {rel_error:.6g}")
-    print(f"Trace bound            = {bound:.12g}")
+    print(f"Harmonic bound         = {bound:.12g}")
     print(f"Area / bound           = {gramian_area / bound:.9f}")
 
-    # The direct integral uses a finite frequency window, so compare to a
-    # practical truncation tolerance rather than machine precision.
     assert rel_error < DIRECT_REL_TOL
     assert gramian_area <= bound * (1.0 + TOL_BOUND)
 
 
 if __name__ == "__main__":
     random_stress()
+    single_mode_tightness_check()
     direct_spectral_check()
-    print("\nAll passive multimode transfer-area checks passed.")
+    print("\nAll passive multimode harmonic-bound checks passed.")
