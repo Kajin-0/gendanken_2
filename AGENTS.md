@@ -2,11 +2,11 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **open theoretical exploration; active-volume-only optical bound falsified in the ideal local continuum model**  
+**Current mode:** **open theoretical exploration; fixed-target Hopfield transfer no-go derived as a model-level candidate lemma; novelty unproven**  
 
 This is the first operational file a new agent should read.
 
-The repository is intentionally exploratory. Do not assume that the current conjecture is true, novel, important, or destined to become the final paper. Follow the physics.
+The repository is intentionally exploratory. Do not assume the current result is true beyond its stated model, novel, important, or destined to become the final paper. Follow the physics.
 
 ---
 
@@ -16,365 +16,292 @@ Other agents may edit `main` concurrently.
 
 Before every repository write:
 
-1. fetch the latest `main` head or current target;
+1. fetch the latest current target;
 2. compare with the last-seen state;
 3. inspect relevant intervening changes;
-4. fetch the exact current target blob immediately before replacing an existing file;
+4. fetch the exact target blob immediately before replacing an existing file;
 5. never force a write against a stale blob SHA;
 6. if `main` changes during a long task, recheck before writing;
 7. preserve concurrent work and prefer narrowly scoped edits.
 
-**Live `main` overrides all snapshots and recovery notes.**
+**Live `main` overrides every snapshot and recovery note.**
 
 ---
 
 ## 2. Scientific posture
 
-This project starts from a gedanken experiment, not from a desired conclusion.
+Distinguish explicitly among
 
-Agents must distinguish among:
+- **definition**;
+- **known prior result**;
+- **derived result**;
+- **checked result**;
+- **conjecture**;
+- **empirical assumption**;
+- **invalidated result**;
+- **candidate publication claim**;
+- **open question**.
 
-- **definition** — chosen notation or metric;
-- **known result** — established theory used as an input;
-- **derived result** — obtained here from stated assumptions;
-- **checked result** — independently or numerically verified;
-- **conjecture** — plausible but unproved statement;
-- **empirical assumption** — material/device behavior imported from experiment or literature;
-- **invalidated result** — a claim shown to fail;
-- **open question** — unresolved.
+Never silently promote one category into another.
 
-Never silently promote a conjecture into a result.
+No priority language (`first`, `new fundamental bound`, `unprecedented`, `universal`, etc.) is allowed without a focused primary-source prior-art record supporting the exact mathematical statement.
 
-No novelty language (`first`, `new fundamental bound`, `unprecedented`, etc.) is allowed until a focused primary-source prior-art sweep has been completed and recorded.
+A negative literature search is not proof of novelty.
 
-A negative literature search is evidence, not proof of priority.
-
-When a counterexample kills a hoped-for theorem, preserve it and change direction. Do not add assumptions merely to rescue the original target unless those assumptions are independently physically motivated.
+When a counterexample kills a desired theorem, preserve it and change direction. Do not invent assumptions solely to rescue the original target.
 
 ---
 
-## 3. Active thought experiment
+## 3. Experiment 01 — current scientific hierarchy
 
-**Experiment 01: The vanishing absorber**
-
-Question:
+Guiding question:
 
 > Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
 
-Two stages are now closed at their stated assumptions.
-
-### Stage A — one-port resonance
-
-For a passive one-port resonance with external amplitude-decay rate `gamma_e` and active-material absorptive amplitude-decay rate `gamma_a`,
-
-```math
-A(\omega)=
-\frac{4\gamma_e\gamma_a}
-{(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2},
-```
-
-and
-
-```math
-B_{3\rm dB}
-=
-\frac{\gamma_e+\gamma_a}{2\pi}.
-```
-
-At critical coupling,
-
-```math
-\gamma_e=\gamma_a,
-\qquad
-A_0=1,
-\qquad
-B_{3\rm dB}=\frac{\gamma_a}{\pi}.
-```
-
-Thus **if `gamma_a -> 0`**, unity monochromatic absorption requires a proportionally narrow absorbed-power response in this architecture.
-
-### Stage B — geometric active volume does not force `gamma_a -> 0`
-
-For a weakly lossy dielectric resonator,
-
-```math
-\gamma_a
-=
-\frac{\omega}{2}p_a\tan\delta,
-```
-
-where `p_a` is electric-energy participation.
-
-An explicit shrinking parallel-plate capacitor family can keep capacitance and participation fixed while
-
-```math
-V_a\to0,
-```
-
-because the local field grows as the gap shrinks. In that ideal local linear continuum model,
-
-```math
-\gamma_a=\text{constant},
-\qquad
-\boxed{\gamma_a/V_a\to\infty.}
-```
-
-Therefore geometric active volume alone is not the fundamental optical resource.
-
-Canonical state:
-
-`experiments/01-vanishing-absorber/CURRENT_STATE.md`
-
-Claim/conjecture boundary:
-
-`experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-
-One-port derivation:
-
-`experiments/01-vanishing-absorber/ONE_PORT_RESONATOR_DYNAMICS.md`
-
-Active-volume counterexample:
-
-`experiments/01-vanishing-absorber/ACTIVE_VOLUME_COUNTEREXAMPLE.md`
-
-Research chronology:
-
-`experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-
-Artifact map:
-
-`experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
-
----
-
-## 4. Natural research sequence
-
-Do not mechanically imitate another project. Use the shortest sequence demanded by the physics.
-
-A typical progression is:
-
-1. state the simplest physically meaningful thought experiment;
-2. strip away nonessential engineering complications;
-3. write the smallest model that answers one question exactly;
-4. check units, normalization, signs, conservation laws, and limiting cases;
-5. identify the assumption that creates the apparent tradeoff;
-6. search for counterexamples that evade that assumption;
-7. generalize only after the simple model is understood;
-8. compare with known fundamental bounds and primary literature;
-9. add realistic semiconductor physics only when it changes the logical result;
-10. specialize to specific materials/devices only after the general structure is clear.
-
-If the logic points somewhere unexpected, change direction.
-
----
-
-## 5. Required checks for load-bearing results
-
-For any equation that could become central to a paper, perform as many of the following as apply.
-
-### Dimensional analysis
-
-Every term must have consistent physical units. Record nontrivial checks.
-
-### Limiting cases
-
-Check physically interpretable limits, including where applicable:
-
-- absorber volume or absorber number tending to zero;
-- weak and strong optical coupling;
-- under-coupling, critical coupling, and over-coupling;
-- zero and finite thermal occupation;
-- narrowband and broadband limits;
-- linear-response and saturation limits;
-- vanishing and finite irreversible relaxation;
-- equilibrium and explicitly driven nonequilibrium operation.
-
-A formula that behaves incorrectly in an obvious limit is not publication-ready.
-
-### Independent derivation
-
-When a numerical coefficient or scaling exponent is load-bearing, seek a conceptually distinct derivation rather than an algebraic rearrangement of the same argument.
-
-### Numerical falsification
-
-Use numerics to try to break the analytic result. A useful numerical test should not merely encode the target formula and reproduce it.
-
-Current one-port time-domain check:
-
-`experiments/01-vanishing-absorber/numerics/one_port_time_domain_check.py`
-
-The time-domain ODE integration independently checks the modulation transfer function. The coupling-ratio grid scan is only an algebra regression and must not be described as an independent physical derivation.
-
-### Counterexample search
-
-Actively search architectures or regimes that could evade the proposed statement: field concentrators, multi-resonant structures, traveling waves, dark-state transfer, nonequilibrium reservoirs, gain, avalanche multiplication, photoconductive gain, nonlocal response, time-varying systems, etc., as relevant.
-
-A counterexample is progress.
-
----
-
-## 6. Invalidated routes — do not restart casually
-
-### Active-volume-only bound
-
-Do not attempt to prove a universal law based only on geometric active volume such as
+The current logic is:
 
 ```text
-eta^2 B <= C V_a
+weak one-port absorber
+-> if gamma_a -> 0, unity absorption becomes narrow
+
+geometric volume
+-> not fundamental; field concentration can keep gamma_a finite as V_a -> 0
+
+finite absorber number
+-> not sufficient; one-photon two-level dynamics is linear
+
+finite-transition LDOS
+-> bounded over bandwidth only after environment and separation are constrained
+
+finite emitter extent
+-> removes literal point-dipole ultraviolet divergence
+
+oscillator strength + extent
+-> still insufficient to close perturbative rate bound when selected f varies
+
+nonperturbative Hopfield model
+-> deep-strong coupling suppresses dressed access to reservoirs
+
+fixed target frequency + arbitrary bare retuning + g -> infinity
+-> at least one required dressed reservoir coupling vanishes
+```
+
+The last line is the current strongest internally derived model-level statement.
+
+---
+
+## 4. Current candidate lemma
+
+Canonical derivation:
+
+`experiments/01-vanishing-absorber/HOPFIELD_RETUNING_NO_GO.md`
+
+Use a TRK-consistent two-mode Hopfield model. Hold the lower polariton at
+
+```math
+\omega_y=\omega_t>0
+```
+
+while allowing `omega_c(g)`, `omega_b(g)` to retune and sending
+
+```math
+g\to\infty.
+```
+
+The fixed-target branch obeys
+
+```math
+(\omega_c^2-\omega_t^2)
+(\omega_b^2-\omega_t^2)
+=4g^2\frac{\omega_c}{\omega_b}\omega_t^2.
+```
+
+For fixed positive local optical and detector reservoir coupling scales, the dressed lower-polariton rates satisfy
+
+```math
+\boxed{
+\min(\Gamma_L,\Gamma_R)\to0.
+}
+```
+
+For a resolved transfer resonance,
+
+```math
+T_0
+=\frac{4\Gamma_L\Gamma_R}
+{(\Gamma_L+\Gamma_R)^2},
+```
+
+```math
+\Delta\omega_{\rm FWHM}
+=2(\Gamma_L+\Gamma_R).
+```
+
+Therefore peak transfer and linewidth cannot both remain bounded away from zero in this fixed-target infinite-internal-coupling limit.
+
+**Status:** candidate distinct supporting lemma; priority unproven.
+
+Targeted prior-art note:
+
+`experiments/01-vanishing-absorber/HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
+
+Do not present this as a universal photodetector theorem.
+
+---
+
+## 5. Invalidated routes — do not reopen casually
+
+### Active-volume-only bound — STOP
+
+The shrinking-capacitor counterexample invalidates general claims such as
+
+```text
+gamma_a/V_a <= constant
 ```
 
 or
 
 ```text
-gamma_a / V_a <= constant
+eta^2 B <= C V_a
 ```
 
-without adding explicit constraints that defeat the documented constant-capacitance counterexample.
+from passivity alone.
 
-`ACTIVE_VOLUME_COUNTEREXAMPLE.md` shows that arbitrary ideal field concentration can keep active participation finite while `V_a -> 0`.
+### Finite absorber number / saturation — STOP as missing one-photon bound
 
-Any new volume theorem must state what is fixed about:
+The one-excitation sector is linear. Prior dark-state detector models already exploit this.
 
-- the full concentrating structure;
-- its materials and losses;
-- the bounding region / spatial scale;
-- the input channel;
-- material nonlocality or microscopic degrees of freedom.
+### TRK + finite emitter extent automatically closes weak-coupling enhancement — STOP as sufficient argument
 
-### Universal efficiency-dark-count-jitter tradeoff
+The oscillator-strength/extent stress test shows that the retained inequalities do not close when the selected transition strength varies.
 
-Do not assume quantum mechanics alone imposes such a tradeoff.
+### Infinite weak-coupling Purcell rate -> infinite detector speed — STOP
 
-Young, Sarovar & Léonard, *Phys. Rev. A* 97, 033836 (2018), explicitly constructed a fully quantum detector architecture with rapid incoherent transfer to a monitored optically dark state that approaches unit efficiency, negligible dark counts, and minimal jitter under their ideal assumptions.
+The perturbative rate picture loses validity and the gauge-consistent Hopfield model exhibits deep-strong decoupling / transfer-line narrowing.
 
-Their model assumes thermally activated return from the dark state to the optically active state is negligible.
+### Universal efficiency-dark-count-jitter tradeoff from quantum mechanics alone — STOP
 
-Therefore thermodynamic and architectural resources must be stated before claiming a universal detector tradeoff.
+Prior nonequilibrium dark-state detector models provide counterexamples under their resource assumptions.
 
 ---
 
-## 7. Optical, microscopic, and detector quantities must stay distinct
+## 6. Quantity-separation rules
 
-Do not conflate:
+Do not conflate
 
-- external optical coupling;
-- active-material energy participation;
-- absorption probability;
+- geometric active volume;
+- energy participation;
 - transition/oscillator strength;
-- internal quantum efficiency;
-- carrier collection efficiency;
-- irreversible localization rate;
-- amplification gain;
+- projected LDOS;
+- bare internal light-matter coupling `g`;
+- local optical-reservoir coupling;
+- local detector-reservoir coupling;
+- dressed polariton reservoir rates;
+- peak transfer probability;
 - optical spectral linewidth;
 - absorbed-power modulation bandwidth;
-- carrier-response bandwidth;
-- readout bandwidth;
-- background count rate;
-- internal dark count rate;
-- NEP;
-- detectivity or specific detectivity.
+- carrier/readout bandwidth;
+- thermal background counts;
+- internal dark counts;
+- NEP / detectivity.
 
-Define exactly which quantity appears in every bound.
+Every use of `bandwidth` must identify the transfer function and convention.
 
-Do not use `bandwidth` without identifying the transfer function and convention: FWHM, `-3 dB`, equivalent noise bandwidth, integrated absorption bandwidth, etc.
-
-The one-port calculation established that optical absorptance FWHM and absorbed-power modulation `-3 dB` bandwidth differ by a factor of two at critical coupling.
+Every use of `dark count` must identify the physical process and distinguish it from real thermal photons entering through the signal channel.
 
 ---
 
-## 8. Noise and thermodynamic accounting rules
+## 7. Noise and thermodynamic accounting
 
-For every noise expression state:
+For every noise or irreversibility expression state
 
-- the fluctuating physical process;
-- whether it is internal detector noise or photons entering through an optical channel;
-- photon/event statistics (Poisson, thermal/bunched, sub-Poisson, etc.);
-- one-sided or two-sided spectral normalization;
-- current, voltage, power, or event-rate normalization;
-- whether correlations between spectral/temporal modes are included;
-- whether the detector is in thermal equilibrium, driven steady state, or a reset cycle;
-- what reservoir/free-energy resource makes an irreversible transition possible;
-- whether gain modifies both signal and noise.
+- the fluctuating process;
+- whether noise is internal or enters through the optical channel;
+- photon/event statistics;
+- one-sided/two-sided normalization;
+- the detector operating state: equilibrium, driven steady state, or reset cycle;
+- the reservoir or free-energy source making a transition effectively irreversible;
+- whether gain changes signal and noise together.
 
-Never call thermal background photons `dark counts` without qualification. They are real input photons even when they are indistinguishable from the desired signal.
+Do not extrapolate `D = g_d V_a` into the few-absorber regime without microscopic justification.
 
-Never extrapolate `D = g_d V_a` into the few-absorber regime without a microscopic derivation.
+The thermodynamic cost of dark-state localization/reset remains an independent open resource axis.
 
-If a factor of two is convention-dependent, state the convention rather than hiding it.
+---
+
+## 8. Required checks for load-bearing results
+
+As applicable, require
+
+1. dimensional analysis;
+2. exact limiting cases;
+3. normalization/sign checks;
+4. conceptually independent derivation when feasible;
+5. numerical or symbolic falsification attempts;
+6. adversarial architecture/counterexample search;
+7. primary-source prior-art collision;
+8. explicit domain of validity.
+
+For the fixed-target Hopfield lemma specifically, every extension must preserve the distinction between
+
+```text
+internal light-matter coupling g
+```
+
+and
+
+```text
+external optical/detector reservoir resources.
+```
+
+Scaling reservoir coupling with `g` is not a refutation unless the required resource is counted explicitly.
 
 ---
 
 ## 9. Literature protocol
 
-Prefer primary sources for technical claims.
+Prefer primary sources.
 
-For each potentially novelty-bearing idea:
+Important current anchors include
 
-1. search the exact mathematical/physical statement, not merely similar detector keywords;
-2. identify the closest prior theorem, bound, or detector model;
-3. record what is identical, what assumptions differ, and what remains unaddressed;
-4. distinguish a known ingredient from a potentially new synthesis;
-5. update the claim ledger immediately if prior art narrows or kills a branch.
+- Miller et al., *Optics Express* 24, 3329-3364 (2016): material-response limits;
+- Zmuidzinas, *Applied Optics* 42, 4989-5008 (2003): thermal photon noise;
+- Young, Sarovar & Leonard, *Physical Review A* 97, 033836 (2018): dark-state quantum detector architecture;
+- Shim et al., *Physical Review X* 9, 011043 (2019): bandwidth-averaged near-field/LDOS limits;
+- Scala et al., *New Journal of Physics* 22, 123047 (2020): finite-wavefunction regularization;
+- De Liberato, *Physical Review Letters* 112, 016401 (2014): deep-strong light-matter decoupling;
+- De Bernardis et al. (2018): gauge-consistent nonperturbative cavity QED;
+- Palafox et al., *Journal of Physics: Photonics* 7, 04LT02 (2025): Hopfield dressed decay/heat-current suppression in deep strong coupling.
 
-Important current anchors:
-
-- Miller et al., *Optics Express* 24, 3329-3364 (2016): material-response optical bounds;
-- Raman, Shin & Fan, *Phys. Rev. Lett.* 110, 183901 (2013): modal material-loss bounds;
-- Young, Sarovar & Léonard, *Phys. Rev. A* 97, 033836 (2018): quantum coherence/backaction and dark-state detector architecture;
-- Young, Sarovar & Léonard, *Phys. Rev. A* 98, 063835 (2018): general coupled quantum photodetector framework;
-- Zmuidzinas, *Applied Optics* 42, 4989-5008 (2003): thermal photon noise and bunching correlations.
-
-These are prior theory, not repository novelty.
+The exact fixed-target retuning statement still requires a broader older-literature search before publication positioning.
 
 ---
 
-## 10. Documentation rules
+## 10. Documentation roles
 
 ### `CURRENT_STATE.md`
 
-This is the recovery point. It should answer:
-
-- What question are we currently asking?
-- What has actually been established?
-- What is conjectural?
-- What failed or was corrected?
-- What is the next decisive calculation?
+Canonical recovery point: what is established, what failed, what remains.
 
 ### `CLAIM_LEDGER.md`
 
-This is the epistemic boundary. Record active claims, conjectures, known ingredients, invalidated claims, explicit non-claims, and material corrections.
+Epistemic boundary: prior ingredients, derived results, invalidated claims, candidate claims, non-claims.
 
 ### `RESEARCH_LOG.md`
 
-This is chronological. Preserve meaningful changes of direction, corrections, counterexamples, and why a branch was opened or closed.
+Chronology and reasons for direction changes.
 
 ### `ARCHIVE_STATUS.md`
 
-This prevents historical files from competing with active work. Never delete useful failed derivations merely to make the repository appear cleaner; mark them historical or stopped.
+Which artifacts are active, supporting, stopped, or historical.
 
-### Dedicated audit files
+### Dedicated derivation/audit files
 
-Create a dedicated audit only when a calculation becomes substantial enough that keeping it inside `CURRENT_STATE.md` would obscure recovery.
-
----
-
-## 11. Reproducibility
-
-Numerical work belongs under
-
-`experiments/01-vanishing-absorber/numerics/`.
-
-Rules:
-
-- state software dependencies once they matter;
-- keep independent checks logically separate from the analytic derivation they test;
-- include benchmark parameters and expected tolerances;
-- prefer small deterministic regression tests for publication-critical constants or asymptotics;
-- do not add continuous-integration machinery merely for appearance.
+Create only when the physics requires separation.
 
 ---
 
-## 12. Canonical reading order
+## 11. Canonical reading order
 
 For a fresh agent:
 
@@ -382,48 +309,35 @@ For a fresh agent:
 2. `README.md`
 3. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
 4. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-5. `experiments/01-vanishing-absorber/ONE_PORT_RESONATOR_DYNAMICS.md`
-6. `experiments/01-vanishing-absorber/ACTIVE_VOLUME_COUNTEREXAMPLE.md`
-7. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-8. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
-9. only then read numerics or future microscopic/thermal branches.
+5. `experiments/01-vanishing-absorber/HOPFIELD_RETUNING_NO_GO.md`
+6. `experiments/01-vanishing-absorber/HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
+7. `experiments/01-vanishing-absorber/NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
+8. `experiments/01-vanishing-absorber/OSCILLATOR_STRENGTH_EXTENT_STRESS_TEST.md`
+9. `experiments/01-vanishing-absorber/FINITE_EMITTER_FORM_FACTOR.md`
+10. `experiments/01-vanishing-absorber/FINITE_TRANSITION_LDOS_BANDWIDTH_BOUND.md`
+11. `experiments/01-vanishing-absorber/MICROSCOPIC_SINGLE_TRANSITION.md`
+12. `experiments/01-vanishing-absorber/THERMAL_INPUT_CHANNEL.md`
+13. `experiments/01-vanishing-absorber/ACTIVE_VOLUME_COUNTEREXAMPLE.md`
+14. `experiments/01-vanishing-absorber/ONE_PORT_RESONATOR_DYNAMICS.md`
+15. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
+16. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+
+Read older stages in reverse only when auditing provenance.
 
 ---
 
-## 13. Current next step
+## 12. Current next step
 
-Do **not** restart the one-port cavity derivation or the active-volume-only bound unless a concrete contradiction is found.
+Do **not** restart the volume, single-transition, or weak-coupling-LDOS branches without a concrete new contradiction.
 
-The continuum model has run out of physical content in the `V_a -> 0` limit. The next bottleneck is the transition to microscopic light-matter coupling and thermodynamic resource accounting.
+The next adversarial problem is:
 
-Proceed along two tightly controlled tests rather than trying to announce a universal theorem:
+> **Can a multimode optical environment or deliberately scaled reservoir engineering maintain both finite optical-to-detector peak transfer and finite bandwidth at a fixed target frequency as the internal light-matter coupling becomes arbitrarily large?**
 
-### A. Microscopic absorber
+Proceed in this order:
 
-Use the smallest explicit absorber model needed to replace bulk susceptibility:
-
-1. finite transition/oscillator strength;
-2. field normalized to a single photon;
-3. explicit radiative coupling to the incident mode;
-4. explicit irreversible localization/detection channel;
-5. saturation and finite-state effects;
-6. thermal reverse rates where relevant.
-
-Ask whether increasing field concentration can compensate indefinitely for reducing absorber number.
-
-### B. Restricted thermal-input problem
-
-Before attempting a full equilibrium detector theorem, analyze one passive optical input channel in a thermal state:
-
-1. use Bose occupation `n_bar(omega,T)`;
-2. fold it through the exact one-port absorptance `A(omega)`;
-3. retain thermal photon bunching, not a Poisson approximation unless `n_bar << 1` is explicitly invoked;
-4. derive mean background count rate and zero-frequency count noise;
-5. combine with the already-defined absorbed-power modulation bandwidth;
-6. optimize the coupling ratio without assuming critical coupling in advance.
-
-This result must be labeled a **thermal input-channel/background limit**, not a universal internal dark-count bound.
-
-Only after these two tests should the project decide whether a genuine fundamental detector statement remains.
-
-Do not add HgCdTe-specific transport yet.
+1. test a passive multimode Hopfield/star environment while keeping the target dressed frequency fixed;
+2. identify whether the two-access-channel proof has a linear-algebraic generalization or a clear multimode counterexample;
+3. separately test scaling `gamma_L(g)` or `gamma_R(g)` and quantify what resource scaling is required to defeat the two-mode result;
+4. only if the result survives, broaden the prior-art search and add symbolic/numerical regression;
+5. do not add HgCdTe-specific transport until the general optical constraint has either survived or failed.
