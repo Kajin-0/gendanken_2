@@ -1,9 +1,13 @@
 # Experiment 01 — Artifact Status Map
 
 **Date:** 2026-08-09  
-**Purpose:** keep the active frontier distinct from supporting, superseded, and stopped branches.
+**Purpose:** keep the active frontier distinct from supporting, corrected, superseded, and stopped branches.
 
 > Live `main`, root `AGENTS.md`, `CURRENT_STATE.md`, and `CLAIM_LEDGER.md` are authoritative.
+
+There is still **no manuscript**.
+
+---
 
 ## A. Canonical active frontier
 
@@ -11,182 +15,220 @@ Read first:
 
 1. `CURRENT_STATE.md`
 2. `CLAIM_LEDGER.md`
-3. `HGCDTE_LINEAR_GRADED_KANE_WKB.md`
-4. `HGCDTE_BANDGAP_GRADIENT_ESCAPE_AUDIT.md`
-5. `HGCDTE_FIELD_PROFILE_VARIATIONAL_BOUND.md`
-6. `HGCDTE_TWO_REGION_FIELD_ALLOCATION.md`
-7. `HGCDTE_VOLTAGE_TRANSIT_FIELD_ALLOCATION.md`
-8. `HGCDTE_TAT_FIELD_SCALE.md`
-9. `HGCDTE_TAT_BTBT_CROSSOVER.md`
-10. `HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
-11. `RESEARCH_LOG.md`
+3. `HGCDTE_SPECTRAL_DELAY_PEAK.md`
+4. `HGCDTE_SPECTRAL_DELAY_RELAXATION_ROBUSTNESS.md`
+5. `HGCDTE_PROPOSED_SPECTRAL_TIMING_EXPERIMENT.md`
+6. `HGCDTE_SPECTRAL_TRANSIT_STATISTICS.md`
+7. `HGCDTE_HEAVY_HOLE_PHOTOEXCITATION_LIMIT.md`
+8. `HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md`
+9. `HGCDTE_SPECTRAL_GENERATION_DISTRIBUTION.md`
+10. `HGCDTE_SPECTRAL_GENERATION_TRANSPORT.md`
+11. `HGCDTE_SPECTRAL_TRANSIT_PRIOR_ART_AUDIT.md`
+12. `RESEARCH_LOG.md`
 
-There is still **no manuscript**.
+### Current candidate prediction
 
-## B. Current strongest model-level corollary
-
-### `HGCDTE_LINEAR_GRADED_KANE_WKB.md`
-
-**Status:** active exact linear-profile WKB derivation; priority unassessed; no novelty claim.
-
-For fixed useful conduction-band slope with grading fraction `eta`,
+In the stated high-optical-depth graded-transport model,
 
 ```math
 \boxed{
-\mathcal S_Z(\eta)/\mathcal S_Z(0)
-=(1-\eta)^2/(1-2\eta)^{3/2}
+T(E_\gamma)
+\text{ has a maximum at }
+E_\gamma=E_{g,\rm in}.
 }
 ```
 
-for `0<=eta<1/2`.
+Equivalently,
 
-Direct numerical WKB integration checks the closed action.
-
-## C. Active field-engineering branch
-
-### `HGCDTE_BANDGAP_GRADIENT_ESCAPE_AUDIT.md`
-
-**Status:** active ideal two-band interpretation.
-
-Role: separates common-mode band tilt from gap-gradient carrier drive and identifies finite band-edge drop as the grading resource.
-
-### `HGCDTE_FIELD_PROFILE_VARIATIONAL_BOUND.md`
-
-**Status:** active homogeneous no-go within local model.
-
-Role: proves uniform field uniquely minimizes local WKB leakage at fixed transit time in the stated homogeneous high-field transport family.
-
-### `HGCDTE_TWO_REGION_FIELD_ALLOCATION.md`
-
-**Status:** active heterostructure allocation result.
-
-Role: field should equalize marginal leakage cost per marginal transit-time reduction across regions.
-
-### `HGCDTE_VOLTAGE_TRANSIT_FIELD_ALLOCATION.md`
-
-**Status:** active bias-resource result.
-
-Role: exact `VT` lower bound and two-region field contrast versus extra bias.
-
-## D. Active competing leakage branch
-
-### `HGCDTE_TAT_FIELD_SCALE.md`
-
-**Status:** active TAT exponent-scale comparison.
-
-### `HGCDTE_TAT_BTBT_CROSSOVER.md`
-
-**Status:** active defect-density crossover/material-quality relation.
-
-### `HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
-
-**Status:** active nonlocal II surrogate.
-
-### `HGCDTE_RELAXATION_LENGTH_PHASE_BOUNDARY.md`
-
-**Status:** active sensitivity boundary for missing `ell_E(F)` data.
-
-### `HGCDTE_IMPACT_IONIZATION_DEAD_SPACE.md`
-
-**Status:** active correction preventing bulk II onset from being misused as a finite-device threshold.
-
-## E. Direct-BTBT / transport supporting files
-
-- `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
-- `HGCDTE_KANE_SCALE_AUDIT.md`
-- `HGCDTE_FIELD_REGIME_MAP.md`
-- `HGCDTE_TRANSPORT_BTBT_PHASE_BOUNDARY.md`
-- `FIELD_DRIVEN_COLLECTION_TUNNELING.md`
-
-These remain active provenance but are no longer the sole frontier.
-
-## F. Earlier electronic-filter supporting branch
-
-Retain:
-
-- `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`
-- `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`
-- `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`
-- `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`
-
-These explain why contact detailed balance, linewidth broadening and filter delay were insufficient as universal limits.
-
-## G. Earlier optical/control supporting branch
-
-Retain for provenance:
-
-- `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
-- `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
-- `TIME_DEPENDENT_CAPTURE_AUDIT.md`
-- `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`
-- `ADAPTIVE_FEEDFORWARD_MODE_CAPACITY.md`
-- `OUTPUT_RECORD_INFORMATION_CAPACITY.md`
-- `ALWAYS_ON_TEMPORAL_COVERAGE.md`
-- Hopfield/LDOS/one-port supporting files.
-
-These are no longer the active material direction.
-
-## H. Permanent branch-closing artifacts
-
-### `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
-
-Prevents resurrection of active-volume-only universal bounds.
-
-### Homogeneous nonuniform-field escape — STOPPED within local model
-
-`HGCDTE_FIELD_PROFILE_VARIATIONAL_BOUND.md` shows field shaping alone cannot improve the stated homogeneous speed/local-WKB tradeoff.
-
-### Bulk `100 V/cm` II threshold interpretation — STOPPED
-
-Finite-device II requires dead-space/energy-history treatment.
-
-### Direct-BTBT-first ordinary-LWIR assumption — STOPPED
-
-TAT, II and transport nonlinearity are separate and can intervene earlier.
-
-## I. Numerical regressions
-
-Active:
-
-```text
-numerics/hgcdte_graded_kane_wkb.py
-numerics/hgcdte_field_profile_variational.py
-numerics/hgcdte_relaxation_length_phase_boundary.py
-numerics/hgcdte_nonlocal_ii_surrogate.py
-numerics/hgcdte_impact_dead_space.py
-numerics/hgcdte_field_regime_map.py
-numerics/hgcdte_btbt_normalized_sweep.py
-numerics/passive_multimode_h2_stress.py
-numerics/one_port_time_domain_check.py
+```math
+\boxed{
+\lambda_{\rm peak}\simeq hc/E_{g,\rm in}.
+}
 ```
 
-No CI workflow is justified yet.
+Status:
 
-## J. Prior-art status
+**CANDIDATE DISTINCT / UNDEREXPLORED ANALYTIC PREDICTION — PRIORITY UNPROVEN.**
 
-Known prior anchors include
+The timing peak survives the current deterministic mean-energy-relaxation robustness test but has not yet been tested with a full scattering model or experiment.
 
-- Kane/Zener tunneling;
-- WKB graded-gap HgCdTe;
-- analytical HgCdTe heterojunction band profiles;
-- composition-gradient built-in fields;
-- HgCdTe APD field engineering;
-- TAT/defect-limited HgCdTe leakage;
-- nonlocal/dead-space avalanche transport.
+---
 
-The exact fixed-conduction-slope graded-action ratio has not been found in the focused search, but priority remains unassessed.
+## B. Active spectral-timing derivations
 
-## K. Forward branch
+### `HGCDTE_SPECTRAL_DELAY_PEAK.md`
 
-Next:
+**Status:** active candidate prediction.
 
-1. choose a finite HgCdTe composition profile;
-2. use realistic conduction/valence band-offset partition;
-3. solve Poisson electrostatics;
-4. compute `E_c(x),E_v(x)`;
-5. compute transit and direct WKB action;
-6. add TAT/interface states;
-7. add nonlocal II;
-8. rerun prior-art/publication audit.
+Role: derives the nonmonotonic high-optical-depth timing curve and entrance-gap delay maximum.
 
-Do not open a manuscript until this attack is complete.
+### `HGCDTE_SPECTRAL_DELAY_RELAXATION_ROBUSTNESS.md`
+
+**Status:** active numerical robustness result.
+
+Role: couples mean energy relaxation to Kane group velocity and shows the peak remains at the entrance gap across the tested parameter sweep.
+
+### `HGCDTE_PROPOSED_SPECTRAL_TIMING_EXPERIMENT.md`
+
+**Status:** active falsification plan.
+
+Role: proposes a tunable-wavelength timing sweep using differential group delay / normalized impulse centroid to reduce common readout contamination.
+
+### `HGCDTE_SPECTRAL_TRANSIT_STATISTICS.md`
+
+**Status:** active corrected ballistic timing kernel.
+
+Role: combines the exact optical-depth generation distribution with nonzero photoelectron initial energy.
+
+### `HGCDTE_HEAVY_HOLE_PHOTOEXCITATION_LIMIT.md`
+
+**Status:** active HgCdTe-specific specialization.
+
+Role: shows why the flat-heavy-hole Kane limit gives `xi_e approximately 1` and derives the endpoint maximum of exit mean electron energy.
+
+### `HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md`
+
+**Status:** active correction note.
+
+Role: records the invalidation of the cold-downstream-photoelectron assumption and introduces `xi_e`.
+
+### `HGCDTE_SPECTRAL_GENERATION_DISTRIBUTION.md`
+
+**Status:** active exact optical statistic plus corrected energy mapping.
+
+Role: derives the conditional truncated-exponential generation distribution in optical-depth coordinates.
+
+### `HGCDTE_SPECTRAL_GENERATION_TRANSPORT.md`
+
+**Status:** active spectral geometry.
+
+Role: maps wavelength to first allowed generation position and remaining graded transport distance.
+
+### `HGCDTE_SPECTRAL_TRANSIT_PRIOR_ART_AUDIT.md`
+
+**Status:** active prior-art boundary.
+
+Role: separates known graded-HgCdTe spectral/timing physics from the candidate entrance-gap timing peak.
+
+---
+
+## C. Active supporting graded-device branch
+
+These files remain scientifically active because they define the material architecture behind the timing prediction, but they are no longer the immediate frontier.
+
+### `HGCDTE_DIMENSIONLESS_DEVICE_PHASE_MAP.md`
+
+Absorber nonlocal-II margin + boundary local-tunneling margin + normalized latency.
+
+### `HGCDTE_GRADED_NONLOCAL_II_PHASE_BOUNDARY.md`
+
+Exact deterministic mean-energy phase boundary inside the one-relaxation-length model.
+
+### `HGCDTE_II_SAFE_TRANSIT_CEILING.md`
+
+Lambert-W inversion giving required relaxation distance/time for aggressive grading.
+
+### `HGCDTE_BALLISTIC_GRADING_SPAN_RULE.md`
+
+Ballistic gap/cutoff-span sanity rule.
+
+### `HGCDTE_BOUNDARY_COOLING_TRANSIT_FLOOR.md`
+
+Combines boundary cooling length and local TAT/BTBT width floors.
+
+### `HGCDTE_GRADED_ABSORBER_BOUNDARY_RELAXATION.md`
+
+Shows that a minimally compensated wider-gap boundary can act as a relaxation region rather than adding downhill carrier work.
+
+### `HGCDTE_QUASINEUTRAL_GRADING_SELF_CONSISTENCY.md`
+
+Majority-band pinning in quasi-neutral p-type graded HgCdTe.
+
+### `HGCDTE_LINEAR_GRADED_KANE_WKB.md`
+
+Exact linear-profile direct-Zener WKB result at fixed conduction drive.
+
+### `HGCDTE_TAT_TOLERANCE_FIELD_ALLOCATION.md`
+
+Local TAT/BTBT voltage-capacity and maximin field-allocation result.
+
+### `HGCDTE_ELECTROSTATIC_COMPENSATION_PEAK_FIELD_BOUND.md`
+
+Integral peak-field lower bound for barrier compensation.
+
+---
+
+## D. Corrected / superseded spectral statements
+
+### Cold downstream photoelectron
+
+**Status:** INVALIDATED.
+
+Downstream absorption with `E_gamma > E_g(x)` creates nonzero photoelectron excess energy.
+
+Use `HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md` and the corrected spectral files.
+
+### Symmetric `xi_e=1/2` treated as HgCdTe material value
+
+**Status:** STOPPED SHORTCUT.
+
+It is exact only for the symmetric two-band optical transition. HgCdTe heavy-hole-to-electron transitions motivate a baseline closer to `xi_e=1` in the flat-heavy-hole simplified Kane limit.
+
+### Monotonic `higher QE -> lower timing jitter`
+
+**Status:** INVALIDATED GENERALIZATION.
+
+The generation-position timing spread can be mildly nonmonotonic at finite optical depth before tending to zero in the optically thick limit.
+
+---
+
+## E. Earlier supporting/stopped branches
+
+Preserve but do not restart casually:
+
+- active-volume-only detector theorem;
+- finite absorber count as one-photon limit;
+- LDOS-only universal limit;
+- fixed-target Hopfield branch as universal theorem;
+- finite internal rank as always-on detector capacity;
+- universal pump-bandwidth law;
+- contact single-pole filter as universal speed/leakage law;
+- low-field mobility extrapolation into high-field HgCdTe;
+- direct BTBT assumed first high-field limiter;
+- homogeneous nonuniform-field shaping as automatic improvement;
+- local `F_II(x)` used in thin devices without energy history;
+- pure grading assumed to eliminate all leakage.
+
+These remain provenance in the claim ledger and research log.
+
+---
+
+## F. Current numerical regressions
+
+```text
+numerics/hgcdte_spectral_delay_relaxation.py
+numerics/hgcdte_spectral_delay_peak.py
+numerics/hgcdte_spectral_transit_statistics.py
+numerics/hgcdte_dimensionless_device_phase_map.py
+numerics/hgcdte_ii_safe_transit_ceiling.py
+numerics/hgcdte_graded_nonlocal_ii_phase_boundary.py
+numerics/hgcdte_graded_kane_wkb.py
+numerics/hgcdte_field_profile_variational.py
+numerics/hgcdte_nonlocal_ii_surrogate.py
+numerics/hgcdte_btbt_normalized_sweep.py
+```
+
+No CI is justified yet.
+
+---
+
+## G. Next active work
+
+The next step should be one of only two things:
+
+1. replace the deterministic mean-energy transport with a physically stronger momentum-scattering / drift-diffusion / Monte Carlo model and retest the timing peak; or
+2. obtain/reanalyze wavelength-resolved timing data on a compositionally graded HgCdTe detector.
+
+Do not add more abstract detector-resource branches before one of these tests.
+
+If the entrance-gap timing maximum survives stronger transport physics and remains absent from prior literature, reassess manuscript readiness.
