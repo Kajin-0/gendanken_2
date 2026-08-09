@@ -1,15 +1,15 @@
 # Current State — Experiment 01: The Vanishing Absorber
 
 **Date:** 2026-08-09  
-**Status:** exploratory; active frontier is graded-band HgCdTe transport versus direct Zener/TAT/nonlocal II; no novelty claim
+**Status:** exploratory; active frontier is self-consistent graded HgCdTe plus collection-boundary TAT/BTBT/defect allocation; no novelty claim
 
 ## 1. Current question
 
-The original active-volume idea has been falsified. After optical, quantum, control, and semiconductor counterexamples, the project has reached a concrete materials question:
+The original active-volume idea has been falsified. The project has progressively moved through optical confinement, microscopic transitions, passive/active network resources, and semiconductor transport.
 
-> **Can HgCdTe band-structure engineering supply fast carrier collection without paying the same tunneling penalty as a homogeneous electrostatic field?**
+The current question is now concrete:
 
-The answer is now partly yes in an idealized two-band model, but the real device must still survive TAT, nonlocal impact ionization, band offsets, and self-consistent electrostatics.
+> **Can a realistic graded HgCdTe detector use band-structure drive for fast minority-carrier collection while placing the unavoidable junction electrostatic field in sufficiently wide-gap, low-defect material that TAT, direct BTBT, and nonlocal impact ionization remain controlled?**
 
 There is still **no manuscript**.
 
@@ -17,192 +17,45 @@ There is still **no manuscript**.
 
 After root `AGENTS.md`:
 
-1. `HGCDTE_LINEAR_GRADED_KANE_WKB.md`
-2. `HGCDTE_BANDGAP_GRADIENT_ESCAPE_AUDIT.md`
-3. `HGCDTE_FIELD_PROFILE_VARIATIONAL_BOUND.md`
-4. `HGCDTE_TWO_REGION_FIELD_ALLOCATION.md`
-5. `HGCDTE_VOLTAGE_TRANSIT_FIELD_ALLOCATION.md`
-6. `HGCDTE_TAT_FIELD_SCALE.md`
-7. `HGCDTE_TAT_BTBT_CROSSOVER.md`
-8. `HGCDTE_RELAXATION_LENGTH_PHASE_BOUNDARY.md`
-9. `HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
-10. `HGCDTE_IMPACT_IONIZATION_DEAD_SPACE.md`
-11. `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
-12. `CLAIM_LEDGER.md`
-13. `RESEARCH_LOG.md`
+1. `HGCDTE_QUASINEUTRAL_GRADING_SELF_CONSISTENCY.md`
+2. `HGCDTE_GRADED_POISSON_ROBUSTNESS.md`
+3. `HGCDTE_LINEAR_GRADED_KANE_WKB.md`
+4. `HGCDTE_BOUNDARY_LAYER_TAT_TRADEOFF.md`
+5. `HGCDTE_ELECTROSTATIC_COMPENSATION_PEAK_FIELD_BOUND.md`
+6. `HGCDTE_TAT_TOLERANCE_FIELD_ALLOCATION.md`
+7. `HGCDTE_TAT_FIELD_SCALE.md`
+8. `HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
+9. `HGCDTE_BANDGAP_GRADIENT_ESCAPE_AUDIT.md`
+10. `HGCDTE_FIELD_PROFILE_VARIATIONAL_BOUND.md`
+11. `CLAIM_LEDGER.md`
+12. `RESEARCH_LOG.md`
 
-## 3. Homogeneous field shaping is closed in the local model
+Older optical/control branches remain important provenance but are no longer the active frontier.
 
-For homogeneous transport
+## 3. Graded-Kane direct-Zener result
+
+For a one-dimensional two-band/Kane dispersion
 
 ```math
-v(F)=\frac{\mu F}{1+(F/d)^r},
-\qquad r>1,
+(E-U)^2=\Delta^2+(\hbar v_K k)^2,
+\qquad E_g=2\Delta,
 ```
 
-and local WKB leakage
+and linear band edges
 
 ```math
-g(F)=A F^p e^{-K/F},
-\qquad p>0,
-```
-
-the leakage is strictly convex as a function of reciprocal velocity on the entire rising-velocity branch.
-
-Fields above the velocity maximum are dominated because they give lower/equal speed and higher leakage.
-
-Therefore, for fixed transit time
-
-```math
-T=\int_0^L\frac{dx}{v[F(x)]},
-```
-
-```math
-\boxed{
-G[F]\equiv\int_0^L g[F(x)]dx
-\ge Lg(F_0),
-}
-```
-
-where `F_0` is the unique uniform rising-branch field satisfying
-
-```math
-v(F_0)=L/T.
-```
-
-Thus **field shaping alone cannot beat the speed–local-tunneling tradeoff in one homogeneous material under the stated local model.**
-
-## 4. Heterogeneity is the real escape
-
-For spatially varying material parameters, the interior optimum obeys
-
-```math
-\boxed{
--\frac{\partial g/\partial F}
-{\partial(1/v)/\partial F}
-=\lambda.
-}
-```
-
-The field should be allocated until each region has the same marginal leakage cost per marginal reduction in transit time.
-
-For two ohmic WKB regions,
-
-```math
-\boxed{
-\mathcal M_i(F)
-=\mu_iA_iF^{p+1}
- e^{-K_i/F}
-(p+K_i/F).
-}
-```
-
-A larger tunneling barrier or lower leakage prefactor can rationally receive more field.
-
-The dimensionless two-region example in the repo lowers modeled tunneling exposure by about `20.6%` while using only about `2.2%` additional voltage at fixed transit time.
-
-## 5. Voltage is an independent resource
-
-For ohmic spatial transport,
-
-```math
-V=\int Fdx,
+E_c=E_{c0}-S_cx,
 \qquad
-T=\int\frac{dx}{\mu(x)F(x)},
+E_v=E_{v0}-S_vx,
 ```
 
-Cauchy-Schwarz gives
-
-```math
-\boxed{
-VT
-\ge
-\left[
-\int_0^L\frac{dx}{\sqrt{\mu(x)}}
-\right]^2.
-}
-```
-
-Equality requires
-
-```math
-\boxed{
-F(x)\propto\mu(x)^{-1/2}.
-}
-```
-
-Therefore leakage-protecting field redistribution generally consumes extra bias above the kinematic minimum.
-
-For two equal-length/equal-mobility regions, if
-
-```math
-\beta=V/V_{\min}\ge1,
-```
-
-then the exact allowed field contrast at fixed transit time is
-
-```math
-\boxed{
-s=\sqrt{1-1/\beta},}
-```
-
-```math
-\boxed{
-F_{\rm low,high}
-=F_{\rm bar}/(1\pm s).
-}
-```
-
-## 6. Composition grading changes the Hamiltonian, not just `F(x)`
-
-Use the idealized two-band/Kane landscape
-
-```math
-H=U(x)I+v_Kp\sigma_x+\Delta(x)\sigma_z,
-```
-
-with
-
-```math
-E_c=U+\Delta,
-\qquad
-E_v=U-\Delta,
-\qquad
-E_g=2\Delta.
-```
-
-A common-mode slope `U'` and a gap slope `Delta'` both affect the conduction-band force, but they move the valence edge differently.
-
-This is the core reason grading can escape the homogeneous-field theorem.
-
-## 7. Exact linear graded-gap WKB result
-
-For linear edges
-
-```math
-E_c(x)=E_{c0}-S_cx,
-```
-
-```math
-E_v(x)=E_{v0}-S_vx,
-```
-
-with `S_c,S_v>0`, the forbidden wavevector is
-
-```math
-\kappa(x)
-=\frac{\sqrt{[E_c-E][E-E_v]}}
-{\hbar v_K}.
-```
-
-The WKB action integrates exactly:
+the direct interband WKB action is
 
 ```math
 \boxed{
 \mathcal S(E)
 =\frac{\pi\sqrt{S_cS_v}}
-{4\hbar v_K}
-(x_c-x_v)^2.
+{4\hbar v_K}(x_c-x_v)^2.
 }
 ```
 
@@ -216,227 +69,396 @@ The constant-gap common-field limit recovers
 }
 ```
 
-Thus the normalized direct-BTBT Kane exponent used earlier is recovered exactly.
+This is a checked model-level result.
 
-## 8. Fixed transport slope: grading strictly suppresses the direct linear Zener path
+## 4. Band-offset partition cancels from the decisive geometry
 
-Decompose
-
-```math
-S_c=S_U+S_\Delta,
-```
+Define the local gap slope
 
 ```math
-S_v=S_U-S_\Delta.
+G=-\frac{dE_g}{dx}>0
 ```
 
-Hold the useful conduction slope fixed at
+and positive downhill edge slopes
 
 ```math
-S_c=S
+S_c=-\frac{dE_c}{dx},
+\qquad
+S_v=-\frac{dE_v}{dx}.
 ```
 
-and define
+Because `E_g=E_c-E_v`, identically
 
 ```math
-\eta=S_\Delta/S.
+\boxed{S_v=S_c-G.}
 ```
 
-Then
+Thus the relative conduction/valence geometry does not depend on how the bare composition shift is partitioned between the bands.
+
+At fixed useful conduction slope `S_c=S`, define
 
 ```math
-S_U=(1-\eta)S,
+\boxed{\delta=G/S.}
 ```
 
-```math
-S_v=(1-2\eta)S.
-```
-
-For
-
-```math
-0\le\eta<1/2,
-```
-
-the exact action ratio is
+For the linear two-turning-point model,
 
 ```math
 \boxed{
-\frac{\mathcal S_Z(\eta)}
+\frac{\mathcal S_Z(\delta)}
 {\mathcal S_Z(0)}
 =
-\frac{(1-\eta)^2}
-{(1-2\eta)^{3/2}}.
+\frac{(2-\delta)^2}
+{4(1-\delta)^{3/2}},
+\qquad
+0\le\delta<1.
 }
 ```
 
-Its derivative is strictly positive:
+This ratio increases strictly and diverges as `delta -> 1-`.
+
+For a finite linear region,
 
 ```math
 \boxed{
-\frac{d\ln R}{d\eta}
-=\frac{1+\eta}
-{(1-\eta)(1-2\eta)}>0.
+\delta=\Delta E_g/\Delta E_c.
 }
 ```
 
-Therefore any positive grading contribution increases the direct-Zener WKB action at the same conduction-band downhill slope.
-
-As
+So the ideal same-direction direct-Zener geometry closes when
 
 ```math
-\eta\to1/2^{-},
+\boxed{\Delta E_g\ge\Delta E_c.}
 ```
 
-the valence turning point recedes and the action diverges.
+This statement does not eliminate TAT, interface tunneling, or other nonlocal processes.
 
-For
+## 5. Self-consistent quasi-neutral p-type interior is favorable
+
+At equilibrium, for nondegenerate holes,
 
 ```math
-\eta\ge1/2,
+p=N_v\exp[(E_v-E_F)/(k_BT)].
 ```
 
-the valence edge is flat or tilts in the opposite direction; if the finite graded region remains positive-gap and terminates before gap closure, the conventional same-energy two-turning-point direct-Zener path is absent inside this ideal model.
-
-This does **not** eliminate TAT, interface tunneling, phonon-assisted processes, or electrostatic tilt generated self-consistently by charge.
-
-## 9. Grading consumes finite band-structure resource
-
-In the symmetric two-band picture,
-
-```math
-S_\Delta L=\Delta E_g/2.
-```
-
-Thus supplying fraction `eta` of conduction slope `S` by grading requires
+In a quasi-neutral p-type region, `p approximately N_A`, giving
 
 ```math
 \boxed{
-\Delta E_g
-=2\eta SL.
+S_v
+\simeq
+-k_BT\frac{d}{dx}\ln(N_A/N_v).
 }
 ```
 
-The `eta=1/2` point therefore requires a total gap change equal to the conduction-band driving energy drop `SL`.
+Since
 
-Composition grading trades electrical-field resource for finite band-edge/gap-profile resource; it is not free acceleration.
+```math
+S_c=S_v+G,
+```
 
-## 10. HgCdTe experiments make the escape physically relevant
+nearly constant `N_A/N_v` yields
 
-Established HgCdTe work reports composition-gradient built-in/quasi-electric fields that materially affect minority-carrier transport. Primary studies report fields of order `100–200 V/cm` for linear gradients in measured structures and much larger local values for nonlinear grading.
+```math
+\boxed{
+S_v\approx0,
+\qquad
+S_c\approx G,
+\qquad
+\delta\approx1.
+}
+```
 
-A graded-band uncooled MWIR HgCdTe detector has been reported with roughly `1.33 ns` total response time (`750 MHz`) at zero bias, and newer graded-composition APD structures explicitly use wide-gap gradients and built-in fields to guide carriers while controlling dark current.
+Interpretation:
 
-These are not tests of the exact WKB slope-ratio formula.
+> **A quasi-neutral p-type graded HgCdTe interior can naturally pin the majority-hole band while leaving the composition-induced gap slope available as minority-electron conduction-band drive.**
 
-## 11. Competing leakage mechanisms remain active
+Self-consistent electrostatics therefore does not necessarily destroy the graded escape; in the quasi-neutral interior it can reinforce the desired band geometry.
+
+For n-type quasi-neutral material, the analogous pinning acts mainly on the conduction band and naturally favors minority-hole drive.
+
+## 6. Uniform-depletion picture fails quickly with length
+
+For an illustrative uniform net space charge `N_eff` over length `L`, a sufficient condition to keep the valence edge from tilting downhill anywhere is
+
+```math
+\boxed{
+\Delta E_g-\Delta E_c
+\ge
+\frac{q^2|N_{\rm eff}|L^2}{2\epsilon}.
+}
+```
+
+The `N_eff L^2` scaling becomes severe for multi-micron HgCdTe at ordinary doping.
+
+The active physical picture is therefore
+
+```text
+quasi-neutral graded interior
++
+short screening/depletion collection boundary.
+```
+
+## 7. Collection boundary: barrier-free extraction costs electrostatic voltage
+
+Let the boundary increase the gap by
+
+```math
+\Delta E_g>0
+```
+
+and let `alpha` be the fraction of the material gap increase appearing in the conduction band.
+
+Barrier-free minority-electron extraction requires
+
+```math
+\boxed{qV_b\ge\alpha\Delta E_g.}
+```
+
+At minimum compensation,
+
+```math
+\boxed{
+\Delta E_c=0,
+\qquad
+\Delta E_v=-\Delta E_g.
+}
+```
+
+Thus a wide-gap boundary can keep electrons barrier free while increasing valence-band separation.
+
+Composition/doping modulation and delta-doped HgCdTe barrier structures already exploit related band-engineering ideas; the architecture itself is prior art.
+
+## 8. Electrostatic shaping cannot make the compensation field disappear
+
+For any one-sign compensating field over physical width `w`,
+
+```math
+V_b=\int_0^wF(x)dx.
+```
+
+Therefore
+
+```math
+\boxed{F_{\max}\ge V_b/w.}
+```
+
+At minimum barrier-free compensation,
+
+```math
+\boxed{
+F_{\max}
+\ge
+\frac{\alpha\Delta E_g}{qw}.
+}
+```
+
+Uniform field saturates this peak-field lower bound.
+
+Delta doping or depletion shaping can redistribute the required field into better material, but cannot supply the same electrostatic voltage across width `w` with a smaller peak field than `V_b/w`.
+
+## 9. Boundary TAT width and delay floor
+
+Use the established local TAT exponent scale
+
+```math
+\exp(-F_{\rm TAT}/F),
+```
+
+with
+
+```math
+\boxed{
+F_{\rm TAT}
+=\frac{4\sqrt{2m^*}\Delta_t^{3/2}}
+{3q\hbar}.
+}
+```
+
+Demand a minimum exponent margin `Sigma_t` everywhere.
+
+Then the peak-field bound gives the necessary boundary-width condition
+
+```math
+\boxed{
+w
+\ge
+\frac{\alpha\Delta E_g}
+{qF_{\rm TAT}}
+\Sigma_t.
+}
+```
+
+For characteristic crossing speed `v_b`,
+
+```math
+\boxed{
+t_b
+\ge
+\frac{\alpha\Delta E_g}
+{qF_{\rm TAT}v_b}
+\Sigma_t.
+}
+```
+
+This is not a complete TAT-current theorem because trap density, occupancy, cross section, and prefactors remain essential.
+
+A representative 50 nm, 0.124 eV -> 0.25 eV compensated boundary gives a compensation field of order `1.7e4 V/cm`. For a trap `0.3 E_g` below the local conduction band, the simplified Kane-scaled TAT exponent is of order 10. This only demonstrates plausibility; it is not a device current prediction.
+
+## 10. Measured defect spectra make the boundary a materials problem
+
+HgCdTe studies report
+
+- TAT-sensitive LWIR trap populations around `10^14 cm^-3` in some modeled devices;
+- dominant damaging levels around `E_v + 0.7 E_g` in one 77 K LWIR analysis;
+- DLTS-resolved electron and hole traps with capture cross sections spanning orders of magnitude in multilayer HgCdTe heterostructures;
+- distinct defect signatures in wide-gap layers.
+
+Therefore the high-field boundary cannot be characterized by one universal `Delta_t`.
+
+The likely resource is now the **spatial defect spectrum** together with the available wide-gap band structure.
+
+## 11. Exact exponent-level field allocation rule
+
+Let `F_T(x)` be the local TAT characteristic field and require fixed compensation voltage
+
+```math
+V_b=\int Fdx.
+```
+
+Choose `F(x)` to maximize the worst local TAT exponent.
+
+The exact maximin allocation is
+
+```math
+\boxed{
+F_{\rm opt}(x)
+=\frac{V_bF_T(x)}
+{\int F_T(x')dx'}.
+}
+```
+
+The optimized minimum exponent is
+
+```math
+\boxed{
+\Sigma_{\rm TAT}^{\rm maximin}
+=\frac{\int F_T(x)dx}{V_b}.
+}
+```
+
+Thus the optimal exponent-level rule is:
+
+> **put more of the unavoidable electric field where the local material/trap spectrum tolerates more field, equalizing normalized tunneling stress.**
+
+A conservative generalized tolerance profile can include several mechanisms,
+
+```math
+F_{\rm tol}(x)
+=\min[
+F_{\rm TAT}/\Sigma_t,
+F_K/\Sigma_Z,
+F_{\rm II},
+...].
+```
+
+Then a necessary one-dimensional feasibility condition is
+
+```math
+\boxed{V_b\le\int F_{\rm tol}(x)dx.}
+```
+
+If this fails, no electrostatic field profile can provide the required band alignment without violating at least one chosen local field ceiling.
+
+## 12. What remains from the older field-shaping theorem
+
+For a homogeneous material with local velocity `v(F)` and WKB leakage `g(F)`, nonuniform field alone does not beat the fixed-transit-time leakage trade in the repository model.
+
+Heterogeneity is the real resource.
+
+At a general transit-constrained interior optimum,
+
+```math
+\boxed{
+-\frac{\partial g/\partial F}
+{\partial(1/v)/\partial F}
+=\lambda.
+}
+```
+
+The new maximin boundary rule is the robust exponent-only limit when the full leakage prefactors are not trustworthy enough for that variational optimization.
+
+## 13. Competing mechanisms remain active
 
 ### TAT
 
-For a trap a depth
-
-```math
-\Delta_t=E_g-E_T
-```
-
-below the conduction band,
-
 ```math
 \boxed{
-\frac{F_{\rm TAT}}{F_K}
-=\frac{16}{3\pi}
-(\Delta_t/E_g)^{3/2}.
+F_{\rm TAT}/F_K
+=\frac{16}{3\pi}(\Delta_t/E_g)^{3/2}.
 }
 ```
 
-Near-band-edge traps can therefore open a tunneling path at a much smaller exponent scale than direct BTBT.
+### Nonlocal impact ionization
 
-Real LWIR HgCdTe studies report technologically relevant trap densities around `10^13–10^14 cm^-3` in some devices.
+Finite-device II must be treated from carrier energy history and dead space, not a bulk onset field.
 
-### Nonlocal II
+### Direct BTBT
 
-For cold injection,
+Wide-gap material raises the direct Kane scale strongly, but local field maxima must still be checked.
 
-```math
-\boxed{
-F_{\rm dead}\simeq\chi E_g/(qL),
-}
-```
+### Interfaces
 
-and
+Abrupt composition changes can introduce reflection, interface states, dipoles, and localized high fields not captured by the smooth one-dimensional model.
 
-```math
-\boxed{
-F_{\rm dead}/F_K
-=(4\chi/\pi)(\ell_K/L).
-}
-```
+## 14. Prior-art boundary
 
-With energy relaxation,
+Established prior physics includes
 
-```math
-L_{\rm eff}
-=\ell_E(1-e^{-L/\ell_E}),
-```
+- compositionally graded HgCdTe detectors;
+- graded heterojunction no-barrier optimization;
+- HgCdTe nBn/xBx barrier engineering;
+- composition and doping modulation;
+- delta doping for band-discontinuity control;
+- graded-gap WKB/Kane analysis;
+- TAT/BTBT modeling;
+- DLTS defect spectroscopy;
+- APD field engineering.
 
-and
+The internally derived formulas are currently treated as detector-facing corollaries/design inequalities with **unassessed priority and no novelty claim**.
 
-```math
-F_{\rm th}^{(\rm mean)}
-=\Delta E_{\rm th}/(qL_{\rm eff}).
-```
+## 15. Stopped shortcuts
 
-The target `x=0.20`, 77 K calibration of `ell_E(F)` and `Gamma_II(E)` remains incomplete.
+Do not revive without a new explicit counterexample/assumption:
 
-## 12. Prior-art / novelty boundary
+- active-volume-only universal bounds;
+- direct BTBT assumed first high-field limiter;
+- low-field mobility extrapolated to high-field HgCdTe;
+- bulk impact-ionization onset treated as finite-device threshold;
+- nonuniform field alone assumed beneficial in homogeneous material;
+- pure grading assumed to eliminate all leakage;
+- uniformly depleted multi-micron graded absorber assumed without Poisson check;
+- delta doping treated as removing the electrostatic compensation requirement.
 
-Known prior physics includes
+## 16. Current next step
 
-- graded-band HgCdTe detectors;
-- WKB analysis of graded HgCdTe;
-- classic Kane/Zener tunneling;
-- analytical graded heterojunction band profiles;
-- field engineering in HgCdTe APDs.
+Build one explicit boundary rather than adding another abstract theorem.
 
-A focused search did not locate the exact fixed-conduction-slope ratio
+Use a realistic p-type graded absorber plus a wider-gap collection region:
 
-```math
-(1-\eta)^2/(1-2\eta)^{3/2}.
-```
+1. choose `x_Cd(x)` / `E_g(x)`;
+2. use a modern HgCdTe electron-affinity/band-offset model;
+3. choose `N_A(x)` and any delta-doped sheet;
+4. solve Fermi-Dirac Poisson through the boundary;
+5. calculate the continuous `E_c(x), E_v(x)` profile;
+6. calculate minority-electron transit;
+7. calculate direct Kane WKB action;
+8. calculate TAT with experimentally anchored trap energies, densities, and capture cross sections;
+9. calculate nonlocal II;
+10. compare the resulting field allocation with the maximin tolerance profile.
 
-That is only a negative search result.
+The decisive question is:
 
-Current status:
+> **Does a realistic boundary retain the graded interior's transport advantage, or does the required high-field junction region recover the dark-current penalty?**
 
-> **exact internally derived linear-profile WKB corollary; priority unassessed; no novelty claim.**
-
-## 13. Numerical checks
-
-Current relevant regressions:
-
-```text
-numerics/hgcdte_field_profile_variational.py
-numerics/hgcdte_graded_kane_wkb.py
-numerics/hgcdte_btbt_normalized_sweep.py
-numerics/hgcdte_field_regime_map.py
-numerics/hgcdte_impact_dead_space.py
-numerics/hgcdte_nonlocal_ii_surrogate.py
-numerics/hgcdte_relaxation_length_phase_boundary.py
-```
-
-The graded-WKB regression integrates the forbidden wavevector directly and reproduces the closed action.
-
-## 14. Current next step
-
-Do **not** return to uniform-field device estimates.
-
-The next decisive model is a finite, self-consistent graded HgCdTe energy landscape:
-
-1. specify `E_g(x)` / composition;
-2. specify realistic conduction/valence band-offset partition;
-3. solve Poisson for `U(x)` under doping and bias;
-4. calculate carrier transit from the resulting `E_c(x)`;
-5. evaluate direct interband WKB action from the full `E_c/E_v` profile;
-6. evaluate TAT and nonlocal II as competing escape channels.
-
-Only after this attack should the graded-action corollary be reassessed for publication significance.
+Only after this calculation should publication significance be reassessed.
