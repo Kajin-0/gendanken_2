@@ -1,199 +1,260 @@
 # Experiment 01 — Artifact Status Map
 
 **Date:** 2026-08-08  
-**Purpose:** preserve the research trail without allowing invalidated or exploratory files to compete with the current frontier.
+**Purpose:** preserve the adversarial research trail without allowing stopped or superseded branches to compete with the current frontier.
 
-> Live `main`, root `AGENTS.md`, and `CURRENT_STATE.md` are authoritative.
+> Live `main`, root `AGENTS.md`, `CURRENT_STATE.md`, and `CLAIM_LEDGER.md` are authoritative.
 
 ---
 
-## A. Canonical active state
+## A. Canonical current frontier
 
-Use these files first:
+Read first:
 
 1. `CURRENT_STATE.md`
 2. `CLAIM_LEDGER.md`
-3. `RESEARCH_LOG.md`
-4. `ARCHIVE_STATUS.md`
-5. `HOPFIELD_RETUNING_NO_GO.md`
-6. `HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
+3. `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
+4. `HOPFIELD_RESERVOIR_RESOURCE_COST.md`
+5. `MULTIMODE_ESCAPE_AUDIT.md`
+6. `HOPFIELD_RETUNING_NO_GO.md`
+7. `HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
+8. `RESEARCH_LOG.md`
+9. `ARCHIVE_STATUS.md`
 
-There is no manuscript yet.
+There is still **no manuscript**.
 
 ---
 
-## B. Active supporting derivations
+## B. Current strongest supporting result
 
-### `ONE_PORT_RESONATOR_DYNAMICS.md`
+### `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
 
-**Status:** closed at stated one-mode assumptions; active supporting derivation.
+Status: **active model-level theorem / detector-facing passivity corollary; novelty unassessed and not claimed**.
 
-Role: fixes the one-port normalization; derives absorptance, critical coupling, energy lifetime, optical linewidth, absorbed-power modulation bandwidth, and the model-specific bulk-dark-event coupling optimum.
-
-### `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
-
-**Status:** active counterexample; direction-changing result.
-
-Role: constructs a shrinking constant-capacitance lossy dielectric family with `V_a -> 0`, fixed participation, fixed `gamma_a`, and `gamma_a/V_a -> infinity`.
-
-This file is the canonical reason the active-volume-only theorem branch is stopped.
-
-### `THERMAL_INPUT_CHANNEL.md`
-
-**Status:** active restricted result.
-
-Role: exact one-channel thermal photon counting through the Lorentzian absorber including Bose bunching; derives the critical-coupling optimum
+For a finite stable passive linear network with total optical and detector access budgets
 
 ```math
-\mathcal C_{\rm th,max}^2
-=1/[\pi\bar n(2+\bar n)].
-```
-
-Do not describe this as an internal-dark-count or full equilibrium detector theorem.
-
-### `MICROSCOPIC_SINGLE_TRANSITION.md`
-
-**Status:** active negative result / prior-art-overlapped branch.
-
-Role: shows that one-photon dynamics of one two-level transition remains linear in the one-excitation sector, so finite absorber number / saturation alone does not create the missing speed bound.
-
-### `FINITE_TRANSITION_LDOS_BANDWIDTH_BOUND.md`
-
-**Status:** active conditional bound application.
-
-Role: applies established bandwidth-averaged projected-LDOS theory to the matched microscopic detector and shows that useful optical coupling is finite for fixed passive material, nonzero bandwidth, allowed region, and finite emitter-environment separation.
-
-The remaining `d -> 0` divergence is explicit.
-
-### `FINITE_EMITTER_FORM_FACTOR.md`
-
-**Status:** active microscopic regularization.
-
-Role: analytically replaces the point-emitter `d^{-3}` divergence by a finite transition-density scale `a^{-3}` and records the oscillator-strength/state-extent inequality.
-
-### `OSCILLATOR_STRENGTH_EXTENT_STRESS_TEST.md`
-
-**Status:** active insufficiency result.
-
-Role: shows that oscillator-strength plus finite-emitter extent does not algebraically close the perturbative problem when the selected transition strength is allowed to vary; the formal upper envelope runs into the nonperturbative regime instead.
-
-### `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
-
-**Status:** active nonperturbative supporting derivation.
-
-Role: uses a TRK-consistent two-mode Hopfield model. In the symmetric resonant case, both dressed local reservoir rates remain exactly matched while their magnitude and the resolved-polariton transfer linewidth collapse at deep strong coupling.
-
-### `HOPFIELD_RETUNING_NO_GO.md`
-
-**Status:** **current strongest model-level candidate lemma**.
-
-Role: proves that with
-
-```math
-g\to\infty,
+L=\operatorname{Tr}\Gamma_L,
 \qquad
-\omega_y=\omega_t>0
+R=\operatorname{Tr}\Gamma_R,
 ```
 
-held fixed by arbitrary bare-frequency retuning, and with fixed positive local optical/detector bath coupling resources,
+and no direct `L -> R` feedthrough,
 
 ```math
 \boxed{
-\min(\Gamma_L,\Gamma_R)\to0.
+\mathcal I_{L\to R}
+\le
+\frac{2LR}{L+R}.
 }
 ```
 
-Consequently resolved-polariton peak transfer and linewidth cannot both remain bounded away from zero.
+The proof uses an exact Gramian-basis decomposition and Cauchy-Schwarz.
 
-**Novelty status:** unproven. Do not use priority language.
+This supersedes the preliminary loose bound
+
+```math
+\mathcal I_{L\to R}
+\le2\min(L,R).
+```
+
+The loose bound remains only as historical provenance in `RESEARCH_LOG.md`.
 
 ---
 
-## C. Prior-art notes
+## C. Active nonperturbative supporting branch
+
+### `HOPFIELD_RETUNING_NO_GO.md`
+
+Status: **active supporting theorem; candidate distinct lemma; priority unproven**.
+
+Role: shows one explicit mechanism by which the two required external accesses collapse when internal light-matter coupling is taken to infinity at fixed dressed target frequency and fixed local bath resources.
+
+### `HOPFIELD_RESERVOIR_RESOURCE_COST.md`
+
+Status: **active supporting resource theorem**.
+
+Role: quantifies the cost of defeating the fixed-bath Hopfield result by scaling the bare external reservoirs. Fixed peak transfer and linewidth require at least one bare reservoir coupling to grow asymptotically as `sqrt(g)`.
 
 ### `HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
 
-**Status:** active targeted negative search; not proof of novelty.
+Status: **active targeted negative literature search**.
 
-Closest inspected prior work covers deep-strong light-matter decoupling, Purcell-effect collapse, gauge-consistent dressed dissipation, suppression of polariton decay/heat transport, and multimode decoupling.
+Verdict: candidate distinct fixed-target lemma; priority unproven. Deep-strong decoupling itself is established prior physics.
 
-No inspected source was found stating the exact fixed-dressed-frequency retuning theorem with two required local reservoir overlaps.
+### `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
 
-Current verdict:
+Status: **active supporting derivation with strong prior-art overlap**.
 
-> candidate distinct supporting lemma; priority unproven.
-
-A broader search of older polariton transport/open-harmonic-network literature remains required before publication positioning.
+Role: symmetric example showing unit peak transfer can coexist with linewidth collapse in deep strong coupling.
 
 ---
 
-## D. Numerics
+## D. Multimode branch
 
-Active directory: `numerics/`.
+### `MULTIMODE_ESCAPE_AUDIT.md`
 
-### `numerics/one_port_time_domain_check.py`
+Status: **active adversarial audit**.
 
-**Status:** active deterministic validation.
+Key conclusions:
 
-Role: independently integrates the one-port envelope under small modulation and verifies the analytic modulation response. Its coupling-ratio grid scan is only an algebra regression, not an independent physical derivation.
+- a theorem based only on the largest internal coupling anywhere in a multimode system is false due to spectator sectors;
+- growing useful mode count/density can compensate shrinking individual linewidths;
+- mode proliferation is an explicit resource;
+- the correct general quantity is integrated transfer, leading to the harmonic access theorem.
+
+---
+
+## E. Earlier active supporting derivations
+
+These remain scientifically useful provenance but are no longer the active frontier:
+
+### `OSCILLATOR_STRENGTH_EXTENT_STRESS_TEST.md`
+
+Shows finite extent + selected oscillator-strength inequalities do not close the weak-coupling problem before the perturbative rate reaches `O(omega)`.
+
+### `FINITE_EMITTER_FORM_FACTOR.md`
+
+Shows finite transition density regularizes the literal point-dipole ultraviolet divergence.
+
+### `FINITE_TRANSITION_LDOS_BANDWIDTH_BOUND.md`
+
+Applies established bandwidth-averaged LDOS bounds to the finite-transition detector problem under explicit environment/separation assumptions.
+
+### `MICROSCOPIC_SINGLE_TRANSITION.md`
+
+Shows finite absorber number / saturation alone does not create a one-photon speed ceiling in the one-excitation Markov/RWA model.
+
+### `THERMAL_INPUT_CHANNEL.md`
+
+Derives the restricted one-channel thermal-background sensitivity-speed relation including Bose bunching.
+
+### `ONE_PORT_RESONATOR_DYNAMICS.md`
+
+Fixes one-port normalization and derives the exact absorbed-power modulation bandwidth.
+
+---
+
+## F. Direction-changing counterexample
+
+### `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
+
+Status: **active historical counterexample; branch-closing result**.
+
+It explicitly invalidates an active-volume-only passive optical bound in the admitted ideal local continuum model.
+
+Do not delete it; it prevents future agents from resurrecting the original conjecture.
+
+---
+
+## G. Stopped / invalidated general routes
+
+Do not restart without a new assumption that directly defeats the recorded counterexample or failure.
+
+### Active-volume-only theorem — STOPPED
+
+Invalidated general statements include
+
+```text
+passivity alone bounds gamma_a/V_a
+```
+
+and
+
+```text
+eta^2 B <= C V_a
+```
+
+as universal active-volume laws.
+
+### Finite absorber count as the missing one-photon limit — STOPPED
+
+The one-excitation sector remains linear.
+
+### Largest multimode coupling as a universal control parameter — STOPPED
+
+A disconnected spectator sector is a direct counterexample.
+
+### Preliminary `2 min(L,R)` multimode bound — SUPERSEDED
+
+Still true but noncanonical. The harmonic theorem
+
+```math
+2LR/(L+R)
+```
+
+is strictly stronger and tight.
+
+---
+
+## H. Numerical material
+
+Active directory:
+
+`numerics/`
+
+### `one_port_time_domain_check.py`
+
+Status: active validation of the one-port modulation transfer function.
+
+### `passive_multimode_h2_stress.py`
+
+Status: active deterministic stress/regression test.
+
+Checks
+
+- `0 <= Q_L <= I`;
+- the exact Gramian-basis diagonal identity;
+- the harmonic access bound;
+- exact single-mode saturation;
+- direct frequency integration versus the Gramian/H2 result.
+
+Current dependency: NumPy.
 
 No CI workflow is justified yet.
 
-A dedicated symbolic/numerical regression for the Hopfield retuning theorem may become worthwhile if the theorem survives the next adversarial extension.
+---
+
+## I. Literature status
+
+No integrated novelty audit exists yet.
+
+Important primary anchors already encountered include
+
+- passive/scattering linear-system theory;
+- Maxwell scattering-passive realizations;
+- passive quantum linear-system realizations;
+- geometry-independent optical-response and LDOS bounds;
+- dark-state quantum photodetector models;
+- deep-strong light-matter decoupling;
+- multiresonant broadband absorption/emission bounds.
+
+The exact harmonic two-access trace inequality requires a deeper control/network/microwave/scattering prior-art search before any publication positioning.
 
 ---
 
-## E. Stopped general branches
+## J. Current forward branch
 
-### Active-volume-only detector bound — STOP
+The next attacks are:
 
-Do not restart, absent a genuinely new explicit resource constraint:
+1. search specifically for an equivalent harmonic `H_2` / passive-network inequality;
+2. formulate finite-band direct-feedthrough access accounting;
+3. test genuinely infinite-dimensional or strongly structured passive reservoirs;
+4. map abstract access traces onto microscopic semiconductor optical and irreversible-relaxation resources;
+5. then reintegrate noise, reverse thermal rates, amplification, and reset thermodynamics.
 
-```text
-gamma_a/V_a <= constant
-```
-
-or
-
-```text
-eta^2 B <= C V_a.
-```
-
-The shrinking-capacitor counterexample kills these as general passive-continuum statements.
-
-### Finite absorber number / saturation as universal one-photon bound — STOP
-
-The one-excitation sector is linear and prior dark-state detector models already exploit this physics.
-
-### TRK + finite extent automatically closes weak-coupling enhancement — STOP as sufficient argument
-
-The oscillator-strength/extent stress test shows the retained inequalities do not close by themselves.
-
-### Infinite Purcell/LDOS rate as a route to infinite detector speed — STOP
-
-The weak-coupling rate model loses validity and the gauge-consistent Hopfield model exhibits deep-strong decoupling / linewidth collapse.
+Do not add HgCdTe-specific transport until at least the first three are resolved.
 
 ---
 
-## F. Current forward branch
+## K. Archival rule
 
-The next adversarial question is:
+Do not delete a useful failed branch merely to make the repository cleaner.
 
-> Can a multimode optical environment or deliberately scaled reservoir engineering preserve both finite optical-to-detector peak transfer and finite transfer bandwidth at a fixed target frequency as the internal light-matter coupling becomes arbitrarily large?
+When a result is superseded or invalidated:
 
-Priority order:
-
-1. multimode passive optical extension;
-2. explicit scaling of optical/detector reservoir coupling resources with `g`;
-3. strong/non-Markov reservoir counterexamples;
-4. broader prior-art search if the fixed-target statement survives.
-
-Do not add HgCdTe-specific transport yet.
-
----
-
-## G. Artifact-growth rule
-
-Documentation should grow because the physics demands separation, not because a mature repository is being imitated.
-
-Create a new file only when it has a clear role such as a substantial derivation, counterexample, independent validation, approximation/error budget, focused prior-art comparison, or eventual manuscript snapshot.
+1. update `CURRENT_STATE.md`;
+2. update `CLAIM_LEDGER.md`;
+3. record the chronology in `RESEARCH_LOG.md`;
+4. mark status here;
+5. keep the derivation when it documents an important counterexample, correction, or narrowing of scope.
