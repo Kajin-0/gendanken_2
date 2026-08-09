@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **open theoretical exploration; active frontier is an entrance-gap spectral initial-condition crossover in compositionally graded HgCdTe; the earlier universal timing-maximum interpretation is superseded; no novelty claim**
+**Current mode:** **open theoretical exploration; active frontier is wavelength × frequency inverse metrology of internal transport in compositionally graded HgCdTe; no novelty claim**
 
 Read this file first.
 
@@ -53,62 +53,43 @@ Do not use `first`, `new fundamental`, `universal`, etc. without a focused prima
 active-volume thought experiment
 -> universal volume bound killed by field concentration
 
-microscopic absorber / LDOS / ultrastrong coupling
--> successive loopholes
+microscopic / passive / active optical limits
+-> successive resource loopholes
 
-finite passive network
--> harmonic two-access transfer-area theorem
-
-active/adaptive control
--> pump, timing, storage, output-record resources
--> unrestricted output continuum kills universal detector-only capacity
-
-semiconductor contacts / energy filters
--> detailed balance, lifetime broadening, multipole delay
+semiconductor extraction and filtering
+-> detailed balance, delay, tunneling
 
 HgCdTe field-driven collection
--> normalized BTBT
--> low-field mobility shortcut killed
-
-TAT / nonlocal II
--> defect spectrum + carrier energy history matter
+-> BTBT normalization
+-> TAT and nonlocal hot-electron physics
 
 homogeneous field shaping
--> no local speed/leakage benefit under stated homogeneous model
+-> no local benefit under stated model
 
-heterostructure / gap grading
+HgCdTe bandgap grading
 -> direct-Zener geometry can be suppressed at fixed conduction drive
+-> quasi-neutral p-type grading can pin the majority-hole band
 
-quasi-neutral p-type grading
--> majority-hole band nearly pinned
--> gap slope becomes minority-electron drive
+wavelength-resolved generation
+-> photon energy changes first allowed generation position in a monotonic gap profile
 
-collection boundary
--> unavoidable compensation voltage
--> local TAT/BTBT voltage capacity
--> minimum-compensation relaxation region
-
-wavelength-resolved absorption
--> photon wavelength sets first allowed generation position
--> exact optical-depth generation distribution
-
-photoexcitation correction
--> downstream photoelectrons are not cold
--> initial carrier momentum/energy matters
-
-ballistic spectral timing
+ballistic timing model
 -> predicted entrance-gap timing maximum
 
 momentum-scattering attack
--> maximum is not universal
--> drift-diffusion gives plateau
--> finite momentum memory allows multiple short-wave shapes
+-> maximum not universal
+-> entrance-gap initial-condition switch survives
+
+prior-art collision
+-> wavelength-dependent generation + graded transport + response-time forward modeling is already established
+-> localized-position HgCdTe transit-time measurement is already established
 
 CURRENT FRONTIER
--> entrance-gap initial-condition switch
--> below Eg,in: wavelength moves generation position
--> above Eg,in: generation is pinned and wavelength changes injected carrier state
--> proposed tunable-wavelength timing crossover experiment.
+-> use a known graded gap as an internal spectral position encoder
+-> measure complex frequency response versus wavelength
+-> invert timing data for spatial mean-delay density q1(x)
+-> optionally invert timing variance for broadening density q2(x)
+-> validate against localized excitation or independent transport modeling.
 ```
 
 ---
@@ -119,282 +100,332 @@ CURRENT FRONTIER
 2. `README.md`
 3. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
 4. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-5. `experiments/01-vanishing-absorber/HGCDTE_ENTRANCE_GAP_INITIAL_CONDITION_SWITCH.md`
-6. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_DRIFT_DIFFUSION_ROBUSTNESS.md`
-7. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_MOMENTUM_SCATTERING_SURROGATE.md`
-8. `experiments/01-vanishing-absorber/HGCDTE_PROPOSED_SPECTRAL_TIMING_EXPERIMENT.md`
-9. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_GENERATION_DISTRIBUTION.md`
-10. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_GENERATION_TRANSPORT.md`
-11. `experiments/01-vanishing-absorber/HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md`
-12. `experiments/01-vanishing-absorber/HGCDTE_HEAVY_HOLE_PHOTOEXCITATION_LIMIT.md`
-13. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TRANSIT_PRIOR_ART_AUDIT.md`
-14. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-15. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+5. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`
+6. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_KERNEL_TOMOGRAPHY.md`
+7. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
+8. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_DIFFERENTIAL_PHASE.md`
+9. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_RESOLUTION.md`
+10. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
+11. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_GRADED_DEVICE_TOMOGRAPHY_CASE.md`
+12. `experiments/01-vanishing-absorber/HGCDTE_ENTRANCE_GAP_INITIAL_CONDITION_SWITCH.md`
+13. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
+14. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
 
-`HGCDTE_SPECTRAL_DELAY_PEAK.md` and its ballistic regressions are retained as provenance / a special transport limit, not as the canonical claim.
+Earlier ballistic peak, optical-resource, and active-volume branches are provenance, not the active claim.
 
 ---
 
-## 5. Active graded geometry
+## 5. What is already prior art
 
-Use the quasi-neutral p-type baseline
+Do **not** claim novelty for
+
+- wavelength-dependent absorption / generation depth in photodiodes;
+- wavelength-dependent transit time or bandwidth;
+- graded-bandgap carrier acceleration;
+- wavelength- and depth-dependent photogeneration in graded HgCdTe forward models;
+- graded HgCdTe response-time modeling;
+- localized-position transit-time measurements in HgCdTe.
+
+The 2022 graded-HgCdTe work already writes a depth- and wavelength-dependent generation rate and couples it to transport / response modeling.
+
+Perrais et al. already measured HgCdTe APD impulse response using localized excitation at different positions.
+
+A 2024 paper from the same group titled `Potential application of HgCdTe detector with composition gradient in laser measurement` is especially close application prior art; its full technical content has not yet been recovered. Treat priority as unresolved until it is read.
+
+---
+
+## 6. Narrow active candidate: inverse metrology
+
+For wavelength `i`, let
 
 ```math
-E_v\approx\text{constant},
+p_i(x)=p(x|E_{\gamma,i},{\rm abs})
 ```
+
+be the known normalized generation-position density.
+
+Define the cumulative timing kernel
+
+```math
+\boxed{
+K_i(s)=P(X_g\le s|E_{\gamma,i},{\rm abs}).
+}
+```
+
+If the conditional mean collection delay is path additive,
+
+```math
+m(x)=\int_x^L q_1(s)ds,
+```
+
+then
+
+```math
+\boxed{
+\mu_i
+=\int_0^L K_i(s)q_1(s)ds.
+}
+```
+
+Discretely,
+
+```math
+\boxed{
+\mathbf T
+=\mathbf A\mathbf q_1+c_1\mathbf1.
+}
+```
+
+Here
+
+```math
+q_1(x)
+```
+
+is the spatial mean-delay density; under a local path-additive velocity interpretation,
+
+```math
+\boxed{q_1(x)=1/v_{\rm eff}(x).}
+```
+
+The additive nuisance `c_1` absorbs wavelength-independent common delay.
+
+This inverse reconstruction—not the forward wavelength/timing physics—is the only active candidate contribution.
+
+---
+
+## 7. Sharp-generation limit
+
+For a monotonic linear gap
 
 ```math
 E_g(x)=E_{g,\rm in}-Gx,
 ```
 
-```math
-E_c(x)\approx E_v+E_g(x).
-```
-
-Thus
+inside the graded-gap interval,
 
 ```math
-\boxed{S_c=-dE_c/dx\approx G.}
-```
-
-This band-structure drive suppresses the ordinary same-direction direct-Zener geometry in the ideal graded-Kane model but does not remove TAT, interfaces, hot-electron physics, or impact ionization.
-
----
-
-## 6. Robust spectral geometry
-
-In the sharp high-optical-depth earliest-generation limit,
-
-```math
-\boxed{
 x_g(E_\gamma)
-=\max\!\left[
-0,
-\frac{E_{g,\rm in}-E_\gamma}{G}
-\right].
-}
+=\frac{E_{g,\rm in}-E_\gamma}{G}.
 ```
 
-Define local photon excess at that earliest point:
+If generation is sharply localized and mean delay is path additive,
 
 ```math
 \boxed{
-\nu_g(E_\gamma)
-=\max(0,E_\gamma-E_{g,\rm in}).
+\frac{dT}{dE_\gamma}
+=\frac1{Gv_{\rm eff}[x_g(E_\gamma)]},
 }
 ```
 
-Therefore the role of photon energy switches at
+so
 
 ```math
-\boxed{E_\gamma=E_{g,\rm in}.}
+\boxed{
+v_{\rm eff}[x_g(E_\gamma)]
+=\frac1{G\,dT/dE_\gamma}.
+}
 ```
 
-Below it, changing photon energy moves the generation point.
+This is the singular-kernel limit of the full linear inverse.
 
-Above it, the generation point is pinned and changing photon energy changes the injected carrier state.
-
-This is the current strongest transport-independent spectral result.
+Do not differentiate noisy experimental data by default; use the full forward matrix when finite optical depth matters.
 
 ---
 
-## 7. General timing sensitivity
+## 8. Finite optical depth
 
-Let
-
-```math
-\mathcal T=\mathcal F(x_g,\varepsilon_g,\ldots),
-```
-
-with
+For the analytic edge law
 
 ```math
-\varepsilon_g=\xi_e\nu_g.
+\alpha=C(E_\gamma-E_g)^\beta
 ```
 
-Then in the sharp limit
+in a linear gap, the generation offset `z=x-x_g` has a stationary Weibull kernel away from downstream truncation.
+
+The spectral derivative then measures a kernel-averaged inverse velocity:
 
 ```math
 \boxed{
-\frac{d\mathcal T}{dE_\gamma}
-=-\frac1G\mathcal F_x,
-\qquad E_\gamma<E_{g,\rm in},
+G\frac{d\bar T}{dE_\gamma}
+=\int p(z)\frac{dz}{v_{\rm eff}(x_g+z)}.
 }
 ```
 
-while
-
-```math
-\boxed{
-\frac{d\mathcal T}{dE_\gamma}
-=\xi_e\mathcal F_\varepsilon,
-\qquad E_\gamma>E_{g,\rm in}.
-}
-```
-
-Do **not** claim a visible cusp is guaranteed. Finite optical depth smooths the transition and the two sensitivities can accidentally match.
+Near the long-wave cutoff the eligible region truncates the kernel; use the full conditional generation kernel instead of the stationary approximation.
 
 ---
 
-## 8. Drift-diffusion limit
+## 9. Second timing moment
 
-For
-
-```math
-dX=v_d dt+\sqrt{2D}\,dW_t,
-```
-
-and remaining distance `d`,
+If conditional timing variance is also path additive,
 
 ```math
-\boxed{\langle T|d\rangle=d/v_d,}
+V(x)=\int_x^Lq_2(s)ds,
 ```
 
-```math
-\boxed{\operatorname{Var}(T|d)=2Dd/v_d^3.}
-```
-
-For random generation position,
-
-```math
-\boxed{\langle T\rangle=\langle d\rangle/v_d,}
-```
+then the law of total variance gives
 
 ```math
 \boxed{
-\operatorname{Var}(T)
-=\frac{2D\langle d\rangle}{v_d^3}
-+\frac{\operatorname{Var}(d)}{v_d^2}.
+\sigma_i^2
+=\int_0^L K_i(s)q_2(s)ds
++\operatorname{Var}_{p_i}[m(X)].
 }
 ```
 
-Thus generation-position jitter and transport/diffusion jitter are distinct.
+After reconstructing `q_1`, the generation-position variance is calculable and can be subtracted.
 
-At high optical depth with wavelength-independent transport coefficients, the spectral delay rises through the graded-gap interval and then approaches a plateau once `E_gamma >= Eg,in`.
+The same matrix `A` can then reconstruct `q_2`.
+
+In a local high-Peclet drift-diffusion approximation only,
+
+```math
+q_1=1/v,
+\qquad
+q_2\simeq2D/v^3.
+```
+
+Do not call `q_2` a microscopic diffusion coefficient without validating that approximation.
 
 ---
 
-## 9. Finite momentum-memory result
+## 10. Frequency-domain measurement
 
-The underdamped stochastic surrogate
+For timing distribution `T_lambda`,
 
 ```math
-dv=(v_d-v)dt/\tau_m
-+\sqrt{2\sigma_v^2/\tau_m}\,dW_t
+H_\lambda(\Omega)=\langle e^{-i\Omega T_\lambda}\rangle.
 ```
 
-shows that the post-entrance-gap shape depends on the initial longitudinal momentum distribution.
+Low-frequency cumulants give
+
+```math
+\arg H_\lambda
+=-\Omega\mu_\lambda+O(\Omega^3),
+```
+
+```math
+\ln|H_\lambda|
+=-\frac{\Omega^2}{2}\sigma_\lambda^2+O(\Omega^4).
+```
+
+Thus phase probes mean delay and magnitude curvature probes timing variance.
+
+For differential phase,
+
+```math
+\boxed{
+\Delta T
+\simeq-\Delta\phi/\Omega.
+}
+```
+
+A useful local spatial scale is
+
+```math
+\boxed{
+\sigma_{x,\phi}
+\sim
+v_{\rm eff}\sigma_\phi/\Omega.
+}
+```
+
+At illustrative `v_eff=1e5 m/s`, one degree at `1 GHz` corresponds to about `0.28 um`. This is a scale estimate, not an instrument performance claim.
+
+---
+
+## 11. Synthetic falsification status
+
+Current deterministic synthetic regressions show:
+
+- a nonuniform `q_1` profile can be reconstructed with finite optical depth, common delay, and small timing noise;
+- a separate `q_2` broadening region can be recovered independently in a controlled two-moment case;
+- broader optical kernels reduce the number of recoverable spatial modes substantially;
+- near cutoff, kernel truncation can strongly bias a naive point inversion.
+
+These are conditioning checks only. They are not experimental validation.
+
+---
+
+## 12. Experimental resolution constraints
+
+Spatial resolution is limited independently by
 
 ```text
-negligible directed memory
--> plateau
-
-persistent positive directed memory
--> decline after entrance gap
-
-symmetric hot initial longitudinal spread
--> decline is not guaranteed; mean/variance can rise.
+optical generation-kernel width
+source spectral width / wavelength calibration
+gap-profile uncertainty
+timing or phase precision
+conditioning / regularization
+nonlocal transport.
 ```
 
-Therefore the old entrance-gap timing maximum is **SUPERSEDED AS A UNIVERSAL CLAIM**.
-
-Retain it only as a ballistic/persistent-memory special case.
-
----
-
-## 10. Photoexcitation correction
-
-Do not treat downstream photoelectrons as cold.
-
-Use
+For a linear gap,
 
 ```math
-\boxed{\varepsilon_{\rm gen}=\xi_e(E_\gamma-E_g).}
+\sigma_{x,\lambda}
+\simeq
+\frac{hc}{G\lambda^2}\sigma_\lambda.
 ```
 
-The simplified flat-heavy-hole HgCdTe Kane limit motivates `xi_e approximately 1` as one relevant channel limit; a multiband optical calculation remains open.
+A local timing scale is
 
-Do not convert excess energy directly into persistent forward longitudinal velocity without a momentum-space transport model.
+```math
+\sigma_{x,T}\sim v_{\rm eff}\sigma_T.
+```
 
----
-
-## 11. Primary transport literature boundary
-
-Palermo et al., *Solid-State Electronics* 53, 70–78 (2009), DOI `10.1016/j.sse.2008.10.003`, use Monte Carlo transport for `Hg_0.8Cd_0.2Te` at 77 K and extract drift velocity, mean energy, diffusion, impact-ionization rate, velocity-relaxation and energy-relaxation quantities. They validate a hydrodynamic description against Monte Carlo / experiment.
-
-Modern HgCdTe APD Monte Carlo work likewise treats momentum-changing phonon, alloy and impurity scattering explicitly or through calibrated reduced models.
-
-Use this literature to constrain the next model. Do not invent relaxation coefficients from narrative statements.
+Do not equate wavelength sample count with spatial degrees of freedom; use the singular-value spectrum of the forward matrix.
 
 ---
 
-## 12. Revised decisive experiment
+## 13. Published-device validation target
 
-Do not score the experiment only by whether a strict maximum appears.
+The 2022 VPE graded HgCdTe detector reports a composition span approximately `x=0.57 -> 0.31`, uses FTIR-based composition-depth profiling, and already has high-speed impulse / LCA characterization.
 
-Sweep wavelength through
+Its timing measurement used `1.55 um`, which produces strong surface absorption and therefore does not scan the generation kernel through the MWIR gradient.
+
+The 2023 follow-on graded HgCdTe study reports processed thicknesses around `7.6 um` and `3.7 um` and spectral evidence of different spatial collection behavior.
+
+A strong validation would compare
 
 ```text
-near output cutoff
--> graded-gap interval
--> entrance-gap wavelength
--> shorter wavelengths
+spectral inverse reconstruction
+versus
+localized-position excitation timing
 ```
 
-under fixed detector conditions.
-
-Prefer differential low-frequency group delay or normalized impulse centroid to suppress common readout delay.
-
-The primary target is a reproducible crossover tied to
-
-```math
-\boxed{\lambda_{g,\rm in}\simeq hc/E_{g,\rm in}.}
-```
-
-The post-crossover shape is then a transport diagnostic.
-
----
-
-## 13. Important stopped shortcuts
-
-Do not restart casually:
-
-- active-volume-only detector bound;
-- finite absorber count as one-photon speed limit;
-- spectral FWHM as universal carrier speed;
-- low-field mobility extrapolated into high-field HgCdTe;
-- direct BTBT assumed first limiter;
-- local `F_II(x)` without local-equilibrium justification;
-- downstream photoelectrons assumed cold;
-- excess photon energy equated to forward drift velocity;
-- entrance-gap timing maximum treated as transport independent;
-- visible cusp treated as guaranteed.
+on the same or a closely matched graded structure.
 
 ---
 
 ## 14. Current numerical regressions
 
+Relevant files:
+
 ```text
+numerics/hgcdte_spectral_timing_linear_inverse.py
+numerics/hgcdte_spectral_timing_kernel_tomography.py
+numerics/hgcdte_spectral_timing_svd_resolution.py
+numerics/hgcdte_spectral_timing_two_moment_inverse.py
 numerics/hgcdte_spectral_momentum_scattering_surrogate.py
-numerics/hgcdte_spectral_delay_relaxation.py
-numerics/hgcdte_spectral_delay_peak.py
-numerics/hgcdte_spectral_transit_statistics.py
-numerics/hgcdte_dimensionless_device_phase_map.py
-numerics/hgcdte_graded_nonlocal_ii_phase_boundary.py
 ```
 
-The ballistic peak regression is historical/supporting, not the current universal target.
+Earlier ballistic peak regressions are historical/supporting only.
 
 ---
 
-## 15. Next decisive work
+## 15. Current next step
 
-Do not add another abstract theorem.
+Do **not** add another generic analytic theorem.
 
-Next priority:
+Next priorities:
 
-1. build a reduced hydrodynamic wavelength-resolved model using published HgCdTe velocity and energy relaxation structure;
-2. if interpolation coefficients cannot be recovered reliably, keep relaxation functions parametric rather than fitting figures;
-3. search for or propose fixed-bias wavelength-resolved timing data to test the entrance-gap crossover.
+1. recover a dimensional published `x(z)` / `E_g(z)` profile and calibrated `alpha(z,lambda)`;
+2. construct its actual forward matrix `A`;
+3. predict wavelength × RF phase/magnitude contrasts and required measurement precision;
+4. determine the recoverable spatial modes from the real kernel matrix;
+5. collision-test the full 2024 laser-measurement paper before any novelty language;
+6. if possible, validate the spectral inverse against localized-position HgCdTe timing or a calibrated transport simulation.
 
-Only after the crossover survives calibrated transport or experiment should publication significance be reassessed.
+Only after a real-device forward/inverse model or experimental validation should manuscript readiness be reassessed.
