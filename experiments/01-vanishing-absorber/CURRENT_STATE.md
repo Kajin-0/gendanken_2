@@ -1,79 +1,53 @@
 # Current State — Experiment 01: The Vanishing Absorber
 
 **Date:** 2026-08-09  
-**Status:** exploratory; abstract universal routes repeatedly narrowed; active frontier is now HgCdTe high-field mechanism ordering; no novelty claim
+**Status:** exploratory; active frontier is finite-length HgCdTe high-field transport and nonlocal impact ionization; no novelty claim
 
-## 1. Guiding question
+## 1. Current question
 
-The experiment began with
+The project began by asking whether an ideal photodetector could be made arbitrarily small, fast, sensitive, and perfectly absorbing.
 
-> Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
+Successive counterexamples killed simple universal answers based on active volume, absorber count, finite storage rank, spectral FWHM, or one fixed optical architecture.
 
-The original geometric-volume route failed. After successive optical, quantum, control, and information-theoretic counterexamples, the research returned to a concrete semiconductor question:
+The active question is now concrete:
 
-> **For narrow-gap HgCdTe, which physical mechanism actually intervenes first when electric field is increased to make carrier collection faster?**
-
-The current answer is narrower than a universal detector theorem but more directly useful for detector physics.
-
----
-
-## 2. Canonical reading order
-
-After root `AGENTS.md`, read:
-
-1. `HGCDTE_FIELD_REGIME_MAP.md`
-2. `HGCDTE_TRANSPORT_BTBT_PHASE_BOUNDARY.md`
-3. `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
-4. `HGCDTE_KANE_SCALE_AUDIT.md`
-5. `FIELD_DRIVEN_COLLECTION_TUNNELING.md`
-6. `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`
-7. `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`
-8. `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`
-9. `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`
-10. `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
-11. `RESEARCH_LOG.md`
-12. older files only for provenance.
-
-`CLAIM_LEDGER.md` is the epistemic boundary.
+> **For narrow-gap HgCdTe, what carrier-transit speed is physically useful once high-field velocity, finite impact-ionization dead space, direct BTBT, and later TAT are all treated on their proper length/energy scales?**
 
 There is still **no manuscript**.
 
 ---
 
-## 3. Current material result — normalized direct BTBT
+## 2. Read first
 
-Using a published uniform-field HgCdTe BTBT expression, a uniform region `V=FL`, and the simplified Kane-mass substitution
+After root `AGENTS.md`:
 
-```math
-m^*=E_g/(2v_K^2),
-\qquad
-v_K\simeq1.07\times10^6\ {\rm m/s},
-```
+1. `HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
+2. `HGCDTE_IMPACT_IONIZATION_DEAD_SPACE.md`
+3. `HGCDTE_FIELD_REGIME_MAP.md`
+4. `HGCDTE_TRANSPORT_BTBT_PHASE_BOUNDARY.md`
+5. `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
+6. `HGCDTE_KANE_SCALE_AUDIT.md`
+7. `FIELD_DRIVEN_COLLECTION_TUNNELING.md`
+8. `CLAIM_LEDGER.md`
+9. `RESEARCH_LOG.md`
+10. older derivations only for provenance.
 
-the direct-BTBT law becomes
+---
+
+## 3. Direct BTBT remains normalized cleanly
+
+Within the published uniform-field HgCdTe BTBT form plus the simplified Kane-mass substitution,
 
 ```math
 \boxed{
 J_{\rm BTBT}
 =
 \frac{q^3L}{4\pi^3\hbar^2v_K}
-F^2e^{-F_K/F}.
+F^2e^{-F_K/F},
 }
 ```
 
-With
-
-```math
-x=F/F_K,
-\qquad
-j=J/J_K,
-```
-
-```math
-\boxed{j=x^2e^{-1/x},}
-```
-
-where
+with
 
 ```math
 \boxed{
@@ -91,6 +65,20 @@ J_K
 }
 ```
 
+Define
+
+```math
+x=F/F_K,
+\qquad
+j=J/J_K.
+```
+
+Then
+
+```math
+\boxed{j=x^2e^{-1/x}.}
+```
+
 Thus
 
 ```math
@@ -99,131 +87,335 @@ F_K\propto\lambda_c^{-2},
 J_K\propto L\lambda_c^{-4}.
 ```
 
-The exact field inversion for a direct-BTBT budget `J_*` is
-
-```math
-\boxed{
-F_J
-=
-\frac{F_K}
-{2W_0[\tfrac12\sqrt{J_K/J_*}]}.
-}
-```
-
-This is a scaling model, not a calibrated junction model.
+This is a scaling result, not a calibrated total-dark-current model.
 
 ---
 
-## 4. New result — transport/BTBT phase boundary
+## 4. Bulk high-field onset is not a finite-device II ceiling
 
-A broad empirical high-field envelope used in HgCdTe APD transport modeling is
+Primary Monte Carlo work on bulk `Hg_0.8Cd_0.2Te` at 77 K shows hot-electron / non-ohmic / impact-ionization physics becoming relevant at fields of order `10^2 V/cm`.
 
-```math
-v(F)
-=\frac{\mu F}{1+(F/d)^r}.
-```
-
-For `r>1`, it has an exact velocity maximum at
-
-```math
-\boxed{
-F_{\rm pk}
-=d(r-1)^{-1/r}.
-}
-```
-
-Because direct BTBT increases monotonically with field, the fastest field allowed by this transport envelope and a direct-BTBT budget is simply
-
-```math
-\boxed{
-F_{\rm opt}
-=\min(F_{\rm pk},F_J).
-}
-```
-
-This is a generic model-level phase boundary. No `Hg_0.8Cd_0.2Te`, 77 K coefficients are invented for it.
-
----
-
-## 5. Stronger target-composition conclusion — direct BTBT is not first for ordinary LWIR
-
-Primary transport work on `Hg_0.8Cd_0.2Te` at 77 K establishes that
+That statement must **not** be converted directly into
 
 ```text
-~50 V/cm and below
--> approximately ohmic transport
-
-~10^2 V/cm scale
--> hot-electron / non-ohmic / impact-ionization physics already matters
-
-high field
--> steady-state electron drift approaches a scale of order 5e5 m/s,
-   with submicron transient overshoot possible above that value.
+finite 1 um detector ionizes at 100 V/cm.
 ```
 
-Compare those fields with the simplified direct-BTBT model.
+A finite injected electron must acquire the impact-ionization threshold energy over its available trajectory.
 
-Write
+HgCdTe APD literature therefore treats impact ionization as history dependent and includes dead-space effects.
+
+---
+
+## 5. Cold-injection dead-space scale
+
+Let
 
 ```math
-J_{\rm BTBT}
-=C L F^2
-\exp[-D/(F\lambda_c^2)],
+E_{\rm th}=\chi E_g.
 ```
 
-where
+For a cold electron crossing a uniform field over distance `L`, the field-work estimate is
 
 ```math
-C=\frac{q^3}{4\pi^3\hbar^2v_K},
+\boxed{
+F_{\rm dead}
+\simeq
+\frac{\chi E_g}{qL}.
+}
+```
+
+Using
+
+```math
+\ell_K
+=\frac{\hbar v_K}{E_g}
+```
+
+and the BTBT scale above,
+
+```math
+\boxed{
+\frac{F_{\rm dead}}{F_K}
+=
+\frac{4\chi}{\pi}
+\frac{\ell_K}{L}.
+}
+```
+
+This is the key dimensionless connection.
+
+For `L >> ell_K`, the cold-carrier ionization energy scale becomes accessible at fields far below the direct-BTBT characteristic field.
+
+For `chi=1`, `L=1 um`:
+
+| cutoff | `F_dead` |
+|---:|---:|
+| 8 um | 1.55 kV/cm |
+| 10 um | 1.24 kV/cm |
+| 12 um | 1.03 kV/cm |
+| 17 um | 729 V/cm |
+| 24 um | 517 V/cm |
+
+These are field-work thresholds, **not** calibrated ionization-probability thresholds.
+
+---
+
+## 6. Direct BTBT is still exponentially small near that scale
+
+At the dead-space field,
+
+```math
+x_{\rm dead}
+=\frac{4\chi\ell_K}{\pi L},
+```
+
+so
+
+```math
+\boxed{
+j_{\rm dead}
+=
+\left(
+\frac{4\chi\ell_K}{\pi L}
+\right)^2
+\exp\left[-
+\frac{\pi L}{4\chi\ell_K}
+\right].
+}
+```
+
+For micron-scale MWIR/LWIR regions, `L/ell_K` is large and this direct-BTBT term is exponentially suppressed.
+
+Example, `L=1 um`, `chi=1`:
+
+```text
+10 um -> J_BTBT(F_dead) ~ 3.8e-57 A/cm2
+17 um -> ~ 7.1e-33 A/cm2
+24 um -> ~ 7.1e-23 A/cm2
+```
+
+These numbers are outputs of the isolated simplified BTBT model only.
+
+---
+
+## 7. Nonlocal mean-energy surrogate
+
+The minimal finite-length model now uses
+
+```math
+\boxed{
+\frac{d\varepsilon}{dt}
+=qFv-\frac{\varepsilon}{\tau_E}.
+}
+```
+
+Define
+
+```math
+\ell_E=v\tau_E.
+```
+
+For cold injection,
+
+```math
+\boxed{
+\varepsilon(L)
+=qF\ell_E
+(1-e^{-L/\ell_E}).
+}
+```
+
+This motivates the effective acceleration length
+
+```math
+\boxed{
+L_{\rm eff}
+=\ell_E(1-e^{-L/\ell_E}).
+}
+```
+
+Therefore the **mean-energy** threshold field is
+
+```math
+\boxed{
+F_{\rm th}^{(\rm mean)}
+=\frac{\Delta E_{\rm th}}
+{qL_{\rm eff}}.
+}
+```
+
+For cold injection and `E_th=chi E_g`,
+
+```math
+\boxed{
+\frac{F_{\rm th}^{(\rm mean)}}{F_K}
+=
+\frac{4\chi}{\pi}
+\frac{\ell_K}{L_{\rm eff}}.
+}
+```
+
+Limits:
+
+```text
+L << ell_E
+-> L_eff -> L
+-> finite dead-space result
+
+L >> ell_E
+-> L_eff -> ell_E
+-> bulk-like energy-relaxation ceiling.
+```
+
+This is a surrogate for the mean trajectory, not a replacement for the stochastic hot-electron distribution.
+
+---
+
+## 8. First closed nonlocal ionization probability surrogate
+
+Current HgCdTe APD modeling uses an energy-dependent rate of the form
+
+```math
+\Gamma_{\rm II}(E)
+=A
+\frac{(E/E_{\rm th}-1)^\alpha}
+{(E/E_{\rm th})^\beta},
+\qquad E\ge E_{\rm th}.
+```
+
+For the analytic test case
+
+```math
+\alpha=1,
 \qquad
-D=\frac{\pi^3\hbar c^2}{qv_K}.
+\beta=0,
 ```
 
-For any reference field `F_R`, the cutoff at which direct BTBT reaches a stated current-density budget `J_*` is exactly
+define
+
+```math
+E_{\rm ss}=qF\ell_E,
+\qquad
+T=L/v.
+```
+
+If `E_ss > E_th`, the threshold time is
 
 ```math
 \boxed{
-\lambda_\times
-=
-\left[
-\frac{D}
-{F_R\ln(CLF_R^2/J_*)}
-\right]^{1/2}.
+t_d
+=\tau_E
+\ln\left[
+\frac{E_{\rm ss}}
+{E_{\rm ss}-E_{\rm th}}
+\right].
 }
 ```
 
-For `L=1 um`, even an unusually strict direct-BTBT budget of `1e-12 A/cm2` gives approximately
+For `T > t_d`, the integrated hazard is
 
-```text
-F_R = 100 V/cm  -> lambda_x = 74.4 um
-F_R = 500 V/cm  -> lambda_x = 31.7 um
-F_R = 1.0 kV/cm -> lambda_x = 22.0 um
-F_R = 1.5 kV/cm -> lambda_x = 17.7 um.
+```math
+\boxed{
+\Xi_{\rm II}
+=
+\frac{A}{E_{\rm th}}
+\left\{
+(E_{\rm ss}-E_{\rm th})(T-t_d)
++E_{\rm ss}\tau_E
+[e^{-T/\tau_E}-e^{-t_d/\tau_E}]
+\right\}.
+}
 ```
 
-At `500 V/cm`, the same model gives roughly
+and
 
-```text
-10 um -> 8.8e-147 A/cm2
-17 um -> 2.1e-49 A/cm2
-24 um -> 9.8e-24 A/cm2.
+```math
+\boxed{
+P_{\rm II}=1-e^{-\Xi_{\rm II}}.
+}
 ```
 
-Therefore the working hypothesis
-
-> **direct BTBT is the first high-field mechanism that limits transit-speed improvement in ordinary 8–14 um HgCdTe at 77 K**
-
-is **invalidated within the stated comparison**.
-
-The material reaches nonlinear hot-carrier / impact-ionization physics much earlier.
-
-This does **not** mean direct BTBT is unimportant in reverse-biased HgCdTe. It means it is not the first field physics encountered in this particular speed-pushing thought experiment for ordinary LWIR.
+A deterministic numerical regression independently integrates the trajectory and reproduces this closed form.
 
 ---
 
-## 6. Transport-speed envelope
+## 9. Dimensionless nonlocal variables
 
-For the rectangular Ramo-current-pulse convention,
+Define
+
+```math
+\theta
+=\frac{qF\ell_E}{E_{\rm th}},
+\qquad
+\ell=\frac{L}{\ell_E},
+\qquad
+a=A\tau_E.
+```
+
+The mean trajectory reaches threshold inside the device iff
+
+```math
+\boxed{
+\theta(1-e^{-\ell})>1.
+}
+```
+
+For the `alpha=1, beta=0` surrogate,
+
+```math
+\boxed{
+P_{\rm II}
+=1-e^{-aH(\theta,\ell)}
+}
+```
+
+with `H` given exactly in `numerics/hgcdte_nonlocal_ii_surrogate.py` and the derivation file.
+
+Thus the minimal nonlocal problem collapses to three dimensionless resources:
+
+```text
+field-work / threshold energy
+length / energy-relaxation length
+ionization time scale / energy-relaxation time scale.
+```
+
+---
+
+## 10. Correct current mechanism ordering
+
+The project should now state the hierarchy carefully:
+
+```text
+low field
+-> ohmic transport
+
+~10^2 V/cm in bulk x=0.20 at 77 K
+-> hot-electron distribution and II rate become non-negligible
+
+finite detector
+-> actual II probability depends on L, energy relaxation and carrier history
+
+L >> ell_K
+-> II threshold can become accessible while simplified direct BTBT is still exponentially small
+
+higher field / longer wavelength / shorter microscopic scale
+-> direct BTBT eventually becomes important
+```
+
+Therefore the earlier working hypothesis that **direct BTBT is automatically the first high-field speed limiter in ordinary LWIR HgCdTe** is stopped.
+
+The replacement statement is not “impact ionization starts at 100 V/cm in every device.”
+
+It is:
+
+> **The high-field problem is nonlocal and multi-mechanism; finite impact-ionization probability must be computed from carrier energy history before it can be compared quantitatively with BTBT or TAT.**
+
+---
+
+## 11. Transit-speed scale retained
+
+For a constant-velocity Ramo pulse,
 
 ```math
 \boxed{
@@ -234,185 +426,72 @@ c_t\simeq0.44295.
 }
 ```
 
-Using the target-composition steady-state high-field velocity scale
+The target-composition steady-state high-field velocity scale of order
 
 ```math
-v_{\rm sat}\sim5\times10^5\ {\rm m/s},
+v\sim5\times10^5\ {\rm m/s}
 ```
 
-gives the kinematic transit envelope
-
-| `L` | `c_t v_sat/L` |
-|---:|---:|
-| 0.2 um | 1.11 THz |
-| 0.5 um | 443 GHz |
-| 1 um | 221 GHz |
-| 2 um | 111 GHz |
-| 5 um | 44.3 GHz |
-| 10 um | 22.1 GHz |
-
-These are **not complete detector bandwidth predictions**. Carrier lifetime, diffusion, trapping, contacts, RC loading, avalanche dynamics, and readout can all be slower.
-
-The reported `~1.1e6 m/s` submicron overshoot is a transient nonlocal effect and is not a universal bulk saturation velocity.
-
----
-
-## 7. General field-efficiency identity
-
-For
-
-```math
-J_{\rm BTBT}\propto F^2e^{-F_K/F},
-```
-
-```math
-\boxed{
-\frac{d\ln J_{\rm BTBT}}
-{d\ln F}
-=2+\frac{F_K}{F}.
-}
-```
-
-Define local drift-velocity elasticity
-
-```math
-\boxed{
-s_v(F)
-=\frac{d\ln v}{d\ln F}.
-}
-```
-
-Since `B_tr proportional to v`, wherever `s_v != 0`,
-
-```math
-\boxed{
-\frac{d\ln J_{\rm BTBT}}
-{d\ln B_{\rm tr}}
-=
-\frac{2+F_K/F}{s_v(F)}.
-}
-```
-
-Interpretation:
+gives approximately
 
 ```text
-s_v ~ 1
--> field still buys speed efficiently
-
-s_v -> 0+
--> marginal field becomes extremely inefficient for transit-speed improvement
-
-s_v < 0
--> more field raises BTBT while reducing speed; the field range is dominated.
+L=1 um -> 221 GHz transit envelope
+L=5 um -> 44.3 GHz
+L=10 um -> 22.1 GHz.
 ```
 
-The absolute BTBT current may still be tiny when this marginal cost becomes large. This identity is therefore a field-selection diagnostic, not a claim that BTBT itself already dominates dark current.
+These are kinematic envelopes, not full detector bandwidths.
 
 ---
 
-## 8. Impact ionization must be a separate constraint
+## 12. Reproducibility
 
-Do not bury impact ionization inside a fitted velocity curve.
-
-If the local impact-ionization event rate is `Gamma_II(F)`, a carrier crossing length `L` at speed `v(F)` has mean event count
-
-```math
-\boxed{
-\Xi_{\rm II}(F)
-=\Gamma_{\rm II}(F)\frac{L}{v(F)}.
-}
-```
-
-Under a Poisson-event model,
-
-```math
-\boxed{
-P_{\rm II}
-=1-e^{-\Xi_{\rm II}}.
-}
-```
-
-Thus an allowed probability `p_*` requires
-
-```math
-\boxed{
-\alpha_{\rm II}(F)L
-\le
--\ln(1-p_*),
-}
-```
-
-where
-
-```math
-\alpha_{\rm II}=\Gamma_{\rm II}/v.
-```
-
-The next quantitative material frontier is therefore a defensible `alpha_II(F)` or `Gamma_II(F)` relation for the target composition/temperature, followed by TAT and other leakage constraints.
-
----
-
-## 9. Reproducibility
-
-Current material regressions:
+Active material regressions:
 
 ```text
 numerics/hgcdte_btbt_normalized_sweep.py
 numerics/hgcdte_field_regime_map.py
+numerics/hgcdte_impact_dead_space.py
+numerics/hgcdte_nonlocal_ii_surrogate.py
 ```
 
-The new field-regime regression checks
-
-- crossover wavelengths `lambda_x(F_R,J_*)`;
-- direct-BTBT current at selected cutoffs/fields;
-- the `v=5e5 m/s` transit envelope.
-
-It is a scaling regression, not a device simulator.
+No CI is needed yet.
 
 ---
 
-## 10. Important stopped / superseded ideas
+## 13. External-data boundary
 
-Do not restart without defeating the recorded counterexample or scope failure:
+Palermo et al. explicitly calculate for `Hg_0.8Cd_0.2Te` at 77 K
 
-- universal active-volume-only detector bound;
-- finite absorber count as the one-photon speed resource;
-- finite internal storage rank as an always-on detector capacity;
-- local Landauer erasure as a universal detector cost;
-- single-Lorentzian `B^2/Delta` leakage as a universal electronic theorem;
-- spectral FWHM as architecture-independent carrier speed;
-- fixed-thickness `v=mu F` extrapolation as a universal speed-dark-current law;
-- direct BTBT as the assumed first high-field speed limiter for ordinary LWIR HgCdTe;
-- low-field mobility extrapolation into `kV/cm` fields.
+- impact-ionization rate;
+- velocity relaxation rate;
+- energy relaxation rate;
+- drift velocity and mean energy;
+- analytical interpolation formulas for calculated quantities.
 
-The retained passive harmonic access theorem remains useful background but is not the active paper direction.
+The accessible primary-source version does not expose the needed interpolation coefficients.
 
----
+Do **not** reconstruct them from narrative text or secondary plots and silently treat them as primary data.
 
-## 11. Explicit non-claims
+The required calibration inputs are now precisely identified:
 
-We have **not** established
-
-- a universal HgCdTe speed-dark-current limit;
-- a complete diode dark-current model;
-- a calibrated `Hg_0.8Cd_0.2Te`, 77 K impact-ionization field ceiling;
-- a universal saturation field;
-- that BTBT is negligible in all LWIR device geometries;
-- that transient overshoot can be used as a steady-state detector velocity;
-- a full device bandwidth including lifetime/RC/readout;
-- novelty of the normalized BTBT or field-regime algebra;
-- readiness for a manuscript.
+```text
+tau_E(F) or ell_E(F)
++
+Gamma_II(E) / its calibrated parameters.
+```
 
 ---
 
-## 12. Next decisive calculation
+## 14. Next step
 
-The next question is now explicit:
+If the target `x=0.20`, 77 K interpolation coefficients remain inaccessible, do not stall the project.
 
-> **At a specified collection length and allowed multiplication/ionization probability, what field is permitted by impact ionization in `Hg_0.8Cd_0.2Te` at 77–80 K, and how does that field compare with the transit-velocity plateau, TAT onset, and direct-BTBT ceiling?**
+Use the dimensionless nonlocal surrogate to determine **which ranges of `ell_E` and `A tau_E` would materially change the detector conclusion**.
 
-Do not invent an impact-ionization coefficient.
+Then either
 
-Use a primary-source Monte Carlo/experiment relation if recoverable. If only energy-dependent ionization rates are available, propagate the carrier-energy history rather than replacing it with an arbitrary field-only fit.
+1. identify a measurement / primary dataset capable of fixing those ranges; or
+2. if the result is insensitive over all plausible ranges, promote the robust conclusion.
 
-After the diode-like high-field problem is closed, compare it with HgCdTe **photoconductors**, where lifetime and photoconductive gain may dominate the speed physics rather than transit time.
+After the diode-like high-field problem is resolved, compare with HgCdTe photoconductors, where lifetime and photoconductive gain may dominate the speed physics instead of transit time.
