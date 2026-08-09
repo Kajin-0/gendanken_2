@@ -1,128 +1,52 @@
-# HgCdTe Spectral Generation Distribution — Quantum Efficiency Versus Remaining Carrier Drive
+# HgCdTe Spectral Generation Distribution — Quantum Efficiency, Transit Geometry, and Corrected Photoelectron Energy
 
 **Date:** 2026-08-09  
-**Status:** exact optical-depth generation statistics plus conditional graded-band transport consequences; no novelty claim
+**Status:** exact optical-depth generation statistics plus corrected conditional carrier-energy mapping; no novelty claim
 
-## 1. Purpose
+## 1. Optical-depth generation distribution
 
-`HGCDTE_SPECTRAL_GENERATION_TRANSPORT.md` established that a photon of energy `E_gamma` can only create a carrier after the local gap falls below that energy.
+For a fixed photon energy, let `x_gamma` be the earliest position where ordinary above-gap absorption is energetically allowed.
 
-That gives an earliest possible generation position, but a real absorbed photon has a distribution of generation positions.
-
-This note derives that distribution and asks:
-
-> **How does increasing optical depth / absorption probability change the remaining transport distance and hot-electron exposure of the detected photons?**
-
-The answer is clean in optical-depth coordinates.
-
----
-
-## 2. Optical survival and generation probability
-
-For fixed photon energy, let the energetically eligible region begin at `x_gamma`.
-
-Define the accumulated optical depth
+Define accumulated optical depth
 
 ```math
 \boxed{
 y(x)
 =\int_{x_\gamma}^{x}
-\alpha(E_\gamma,s)ds.
+\alpha(E_\gamma,s)ds
 }
 ```
 
-Let the total eligible-region optical depth be
+and total eligible optical depth
+
+```math
+\boxed{\tau_\gamma=y(L).}
+```
+
+The single-pass absorption probability is
+
+```math
+\boxed{\eta_\gamma=1-e^{-\tau_\gamma}.}
+```
+
+Conditioned on absorption, the generation optical depth is exactly
 
 ```math
 \boxed{
-\tau_\gamma=y(L).
-}
-```
-
-The photon survival probability to optical depth `y` is
-
-```math
-\boxed{S(y)=e^{-y}.}
-```
-
-The differential probability of absorption in `dy` is therefore
-
-```math
-\boxed{dP_{\rm abs}=e^{-y}dy.}
-```
-
-The total single-pass absorption probability is
-
-```math
-\boxed{
-\eta_\gamma
-=1-e^{-\tau_\gamma}.
-}
-```
-
----
-
-## 3. Universal conditional generation-depth distribution
-
-Condition on the photon actually being absorbed before the end of the region.
-
-Then
-
-```math
-\boxed{
-p(y\mid {\rm abs})
-=
-\frac{e^{-y}}
+p(y|{\rm abs})
+=\frac{e^{-y}}
 {1-e^{-\tau_\gamma}},
-\qquad
-0\le y\le\tau_\gamma.
+\qquad 0\le y\le\tau_\gamma.
 }
 ```
 
-This result is independent of the detailed spatial form of `alpha(x)`.
-
-The cumulative distribution is
-
-```math
-\boxed{
-P(Y\le y\mid{\rm abs})
-=
-\frac{1-e^{-y}}
-{1-e^{-\tau_\gamma}}.
-}
-```
-
-Thus detected photons are exponentially biased toward the **earliest optically allowed part** of the absorber when expressed in optical-depth coordinates.
+This distribution is independent of the detailed spatial form of `alpha(x)`.
 
 ---
 
-## 4. Immediate efficiency–transport interpretation
+## 2. Power-law near-edge mapping
 
-As
-
-```math
-\tau_\gamma\to\infty,
-```
-
-the single-pass quantum efficiency tends toward unity and the conditional distribution approaches an ordinary exponential concentrated around
-
-```math
-y=O(1).
-```
-
-So a high-optical-depth detector tends to absorb photons soon after they enter the eligible region.
-
-In a decreasing-gap absorber, that means a detected carrier tends to retain more of the remaining downhill band-edge path.
-
-By contrast, in the optically thin limit, only a small fraction of photons are absorbed, and the detected subset can be biased farther downstream when the local absorption coefficient itself rises with decreasing gap.
-
-This is a spatial form of an efficiency–transport tradeoff.
-
----
-
-## 5. Map optical depth to local bandgap excess
-
-For an analytic example use
+For the analytic local model
 
 ```math
 \alpha(E_\gamma,x)
@@ -134,52 +58,42 @@ For an analytic example use
 inside a linear gap
 
 ```math
-E_g(x)=E_{g,\rm in}-Gx.
+E_g(x)=E_{g,\rm in}-Gx,
 ```
 
-Define
+define
 
 ```math
-u
-\equiv
-E_\gamma-E_g(x).
+u=E_\gamma-E_g(x),
 ```
-
-At the earliest eligible position,
 
 ```math
-u=0,
+\delta E=E_\gamma-E_{g,\rm out},
 ```
 
-and at the output
-
-```math
-u=\delta E
-\equiv
-E_\gamma-E_{g,\rm out}.
-```
-
-The accumulated optical depth is
-
-```math
-\boxed{
-y(u)
-=\frac{C}{G(\beta+1)}
-u^{\beta+1}.}
-```
-
-Define
+and
 
 ```math
 n=\beta+1.
 ```
 
-Since
+Then
 
 ```math
+\boxed{
+y(u)
+=\frac{C}{Gn}u^n,
+}
+```
+
+```math
+\boxed{
 \tau_\gamma
 =\frac{C}{Gn}(\delta E)^n,
+}
 ```
+
+and therefore
 
 ```math
 \boxed{
@@ -190,20 +104,9 @@ u(y)
 
 ---
 
-## 6. Remaining downhill carrier drive after generation
+## 3. Remaining geometric transport after generation
 
-At generation, the remaining gap drop to the output is
-
-```math
-D(y)
-=E_g(x)-E_{g,\rm out}.
-```
-
-Because
-
-```math
-E_g(x)=E_\gamma-u,
-```
+The remaining downhill conduction-band drop is
 
 ```math
 \boxed{
@@ -211,393 +114,325 @@ D(y)
 =\delta E-u(y)
 =\delta E
 \left[
-1-\left(\frac{y}{\tau_\gamma}\right)^{1/n}
-\right].}
+1-
+\left(\frac{y}{\tau_\gamma}\right)^{1/n}
+\right].
+}
 ```
 
-The corresponding remaining geometric distance is
+The remaining geometric distance is
 
 ```math
-\boxed{
-d(y)=D(y)/G.}
+\boxed{d(y)=D(y)/G.}
 ```
 
-Thus the optical absorption event directly selects the carrier's remaining band-edge energy and transport distance.
+This geometry is independent of how photon excess is partitioned between electron and hole.
+
+Thus the robust generation-position conclusion remains:
+
+```text
+higher optical depth
+-> absorption biased closer to the earliest allowed position
+-> larger remaining transport distance for detected carriers.
+```
 
 ---
 
-## 7. Mean remaining drive among absorbed photons
+## 4. Mean remaining distance / band-edge drop
 
-Using the conditional truncated-exponential distribution,
+The conditional mean local photon excess is
 
 ```math
+\boxed{
 \langle u\rangle
 =
 \frac{\delta E}{1-e^{-\tau_\gamma}}
 \tau_\gamma^{-1/n}
 \gamma\!\left(1+\frac1n,\tau_\gamma\right),
-```
-
-where the lowercase `gamma` is the lower incomplete gamma function.
-
-Therefore
-
-```math
-\boxed{
-\langle D\rangle
-=
-\delta E
-\left[
-1-
-\frac{
-\tau_\gamma^{-1/n}
-\gamma(1+1/n,\tau_\gamma)
 }
-{1-e^{-\tau_\gamma}}
-\right].}
 ```
 
-And
+where lowercase `gamma` is the lower incomplete gamma function.
 
-```math
-\boxed{
-\langle d\rangle
-=\langle D\rangle/G.}
-```
-
-This is a generation-position statistic, not yet a mean electrical impulse-response time.
-
----
-
-## 8. Optically thin limit
-
-For
-
-```math
-\tau_\gamma\ll1,
-```
-
-the conditional absorption density is proportional to the local absorption coefficient.
-
-Then
-
-```math
-\boxed{
-\langle u\rangle
-\to
-\delta E\frac{\beta+1}{\beta+2},}
-```
-
-so
+Hence
 
 ```math
 \boxed{
 \langle D\rangle
-\to
-\frac{\delta E}{\beta+2}.}
-```
-
-For the illustrative direct-edge value
-
-```math
-\beta=1/2,
-```
-
-```math
-\boxed{
-\langle D\rangle
-\to0.4\,\delta E.}
-```
-
-The few photons that are absorbed in an optically thin graded edge are therefore biased toward the downstream region where absorption is stronger.
-
----
-
-## 9. Optically thick limit
-
-For
-
-```math
-\tau_\gamma\gg1,
-```
-
-the typical generation optical depth remains `O(1)` while
-
-```math
-u/\delta E
-\sim
-\tau_\gamma^{-1/n}.
-```
-
-Therefore
-
-```math
-\boxed{
-\langle D\rangle
-\to\delta E.}
-```
-
-High single-pass efficiency pushes the detected population toward the earliest eligible generation region, leaving nearly the full remaining downhill band-edge drop.
-
----
-
-## 10. Fraction of absorbed photons whose mean trajectory reaches the II threshold
-
-For a carrier generated with remaining gap drop `D`, the current constant-gradient / constant-relaxation model gives exit mean excess energy
-
-```math
-\boxed{
-\varepsilon_{\rm out}(D)
-=G\ell_E
-\left[1-e^{-D/(G\ell_E)}\right].}
-```
-
-The exit threshold is
-
-```math
-\chi E_{g,\rm out}.
-```
-
-Define
-
-```math
-K=G\ell_E.
-```
-
-If
-
-```math
-K\le\chi E_{g,\rm out},
-```
-
-then even an indefinitely long remaining segment cannot raise the **mean** energy to threshold, so the mean-threshold-accessible fraction is zero.
-
-If
-
-```math
-K>\chi E_{g,\rm out},
-```
-
-the critical remaining gap drop satisfies
-
-```math
-K[1-e^{-D_c/K}]
-=\chi E_{g,\rm out},
-```
-
-hence
-
-```math
-\boxed{
-D_c
-=-K\ln\!\left[
-1-\frac{\chi E_{g,\rm out}}{K}
-\right].}
-```
-
-If
-
-```math
-D_c\ge\delta E,
-```
-
-no absorbed photon at that energy reaches the deterministic mean threshold.
-
-If
-
-```math
-0<D_c<\delta E,
-```
-
-mean-threshold access occurs for early enough absorption such that
-
-```math
-D\ge D_c.
-```
-
-Equivalently,
-
-```math
-u\le\delta E-D_c.
-```
-
-For the power-law absorption model, define
-
-```math
-\boxed{
-y_c
-=\tau_\gamma
-\left(
-1-\frac{D_c}{\delta E}
-\right)^n.}
-```
-
-Then the fraction of **absorbed photons** whose deterministic mean carrier trajectory reaches the II threshold is
-
-```math
-\boxed{
-f_{\rm mean-II}
 =
-\frac{1-e^{-y_c}}
-{1-e^{-\tau_\gamma}}.}
-```
-
-This is not an impact-ionization probability. It is the fraction of generation positions for which the repository mean-energy trajectory becomes threshold accessible.
-
----
-
-## 11. Ballistic limit of the threshold-accessible fraction
-
-For
-
-```math
-\ell_E\to\infty,
-```
-
-```math
-D_c\to\chi E_{g,\rm out}.
-```
-
-Thus if
-
-```math
-\delta E\le\chi E_{g,\rm out},
-```
-
-```math
-\boxed{f_{\rm mean-II}=0.}
-```
-
-in the ballistic mean-threshold model.
-
-If
-
-```math
-\delta E>\chi E_{g,\rm out},
-```
-
-then
-
-```math
-\boxed{
-y_c
-=\tau_\gamma
-\left(
-1-
-\frac{\chi E_{g,\rm out}}
-{\delta E}
-\right)^{\beta+1}.}
+\delta E-
+\langle u\rangle.
+}
 ```
 
 and
 
 ```math
 \boxed{
-f_{\rm mean-II}
-=
-\frac{
-1-\exp[-y_c]
+\langle d\rangle
+=\langle D\rangle/G.
 }
-{1-e^{-\tau_\gamma}}.}
 ```
 
-As `tau_gamma -> infinity`, this fraction tends to one whenever `y_c` grows without bound.
+### Optically thin limit
 
-Thus for sufficiently energetic photons, demanding very high single-pass absorption can bias nearly all detected events toward generation positions with large remaining carrier drive.
-
----
-
-## 12. The important detector interpretation
-
-The gradient produces a wavelength-dependent trade:
-
-```text
-larger optical depth
--> higher absorption probability
--> earlier generation within the eligible region
--> longer remaining transport distance
--> larger remaining downhill band-edge drive
--> potentially larger hot-electron exposure.
-```
-
-But for near-cutoff photons satisfying
-
-```math
-E_\gamma-E_{g,\rm out}
-\le
-\chi E_{g,\rm out},
-```
-
-the ballistic deterministic mean-II threshold remains inaccessible regardless of generation position.
-
-Therefore the strongest efficiency–hot-electron conflict appears for photons sufficiently far above the narrow-gap endpoint, not necessarily at the detector cutoff itself.
-
----
-
-## 13. Relation to response time
-
-The remaining distance distribution
-
-```math
-d(y)=D(y)/G
-```
-
-can be pushed through either
-
-- the cold ballistic Kane transit law; or
-- a future calibrated scattering-limited transport model.
-
-The resulting distribution of electrical transit times is then weighted by the same optical generation statistics.
-
-This is the correct route to a wavelength-resolved impulse response.
-
----
-
-## 14. Claim boundary
-
-### Exact
-
-The conditional optical-depth distribution
+For `tau_gamma << 1`,
 
 ```math
 \boxed{
-p(y|{\rm abs})
-=e^{-y}/(1-e^{-\tau_\gamma})
+\langle D\rangle
+\to
+\frac{\delta E}{\beta+2}.
 }
 ```
 
-is exact for one-pass local absorption.
+For the illustrative `beta=1/2`,
 
-The map from `y` to remaining drive is exact for the stated linear gap and power-law local absorption model.
+```math
+\boxed{
+\langle D\rangle\to0.4\delta E.
+}
+```
 
-### Conditional
+### Optically thick limit
 
-The mean-II fraction uses the repository deterministic energy-relaxation surrogate and should not be confused with a stochastic ionization probability.
+For `tau_gamma >> 1`,
 
-### Not established
+```math
+\boxed{\langle D\rangle\to\delta E.}
+```
 
-- calibrated HgCdTe `alpha(E,x)`;
-- actual II probability;
-- full impulse-response distribution;
-- optical interference/coherence;
-- photon recycling;
-- Urbach-tail generation upstream of the nominal gap crossing;
+So high single-pass absorption pushes detected events toward longer remaining graded transport.
+
+---
+
+## 5. Critical correction — downstream-generated electrons are not cold
+
+For an absorption event at local photon excess `u`, parameterize the electron share of that excess as
+
+```math
+\boxed{
+\varepsilon_{\rm gen}(u)
+=\xi_eu,
+\qquad 0\le\xi_e\le1.
+}
+```
+
+The symmetric two-band Kane optical transition gives
+
+```math
+\boxed{\xi_e=1/2,}
+```
+
+but real HgCdTe requires a multiband optical-transition calculation.
+
+Therefore `D(y)` is the **remaining band-edge work**, not the total final hot-electron energy.
+
+See `HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md`.
+
+---
+
+## 6. Corrected mean-energy trajectory for each generation position
+
+For constant downstream gradient `G` and energy-relaxation length `ell_E`, define
+
+```math
+D(u)=\delta E-u.
+```
+
+Then
+
+```math
+\boxed{
+\varepsilon_{\rm out}(u)
+=
+\xi_eu
+\exp\!\left[-\frac{D(u)}{G\ell_E}\right]
++
+G\ell_E
+\left\{
+1-
+\exp\!\left[-\frac{D(u)}{G\ell_E}\right]
+\right\}.
+}
+```
+
+The generation-position distribution therefore induces an energy distribution through
+
+```math
+u(y)=\delta E(y/\tau_\gamma)^{1/n}.
+```
+
+The mean exit energy among absorbed photons is
+
+```math
+\boxed{
+\langle\varepsilon_{\rm out}\rangle
+=
+\frac1{1-e^{-\tau_\gamma}}
+\int_0^{\tau_\gamma}
+ e^{-y}
+\varepsilon_{\rm out}[u(y)]dy.
+}
+```
+
+No closed form is required for the current argument.
+
+---
+
+## 7. Ballistic limit
+
+For `ell_E -> infinity`,
+
+```math
+\boxed{
+\varepsilon_{\rm out}^{\rm bal}(u)
+=\delta E-(1-\xi_e)u.
+}
+```
+
+Hence
+
+```math
+\boxed{
+\langle\varepsilon_{\rm out}^{\rm bal}\rangle
+=\delta E-(1-\xi_e)\langle u\rangle.
+}
+```
+
+This exposes a major distinction:
+
+```text
+generation farther downstream
+-> always reduces remaining transit distance
+
+but
+
+generation farther downstream
+-> reduces final ballistic electron energy only by factor (1-xi_e) of the local photon excess.
+```
+
+For `xi_e -> 1`, final ballistic electron energy is nearly independent of generation position.
+
+---
+
+## 8. Corrected threshold-accessible fraction
+
+Use the deterministic output threshold surrogate
+
+```math
+E_{\rm th,out}=\chi E_{g,\rm out}.
+```
+
+For finite relaxation, the critical generation excess `u_c` is defined implicitly by
+
+```math
+\boxed{
+\varepsilon_{\rm out}(u_c)
+=\chi E_{g,\rm out}.
+}
+```
+
+Because the energy formula now contains both initial photoexcitation energy and downstream band-edge work, the previous cold-injection closed form for the threshold-accessible generation fraction is **superseded**.
+
+When a unique physical `u_c` exists in `[0,delta E]`, convert it to optical depth
+
+```math
+\boxed{
+y_c
+=\tau_\gamma
+\left(\frac{u_c}{\delta E}\right)^n.}
+```
+
+The relevant generation fraction is then obtained from the exact truncated-exponential CDF, with the inequality direction determined by the monotonicity of `epsilon_out(u)` for the chosen `xi_e` and relaxation parameters.
+
+Do not reuse the old cold-generation fraction formula.
+
+---
+
+## 9. Ballistic all-position safety condition survives
+
+For `0 <= xi_e <= 1`,
+
+```math
+\varepsilon_{\rm out}^{\rm bal}(u)
+\le\delta E.
+```
+
+Therefore the earliest allowed generation position remains the worst ballistic case, and the sufficient condition
+
+```math
+\boxed{
+\delta E<\chi E_{g,\rm out}
+}
+```
+
+still guarantees that every generation position is below the deterministic mean threshold in the ballistic model.
+
+This corresponds approximately to
+
+```math
+\boxed{
+\lambda_\gamma>
+\lambda_{c,\rm out}/(1+\chi).
+}
+```
+
+---
+
+## 10. Quantum-efficiency / transport interpretation
+
+Increasing `tau_gamma` raises single-pass absorption and biases absorbed photons toward small `y`, hence toward the earliest eligible region.
+
+Robustly,
+
+```text
+higher optical depth
+-> higher QE
+-> larger mean remaining transport distance.
+```
+
+For hot-electron energy, the effect depends additionally on
+
+```text
+xi_e
++
+ell_E
++
+local gap profile.
+```
+
+Therefore a generic statement that high QE necessarily creates proportionally hotter electrons is too strong.
+
+---
+
+## 11. Claim boundary
+
+### Exact
+
+- conditional optical-depth generation distribution;
+- `y <-> u` mapping for the stated local absorption law;
+- remaining geometric distance distribution.
+
+### Corrected / conditional
+
+Hot-electron energy must include photoexcitation excess through `xi_e`.
+
+### Superseded
+
+The earlier cold-injection closed form for the fraction of downstream-generated absorbed photons whose mean trajectory reaches threshold.
+
+### Open
+
+- calibrated HgCdTe `xi_e(E_gamma,x)`;
+- calibrated `alpha(E_gamma,x)`;
+- stochastic II probability;
+- real transport-time distribution;
+- optical coherence/interference;
 - novelty.
 
 ---
 
-## 15. Next decisive calculation
+## 12. Next step
 
-The next useful quantity is the **wavelength-resolved electrical response**:
-
-```math
-H(\omega;E_\gamma)
-=
-\int dx\,
-p(x|E_\gamma,{\rm abs})
-H_{\rm carrier}(\omega|x).
-```
-
-Before adding a calibrated transport solver, the cold ballistic Kane trajectory can be used as the analytic baseline.
-
-This will tell us whether a graded absorber can produce a spectrally dependent response time in which near-cutoff photons are intrinsically generated closer to collection while shorter-wavelength photons traverse more of the gradient.
+Propagate the exact generation distribution through the corrected ballistic/nonlocal transport formulas and obtain wavelength-resolved mean delay and generation-position timing spread as a function of `xi_e`.
