@@ -1,36 +1,46 @@
 # Current State — Experiment 01: The Vanishing Absorber
 
 **Date:** 2026-08-08  
-**Status:** one-resonance model derived; active-volume-only optical bound falsified in the ideal local continuum model; no novelty claim  
+**Status:** geometric-volume and finite-absorber-number routes tested; neither supplies a universal bound; no novelty claim  
 
-## 1. Active question
+## 1. Guiding question
 
 Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
 
-The research has now passed through two distinct stages:
+The research has now passed through four logical steps:
 
-1. a weak absorber in a one-port resonance can retain unity monochromatic absorption only by becoming temporally narrow if its absorptive decay rate `gamma_a` tends to zero;
-2. geometric active volume does **not** force `gamma_a` to tend to zero when the electromagnetic field is allowed to concentrate more strongly as the absorber shrinks.
+1. **One-port optical loss:** if the active loss rate `gamma_a -> 0`, maintaining unity resonant absorption makes the absorbed-power response narrow.
+2. **Active-volume counterexample:** `V_a -> 0` does not force `gamma_a -> 0`; ideal field concentration can keep active participation and `gamma_a` finite.
+3. **Thermal input channel:** when background photons enter through the same optical channel as the signal, an exact sensitivity-speed relation appears that depends on thermal occupation, not active volume.
+4. **Microscopic single transition:** replacing the continuum absorber by one two-level transition still does not create a one-photon speed bound, because the one-excitation sector is linear and rate matching reappears.
 
-The second result invalidates the simplest active-volume-based route to a general detector bound.
+The surviving unresolved resource is therefore not simply geometric volume or absorber number.
 
 ---
 
-## 2. Canonical detailed notes
+## 2. Canonical supporting notes
 
-### One-port dynamics
+1. `ONE_PORT_RESONATOR_DYNAMICS.md`
+2. `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
+3. `THERMAL_INPUT_CHANNEL.md`
+4. `MICROSCOPIC_SINGLE_TRANSITION.md`
 
-`ONE_PORT_RESONATOR_DYNAMICS.md`
+The claim boundary is maintained in `CLAIM_LEDGER.md`.
+
+---
+
+## 3. One-port result
 
 For a passive one-port resonance,
 
 ```math
-A(\omega)=
+A(\omega)
+=
 \frac{4\gamma_e\gamma_a}
-{(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2},
+{(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2}.
 ```
 
-and the resonant small-signal absorbed-power bandwidth is
+The resonant absorbed-power modulation bandwidth is
 
 ```math
 \boxed{
@@ -43,247 +53,389 @@ B_{3\rm dB}
 At critical coupling,
 
 ```math
+\boxed{
 \gamma_e=\gamma_a,
 \qquad
 A_0=1,
 \qquad
 B_{3\rm dB}=\frac{\gamma_a}{\pi}.
+}
 ```
 
-Thus, **if `gamma_a -> 0`**, maintaining unity absorption forces the one-resonance detector response to narrow.
+Thus **if `gamma_a -> 0`**, unity monochromatic absorption becomes proportionally slow/narrow in this architecture.
 
-### Active-volume counterexample
+For the earlier independent Poisson bulk-dark-event toy model, the dimensionless metric
 
-`ACTIVE_VOLUME_COUNTEREXAMPLE.md`
+```math
+\mathcal C
+=
+\frac{h\nu\sqrt{B_{3\rm dB}}}{\mathrm{NEP}}
+```
 
-This note shows that `gamma_a -> 0` does not follow from `V_a -> 0` in a general ideal local-linear passive model.
+was optimized at
+
+```math
+\boxed{
+\gamma_e=2\gamma_a,
+\qquad
+A_0=\frac89.
+}
+```
+
+That optimum is not universal; it depends on the assumed noise source.
 
 ---
 
-## 3. Explicit counterexample to bounded `gamma_a/V_a`
+## 4. Geometric active volume is not fundamental
 
 For weak dielectric loss,
 
 ```math
+\boxed{
 \gamma_a
 =
 \frac{\omega}{2}p_a\tan\delta,
+}
 ```
 
-where `p_a` is the active dielectric's electric-energy participation fraction.
+where `p_a` is active electric-energy participation.
 
-Now take an ideal parallel-plate capacitor filled with the active dielectric and scale
+The explicit shrinking-capacitor family
 
 ```math
 d=s d_0,
 \qquad
 A=s A_0,
 \qquad
-s\to0.
+s\to0
 ```
 
-The capacitance remains fixed because
+keeps
 
 ```math
-C=\frac{\epsilon_0\epsilon' A}{d}=C_0,
+C=\frac{\epsilon_0\epsilon' A}{d}
 ```
 
-while the active volume obeys
+fixed while
 
 ```math
-\boxed{V_a=Ad\propto s^2\to0.}
+V_a=Ad\propto s^2\to0.
 ```
-
-For fixed modal energy, the capacitor voltage remains fixed but
-
-```math
-|E|^2\propto\frac{1}{d^2}\propto\frac{1}{s^2}.
-```
-
-Hence
-
-```math
-|E|^2V_a=\text{constant},
-```
-
-so the active dielectric can retain fixed participation `p_a` and therefore fixed `gamma_a` while its geometric volume vanishes.
-
-Thus
-
-```math
-\boxed{
-\frac{\gamma_a}{V_a}\to\infty.
-}
-```
-
-This is an explicit counterexample to the conjecture that passivity alone bounds `gamma_a/V_a` by geometric active volume.
-
----
-
-## 4. Consequence for the toy detector metric
-
-The earlier idealized bulk dark-event model was
-
-```math
-D=g_dV_a.
-```
-
-The one-port optimization gave
-
-```math
-\boxed{
-\mathcal C_{\max}^2
-=
-\frac{16\gamma_a}{27\pi D},
-}
-```
-
-where
-
-```math
-\mathcal C
-=
-\frac{h\nu\sqrt{B_{3\rm dB}}}{\mathrm{NEP}}.
-```
-
-In the capacitor counterexample,
-
-```math
-\gamma_a=\text{constant},
-\qquad
-D\propto V_a.
-```
-
-Therefore the same toy model predicts
-
-```math
-\boxed{
-\mathcal C_{\max}^2\propto\frac{1}{V_a},
-\qquad
-\mathcal C_{\max}\propto\frac{1}{\sqrt{V_a}}.
-}
-```
-
-So the previous conditional volume cancellation is not a universal passive-electromagnetic result.
-
-This divergence should **not** be interpreted as a prediction that a real detector can achieve infinite performance. It shows that at least one assumption must fail before the physical microscopic limit is reached.
-
----
-
-## 5. Why established per-volume absorption bounds do not contradict this
-
-Known passivity/material-response theory bounds absorption for a specified susceptibility and specified background excitation. For a homogeneous local absorber, a representative bound is
-
-```math
-P_{\rm abs}
-\le
-\frac{\omega\epsilon_0}{2}
-\frac{|\chi|^2}{\operatorname{Im}\chi}
-\int_{V_a}|\mathbf E_{\rm bg}|^2\,dV.
-```
-
-For a uniform plane wave this gives the familiar per-volume scaling
-
-```math
-\frac{\sigma_{\rm abs}}{V_a}
-\le
-k\frac{|\chi|^2}{\operatorname{Im}\chi}.
-```
-
-However, if a separate ideal lossless antenna, resonator, transformer, or other field concentrator is admitted as part of the electromagnetic environment, the background field at the active material need not remain fixed as `V_a` shrinks.
-
-The capacitor family has
-
-```math
-|E_{\rm bg}|^2\propto\frac{1}{V_a},
-```
-
-so `V_a |E_bg|^2` remains finite.
-
-Therefore a material-per-volume bound does not automatically become an **active-volume-only detector bound**. The allowed optical environment must also be constrained.
-
-Primary context includes Miller et al., *Optics Express* 24, 3329-3364 (2016), and Raman, Shin & Fan, *Physical Review Letters* 110, 183901 (2013). These are prior electromagnetic results, not novelty claims of this repository.
-
----
-
-## 6. What the counterexample teaches
-
-The optical resource is not geometric active volume by itself.
-
-A better variable is electromagnetic participation, but even participation is not yet fundamental: the ideal capacitor keeps participation finite by driving the field amplitude toward infinity as the physical volume shrinks.
-
-The mathematical limit therefore runs directly into microscopic physics.
 
 For fixed modal energy,
 
 ```math
-|E|\propto\frac{1}{d}.
+|E|^2\propto s^{-2},
 ```
 
-For a single photon, the stored energy is not arbitrarily scalable:
+so
 
 ```math
-U\sim\hbar\omega.
+|E|^2V_a=\text{constant}.
 ```
 
-Thus the single-photon field grows without bound in the continuum model as the relevant electromagnetic volume vanishes.
+Hence fixed participation and fixed `gamma_a` can coexist with
 
-Real matter cannot preserve a fixed bulk susceptibility and linear response indefinitely in that limit.
+```math
+\boxed{V_a\to0}
+```
+
+and therefore
+
+```math
+\boxed{\gamma_a/V_a\to\infty.}
+```
+
+So passivity alone does **not** yield an active-volume-only optical bound when arbitrary ideal field concentration is allowed.
+
+The earlier schematic target
+
+```text
+eta^2 B <= C V_a
+```
+
+is no longer an active conjecture.
 
 ---
 
-## 7. Physical assumptions expected to fail next
+## 5. Thermal photons entering through the signal channel
 
-At sufficiently small scale, at least some of the following become unavoidable:
+`THERMAL_INPUT_CHANNEL.md` considers one thermal spatial/polarization input channel with approximately constant Bose occupation over the resonance,
 
-- nonlinear response or saturation;
-- dielectric breakdown, tunneling, or ionization;
-- spatial nonlocality;
-- atomic granularity / finite absorber count;
-- finite oscillator strength;
-- quantum rather than classical field normalization;
-- failure of the extensive dark-event law `D = g_d V_a` once the active degrees of freedom are discrete;
-- loss and finite bandwidth in the concentrating structure itself.
+```math
+\bar n_0
+=
+\frac{1}
+{\exp(\hbar\omega_0/k_BT)-1}.
+```
 
-The first four are not optional engineering imperfections in the `V_a -> 0` limit. They mark the breakdown of the continuum model that generated the apparent divergence.
+Define
+
+```math
+I_1
+=
+\int\frac{d\omega}{2\pi}A(\omega),
+```
+
+```math
+I_2
+=
+\int\frac{d\omega}{2\pi}A^2(\omega).
+```
+
+For the one-port Lorentzian,
+
+```math
+\boxed{
+I_1
+=
+\frac{2\gamma_e\gamma_a}
+{\gamma_e+\gamma_a},
+}
+```
+
+```math
+\boxed{
+I_2
+=
+\frac{4\gamma_e^2\gamma_a^2}
+{(\gamma_e+\gamma_a)^3}.
+}
+```
+
+Long-time thermal photon counting gives
+
+```math
+\boxed{
+R_{\rm th}=\bar n_0 I_1,
+}
+```
+
+and
+
+```math
+\boxed{
+K_{\rm th}
+=
+\lim_{T_m\to\infty}
+\frac{\operatorname{Var}N}{T_m}
+=
+\bar n_0 I_1+\bar n_0^2I_2.
+}
+```
+
+The second term is Bose bunching.
+
+Using the same one-sided count-noise convention and the dimensionless sensitivity-speed metric gives, with
+
+```math
+x=\frac{\gamma_e}{\gamma_a},
+```
+
+```math
+\boxed{
+\mathcal C_{\rm th}^2(x)
+=
+\frac{2x}
+{\pi\bar n_0\left[(1+x)^2+2\bar n_0x\right]}.
+}
+```
+
+The unique positive optimum is
+
+```math
+\boxed{x=1.}
+```
+
+So thermal input-channel noise is optimized at **critical coupling**, in contrast to the independent bulk-dark-event model.
+
+At critical coupling,
+
+```math
+\boxed{
+\mathcal C_{\rm th,max}^2
+=
+\frac{1}
+{\pi\bar n_0(2+\bar n_0)}.
+}
+```
+
+Equivalently,
+
+```math
+\boxed{
+\frac{\mathrm{NEP}_{\rm th,min}}
+{h\nu_0\sqrt{B_{3\rm dB}}}
+=
+\sqrt{\pi\bar n_0(2+\bar n_0)}.
+}
+```
+
+The absorber rate `gamma_a`, loaded `Q`, and active volume cancel from this **restricted one-channel background relation**.
+
+This is not an internal-dark-count theorem or a complete equilibrium detector bound.
+
+Representative single-channel thermal occupations:
+
+| wavelength | background temperature | `n_bar` | `C_th,max` |
+|---|---:|---:|---:|
+| `3 um` | `300 K` | `1.14e-7` | `1.18e3` |
+| `5 um` | `300 K` | `6.83e-5` | `48.3` |
+| `10 um` | `300 K` | `8.33e-3` | `4.36` |
+| `12 um` | `300 K` | `1.87e-2` | `2.90` |
+| `10 um` | `77 K` | `7.67e-9` | `4.55e3` |
+
+These numbers are per spatial/polarization mode and are not complete optical-system background calculations.
 
 ---
 
-## 8. Current claim boundary
+## 6. Finite absorber number does not fix the one-photon problem
+
+`MICROSCOPIC_SINGLE_TRANSITION.md` replaces the dielectric absorber by one optically active transition `|g> <-> |e>` plus an irreversible dark detection state `|d>`.
+
+Define amplitude-decay rates
+
+- `gamma_o` into the optical port;
+- `gamma_d` into the irreversible detection channel.
+
+With at most one incident photon and the detector initially in its ground state, the dynamics remains in the one-excitation sector.
+
+The two-level saturation nonlinearity is therefore not accessed.
+
+The excited-state amplitude obeys the same linear one-resonance equation, giving the irreversible detection probability
+
+```math
+\boxed{
+A_d(\omega)
+=
+\frac{4\gamma_o\gamma_d}
+{(\omega-\omega_0)^2+(\gamma_o+\gamma_d)^2}.
+}
+```
+
+Perfect monochromatic transfer occurs at
+
+```math
+\boxed{\gamma_o=\gamma_d.}
+```
+
+If both rates are scaled together,
+
+```math
+\gamma_o=\gamma_d=\Lambda,
+```
+
+the model permits the detection line to broaden with `Lambda` while preserving unit on-resonance transfer.
+
+Thus **finite absorber number and two-level saturation do not by themselves impose a single-photon speed ceiling**.
+
+---
+
+## 7. Major prior-art collision
+
+Young, Sarovar & Leonard, *Physical Review A* 97, 033836 (2018), developed a fully quantum photodetector model with an optically active state, rapid incoherent transfer to a long-lived optically dark state, and measurement of that dark state.
+
+Within their ideal assumptions they found that high optical coupling combined with matched rapid incoherent transfer can approach unit efficiency, negligible dark counts, and minimal jitter.
+
+They explicitly assume thermal reverse transfer from the dark state to the optically active state is negligible.
+
+Therefore this repository must **not** claim novelty for:
+
+- single-transition rate matching;
+- dark-state protection of optical absorption from measurement backaction;
+- the claim that finite absorber number alone imposes an efficiency-speed tradeoff;
+- a universal quantum efficiency-dark-count-jitter tradeoff without thermodynamic constraints.
+
+Their result does not answer the present full resource-accounting question, but it closes several tempting branches.
+
+---
+
+## 8. What resource is left?
+
+The unresolved optical quantity is now the useful coupling rate of a **finite transition** to a desired input channel over a specified signal bandwidth.
+
+For an electric-dipole transition, free-space radiative coupling depends on the transition dipole / oscillator strength. Total oscillator strength is constrained by microscopic sum rules.
+
+But an engineered electromagnetic environment can alter the radiative rate through the projected local density of optical states (LDOS).
+
+So the natural combined optical resource is closer to
+
+```text
+finite transition strength
+x
+allowed LDOS over the required bandwidth
+```
+
+than to active volume.
+
+Known near-field power-bandwidth theory already constrains LDOS enhancement when surrounding material and geometry are specified. This is prior theory, not a new result here.
+
+If coupling is pushed toward the bare optical frequency, the Markov/RWA model itself fails and gauge-consistent ultrastrong-coupling physics, counter-rotating terms, diamagnetic contributions, and oscillator-strength constraints become unavoidable.
+
+---
+
+## 9. Separate thermodynamic resource
+
+The irreversible localization step
+
+```text
+|e> -> |d>
+```
+
+requires coupling to a reservoir.
+
+Suppressing the reverse process depends on level spacings and reservoir occupation; a cyclic detector must eventually reset.
+
+Thus optical coupling strength and thermodynamic irreversibility are distinct resource axes.
+
+Do not combine them into one universal bound without explicitly modeling:
+
+- forward and reverse transition rates;
+- reservoir temperatures or chemical potentials;
+- amplification backaction;
+- reset/free-energy cost;
+- the detector's operating cycle.
+
+---
+
+## 10. Current claim boundary
 
 ### Established within stated models
 
-1. The one-port absorbed-power modulation bandwidth is `B_3dB = (gamma_e + gamma_a)/(2 pi)`.
-2. Critical coupling with `gamma_a -> 0` becomes temporally narrow.
-3. A shrinking active dielectric can nevertheless retain finite `gamma_a` if its energy participation is held fixed by increasing field concentration.
-4. The explicit constant-capacitance family has `V_a -> 0`, fixed `gamma_a`, and therefore `gamma_a/V_a -> infinity` within ideal local linear continuum electrodynamics.
-5. Geometric active volume alone cannot support the proposed general passive optical bound.
+1. One-port modulation bandwidth is `B_3dB=(gamma_e+gamma_a)/(2 pi)`.
+2. If `gamma_a -> 0`, critical-coupling unity absorption becomes narrow.
+3. `V_a -> 0` does not imply `gamma_a -> 0`; an explicit passive local-linear counterexample has fixed `gamma_a` and `gamma_a/V_a -> infinity`.
+4. For one thermal input channel, exact Bose counting gives `C_th,max^2 = 1/[pi n_bar(2+n_bar)]` at critical coupling.
+5. For one incoming photon, a two-level absorber remains linear in the accessible one-excitation sector; finite absorber number alone does not create a speed ceiling in the Markov/RWA model.
+
+### Invalidated / stopped as general claims
+
+- `gamma_a/V_a` bounded by passivity alone;
+- a universal active-volume law `eta^2 B <= C V_a`;
+- universal active-volume cancellation;
+- finite absorber number / saturation as the missing single-photon bound;
+- a universal efficiency-dark-count-jitter tradeoff without resource assumptions.
 
 ### Not established
 
-- that a real detector can make performance diverge as `V_a -> 0`;
-- that lossless field concentration can remain ideal at arbitrarily small scales;
-- that the toy dark-event law remains valid to microscopic absorber counts;
-- that oscillator strength, nonlocality, quantum saturation, or fluctuation-dissipation produces a particular universal detector bound;
-- that any current detector-level result is novel.
+- a universal upper bound on finite-transition optical coupling over bandwidth;
+- a detector theorem obtained from oscillator-strength/LDOS bounds;
+- a full equilibrium fluctuation-dissipation detector limit;
+- a minimum thermodynamic work/reset cost for a specified detector capability;
+- novelty of any detector-level closed form in this repository.
 
 ---
 
-## 9. Next decisive question
+## 11. Next decisive question
 
-The research question has moved from classical geometric volume to microscopic physical resources:
+The cleanest forward direction is now:
 
-> **What is the smallest physical resource that cannot be concentrated away: absorber number, oscillator strength, single-photon saturation field, material sum rule, or a fluctuation-dissipation/detailed-balance quantity?**
+> **For a finite optical transition with fixed oscillator strength, how large can the coupling to one useful propagating channel be over a required bandwidth when the entire passive electromagnetic environment is constrained?**
 
-The next stage should begin with the simplest microscopic absorber model rather than immediately invoking a broad theorem.
+This should be attacked using projected LDOS / spontaneous-emission power-bandwidth bounds rather than active material volume.
 
-A natural test is a finite set of resonant two-level or Lorentz oscillators coupled to one optical mode:
+In parallel, keep the independent thermodynamic question explicit:
 
-1. replace bulk susceptibility by explicit oscillator strength;
-2. normalize the field to one photon;
-3. determine how absorption/coupling bandwidth scales as oscillator number decreases;
-4. include the minimal irreversible detection or relaxation channel;
-5. determine whether thermal/dark excitation scales independently of optical coupling;
-6. only then ask whether a geometry-independent detector capability bound survives.
+> **What reservoir/free-energy resource is required to make the detection transition effectively irreversible and resettable while suppressing false events?**
 
-Do not add HgCdTe-specific transport yet. The next bottleneck is the transition from continuum electromagnetism to microscopic light-matter coupling.
+Do not add HgCdTe-specific transport yet. The project has not yet reached the material-specific layer.
