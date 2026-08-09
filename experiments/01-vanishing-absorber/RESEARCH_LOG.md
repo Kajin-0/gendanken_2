@@ -1,233 +1,88 @@
 # Research Log — Experiment 01: The Vanishing Absorber
 
-This file is chronological. It records why the research direction changed, not just the final equations.
+This file is chronological. It records why the research direction changed, including failed conjectures and prior-art collisions.
 
 ---
 
 ## 2026-08-08 — Experiment opened
 
-### Starting motivation
-
-Use a simple photodetector thought experiment to probe whether familiar engineering tradeoffs hide a more general physical constraint.
-
-The guiding question was chosen because it is easy to state without committing to a particular detector material or architecture:
+Guiding question:
 
 > Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
 
-### Initial physical tension
+Initial intuition: shrinking active semiconductor volume may reduce bulk dark-event count and transit distance, while passive optical confinement can restore absorption. The first candidate penalty was photon dwell time / bandwidth.
 
-Shrinking the active semiconductor volume appears to help at least two desirable directions in an idealized detector:
-
-- bulk thermally generated event count decreases with active volume for fixed generation-rate density;
-- carrier transit distances can decrease.
-
-But ordinary optical absorption also falls as absorbing material is removed.
-
-The thought experiment therefore grants ideal passive optical confinement and asks where any unavoidable cost reappears.
-
-### First candidate mechanism
-
-A one-port critically coupled resonance suggests that weak absorber loss can be compensated by weak external leakage, preserving unity on-resonance absorption while increasing photon dwell time.
-
-This raises the possibility that a thickness/volume penalty can migrate from absorption efficiency into temporal bandwidth.
-
-### Important restraint
-
-No general theorem was accepted from this intuition.
-
-In particular, the provisional relation
+The provisional schematic relation
 
 ```text
 eta^2 B <= C V
 ```
 
-was explicitly demoted from an apparent target formula to an unproved example of what a later bound might resemble.
+was explicitly recorded as an unproved target, not a result.
 
-### Current decision
-
-Do not begin with general electromagnetic bounds or HgCdTe-specific physics.
-
-First derive the complete one-port resonator response from the dynamical equation and determine exactly which bandwidth and lifetime relations are true.
-
-Only then attempt to generalize or find counterexamples.
+Decision: begin with the smallest exact one-port resonator model rather than a general theorem or HgCdTe-specific device physics.
 
 ---
 
 ## 2026-08-08 — One-port resonator derived
 
-### The intuition survives, but in a more precise form
-
-Using one temporal coupled-mode normalization throughout gives
+The exact one-port absorptance is
 
 ```math
-A(\omega)=
-\frac{4\gamma_e\gamma_a}
+A(\omega)
+=\frac{4\gamma_e\gamma_a}
 {(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2}.
 ```
 
-At critical coupling,
+Critical coupling `gamma_e = gamma_a` gives unit monochromatic absorptance.
 
-```math
-\gamma_e=\gamma_a,
-```
-
-so unity monochromatic absorption is possible even for arbitrarily small `gamma_a` in the ideal model.
-
-However, the absorbed-power response to small modulation is
+The absorbed-power small-signal response is
 
 ```math
 H_{\rm abs}(\Omega)
-=
-\frac{\Gamma}{\Gamma+i\Omega},
+=\frac{\Gamma}{\Gamma+i\Omega},
 \qquad
-\Gamma=\gamma_e+\gamma_a.
+\Gamma=\gamma_e+\gamma_a,
 ```
 
-Therefore
+so
 
 ```math
-B_{3\rm dB}
-=
-\frac{\Gamma}{2\pi}.
+B_{3\rm dB}=\frac{\Gamma}{2\pi}.
 ```
 
 At critical coupling,
 
 ```math
-B_{3\rm dB}^{\rm crit}
-=
-\frac{\gamma_a}{\pi}.
+B_{3\rm dB}=\frac{\gamma_a}{\pi}.
 ```
 
-So the original cavity intuition is correct **in terms of absorber loss rate**: weaker absorptive decay forces a narrower absorbed-power modulation response when unity absorption is maintained by critical coupling.
+Thus the initial cavity intuition survives **in terms of absorber loss rate**: if `gamma_a -> 0`, maintaining unity absorption makes the temporal response narrow.
 
-### Important distinction discovered
+The optical absorptance FWHM is twice the absorbed-power modulation `-3 dB` bandwidth at critical coupling.
 
-The optical absorption linewidth is not the same numerical bandwidth as the absorbed-power modulation response.
+### Unexpected optimization
 
-At critical coupling,
-
-```math
-\Delta f_{\rm abs,FWHM}
-=2B_{3\rm dB}^{\rm crit}.
-```
-
-This factor of two would have been easy to miss if the optical spectrum had simply been called the detector bandwidth.
-
-### Unexpected optimization result
-
-The next step combined the one-port optical result with the minimal Poisson bulk-dark-event model.
-
-Define
-
-```math
-\mathcal C
-=
-\frac{h\nu\sqrt{B_{3\rm dB}}}
-{\mathrm{NEP}}.
-```
-
-This quantity is dimensionless.
-
-Writing
-
-```math
-x=\frac{\gamma_e}{\gamma_a}
-```
-
-gives
+Combining the optical result with the minimal independent Poisson bulk-dark-event model produced
 
 ```math
 \mathcal C^2
-=
-\frac{4\gamma_a}{\pi D}
-\frac{x^2}{(1+x)^3}.
-```
-
-The optimum is not critical coupling.
-
-Instead,
-
-```math
-\boxed{x=2,}
-```
-
-which gives
-
-```math
-A_0=\frac89,
+=\frac{4\gamma_a}{\pi D}
+\frac{x^2}{(1+x)^3},
 \qquad
-B_{3\rm dB}=\frac{3\gamma_a}{2\pi}.
+x=\frac{\gamma_e}{\gamma_a}.
 ```
 
-The resulting `C` is about `8.9%` larger than at exact critical coupling.
+The optimum is `x = 2`, not critical coupling, giving `A_0 = 8/9` and an approximately `8.9%` improvement in this particular sensitivity-speed metric relative to critical coupling.
 
-This was not a target result. It emerged naturally from asking what happens when speed and dark-noise-limited sensitivity are optimized together rather than demanding exactly 100% absorption.
+### Verification/corrections
 
-### First exact volume cancellation — but conditional
+Direct time-domain integration reproduced the modulation transfer function. A numerical coupling scan recovered `x ~= 2.00003`.
 
-If
+Two convention errors were caught before canonical promotion:
 
-```math
-\gamma_a=\kappa V
-```
-
-and the bulk dark-event rate is
-
-```math
-D=g_dV,
-```
-
-then
-
-```math
-\mathcal C_{\max}^2
-=
-\frac{16\kappa}{27\pi g_d}.
-```
-
-The active volume cancels.
-
-This is the first exact appearance of the motivating sensitivity-speed cancellation, but it is not yet a fundamental bound because `gamma_a proportional to V` is only valid in a regular weak-participation limit.
-
-### Numerical check
-
-Direct time-domain integration reproduced the analytic modulation response at representative normalized frequencies.
-
-At
-
-```text
-Omega/Gamma = 0.5, 1, 2
-```
-
-the numerical response amplitudes were approximately
-
-```text
-0.89449, 0.70746, 0.44757
-```
-
-compared with
-
-```text
-0.89443, 0.70711, 0.44721
-```
-
-from the analytic first-order transfer function.
-
-A numerical coupling scan independently placed the optimum near
-
-```text
-gamma_e/gamma_a = 2.00003.
-```
-
-### Convention errors caught before state promotion
-
-The first draft of the detailed derivation contained two redundant convention mistakes:
-
-1. a mismatch between the `exp(-i omega t)` harmonic convention and the sign of the resonant-frequency term in the amplitude equation;
-2. an incorrect rewrite of the already-correct `B_3dB = Gamma/(2 pi)` result in terms of loaded `Q`.
-
-They were corrected before `CURRENT_STATE.md` was advanced.
+1. one harmonic-sign mismatch;
+2. an incorrect redundant `Q` rewrite.
 
 The correct relation is
 
@@ -235,29 +90,13 @@ The correct relation is
 B_{3\rm dB}=\frac{f_0}{2Q_L}.
 ```
 
-The main decay-rate result and the `gamma_e/gamma_a = 2` optimization were unaffected.
-
-### Direction change
-
-The cavity question is now sufficiently answered for this stage.
-
-The bottleneck moved to whether active material volume itself constrains `gamma_a`.
+Direction change: the bottleneck became whether `gamma_a` must scale with active volume.
 
 ---
 
-## 2026-08-08 — Active-volume-only bound falsified in the continuum model
+## 2026-08-08 — Active-volume-only bound falsified
 
-### Counterexample search succeeded
-
-The next branch deliberately tried to defeat the assumption
-
-```math
-\gamma_a\propto V_a.
-```
-
-An explicit family of ideal dielectric capacitors does so.
-
-Take a parallel-plate capacitor filled by the active dielectric and scale
+An explicit shrinking parallel-plate capacitor family was constructed:
 
 ```math
 d=s d_0,
@@ -267,112 +106,354 @@ A=s A_0,
 s\to0.
 ```
 
-Then
-
-```math
-C=\frac{\epsilon_0\epsilon' A}{d}=C_0
-```
-
-stays fixed while
+Capacitance stays fixed, while
 
 ```math
 V_a=Ad\propto s^2\to0.
 ```
 
-For fixed resonant modal energy, the capacitor voltage remains fixed and therefore
+At fixed modal energy,
 
 ```math
-|E|^2\propto d^{-2}\propto s^{-2}.
+|E|^2\propto s^{-2},
 ```
 
-Hence
-
-```math
-|E|^2V_a=\text{constant}.
-```
-
-For fixed dielectric loss tangent and finite electric-energy participation,
-
-```math
-\gamma_a
-=
-\frac{\omega}{2}p_a\tan\delta
-```
-
-stays finite while `V_a -> 0`.
-
-Thus
+so dielectric participation and `gamma_a` can remain fixed. Therefore
 
 ```math
 \boxed{\gamma_a/V_a\to\infty.}
 ```
 
-The detailed derivation is in `ACTIVE_VOLUME_COUNTEREXAMPLE.md`.
+This kills the conjecture that passivity alone bounds `gamma_a/V_a`, and stops the active-volume-only target `eta^2 B <= C V_a` as a general law.
 
-### What failed
+The divergence obtained by simultaneously retaining `D = g_d V_a` is treated as evidence that continuum optical and extensive dark-event assumptions cannot both be extrapolated to `V_a -> 0`.
 
-The conjecture that passivity alone should keep `gamma_a/V_a` bounded is false under ideal local linear continuum electrodynamics when arbitrary lossless field concentration is allowed.
+Direction change: move from geometric volume to microscopic light-matter resources.
 
-The earlier conditional volume cancellation remains algebraically correct only in scaling families where `gamma_a proportional to V_a` actually holds.
+---
 
-The provisional active-volume-only law
+## 2026-08-08 — Thermal input-channel branch
+
+A separate restricted calculation considered thermal photons entering through the **same optical channel** as the signal.
+
+For a Lorentzian one-port absorber and Bose occupation `n_bar`, long-time counting gives both the particle term and the bunching term.
+
+The resulting dimensionless capability is
+
+```math
+\mathcal C_{\rm th}^2(x)
+=\frac{2x}
+{\pi\bar n[(1+x)^2+2\bar n x]}.
+```
+
+Unlike the independent bulk-dark-event model, this is optimized at
+
+```math
+\boxed{x=1}
+```
+
+because changing optical coupling changes both signal admission and thermal-background admission.
+
+At critical coupling,
+
+```math
+\boxed{
+\mathcal C_{\rm th,max}^2
+=\frac{1}{\pi\bar n(2+\bar n)}.
+}
+```
+
+The absorber rate and geometric volume cancel from this restricted one-channel background relation.
+
+Interpretation: the optimum coupling itself identifies where the dominant noise enters the detector.
+
+This branch is not an internal-dark-count theorem.
+
+---
+
+## 2026-08-08 — Single-transition absorber tested
+
+The bulk dielectric was replaced by a microscopic three-state detector:
 
 ```text
-eta^2 B <= C V_a
+|g> <-> |e> -> |d>,
 ```
 
-is therefore no longer an active target.
+where `|d>` is an irreversible dark detection state.
 
-### Why established material bounds do not contradict the counterexample
-
-Primary electromagnetic-limit work such as Miller et al. bounds absorption for a specified material susceptibility and specified background excitation. If a separate field concentrator is allowed to reshape the background field, then the local field at the shrinking active material can itself increase as volume falls.
-
-Thus a per-volume material-response bound is not automatically an active-volume-only detector bound.
-
-The resource accounting must include the electromagnetic environment or a more microscopic material quantity.
-
-### Toy detector consequence exposes the model breakdown
-
-If the old continuum dark-event law
+With at most one input photon, the dynamics stays in the one-excitation sector, so two-level saturation is never reached. The detection probability is again Lorentzian:
 
 ```math
-D=g_dV_a
+A_d(\omega)
+=\frac{4\gamma_o\gamma_d}
+{(\omega-\omega_0)^2+(\gamma_o+\gamma_d)^2}.
 ```
 
-is retained simultaneously with the fixed-`gamma_a` capacitor family, then
+Matched rates give unit monochromatic transfer, and if both rates are treated as free Markov parameters the response can be broadened.
+
+Therefore finite absorber number / saturation alone does not supply the missing single-photon speed bound.
+
+### Prior-art collision
+
+Young, Sarovar & Leonard (PRA 97, 033836, 2018) already analyze closely related dark-state detector physics and show near-ideal efficiency/dark-count/jitter performance under their stated nonequilibrium assumptions.
+
+Direction change: constrain the microscopic optical rate rather than absorber number.
+
+---
+
+## 2026-08-08 — Bandwidth-averaged LDOS bound applied
+
+Known arbitrary-bandwidth projected-LDOS theory was applied to the finite-transition detector.
+
+For fixed passive material response, finite signal bandwidth, admissible surrounding region, and finite emitter-environment separation `d`, the useful optical rate cannot be treated as arbitrarily large over the whole signal band.
+
+A model self-consistency condition was obtained:
 
 ```math
-\mathcal C_{\max}\propto V_a^{-1/2}.
+\Delta\omega_s
+\le
+\Gamma_0[1+F_B(\Delta\omega_s)].
 ```
 
-The resulting divergence is not interpreted as infinite physical detector performance. It is a diagnostic that the continuum electromagnetic model and the extensive dark-event model cannot both be extrapolated to arbitrarily small active volume.
+In a narrowband low-loss near-field approximation,
 
-### Microscopic physics becomes unavoidable
+```math
+\left(\frac{\Delta\omega_s}{\omega_0}\right)^2
+\lesssim
+\frac{\Gamma_0/\omega_0}
+{8(k_0d)^3}
+\frac{\chi^2}{\epsilon}.
+```
 
-For fixed modal energy the field grows as the gap shrinks. For a one-photon excitation, the available energy scale is fixed by `hbar omega`, so the single-photon field also grows rather than being rescaled away.
+But the bound still diverges as `d -> 0`.
 
-Eventually the following continuum assumptions fail:
+Direction change: determine whether microscopic emitter extent or nonlocality supplies the missing spatial scale.
 
-- linear material response;
-- local bulk susceptibility;
-- thermodynamic extensivity of dark events;
-- an arbitrarily large number of microscopic absorbers inside `V_a`;
-- ideal lossless field concentration.
+---
 
-### Important prior-art collision
+## 2026-08-08 — Finite transition-density form factor
 
-Young, Sarovar & Léonard, *Physical Review A* 97, 033836 (2018), developed a fully quantum single-photon detector model in which rapid incoherent transfer to an optically dark monitored state can, under their ideal assumptions, simultaneously approach unit efficiency, negligible dark counts, and minimal jitter.
+A Gaussian squared transition form factor
 
-That result is important because it warns against assuming that quantum mechanics alone supplies a universal efficiency-dark-count-speed tradeoff. Architecture and thermodynamic resource accounting matter.
+```math
+|F(K)|^2=e^{-a^2K^2}
+```
 
-It does not solve the active-volume problem studied here.
+was used to regularize the planar high-`K` near field.
 
-### Direction change
+The exact toy integral is
 
-The active question is now microscopic rather than geometric:
+```math
+I(d,a)
+=\frac{1}{4a^3}
+\left[
+\sqrt\pi(1+2u^2)e^{u^2}\operatorname{erfc}(u)-2u
+\right],
+\qquad u=d/a.
+```
 
-> What physical resource cannot be concentrated away when the active material approaches a finite number of absorbers?
+At contact,
 
-Candidate resources include oscillator number, total oscillator strength, transition dipole moment, single-photon saturation, nonlocal/atomic length scales, and thermodynamic free-energy/reset resources.
+```math
+I(0,a)=\frac{\sqrt\pi}{4a^3},
+```
 
-The next calculation should use a finite microscopic absorber model and should separately test the restricted passive-equilibrium case, where detailed balance has a chance to produce a real bound.
+so finite transition extent removes the literal point-dipole `d^{-3}` divergence.
+
+For one directional oscillator strength,
+
+```math
+f_x=\frac{2m\omega_0}{\hbar}|x_{ge}|^2,
+```
+
+Cauchy-Schwarz gives
+
+```math
+\sigma_x\ge |x_{ge}|
+=\sqrt{\frac{\hbar f_x}{2m\omega_0}}.
+```
+
+Thus, at fixed nonzero transition strength, spatial extent and dipole strength cannot be shrunk independently.
+
+---
+
+## 2026-08-08 — Oscillator-strength/extent stress test
+
+The next adversarial question allowed the selected transition oscillator strength itself to vary.
+
+Using
+
+```math
+\frac{\Gamma_0}{\omega_0}
+=\frac23\alpha f_x k_0\lambda_C
+```
+
+and a generic finite-emitter near-field envelope
+
+```math
+F_{\rm LDOS}\lesssim\frac{C_{\rm env}}{(k_0a)^3},
+```
+
+together with the minimum extent inferred from `f_x`, gives the perturbative upper envelope
+
+```math
+\frac{\Gamma_{\rm pert}}{\omega_0}
+\lesssim
+\frac{2^{5/2}}3
+\frac{\alpha C_{\rm env}}
+{\sqrt{f_xk_0\lambda_C}}.
+```
+
+This envelope grows as `f_x^{-1/2}` if the selected transition strength is allowed to shrink.
+
+This does **not** prove an achievable divergence. It proves that oscillator-strength and finite-emitter inequalities alone do not algebraically close the weak-coupling problem.
+
+The formal envelope eventually reaches `Gamma/omega_0 = O(1)`, exactly where the Markov/Purcell-rate description stops being controlled.
+
+Direction change: diagonalize the light-matter system nonperturbatively instead of imposing an arbitrary rate cutoff.
+
+---
+
+## 2026-08-08 — Nonperturbative Hopfield capture
+
+A TRK-consistent two-mode Hopfield model was used with one photonic oscillator, one material oscillator, and weak local optical/detector reservoirs.
+
+For equal bare frequencies,
+
+```math
+\omega_\pm
+=\sqrt{\omega_0^2+g^2}\pm g.
+```
+
+For equal local bath scales, exact dressed rates for both polaritons are
+
+```math
+\Gamma_{\pm,L}
+=\Gamma_{\pm,R}
+=\frac{\gamma}
+{2\sqrt{1+(g/\omega_0)^2}}.
+```
+
+Thus each resolved polariton can remain perfectly impedance/rate matched and retain unit peak transfer while its transfer linewidth collapses:
+
+```math
+\Delta\omega_{\rm FWHM}
+=\frac{2\gamma}
+{\sqrt{1+(g/\omega_0)^2}}
+\sim2\gamma\frac{\omega_0}{g}.
+```
+
+This is consistent with established deep-strong light-matter decoupling / breakdown-of-Purcell physics.
+
+Counterexample proposed: retune the bare frequencies with `g` so one dressed pole remains at the desired signal carrier.
+
+---
+
+## 2026-08-08 — Fixed-target retuning no-go derived
+
+The retuning attack produced the strongest current model-level result.
+
+Hold the lower polariton at a fixed positive target frequency
+
+```math
+\omega_y=\omega_t
+```
+
+while allowing `omega_c(g)` and `omega_b(g)` to vary and sending `g -> infinity`.
+
+The exact fixed-target branch obeys
+
+```math
+(\omega_c^2-\omega_t^2)
+(\omega_b^2-\omega_t^2)
+=4g^2\frac{\omega_c}{\omega_b}\omega_t^2.
+```
+
+The lower-polariton mixing ratio is
+
+```math
+\tan\theta
+=\frac{\omega_b^2-\omega_t^2}
+{2g\sqrt{\omega_c\omega_b}}.
+```
+
+For fixed positive local optical and detector bath scales, a contradiction proof yields
+
+```math
+\boxed{
+\min(\Gamma_L,\Gamma_R)\to0.
+}
+```
+
+For a resolved transfer resonance,
+
+```math
+T_0
+=\frac{4\Gamma_L\Gamma_R}
+{(\Gamma_L+\Gamma_R)^2},
+```
+
+and
+
+```math
+\Delta\omega_{\rm FWHM}
+=2(\Gamma_L+\Gamma_R).
+```
+
+Therefore peak transfer and linewidth cannot both remain bounded away from zero in the fixed-target `g -> infinity` limit.
+
+### Explicit symmetric retuning
+
+For `omega_c = omega_b = Omega(g)`, holding the lower pole at `omega_t` requires
+
+```math
+\Omega^2=\omega_t^2+2g\omega_t.
+```
+
+Equal local bath scales keep peak transfer at unity but
+
+```math
+\Delta\omega_{\rm FWHM}
+=\frac{2\gamma\sqrt{\omega_t^2+2g\omega_t}}
+{g+\omega_t}
+\sim2\gamma\sqrt{\frac{2\omega_t}{g}}.
+```
+
+Retuning changes the asymptotic narrowing from `g^{-1}` to `g^{-1/2}` in this family but does not remove it.
+
+Interpretation: the detector must retain both optical access and irreversible material/detector access. At infinite internal coupling and fixed target frequency, at least one access vanishes in this model.
+
+---
+
+## 2026-08-08 — Focused prior-art collision on fixed-target lemma
+
+The search target was not generic deep-strong decoupling. It was specifically:
+
+```text
+fixed dressed frequency
++ arbitrary bare-frequency retuning
++ g -> infinity
++ fixed local optical and detector bath resources
+=> one dressed bath overlap -> 0
+=> peak transfer or bandwidth -> 0.
+```
+
+Closest inspected work establishes deep-strong decoupling, Purcell-effect collapse, gauge-consistent dressed dissipation, `1/g` decay suppression for fixed bare parameters, heat-current suppression, and multimode decoupling.
+
+No inspected source was found stating the exact fixed-target retuning theorem above.
+
+Current verdict:
+
+> **candidate distinct supporting lemma; priority unproven.**
+
+This is a negative search result, not a novelty claim.
+
+---
+
+## Current direction
+
+The next adversarial target is the most plausible escape from the current theorem:
+
+> Can a multimode optical environment or deliberately scaled reservoir engineering preserve finite optical-to-detector peak transfer and finite bandwidth at fixed target frequency as internal light-matter coupling becomes arbitrarily large?
+
+Do not add HgCdTe-specific transport yet. The research has not reached the material-specific layer.
