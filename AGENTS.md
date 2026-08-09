@@ -2,471 +2,108 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **open theoretical exploration; abstract universal-resource branches have been stress-tested and narrowed; active frontier is normalized HgCdTe high-field transport/BTBT; no novelty claim**
+**Current mode:** **open theoretical exploration; active frontier is finite-length HgCdTe high-field transport and nonlocal impact ionization; no novelty claim**
 
 Read this file first.
 
-The project starts from thought experiments and follows the physics. Counterexamples are progress. Do not force the work back toward the original active-volume idea or prematurely toward a manuscript.
-
----
+The project follows the physics rather than a predetermined theorem. Counterexamples, corrections, and prior-art collisions are progress.
 
 ## 1. Mandatory repository protocol
+
+Other agents may edit `main` concurrently.
 
 Before every write:
 
 1. fetch live `main` / current target;
-2. inspect intervening changes when relevant;
-3. fetch the exact current blob SHA immediately before replacing a file;
+2. inspect intervening changes if needed;
+3. fetch the exact current blob SHA immediately before replacing an existing file;
 4. never overwrite a stale SHA;
-5. preserve concurrent work, corrections, and failed branches.
+5. preserve concurrent work and failed branches;
+6. keep edits narrowly scoped.
 
-**Live `main` overrides every snapshot.**
+**Live `main` overrides all snapshots.**
 
----
+## 2. Epistemic labels are mandatory
 
-## 2. Mandatory epistemic labels
+Distinguish explicitly:
 
-Use explicitly:
-
-- **known result**;
-- **derived result**;
-- **checked result**;
-- **candidate distinct lemma — priority unproven**;
-- **conjecture**;
-- **model assumption**;
-- **invalidated result**;
-- **superseded result**;
-- **open question**.
+- **KNOWN** — established prior theory/experiment;
+- **DERIVED** — follows from repository assumptions;
+- **CHECKED** — independently/numerically verified;
+- **CONDITIONAL** — exact only inside a deliberately simplified model;
+- **INVALIDATED** — counterexample/correction found;
+- **OPEN** — unresolved;
+- **NON-CLAIM** — explicitly not asserted.
 
 Never turn a negative literature search into a novelty claim.
 
-Do not use `new`, `first`, `fundamental`, `universal`, etc. without a focused primary-source audit and immediate `CLAIM_LEDGER.md` update.
+No `new`, `first`, `fundamental`, `universal`, etc. without a focused primary-source audit and claim-ledger update.
 
----
-
-## 3. Research path — what happened
+## 3. Current research path
 
 ```text
-weak passive resonance
--> dwell-time / loss-rate bandwidth penalty
+weak resonant absorber
+-> peak absorption can cost temporal bandwidth
 
 active volume
--> killed by ideal field concentration
+-> killed as universal resource by field concentration
 
-finite absorber number
--> killed as a one-photon speed resource
+finite absorber / LDOS / ultrastrong coupling
+-> successive microscopic loopholes
 
-finite transition / LDOS / emitter extent
--> conditional weak-coupling bounds
--> perturbative theory eventually fails
+finite passive multimode network
+-> exact harmonic two-access transfer-area bound
 
-nonperturbative Hopfield
--> dressed optical/detector access can collapse
+active / time-dependent / adaptive control
+-> pump, timing, storage and output-record resources exposed
 
-multimode passive network
--> exact harmonic integrated-transfer access law
+unrestricted output continuum
+-> kills universal finite internal space-time capacity
 
-active/time-dependent capture
--> pump/control resources identified
--> known-time temporal matching works
+semiconductor contact / energy filtering
+-> detailed balance, lifetime broadening, filter-delay tradeoffs
 
-unknown arrival / adaptive control
--> finite storage-rank law generalized to storage x branch rank
--> output continuum exports the missing information
--> no universal finite internal space-time capacity survives unrestricted output
+field-driven HgCdTe collection
+-> normalized direct BTBT
 
-semiconductor Fermi contact
--> useful extraction and reverse thermal loading linked by detailed balance
+bulk high-field onset
+-> corrected: not a finite-device II ceiling
 
-finite-linewidth energy filter
--> fast resonant extraction creates zero-T spectral-tail leakage
-
-multipole filter
--> tail can be made steeper
--> spectral FWHM is not architecture-independent speed
--> extra filter poles carry delay/state resources
-
-field-driven narrow-gap diode
--> fixed-thickness speed vs BTBT tradeoff
--> thinning is a counterexample
-
-small-L quantum barrier
--> one-barrier speed/leakage exponent
--> asymptotic quantum scale too high to be the practical HgCdTe bottleneck
-
-HgCdTe Kane scaling
--> F_K ~ lambda_c^-2
--> ell_K ~ lambda_c
-
-CURRENT FRONTIER
--> normalized HgCdTe direct-BTBT curve
--> real high-field v_d(F) needed before converting BTBT field ceiling into transit speed.
+finite dead space + energy relaxation
+-> CURRENT FRONTIER: nonlocal P_II(F,L) from carrier energy history.
 ```
 
----
+Do not return to an abstract universal-resource theorem unless the material branch exposes a genuinely missing invariant.
 
-## 4. Canonical current files
+## 4. Canonical current reading order
 
-Read after this file:
-
-1. `README.md`
-2. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
-3. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-4. `experiments/01-vanishing-absorber/HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
-5. `experiments/01-vanishing-absorber/HGCDTE_KANE_SCALE_AUDIT.md`
-6. `experiments/01-vanishing-absorber/FIELD_DRIVEN_COLLECTION_TUNNELING.md`
-7. `experiments/01-vanishing-absorber/BALLISTIC_BARRIER_SPEED_LEAKAGE.md`
-8. `experiments/01-vanishing-absorber/MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`
-9. `experiments/01-vanishing-absorber/RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`
-10. `experiments/01-vanishing-absorber/FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`
-11. `experiments/01-vanishing-absorber/PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
-12. `experiments/01-vanishing-absorber/ADAPTIVE_FEEDFORWARD_MODE_CAPACITY.md`
-13. `experiments/01-vanishing-absorber/OUTPUT_RECORD_INFORMATION_CAPACITY.md`
-14. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-15. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
-16. older files only when auditing provenance.
+1. `AGENTS.md`
+2. `README.md`
+3. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
+4. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
+5. `experiments/01-vanishing-absorber/HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
+6. `experiments/01-vanishing-absorber/HGCDTE_IMPACT_IONIZATION_DEAD_SPACE.md`
+7. `experiments/01-vanishing-absorber/HGCDTE_FIELD_REGIME_MAP.md`
+8. `experiments/01-vanishing-absorber/HGCDTE_TRANSPORT_BTBT_PHASE_BOUNDARY.md`
+9. `experiments/01-vanishing-absorber/HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
+10. `experiments/01-vanishing-absorber/HGCDTE_KANE_SCALE_AUDIT.md`
+11. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
+12. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+13. older stages only for provenance.
 
 There is still **no manuscript**.
 
----
+## 5. Direct-BTBT normalization retained
 
-## 5. Strongest retained passive finite-network theorem
-
-For a finite stable passive strictly proper network,
-
-```math
-L=\operatorname{Tr}\Gamma_L,
-\qquad
-R=\operatorname{Tr}\Gamma_R,
-```
-
-```math
-\boxed{
-\mathcal I_{L\to R}
-\le
-\frac{2LR}{L+R}.
-}
-```
-
-In the controllability-Gramian eigenbasis,
-
-```math
-\boxed{
-\frac{\mathcal I}{2}
-=
-\sum_i
-\frac{\ell_i r_i}
-{\ell_i+r_i+\iota_i}.
-}
-```
-
-For band width `W`,
-
-```math
-\overline T_B
-\le
-\frac{4\pi LR}{W(L+R)}.
-```
-
-This is an external-access resource law, not an absolute bandwidth theorem.
-
-The proof uses standard `H2`/Lyapunov/passivity machinery. Novelty is not claimed.
-
-Keep this result as useful structure, but do not redirect the active research back toward proving a universal optical theorem unless new semiconductor work exposes a specific need.
-
----
-
-## 6. Why the abstract space-time branch was stopped
-
-### Fixed protocol
-
-For `M` orthogonal possible inputs and retained detector rank `r`,
-
-```math
-\sum_j\eta_j\le r.
-```
-
-### Adaptive instrument
-
-For `d` successful adaptive branches,
-
-```math
-\boxed{
-\sum_j\eta_j\le rd.
-}
-```
-
-### Output continuum escape
-
-A normal detector can export branch/arrival-time information into a large output record space. One output quantum across `D` orthogonal time bins can carry `ln D` nats at fixed event energy.
-
-Therefore neither finite storage rank nor local Landauer work is a universal always-on detector capacity without also constraining the output continuum.
-
-**Decision:** do not keep stacking abstract resource variables unless a concrete detector problem demands them.
-
----
-
-## 7. Semiconductor Fermi-contact baseline
-
-Read `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`.
-
-For one state weakly coupled to a Fermi contact,
-
-```math
-\frac{k_{\rm in}}
-{k_{\rm out}}
-=
-\zeta e^{-(E-\mu)/(k_BT)}.
-```
-
-If useful extraction competes with recombination,
-
-```math
-\eta_{\rm col}
-=\frac{k_{\rm out}}
-{k_{\rm out}+k_r},
-```
-
-```math
-B_{\rm evt}
-=\frac{k_{\rm out}+k_r}{2\pi},
-```
-
-then
-
-```math
-\boxed{
-k_{\rm in}
-=
-2\pi\zeta\eta_{\rm col}B_{\rm evt}
- e^{-(E-\mu)/(k_BT)}.
-}
-```
-
-Do not call `k_in` dark current/count without an explicit transport/readout cycle.
-
----
-
-## 8. Energy-filter lesson
-
-### One Breit-Wigner resonance
-
-At zero temperature, an occupied source below a finite-linewidth resonant level leaks through its Lorentzian tail:
-
-```math
-R_{\rm leak}
-=
-\frac{\Gamma_E}{2h}
-\left[
-\frac\pi2
--\arctan(2\Delta/\Gamma_E)
-\right].
-```
-
-For `B_evt=Gamma_E/h` and a sharp filter,
-
-```math
-R_{\rm leak}\simeq hB_{\rm evt}^2/(4\Delta).
-```
-
-### Multipole counterexample
-
-Higher-order filters can suppress the tail much more strongly at the same FWHM.
-
-For the chosen Butterworth-type family,
-
-```math
-R_N
-\simeq
-\frac{\Gamma_E}{2h(2N-1)}
-\left(
-\frac{\Gamma_E}{2\Delta}
-\right)^{2N-1}.
-```
-
-But center group delay grows approximately as
-
-```math
-\tau_g(0)
-\sim
-4N\hbar/(\pi\Gamma_E).
-```
-
-**Rule:** do not use spectral FWHM as an architecture-independent detector-speed metric when multiple transport poles are present.
-
-Further Wigner-Smith/Friedel abstraction was stopped because it mainly reproduces mature scattering/filter theory without yet supplying enough detector-specific content.
-
----
-
-## 9. Fixed-thickness field-driven HgCdTe logic
-
-Read `FIELD_DRIVEN_COLLECTION_TUNNELING.md`.
-
-For one constant-velocity carrier transit,
-
-```math
-\boxed{
-B_{\rm tr}
-=c_t\frac{v_d}{L},
-\qquad
-c_t\simeq0.44295.
-}
-```
-
-At low field `v_d=mu F`, with generic Kane-type direct tunneling
-
-```math
-J=A F^2e^{-F_K/F},
-```
-
-```math
-J(B_{\rm tr})
-=
-A
-\left(
-\frac{LB_{\rm tr}}
-{c_t\mu}
-\right)^2
-\exp\left[-
-\frac{F_Kc_t\mu}
-{LB_{\rm tr}}
-\right].
-```
-
-At fixed `L`, higher field-driven speed increases BTBT.
-
-But shrinking `L` is a valid escape, so this is not universal.
-
----
-
-## 10. Small-length quantum audit
-
-Read `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`.
-
-For one optimized rectangular barrier separating useful and dark energies by `Delta E`, the parabolic one-barrier model gives
-
-```math
-\boxed{
-\mathcal T_d
-\gtrsim
-\exp\left[-
-\frac{2c_t\Delta E}
-{\hbar B_{\rm tr}}
-\right].
-}
-```
-
-The mass cancels in that idealized optimization.
-
-But multi-barrier filters are a real escape and the corresponding `Delta E/h` speed scale is typically tens of THz for MWIR/LWIR HgCdTe.
-
-Treat this as an asymptotic quantum warning, not the practical HgCdTe frontier.
-
----
-
-## 11. HgCdTe Kane scales
-
-Read `HGCDTE_KANE_SCALE_AUDIT.md`.
-
-Using the simplified relation
-
-```math
-E_g=2m_Kv_K^2,
-```
-
-with
-
-```math
-v_K\simeq1.07\times10^6\ {\rm m/s},
-```
-
-and identifying tunneling mass with `m_K` only for scaling,
-
-```math
-\boxed{
-F_K
-\simeq
-\frac{\pi E_g^2}
-{4q\hbar v_K}
-=
-\frac{\pi^3\hbar c^2}
-{qv_K\lambda_c^2}.
-}
-```
-
-Thus
-
-```math
-F_K\propto\lambda_c^{-2}.
-```
-
-The Kane length is
-
-```math
-\boxed{
-\ell_K
-=\frac{\hbar v_K}{E_g}
-=\frac{v_K}{2\pi c}\lambda_c
-}
-```
-
-so
-
-```math
-\ell_K\propto\lambda_c.
-```
-
-Do not identify `v_K` with drift saturation velocity.
-
----
-
-## 12. Current strongest material normalization
-
-Read `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`.
-
-Published uniform-field HgCdTe BTBT form:
-
-```math
-J_{\rm BTBT}
-=
-\frac{q^3\sqrt{2m^*}F V}
-{4\pi^3\hbar^2E_g^{1/2}}
-\exp\left[-
-\frac{\pi\sqrt{m^*}E_g^{3/2}}
-{2\sqrt2q\hbar F}
-\right].
-```
-
-For `V=FL` and the simplified Kane-mass substitution
-
-```math
-m^*=E_g/(2v_K^2),
-```
+Within the stated simplified Kane substitution,
 
 ```math
 \boxed{
 J_{\rm BTBT}
-=
-\frac{q^3L}{4\pi^3\hbar^2v_K}
-F^2e^{-F_K/F}.
+=\frac{q^3L}{4\pi^3\hbar^2v_K}
+F^2e^{-F_K/F},
 }
 ```
-
-Define
-
-```math
-x=F/F_K,
-\qquad
-j=J/J_K.
-```
-
-Then
-
-```math
-\boxed{j=x^2e^{-1/x}.}
-```
-
-with
 
 ```math
 \boxed{
@@ -476,128 +113,240 @@ F_K
 }
 ```
 
+and with `x=F/F_K`, `j=J/J_K`,
+
+```math
+\boxed{j=x^2e^{-1/x}.}
+```
+
+This is a material-scaling model, not a total dark-current model.
+
+## 6. Critical correction — bulk II onset is not finite-device II probability
+
+Primary bulk `Hg_0.8Cd_0.2Te`, 77 K Monte Carlo work reports hot-electron / impact-ionization physics at fields of order `10^2 V/cm`.
+
+Do **not** convert this into
+
+```text
+1 um detector impact-ionizes at 100 V/cm.
+```
+
+A finite carrier must accumulate threshold energy over its actual history.
+
+HgCdTe APD literature explicitly treats the process as history dependent / dead-space limited in thin multiplication regions.
+
+## 7. Cold-injection dead-space relation
+
+For
+
+```math
+E_{\rm th}=\chi E_g,
+```
+
+the field-work estimate is
+
 ```math
 \boxed{
-J_K
-=\frac{q\pi^3c^4L}
-{4v_K^3\lambda_c^4}.
+F_{\rm dead}
+\simeq\frac{\chi E_g}{qL}.
 }
 ```
 
-Therefore
+With
 
 ```math
-F_K\propto\lambda_c^{-2},
+\ell_K=\hbar v_K/E_g,
+```
+
+```math
+\boxed{
+\frac{F_{\rm dead}}{F_K}
+=\frac{4\chi}{\pi}
+\frac{\ell_K}{L}.
+}
+```
+
+For `L >> ell_K`, ionization threshold accessibility can occur far below the direct-BTBT characteristic field.
+
+This is a **cold-injection field-work estimate**, not a stochastic no-ionization theorem.
+
+## 8. Current nonlocal surrogate
+
+Use the mean-energy equation
+
+```math
+\boxed{
+\dot\varepsilon
+=qFv-\varepsilon/\tau_E.
+}
+```
+
+Define
+
+```math
+\ell_E=v\tau_E,
+```
+
+```math
+\boxed{
+L_{\rm eff}
+=\ell_E(1-e^{-L/\ell_E}).
+}
+```
+
+Then
+
+```math
+\boxed{
+\varepsilon(L)=qF L_{\rm eff},
+}
+```
+
+and
+
+```math
+\boxed{
+F_{\rm th}^{(\rm mean)}
+=\frac{\Delta E_{\rm th}}
+{qL_{\rm eff}}.
+}
+```
+
+For cold injection, `E_th=chi E_g`,
+
+```math
+\boxed{
+\frac{F_{\rm th}^{(\rm mean)}}{F_K}
+=\frac{4\chi}{\pi}
+\frac{\ell_K}{L_{\rm eff}}.
+}
+```
+
+This bridges
+
+```text
+L << ell_E
+-> finite dead space
+
+L >> ell_E
+-> bulk-like energy-relaxation limit.
+```
+
+The mean trajectory does not capture the stochastic high-energy tail.
+
+## 9. Energy-dependent II rate and analytic test case
+
+Modern HgCdTe APD modeling uses
+
+```math
+\Gamma_{\rm II}(E)
+=A
+\frac{(E/E_{\rm th}-1)^\alpha}
+{(E/E_{\rm th})^\beta}
+```
+
+above threshold.
+
+For the analytic test case `alpha=1`, `beta=0`, the repository derives a closed finite-length hazard and
+
+```math
+\boxed{P_{\rm II}=1-e^{-\Xi_{\rm II}}.}
+```
+
+The closed result is independently checked against direct numerical time integration.
+
+Dimensionless variables:
+
+```math
+\theta=qF\ell_E/E_{\rm th},
 \qquad
-J_K\propto L\lambda_c^{-4},
+\ell=L/\ell_E,
+\qquad
+a=A\tau_E.
 ```
 
-while the normalized curve is unchanged.
-
-Exact inversion:
+Mean threshold inside the device requires
 
 ```math
-\boxed{
-F_{\max}^{\rm BTBT}
-=
-\frac{F_K}
-{2W_0[\tfrac12\sqrt{J_K/J_*}]}.
-}
+\boxed{\theta(1-e^{-\ell})>1.}
 ```
 
-Regression:
+For the analytic rate test case,
+
+```math
+\boxed{P_{\rm II}=1-e^{-aH(\theta,\ell)}.}
+```
+
+## 10. External-data boundary
+
+For `Hg_0.8Cd_0.2Te` at 77 K, Palermo et al. explicitly calculate
+
+- drift velocity;
+- mean electron energy;
+- impact-ionization rate;
+- velocity relaxation rate;
+- energy relaxation rate;
+- analytical interpolation formulas.
+
+The accessible primary-source text does **not** expose the interpolation coefficients.
+
+Do not reconstruct them from narrative statements and silently promote them to primary data.
+
+The missing calibration is now precise:
+
+```text
+tau_E(F) or ell_E(F)
++
+Gamma_II(E) / calibrated A,alpha,beta.
+```
+
+## 11. Current field-ordering statement
+
+Safe statement:
+
+> **Ordinary MWIR/LWIR HgCdTe enters strongly non-ohmic high-field transport before direct BTBT becomes appreciable in the simplified Kane/BTBT model. Finite impact-ionization probability is a separate nonlocal problem controlled by threshold energy, available acceleration length, energy relaxation and the energy-dependent ionization rate.**
+
+Do not replace it by the stronger but false shortcut
+
+```text
+impact ionization limits every finite device at 100 V/cm.
+```
+
+## 12. Numerical state
+
+Active material regressions:
 
 ```text
 experiments/01-vanishing-absorber/numerics/hgcdte_btbt_normalized_sweep.py
+experiments/01-vanishing-absorber/numerics/hgcdte_field_regime_map.py
+experiments/01-vanishing-absorber/numerics/hgcdte_impact_dead_space.py
+experiments/01-vanishing-absorber/numerics/hgcdte_nonlocal_ii_surrogate.py
 ```
 
----
+No CI is justified yet.
 
-## 13. Critical rule: do not invent high-field velocity
+## 13. Stopped ideas — do not restart casually
 
-A primary Monte Carlo study of `Hg_0.8Cd_0.2Te` at 77 K reports non-ohmic/hot-electron and impact-ionization behavior around `100 V/cm`.
+- active-volume-only universal bound;
+- finite absorber count as one-photon speed limit;
+- finite internal storage rank as always-on capacity;
+- local Landauer work as universal detector cost;
+- single-Lorentzian leakage law as universal;
+- spectral FWHM as architecture-independent transport speed;
+- low-field `mu F` extrapolation into HgCdTe high-field operation;
+- direct BTBT assumed to be first high-field limiter for ordinary LWIR;
+- bulk `~100 V/cm` II onset treated as finite-device II threshold.
 
-The direct-BTBT-only field ceiling can lie in the `kV/cm` range.
+## 14. Next decisive work
 
-Therefore **do not** use
+Do **not** invent missing HgCdTe coefficients.
 
-```math
-v_d=\mu F
-```
+Next:
 
-at the BTBT ceiling merely to produce a speed curve.
+1. use the dimensionless nonlocal surrogate to scan physically defensible ranges of `ell_E` and `A tau_E`;
+2. determine which ranges actually change the allowed field / transit conclusion;
+3. search for primary measurements or calculations that constrain only those sensitive ranges;
+4. then add TAT as a separate field-dependent dark-current channel;
+5. after the diode-like field problem is stable, compare with HgCdTe photoconductors, where lifetime and gain may dominate speed.
 
-The correct next relation is
-
-```math
-\boxed{
-B_{\rm tr,max}
-=\frac{c_t}{L}
-\,v_d(F_{\max}^{\rm BTBT}).
-}
-```
-
-`v_d(F)` must be traceable to a primary-source composition/temperature/density-specific model or data set.
-
-The paper by Palermo et al., *Solid-State Electronics* **53**, 70-78 (2009), DOI `10.1016/j.sse.2008.10.003`, states that analytical interpolation formulas exist, but currently accessible primary-source text does not expose their coefficients.
-
-Do not reconstruct coefficients from secondary reproductions without clearly labeling the source/uncertainty.
-
----
-
-## 14. Numerical/reproducibility state
-
-Active checks include
-
-- `numerics/one_port_time_domain_check.py`;
-- `numerics/passive_multimode_h2_stress.py`;
-- `numerics/adaptive_instrument_rank_stress.py`;
-- `numerics/hgcdte_btbt_normalized_sweep.py`.
-
-Keep scripts small and deterministic. Do not add CI for appearance.
-
----
-
-## 15. Invalidated routes — do not restart casually
-
-- active-volume-only theorem;
-- finite absorber count as missing one-photon speed limit;
-- largest internal coupling as universal multimode parameter;
-- all-frequency harmonic theorem with ideal feedthrough;
-- generic capture+amplification novelty;
-- generic autonomous detector thermodynamics novelty;
-- universal active `pump ~ W^2` law;
-- finite internal storage rank as always-on detector capacity;
-- local Landauer erasure as universal adaptive detector cost;
-- single-Lorentzian `B^2/Delta` leakage as universal electronic theorem;
-- spectral FWHM as universal carrier speed;
-- fixed-thickness field-speed relation as universal when `L` may vary;
-- low-field mobility extrapolation to `kV/cm` HgCdTe fields.
-
----
-
-## 16. Current next step
-
-Do **not** return to abstract resource laws or start a manuscript.
-
-The next calculation is narrowly material-specific:
-
-> **Obtain a traceable high-field electron `v_d(F)` law for a definite HgCdTe composition and temperature, then combine it with the normalized BTBT inversion to calculate a direct-BTBT-limited transit-bandwidth frontier.**
-
-Required sequence:
-
-1. obtain primary `v_d(F)` interpolation coefficients or digitizable curve;
-2. state composition, carrier density, temperature, and scattering assumptions;
-3. compute `F_max(J_*,lambda_c,L)` from `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`;
-4. evaluate
-
-```math
-B_{\rm tr,max}=c_t v_d(F_{\max})/L;
-```
-
-5. compare `F_max` against the onset of hot-electron transport and impact ionization;
-6. if impact ionization or TAT intervenes before direct BTBT, follow that mechanism instead;
-7. only after a clean pure-BTBT frontier exists, add TAT/SRH and compare to measured HgCdTe photodiode/APD response data;
-8. perform focused prior-art comparison before any novelty positioning.
-
-The project has now earned material-specific HgCdTe transport. It has **not** earned a paper yet.
+Only after these attacks should manuscript significance be reassessed.
