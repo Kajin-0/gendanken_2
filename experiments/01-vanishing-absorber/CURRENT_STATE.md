@@ -1,19 +1,17 @@
 # Current State — Experiment 01: The Vanishing Absorber
 
 **Date:** 2026-08-09  
-**Status:** exploratory; active frontier is a wavelength-resolved intrinsic timing prediction for graded HgCdTe; no novelty claim
+**Status:** exploratory; active frontier is an entrance-gap spectral **initial-condition crossover** in compositionally graded HgCdTe; the earlier universal timing-maximum interpretation has been narrowed; no novelty claim
 
 ## 1. Current question
 
-The original active-volume hypothesis was falsified. The project progressed through optical confinement, microscopic transitions, passive/active network resources, semiconductor extraction, tunneling, and HgCdTe band engineering.
+The project began by asking whether an ideal detector could be made arbitrarily small, fast, sensitive, and perfectly absorbing.
+
+The active-volume route failed. The research then moved through optical access, microscopic coupling, active control, semiconductor transport, tunneling, HgCdTe band engineering, and finally wavelength-resolved carrier timing.
 
 The strongest current detector-specific question is now:
 
-> **Does a monotonic compositionally graded HgCdTe absorber imprint a measurable wavelength dependence on intrinsic carrier transit time because photon wavelength determines where in the gap profile absorption can first occur?**
-
-The present high-optical-depth ballistic model predicts a particularly sharp signature:
-
-> **intrinsic transit delay rises from the long-wave endpoint to a maximum at the wavelength corresponding to the entrance band gap, then decreases again for higher photon energies.**
+> **Does a monotonic compositionally graded HgCdTe absorber produce a measurable timing crossover at the wavelength corresponding to its entrance band gap because photon energy changes the carrier problem through different physical variables on the two sides of that energy?**
 
 There is still **no manuscript**.
 
@@ -23,611 +21,420 @@ There is still **no manuscript**.
 
 After root `AGENTS.md`:
 
-1. `HGCDTE_SPECTRAL_DELAY_PEAK.md`
-2. `HGCDTE_SPECTRAL_TRANSIT_STATISTICS.md`
-3. `HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md`
-4. `HGCDTE_HEAVY_HOLE_PHOTOEXCITATION_LIMIT.md`
+1. `HGCDTE_ENTRANCE_GAP_INITIAL_CONDITION_SWITCH.md`
+2. `HGCDTE_SPECTRAL_DRIFT_DIFFUSION_ROBUSTNESS.md`
+3. `HGCDTE_SPECTRAL_MOMENTUM_SCATTERING_SURROGATE.md`
+4. `HGCDTE_PROPOSED_SPECTRAL_TIMING_EXPERIMENT.md`
 5. `HGCDTE_SPECTRAL_GENERATION_DISTRIBUTION.md`
 6. `HGCDTE_SPECTRAL_GENERATION_TRANSPORT.md`
-7. `HGCDTE_SPECTRAL_TRANSIT_PRIOR_ART_AUDIT.md`
-8. `HGCDTE_DIMENSIONLESS_DEVICE_PHASE_MAP.md`
-9. `HGCDTE_GRADED_NONLOCAL_II_PHASE_BOUNDARY.md`
-10. `HGCDTE_BOUNDARY_COOLING_TRANSIT_FLOOR.md`
-11. `HGCDTE_TAT_TOLERANCE_FIELD_ALLOCATION.md`
-12. `CLAIM_LEDGER.md`
-13. `RESEARCH_LOG.md`
+7. `HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md`
+8. `HGCDTE_HEAVY_HOLE_PHOTOEXCITATION_LIMIT.md`
+9. `HGCDTE_SPECTRAL_TRANSIT_PRIOR_ART_AUDIT.md`
+10. `CLAIM_LEDGER.md`
+11. `RESEARCH_LOG.md`
+12. `ARCHIVE_STATUS.md`
 
-Older optical/control branches remain provenance but are no longer the active frontier.
+`HGCDTE_SPECTRAL_DELAY_PEAK.md` is retained as a **ballistic special case / provenance file**, not as the transport-independent headline.
 
 ---
 
-## 3. Material architecture retained from the previous branch
+## 3. Material geometry retained from the graded-HgCdTe branch
 
-For a quasi-neutral p-type graded absorber,
+Use the quasi-neutral p-type baseline
 
 ```math
-p=N_v\exp[(E_v-E_F)/(k_BT)].
+E_v\approx\text{constant},
 ```
 
-For nearly constant `N_A/N_v`,
-
 ```math
-\boxed{E_v\approx\text{constant}.}
+E_g(x)=E_{g,\rm in}-Gx,
+\qquad G>0,
 ```
 
-Therefore a decreasing gap
+so approximately
 
 ```math
-E_g(x)=E_{g,\rm in}-Gx
-```
-
-naturally gives
-
-```math
-\boxed{E_c(x)\approx E_v+E_g(x),}
+E_c(x)\approx E_v+E_g(x),
 ```
 
 ```math
 \boxed{S_c=-dE_c/dx\approx G.}
 ```
 
-This provides minority-electron drive without requiring the same common-mode electrostatic tilt that creates the ordinary direct-Zener geometry.
+This band-structure slope can drive minority electrons while suppressing the ordinary same-direction direct-Zener geometry in the ideal graded-Kane model.
 
-The graded-Kane WKB branch showed that, at fixed conduction slope, the ordinary direct-Zener action can increase strongly as the valence-band slope approaches zero.
-
-This does **not** eliminate TAT, interface leakage, or hot-electron processes.
+TAT, interfaces, carrier heating, impact ionization and contact/boundary physics remain separate constraints.
 
 ---
 
-## 4. Nonlocal carrier heating remains a separate constraint
+## 4. Robust spectral generation geometry
 
-Use the mean-energy state
-
-```math
-\boxed{
-\frac{d\varepsilon}{dx}
-=S_c(x)-\frac{\varepsilon}{\ell_E(x)}.
-}
-```
-
-For a linear graded absorber with constant `ell_E`, cold injection gives
-
-```math
-\boxed{
-\varepsilon(x)=G\ell_E(1-e^{-x/\ell_E}).
-}
-```
-
-With threshold surrogate
-
-```math
-E_{\rm th}=\chi E_g,
-```
-
-the full-span cold-injection phase boundary is
-
-```math
-\boxed{
-\zeta_{\rm II}(r,\chi)
-=
-\frac{\chi}
-{\chi+(1-e^{-r})/r},
-}
-```
-
-where
-
-```math
-\zeta=\Delta E_g/E_{g,\rm in},
-\qquad
-r=L/\ell_E.
-```
-
-This remains useful for upstream injected carriers or photons energetic enough to be absorbed at the upstream edge.
-
-It should **not** automatically be applied to every detected wavelength.
-
----
-
-## 5. Spectral generation geometry
-
-For a photon satisfying
+For
 
 ```math
 E_{g,\rm out}<E_\gamma<E_{g,\rm in},
 ```
 
-ordinary above-gap absorption cannot begin until
+the first location where ordinary above-gap absorption is energetically allowed satisfies
 
 ```math
-E_g(x_\gamma)=E_\gamma.
-```
-
-Thus
-
-```math
-\boxed{
-x_\gamma
-=\frac{E_{g,\rm in}-E_\gamma}{G},
-}
-```
-
-and its maximum remaining transport distance is
-
-```math
-\boxed{
-d_\gamma
-=\frac{E_\gamma-E_{g,\rm out}}{G}.
-}
+E_g(x_g)=E_\gamma.
 ```
 
 Therefore
 
-```text
-longer wavelength
--> first allowed absorption farther downstream
--> shorter maximum remaining carrier path.
+```math
+\boxed{
+x_g(E_\gamma)
+=\frac{E_{g,\rm in}-E_\gamma}{G}.
+}
 ```
 
-This is the robust geometric core of the current branch.
+For
+
+```math
+E_\gamma\ge E_{g,\rm in},
+```
+
+the physical entrance is already optically allowed and
+
+```math
+\boxed{x_g=0.}
+```
+
+The high-optical-depth earliest-generation rule is therefore
+
+```math
+\boxed{
+x_g(E_\gamma)
+=\max\!\left[
+0,
+\frac{E_{g,\rm in}-E_\gamma}{G}
+\right].
+}
+```
+
+This geometry is independent of the subsequent carrier transport model.
 
 ---
 
-## 6. Exact generation-position distribution in optical-depth coordinates
+## 5. Exact entrance-gap initial-condition switch
 
-Let
-
-```math
-y(x)=\int_{x_\gamma}^{x}\alpha(E_\gamma,s)ds
-```
-
-and total eligible optical depth
-
-```math
-\tau_\gamma=y(L).
-```
-
-Conditioned on absorption,
+Define local photon excess at the earliest allowed generation position:
 
 ```math
 \boxed{
-p(y|{\rm abs})
-=\frac{e^{-y}}
-{1-e^{-\tau_\gamma}},
-\qquad 0<y<\tau_\gamma.
+\nu_g(E_\gamma)
+=\max(0,E_\gamma-E_{g,\rm in}).
 }
 ```
 
-For the analytic local edge model
-
-```math
-\alpha=C(E_\gamma-E_g)^\beta,
-```
-
-with `n=beta+1`,
+Then, away from the switching point,
 
 ```math
 \boxed{
-u(y)
-=\delta E
-\left(\frac{y}{\tau_\gamma}\right)^{1/n},
+\frac{dx_g}{dE_\gamma}
+=
+\begin{cases}
+-1/G,&E_\gamma<E_{g,\rm in},\\
+0,&E_\gamma>E_{g,\rm in},
+\end{cases}
 }
+```
+
+while
+
+```math
+\boxed{
+\frac{d\nu_g}{dE_\gamma}
+=
+\begin{cases}
+0,&E_\gamma<E_{g,\rm in},\\
+1,&E_\gamma>E_{g,\rm in}.
+\end{cases}
+}
+```
+
+Thus at
+
+```math
+\boxed{E_\gamma=E_{g,\rm in}}
+```
+
+photon energy stops primarily moving the **generation position** and begins primarily changing the **photoelectron initial state**.
+
+This is now the strongest transport-independent result in the spectral branch.
+
+---
+
+## 6. General timing-functional consequence
+
+Let an intrinsic timing observable be
+
+```math
+\mathcal T=\mathcal F(x_g,\varepsilon_g,\mathcal P),
 ```
 
 where
 
 ```math
-u=E_\gamma-E_g(x),
+\varepsilon_g=\xi_e\nu_g
 ```
 
-```math
-\delta E=E_\gamma-E_{g,\rm out}.
-```
+and `mathcal P` represents the transport/device state.
 
-The remaining band-edge drop is
+In the sharp earliest-generation limit,
 
 ```math
 \boxed{
-D(y)=\delta E-u(y).
+\frac{d\mathcal T}{dE_\gamma}
+=-\frac1G\frac{\partial\mathcal F}{\partial x_g},
+\qquad E_\gamma<E_{g,\rm in},
 }
 ```
 
-This optical statistic is independent of the later transport model.
+whereas
+
+```math
+\boxed{
+\frac{d\mathcal T}{dE_\gamma}
+=\xi_e\frac{\partial\mathcal F}{\partial\varepsilon_g},
+\qquad E_\gamma>E_{g,\rm in}.
+}
+```
+
+Therefore the **spectral sensitivity channel changes** at the entrance gap.
+
+A visible cusp or slope change is not mathematically guaranteed because the two sensitivities can accidentally match and finite optical depth smooths the switch.
+
+The safe prediction is a crossover tied to the independently known `E_g,in`, not a mandatory curve shape.
 
 ---
 
-## 7. Critical correction — photoelectrons generated downstream are not cold
+## 7. Drift-diffusion robustness result
 
-If the photon is absorbed where
+In the strong momentum-randomizing limit use
 
 ```math
-u=E_\gamma-E_g(x)>0,
+dX=v_d\,dt+\sqrt{2D}\,dW_t.
 ```
 
-the electron begins with nonzero excess energy.
+For remaining distance `d`, the first-passage statistics are exactly
 
-Parameterize
+```math
+\boxed{\langle T|d\rangle=d/v_d,}
+```
+
+```math
+\boxed{\operatorname{Var}(T|d)=2Dd/v_d^3.}
+```
+
+For random generation position,
+
+```math
+\boxed{\langle T\rangle=\langle d\rangle/v_d,}
+```
 
 ```math
 \boxed{
-\varepsilon_{\rm gen}=\xi_eu.
+\operatorname{Var}(T)
+=\frac{2D\langle d\rangle}{v_d^3}
++\frac{\operatorname{Var}(d)}{v_d^2}.
 }
 ```
 
-The symmetric two-band optical transition gives
+The first term is transport/diffusion timing spread; the second is optical generation-position spread.
+
+In the high-optical-depth constant-coefficient limit,
 
 ```math
-\xi_e=1/2.
+\langle T\rangle
+=\begin{cases}
+(E_\gamma-E_{g,\rm out})/(Gv_d),
+& E_\gamma<E_{g,\rm in},\\
+L/v_d,
+& E_\gamma\ge E_{g,\rm in}.
+\end{cases}
 ```
 
-However, HgCdTe's experimentally validated simplified Kane model contains a nearly flat heavy-hole band and observed heavy-hole-to-electron interband transitions.
-
-In that flat-heavy-hole limit,
-
-```math
-\boxed{\xi_e\approx1.}
-```
-
-Thus a real HgCdTe baseline is likely much closer to `1` than to the symmetric `1/2` result for heavy-hole-dominated absorption, though a full multiband calculation is still required.
-
-Do not use the old cold-downstream-photoelectron assumption.
+Thus strong scattering gives **rise -> plateau**, not the earlier ballistic decline.
 
 ---
 
-## 8. Corrected exit mean energy
+## 8. Finite momentum-memory stress test
 
-For constant gradient `G` and energy-relaxation length `ell_E`, define
-
-```math
-K=G\ell_E.
-```
-
-For local photon excess `u`, the remaining gap drop is
+A dimensionless underdamped Ornstein-Uhlenbeck surrogate was added:
 
 ```math
-D=\delta E-u.
+dv
+=\frac{v_d-v}{\tau_m}dt
++\sqrt{2\sigma_v^2/\tau_m}\,dW_t,
 ```
-
-The corrected exit mean excess energy is
 
 ```math
-\boxed{
-\varepsilon_{\rm out}(u)
-=
-K+
-(\xi_eu-K)
-\exp\!\left[-\frac{\delta E-u}{K}\right].
-}
+dx=v\,dt.
 ```
 
-Its derivative is
+Three initial longitudinal momentum models were compared.
 
-```math
-\boxed{
-\frac{d\varepsilon_{\rm out}}{du}
-=
-\exp[-(\delta E-u)/K]
-\left[(\xi_e-1)+\frac{\xi_eu}{K}\right].
-}
-```
+### Negligible directed initial velocity
 
-Any interior extremum is a minimum. Therefore
+Post-entrance-gap delay is approximately flat.
 
-```math
-\boxed{
-\varepsilon_{\max}
-=
-\max\left[
-K(1-e^{-\delta E/K}),
-\xi_e\delta E
-\right].
-}
-```
+### Persistent positive directed hot-carrier velocity
 
-For the flat-heavy-hole limit,
+Post-entrance-gap delay decreases, reproducing the ballistic-like maximum.
 
-```math
-\boxed{
-\xi_e=1
-\quad\Rightarrow\quad
-\varepsilon_{\max}=\delta E
-}
-```
+### Symmetric hot initial longitudinal distribution
 
-independent of energy-relaxation length.
+The short-wave delay need not decrease; timing variance can increase strongly.
 
-Interpretation:
+Therefore neither
 
 ```text
-upstream absorption
--> more band-edge acceleration
--> more distance to cool
-
-near-output absorption
--> less band-edge acceleration
--> larger initial photon-excess energy
--> almost no distance to cool.
+peak
 ```
 
----
-
-## 9. Corrected ballistic transit kernel
-
-Let
-
-```math
-q=u/\delta E,
-```
-
-```math
-s=\delta E/E_{g,\rm out}.
-```
-
-Define
-
-```math
-e=1+s[1-(1-\xi_e)q],
-```
-
-```math
-z_s^*=\xi_esq,
-```
-
-```math
-z_0^*=s[1-(1-\xi_e)q].
-```
-
-With
-
-```math
-\phi(z,e)=\sqrt{ez}+\frac{z^{3/2}}{3\sqrt e},
-```
-
-the exact two-band/Kane ballistic timing kernel is
-
-```math
-\boxed{
-\theta(q;s,\xi_e)
-\equiv
-\frac{Gv_K}{E_{g,\rm out}}T_{\rm bal}
-=
-\phi(z_0^*,e)-\phi(z_s^*,e).
-}
-```
-
-The exact optical-depth generation distribution can be integrated against this kernel to obtain mean delay and generation-position timing spread.
-
----
-
-## 10. Strongest current prediction — high-optical-depth spectral delay peak
-
-Let
-
-```math
-R=E_{g,\rm in}/E_{g,\rm out}>1.
-```
-
-### Photon energy inside the graded gap range
-
-For
-
-```math
-0<s\le R-1,
-```
-
-high optical depth places absorption near the first allowed point, where the electron is born at the local edge.
-
-Then
-
-```math
-\boxed{
-\theta_<(s)
-=\frac{\sqrt s}{\sqrt{1+s}}
-\left(1+\frac43s\right).
-}
-```
-
-This increases with photon energy because the first allowed generation position moves upstream.
-
-### Photon energy above the entrance gap
-
-For
-
-```math
-s>R-1,
-```
-
-the whole graded absorber is optically allowed, so high-optical-depth absorption is pinned near the physical entrance.
-
-The path length no longer grows. Higher photon energy only increases initial electron kinetic energy.
-
-For `xi_e>0`, the transit time therefore decreases with further photon energy.
-
-Hence
-
-```math
-\boxed{
-T(E_\gamma)
-\text{ is maximal at }
-E_\gamma=E_{g,\rm in}
-}
-```
-
-inside the current high-optical-depth ballistic model.
-
-In wavelength language,
-
-```math
-\boxed{
-\lambda_{\rm peak}
-\simeq hc/E_{g,\rm in}.
-}
-```
-
-This is the strongest current candidate experimental signature.
-
----
-
-## 11. Limiting behavior of the spectral timing curve
-
-At the long-wave output cutoff,
-
-```math
-\boxed{T\to0}
-```
-
-in the ideal transport model because the eligible generation region collapses toward the collection side.
-
-Exactly at cutoff the absorption coefficient also tends toward the edge, so high optical depth is not guaranteed.
-
-At very high photon energy, for `xi_e>0`,
-
-```math
-\boxed{T\to L/v_K.}
-```
-
-Therefore the ideal high-QE timing shape is
+nor
 
 ```text
-long-wave endpoint
-T -> 0
-
-photon energy rises through graded gap range
-T rises
-
-E_gamma = Eg,in
-T maximum
-
-photon energy rises above entrance gap
-T decreases
-
-very high photon energy
-T -> L/vK.
+plateau
 ```
+
+is universal.
+
+The post-crossover shape diagnoses momentum memory and energy-dependent transport.
 
 ---
 
-## 12. Prior-art collision status
+## 9. Ballistic timing maximum is now model-specific
 
-Primary literature already establishes separately
+The earlier high-optical-depth forward-ballistic calculation predicted
 
-- compositionally graded HgCdTe detectors;
+```text
+rise through graded gap
+-> maximum at Eg,in
+-> decline at higher photon energy.
+```
+
+That remains a valid result **inside that ballistic directed-velocity model**.
+
+It is no longer the canonical transport-independent prediction.
+
+The ballistic peak should now be interpreted as one possible realization of the entrance-gap switch when additional photon excess produces persistent forward carrier velocity.
+
+---
+
+## 10. Photoexcitation energy correction retained
+
+Do not treat downstream-generated photoelectrons as cold.
+
+Write
+
+```math
+\boxed{\varepsilon_{\rm gen}=\xi_e(E_\gamma-E_g).}
+```
+
+The symmetric two-band model gives `xi_e=1/2`.
+
+The simplified HgCdTe flat-heavy-hole Kane limit motivates `xi_e approximately 1` as a relevant limiting baseline for heavy-hole-to-electron absorption.
+
+`xi_e` is not a universal constant and a real multiband optical-transition calculation remains open.
+
+---
+
+## 11. Prior-art posture
+
+Primary literature already establishes
+
+- graded HgCdTe spectral response;
 - grading-induced carrier drift and faster response;
-- graded HgCdTe spectral response/QE;
-- tunable-pulse HgCdTe timing measurements;
-- heavy-hole-to-electron Kane transitions.
+- microscopic scattering / hot-electron transport in `Hg_0.8Cd_0.2Te` at 77 K;
+- hydrodynamic models validated against HgCdTe Monte Carlo transport;
+- tunable-pulse HgCdTe timing instrumentation.
 
-The focused search has **not** found an inspected primary source explicitly deriving or measuring
-
-```text
-lambda
--> generation-position distribution
--> corrected graded transit distribution
-```
-
-or the more specific
+The focused search has not found an inspected primary source explicitly organizing wavelength-resolved graded-HgCdTe timing around the transition
 
 ```text
-intrinsic timing maximum at the entrance-gap wavelength.
+photon energy changes generation position
+->
+photon energy changes injected carrier state
 ```
 
-**Status:** candidate underexplored / potentially distinct analytic prediction; priority unproven.
+at the entrance-gap energy.
 
-The closest graded high-speed experiments found use fixed short-wave excitation rather than sweeping through the graded IR absorption range.
+**Status:** CANDIDATE UNDEREXPLORED DETECTOR-FACING ORGANIZING PRINCIPLE — PRIORITY UNPROVEN.
 
-Do not claim novelty from the negative search.
+Negative search is not novelty evidence.
 
 ---
 
-## 13. Timing-spread correction
+## 12. Revised decisive experiment
 
-At finite optical depth, increasing absorption probability generally moves the mean generation position upstream and increases mean remaining transport distance.
+Do not require a strict timing maximum.
 
-But generation-position timing spread is **not generally monotonic** with optical depth. Numerical quadrature shows it can rise slightly from very thin to moderate optical depth before decreasing toward zero in the optically thick limit.
+Sweep pulsed wavelength through
 
-Do not claim a universal `higher QE -> lower jitter` law.
+```text
+near output cutoff
+-> graded-gap interval
+-> entrance-gap wavelength
+-> shorter wavelengths
+```
 
----
+under fixed bias, temperature, spot and readout.
 
-## 14. Collection-boundary result retained
+Use differential low-frequency group delay or normalized impulse centroid to suppress common wavelength-independent electronics.
 
-A wider-gap boundary remains useful for separating leakage protection from graded acceleration.
-
-Barrier-free extraction requires
+Look for a reproducible spectral crossover near
 
 ```math
-qV_b\ge\alpha\Delta E_g^{(b)}.
+\boxed{\lambda_{g,\rm in}\simeq hc/E_{g,\rm in}.}
 ```
 
-Local TAT/BTBT voltage capacity requires
+Then use the post-crossover slope/variance as a transport diagnostic:
 
-```math
-V_b\le\int F_{\rm allow}(x)dx.
+```text
+negative slope
+-> persistent directed hot-carrier memory / faster energy-dependent transport
+
+near-zero slope
+-> strong momentum randomization / drift-like saturation
+
+positive slope or strong broadening
+-> hot momentum spread, energy-dependent scattering, or another transport mechanism.
 ```
 
-At minimum compensation the total conduction edge is flat, so the boundary can serve as a relaxation region rather than adding further downhill carrier work.
-
-This remains a complementary architectural result rather than the present timing prediction.
+No effect would falsify or strongly narrow the simplified graded-generation picture.
 
 ---
 
-## 15. Numerical regressions
+## 13. Current numerical regressions
 
-Current relevant regressions include
+Relevant scripts now include
 
 ```text
+numerics/hgcdte_spectral_momentum_scattering_surrogate.py
+numerics/hgcdte_spectral_delay_relaxation.py
 numerics/hgcdte_spectral_delay_peak.py
 numerics/hgcdte_spectral_transit_statistics.py
 numerics/hgcdte_dimensionless_device_phase_map.py
-numerics/hgcdte_ii_safe_transit_ceiling.py
 numerics/hgcdte_graded_nonlocal_ii_phase_boundary.py
-numerics/hgcdte_graded_kane_wkb.py
 ```
 
-They protect
-
-- the nonzero-initial-energy transit integral;
-- the entrance-gap timing maximum;
-- the high-energy `L/v_K` asymptote;
-- the endpoint maximum of finite-relaxation exit energy;
-- the earlier graded-II phase boundaries.
-
-No CI is justified yet.
+The ballistic peak regression remains as provenance; it no longer defines the universal claim boundary.
 
 ---
 
-## 16. Main missing inputs
+## 14. Next decisive work
 
-For quantitative HgCdTe prediction, need
+Do not add another abstract theorem and do not defend the old peak by assumption.
 
-```text
-multiband optical transition / xi_e(E_gamma,x)
-+
-calibrated alpha(E_gamma,x,T)
-+
-ell_E(E,x,T)
-+
-stochastic Gamma_II(E,x)
-+
-real Eg(x), Ec(x), Ev(x) under doping and bias
-+
-readout / RC transfer function for comparison to experiment.
-```
+The next high-value step is one of:
 
-Do not invent coefficients from narrative literature statements.
+1. implement a calibrated 77 K `Hg_0.8Cd_0.2Te` hydrodynamic/Monte-Carlo transport closure using published velocity, momentum-relaxation and energy-relaxation physics;
+2. obtain wavelength-resolved impulse/group-delay data on one known graded HgCdTe profile.
 
----
+The immediate modeling target is the **spectral crossover shape**, not a predetermined maximum.
 
-## 17. Next decisive work
-
-Do **not** open a manuscript yet.
-
-The next step should test robustness of the timing peak rather than extend the abstract theory.
-
-Priority order:
-
-1. add one finite energy-relaxation/scattering model to determine whether the entrance-gap timing maximum survives beyond the ballistic limit;
-2. search/reanalyze any tunable-wavelength graded-HgCdTe impulse-response data under fixed bias/readout;
-3. if no data exist, formulate the tunable-pulse spectral timing sweep as the proposed decisive experiment.
-
-If the timing peak survives scattering and remains absent from prior literature, reassess publication significance at that point.
+Only after a calibrated transport model or direct data collision should manuscript readiness be reassessed.
