@@ -1,275 +1,192 @@
 # Experiment 01 — Artifact Status Map
 
-**Date:** 2026-08-08  
-**Purpose:** preserve the adversarial research trail without allowing stopped or superseded branches to compete with the live frontier.
+**Date:** 2026-08-09  
+**Purpose:** keep the active frontier distinct from supporting, superseded, and stopped branches.
 
 > Live `main`, root `AGENTS.md`, `CURRENT_STATE.md`, and `CLAIM_LEDGER.md` are authoritative.
 
-There is still **no manuscript**.
-
-## A. Canonical current frontier
+## A. Canonical active frontier
 
 Read first:
 
 1. `CURRENT_STATE.md`
 2. `CLAIM_LEDGER.md`
-3. `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
-4. `HGCDTE_KANE_SCALE_AUDIT.md`
-5. `FIELD_DRIVEN_COLLECTION_TUNNELING.md`
-6. `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`
-7. `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`
-8. `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`
-9. `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`
-10. `RESEARCH_LOG.md`
-11. `ARCHIVE_STATUS.md`
+3. `HGCDTE_LINEAR_GRADED_KANE_WKB.md`
+4. `HGCDTE_BANDGAP_GRADIENT_ESCAPE_AUDIT.md`
+5. `HGCDTE_FIELD_PROFILE_VARIATIONAL_BOUND.md`
+6. `HGCDTE_TWO_REGION_FIELD_ALLOCATION.md`
+7. `HGCDTE_VOLTAGE_TRANSIT_FIELD_ALLOCATION.md`
+8. `HGCDTE_TAT_FIELD_SCALE.md`
+9. `HGCDTE_TAT_BTBT_CROSSOVER.md`
+10. `HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
+11. `RESEARCH_LOG.md`
 
-## B. Active HgCdTe/material branch
+There is still **no manuscript**.
 
-### `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
+## B. Current strongest model-level corollary
 
-**Status:** current active material normalization; no novelty claim.
+### `HGCDTE_LINEAR_GRADED_KANE_WKB.md`
 
-Key result after explicit simplified Kane substitution:
+**Status:** active exact linear-profile WKB derivation; priority unassessed; no novelty claim.
 
-```math
-j=x^2e^{-1/x},
-\qquad
-x=F/F_K,
-\qquad
-j=J/J_K,
-```
-
-with
+For fixed useful conduction-band slope with grading fraction `eta`,
 
 ```math
-F_K\propto\lambda_c^{-2},
-\qquad
-J_K\propto L\lambda_c^{-4}.
+\boxed{
+\mathcal S_Z(\eta)/\mathcal S_Z(0)
+=(1-\eta)^2/(1-2\eta)^{3/2}
+}
 ```
 
-Exact current-target inversion is recorded with Lambert `W`.
+for `0<=eta<1/2`.
 
-Next missing input: primary high-field `v_d(F)` for a definite HgCdTe composition/density/temperature.
+Direct numerical WKB integration checks the closed action.
 
-Regression:
+## C. Active field-engineering branch
 
-`numerics/hgcdte_btbt_normalized_sweep.py`.
+### `HGCDTE_BANDGAP_GRADIENT_ESCAPE_AUDIT.md`
 
-### `HGCDTE_KANE_SCALE_AUDIT.md`
+**Status:** active ideal two-band interpretation.
 
-**Status:** active material-scale interpretation.
+Role: separates common-mode band tilt from gap-gradient carrier drive and identifies finite band-edge drop as the grading resource.
 
-Maps simplified Kane velocity, tunneling field, microscopic length and cutoff wavelength. Establishes that the one-barrier quantum speed scale is generally far above practical detector response, whereas BTBT field scales can be technologically relevant.
+### `HGCDTE_FIELD_PROFILE_VARIATIONAL_BOUND.md`
 
-### `FIELD_DRIVEN_COLLECTION_TUNNELING.md`
+**Status:** active homogeneous no-go within local model.
 
-**Status:** active supporting fixed-thickness model.
+Role: proves uniform field uniquely minimizes local WKB leakage at fixed transit time in the stated homogeneous high-field transport family.
 
-At fixed thickness and in the low-field drift regime, increasing field-driven transit speed increases direct BTBT. Explicitly records thinning as a counterexample to universality.
+### `HGCDTE_TWO_REGION_FIELD_ALLOCATION.md`
 
-### `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`
+**Status:** active heterostructure allocation result.
 
-**Status:** supporting small-length quantum audit.
+Role: field should equalize marginal leakage cost per marginal transit-time reduction across regions.
 
-One optimized parabolic rectangular barrier gives
+### `HGCDTE_VOLTAGE_TRANSIT_FIELD_ALLOCATION.md`
 
-```math
-\mathcal T_d
-\gtrsim
-\exp[-2c_t\Delta E/(\hbar B_{\rm tr})].
-```
+**Status:** active bias-resource result.
 
-Useful as an asymptotic warning, not the practical HgCdTe frontier.
+Role: exact `VT` lower bound and two-region field contrast versus extra bias.
 
-## C. Electronic energy-filter branch
+## D. Active competing leakage branch
 
-### `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`
+### `HGCDTE_TAT_FIELD_SCALE.md`
 
-**Status:** active supporting semiconductor detailed-balance result.
+**Status:** active TAT exponent-scale comparison.
 
-Links useful contact extraction and reverse Fermi loading. Reverse loading hazard is not automatically a dark current/count.
+### `HGCDTE_TAT_BTBT_CROSSOVER.md`
 
-### `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`
+**Status:** active defect-density crossover/material-quality relation.
 
-**Status:** one-pole supporting model.
+### `HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
 
-Derives exact zero-temperature occupied-side leakage through a finite-linewidth Breit-Wigner resonance and the sharp-filter `hB^2/(4Delta)` asymptotic.
+**Status:** active nonlocal II surrogate.
 
-The latter is **not universal**.
+### `HGCDTE_RELAXATION_LENGTH_PHASE_BOUNDARY.md`
 
-### `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`
+**Status:** active sensitivity boundary for missing `ell_E(F)` data.
 
-**Status:** direction-correcting counterexample/audit.
+### `HGCDTE_IMPACT_IONIZATION_DEAD_SPACE.md`
 
-Shows higher-order filters can suppress occupied-side tails far more strongly at fixed FWHM, while group/Wigner delay grows with filter order.
+**Status:** active correction preventing bulk II onset from being misused as a finite-device threshold.
 
-Permanent lesson:
+## E. Direct-BTBT / transport supporting files
 
-> spectral FWHM is not an architecture-independent electronic transport speed.
+- `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
+- `HGCDTE_KANE_SCALE_AUDIT.md`
+- `HGCDTE_FIELD_REGIME_MAP.md`
+- `HGCDTE_TRANSPORT_BTBT_PHASE_BOUNDARY.md`
+- `FIELD_DRIVEN_COLLECTION_TUNNELING.md`
 
-Further abstract Wigner-Smith/filter generalization is currently stopped.
+These remain active provenance but are no longer the sole frontier.
 
-## D. Abstract adaptive/output branch — closed as universal route
-
-### `ADAPTIVE_FEEDFORWARD_MODE_CAPACITY.md`
-
-**Status:** exact finite-instrument supporting theorem.
-
-```math
-\sum_j\eta_j\le rd.
-```
-
-Adaptive branching replaces storage rank with storage × branch rank.
-
-Regression:
-
-`numerics/adaptive_instrument_rank_stress.py`.
-
-### `OUTPUT_RECORD_INFORMATION_CAPACITY.md`
-
-**Status:** branch-closing output-continuum audit.
-
-Shows why local Landauer work or finite internal storage rank cannot become universal always-on detector limits when branch/arrival information can be exported into a large output record continuum.
-
-**Decision:** do not keep extending abstract space-time resource vectors without a concrete detector need.
-
-## E. Strongest retained passive optical/network result
-
-### `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
-
-**Status:** exact finite passive-network detector-facing corollary; no novelty claim.
-
-```math
-\mathcal I_{L\to R}
-\le
-\frac{2LR}{L+R}.
-```
-
-Tight; one matched passive resonance saturates.
-
-Regression:
-
-`numerics/passive_multimode_h2_stress.py`.
-
-Keep as structural provenance, not the active material frontier.
-
-## F. Active/time-dependent supporting branch
-
-Retain as supporting resource/counterexample work:
-
-- `ACTIVE_FREQUENCY_CONVERTER_BASELINE.md`
-- `MULTIMODE_ACTIVE_PUMP_RESOURCE.md`
-- `TRAVELING_WAVE_ACTIVE_CONVERTER.md`
-- `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
-- `TIME_DEPENDENT_CAPTURE_AUDIT.md`
-- `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`
-- `ALWAYS_ON_TEMPORAL_COVERAGE.md`
-
-These established that active and time-dependent control can beat passive stationary matching, but only by introducing pump/control/timing/output resources. Strong prior-art overlap prevents treating those generic mechanisms as current novelty targets.
-
-## G. Passive/autonomous detector bridge
-
-Retain for prior-art and resource provenance:
-
-- `THERMODYNAMIC_OPTICAL_ACCESS_BRIDGE.md`
-- `THERMAL_IRREVERSIBILITY_COST.md`
-- `AUTONOMOUS_DETECTOR_CAPTURE_GAP.md`
-- `CAPTURE_TO_CLICK_COMPOSITION.md`
-- `UNIFIED_THREE_LEVEL_CAPTURE_MACHINE.md`
-- `READINESS_BANDWIDTH_AFFINITY.md`
-- `NESS_OPTICAL_RESPONSE_AUDIT.md`
-- `PUBLICATION_BOUNDARY_AUDIT.md`
-
-Key prior-art boundary:
-
-- Young, Sarovar & Leonard (2018) already cover incoming fields + absorption + amplification + efficiency/dark counts/timing.
-- Schwarzhans et al. (2026) already cover autonomous work/reset + entropy + internal dark counts/jitter/dead time.
-
-Publication audit remains:
-
-> **Continue research; no manuscript yet.**
-
-## H. Nonperturbative Hopfield supporting branch
-
-Retain for mechanism/provenance:
-
-- `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
-- `HOPFIELD_RETUNING_NO_GO.md`
-- `HOPFIELD_RESERVOIR_RESOURCE_COST.md`
-- `HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
-
-The fixed-target retuning result remains **candidate distinct supporting lemma; priority unproven**.
-
-## I. Earlier optical/microscopic provenance
+## F. Earlier electronic-filter supporting branch
 
 Retain:
 
-- `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
-- `ONE_PORT_RESONATOR_DYNAMICS.md`
-- `THERMAL_INPUT_CHANNEL.md`
-- `MICROSCOPIC_SINGLE_TRANSITION.md`
-- `FINITE_TRANSITION_LDOS_BANDWIDTH_BOUND.md`
-- `FINITE_EMITTER_FORM_FACTOR.md`
-- `OSCILLATOR_STRENGTH_EXTENT_STRESS_TEST.md`
+- `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`
+- `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`
+- `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`
+- `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`
 
-`ACTIVE_VOLUME_COUNTEREXAMPLE.md` is permanent because it prevents resurrection of the original false active-volume theorem.
+These explain why contact detailed balance, linewidth broadening and filter delay were insufficient as universal limits.
 
-## J. Stopped / invalidated general routes
+## G. Earlier optical/control supporting branch
 
-Do not restart without a new explicit assumption that defeats the recorded counterexample:
+Retain for provenance:
 
-- active-volume-only universal theorem;
-- finite absorber count as missing one-photon speed limit;
-- largest internal coupling as universal multimode parameter;
-- preliminary `2 min(L,R)` passive bound — superseded;
-- all-frequency passive theorem with ideal feedthrough;
-- generic capture+amplification novelty;
-- generic autonomous detector-thermodynamics novelty;
-- universal active `pump ~ W^2` law;
-- finite internal storage as always-on detector capacity;
-- local Landauer erasure as universal adaptive detector cost;
-- single-Lorentzian `B^2/Delta` leakage as universal electronic theorem;
-- spectral FWHM as universal transport speed;
-- fixed-thickness field-speed tradeoff as universal when thickness may shrink;
-- low-field mobility extrapolation into HgCdTe high-field operation.
+- `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
+- `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
+- `TIME_DEPENDENT_CAPTURE_AUDIT.md`
+- `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`
+- `ADAPTIVE_FEEDFORWARD_MODE_CAPACITY.md`
+- `OUTPUT_RECORD_INFORMATION_CAPACITY.md`
+- `ALWAYS_ON_TEMPORAL_COVERAGE.md`
+- Hopfield/LDOS/one-port supporting files.
 
-## K. Active numerical files
+These are no longer the active material direction.
 
-- `numerics/one_port_time_domain_check.py`
-- `numerics/passive_multimode_h2_stress.py`
-- `numerics/adaptive_instrument_rank_stress.py`
-- `numerics/hgcdte_btbt_normalized_sweep.py`
+## H. Permanent branch-closing artifacts
 
-No CI workflow is currently justified.
+### `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
 
-## L. Current forward branch
+Prevents resurrection of active-volume-only universal bounds.
 
-The next task is **not** another abstract theorem.
+### Homogeneous nonuniform-field escape — STOPPED within local model
 
-Obtain a traceable high-field electron velocity law for a definite HgCdTe composition and temperature, then combine it with
+`HGCDTE_FIELD_PROFILE_VARIATIONAL_BOUND.md` shows field shaping alone cannot improve the stated homogeneous speed/local-WKB tradeoff.
 
-```math
-F_{\max}^{\rm BTBT}
-=
-\frac{F_K}
-{2W_0[\tfrac12\sqrt{J_K/J_*}]}
-```
+### Bulk `100 V/cm` II threshold interpretation — STOPPED
 
-and
+Finite-device II requires dead-space/energy-history treatment.
 
-```math
-B_{\rm tr,max}
-=\frac{c_t}{L}v_d(F_{\max}).
-```
+### Direct-BTBT-first ordinary-LWIR assumption — STOPPED
 
-Then determine which mechanism intervenes first:
+TAT, II and transport nonlinearity are separate and can intervene earlier.
+
+## I. Numerical regressions
+
+Active:
 
 ```text
-direct BTBT
-vs
-hot-electron/impact-ionization transport
-vs
-TAT / SRH / another real device mechanism.
+numerics/hgcdte_graded_kane_wkb.py
+numerics/hgcdte_field_profile_variational.py
+numerics/hgcdte_relaxation_length_phase_boundary.py
+numerics/hgcdte_nonlocal_ii_surrogate.py
+numerics/hgcdte_impact_dead_space.py
+numerics/hgcdte_field_regime_map.py
+numerics/hgcdte_btbt_normalized_sweep.py
+numerics/passive_multimode_h2_stress.py
+numerics/one_port_time_domain_check.py
 ```
 
-Follow whichever physics actually wins.
+No CI workflow is justified yet.
+
+## J. Prior-art status
+
+Known prior anchors include
+
+- Kane/Zener tunneling;
+- WKB graded-gap HgCdTe;
+- analytical HgCdTe heterojunction band profiles;
+- composition-gradient built-in fields;
+- HgCdTe APD field engineering;
+- TAT/defect-limited HgCdTe leakage;
+- nonlocal/dead-space avalanche transport.
+
+The exact fixed-conduction-slope graded-action ratio has not been found in the focused search, but priority remains unassessed.
+
+## K. Forward branch
+
+Next:
+
+1. choose a finite HgCdTe composition profile;
+2. use realistic conduction/valence band-offset partition;
+3. solve Poisson electrostatics;
+4. compute `E_c(x),E_v(x)`;
+5. compute transit and direct WKB action;
+6. add TAT/interface states;
+7. add nonlocal II;
+8. rerun prior-art/publication audit.
+
+Do not open a manuscript until this attack is complete.
