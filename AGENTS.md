@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **open theoretical exploration; active frontier is graded HgCdTe carrier drive versus nonlocal hot-electron physics plus boundary TAT/BTBT; no novelty claim**
+**Current mode:** **open theoretical exploration; active frontier is a dimensionless graded-HgCdTe device phase map combining nonlocal hot-electron safety, boundary TAT/BTBT voltage capacity, and best-case transit time; no novelty claim**
 
 Read this file first.
 
@@ -45,53 +45,59 @@ Do not use `first`, `new fundamental`, `universal`, etc. without a focused prima
 
 ---
 
-## 3. Current path
+## 3. Current research path
 
 ```text
-active-volume thought experiment
--> volume bound killed by field concentration
+active volume
+-> universal volume bound killed by field concentration
 
-finite absorber / LDOS / ultrastrong coupling
--> successive microscopic loopholes
+microscopic absorber / LDOS / ultrastrong coupling
+-> successive loopholes and nonperturbative access physics
 
 finite passive network
--> harmonic two-access transfer-area theorem
+-> harmonic optical-to-detector transfer-area law
 
-active/adaptive/time-dependent control
--> pump, timing, storage, output-record resources
+active / adaptive / time-dependent control
+-> pump, timing, storage, and output-record resources
 -> unrestricted output continuum kills universal finite detector-only capacity
 
-semiconductor contact / energy filters
+semiconductor extraction / energy filters
 -> detailed balance, lifetime broadening, multipole delay
 
 HgCdTe field-driven collection
--> normalized direct BTBT
--> low-field mobility shortcut killed by high-field transport
+-> normalized BTBT
+-> low-field mobility shortcut killed
 
-TAT / nonlocal II
--> defect-mediated leakage and carrier energy history matter
+TAT / nonlocal impact ionization
+-> leakage depends on defect spectrum and carrier energy history
 
 homogeneous field shaping
--> cannot beat local speed/WKB leakage trade under stated model
+-> no local speed/leakage benefit under stated model
 
 heterostructure allocation
--> put field where marginal leakage cost is lowest
+-> field should be placed where leakage cost is lower
 
-bandgap grading
+composition grading
 -> direct-Zener geometry can be suppressed at fixed conduction drive
 
-self-consistent quasi-neutral p-type grading
+quasi-neutral p-type grading
 -> majority-hole band can be nearly pinned
 -> gap slope becomes minority-electron drive
 
 collection boundary
--> unavoidable barrier-canceling voltage must be carried by finite field
+-> unavoidable barrier-canceling voltage
 -> local TAT/BTBT voltage capacity
 
+nonlocal hot-electron branch
+-> grading does not remove conduction-band work
+-> exact mean-II phase boundary
+-> relaxation converts it into a transit-time floor
+
 CURRENT FRONTIER
--> grading does not remove hot-electron energy input
--> exact graded mean-energy II phase boundary
--> minimally compensated wide-gap boundary acts as relaxation region.
+-> dimensionless finite-device phase map:
+   absorber II margin
+   + boundary local-tunneling margin
+   + cooling/transit cost.
 ```
 
 ---
@@ -102,22 +108,23 @@ CURRENT FRONTIER
 2. `README.md`
 3. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
 4. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-5. `experiments/01-vanishing-absorber/HGCDTE_GRADED_NONLOCAL_II_PHASE_BOUNDARY.md`
-6. `experiments/01-vanishing-absorber/HGCDTE_GRADED_ABSORBER_BOUNDARY_RELAXATION.md`
-7. `experiments/01-vanishing-absorber/HGCDTE_QUASINEUTRAL_GRADING_SELF_CONSISTENCY.md`
-8. `experiments/01-vanishing-absorber/HGCDTE_LINEAR_GRADED_KANE_WKB.md`
-9. `experiments/01-vanishing-absorber/HGCDTE_BOUNDARY_LAYER_TAT_TRADEOFF.md`
-10. `experiments/01-vanishing-absorber/HGCDTE_TAT_TOLERANCE_FIELD_ALLOCATION.md`
-11. `experiments/01-vanishing-absorber/HGCDTE_ELECTROSTATIC_COMPENSATION_PEAK_FIELD_BOUND.md`
-12. `experiments/01-vanishing-absorber/HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md`
-13. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-14. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+5. `experiments/01-vanishing-absorber/HGCDTE_DIMENSIONLESS_DEVICE_PHASE_MAP.md`
+6. `experiments/01-vanishing-absorber/HGCDTE_GRADED_NONLOCAL_II_PHASE_BOUNDARY.md`
+7. `experiments/01-vanishing-absorber/HGCDTE_II_SAFE_TRANSIT_CEILING.md`
+8. `experiments/01-vanishing-absorber/HGCDTE_BALLISTIC_GRADING_SPAN_RULE.md`
+9. `experiments/01-vanishing-absorber/HGCDTE_BOUNDARY_COOLING_TRANSIT_FLOOR.md`
+10. `experiments/01-vanishing-absorber/HGCDTE_GRADED_ABSORBER_BOUNDARY_RELAXATION.md`
+11. `experiments/01-vanishing-absorber/HGCDTE_QUASINEUTRAL_GRADING_SELF_CONSISTENCY.md`
+12. `experiments/01-vanishing-absorber/HGCDTE_LINEAR_GRADED_KANE_WKB.md`
+13. `experiments/01-vanishing-absorber/HGCDTE_TAT_TOLERANCE_FIELD_ALLOCATION.md`
+14. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
+15. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
 
 There is still **no manuscript**.
 
 ---
 
-## 5. Strongest graded direct-Zener result
+## 5. Direct-Zener grading result
 
 Define
 
@@ -156,13 +163,13 @@ For the linear two-band/Kane two-turning-point model,
 
 The action increases monotonically and diverges as `delta -> 1-`.
 
-**Interpretation:** a gap gradient can provide conduction-band drive while removing the relative conduction/valence tilt that creates the ordinary direct-Zener overlap.
+**Interpretation:** a decreasing gap can provide useful `E_c` slope while removing the relative `E_c/E_v` geometry that enables the ordinary direct-Zener path.
 
-This is conditional and does not eliminate TAT, interface tunneling, or hot-carrier processes.
+This does not eliminate TAT, interface tunneling, or hot-carrier processes.
 
 ---
 
-## 6. Self-consistent quasi-neutral p-type result
+## 6. Quasi-neutral p-type self-consistency
 
 For nondegenerate holes with `p approximately N_A`,
 
@@ -177,24 +184,26 @@ k_BT\frac{d}{dx}\ln(N_A/N_v).
 For nearly constant `N_A/N_v`,
 
 ```math
-\boxed{E_v\approx\text{constant}.}
+\boxed{E_v\approx\text{constant},}
 ```
 
-Therefore for a decreasing gap,
+so for a decreasing gap
 
 ```math
 \boxed{S_c\approx G.}
 ```
 
-So the favorable direct-Zener geometry can emerge naturally from quasi-neutral equilibrium rather than requiring an artificial cancellation.
+Thus the favorable direct-Zener geometry can emerge naturally from quasi-neutral equilibrium.
+
+Do not default to a uniformly depleted multi-micron graded absorber; its `N_eff L^2` Poisson burden becomes severe rapidly.
 
 ---
 
-## 7. New nonlocal carrier-energy theorem
+## 7. Nonlocal carrier-energy state
 
-Do not compute hot-electron energy from electrostatic field alone in a graded semiconductor.
+Hot-electron energy depends on the **total conduction-band slope**, not on whether that slope came from electric potential or composition grading.
 
-Use the total conduction-band slope:
+Use
 
 ```math
 \boxed{
@@ -214,9 +223,15 @@ For cold injection,
 }
 ```
 
-Thus grading can suppress direct Zener without removing hot-electron energy input.
+This is path dependent.
 
-For a linear quasi-neutral graded absorber
+**Do not replace it with a local `F_II(x)` ceiling** unless a local-equilibrium reduction has been justified.
+
+---
+
+## 8. Linear graded mean-II phase boundary
+
+For
 
 ```math
 E_g=E_{g0}-Gx,
@@ -224,7 +239,7 @@ E_g=E_{g0}-Gx,
 S_c=G,
 ```
 
-constant `ell_E`, and threshold model
+constant `ell_E`, and threshold surrogate
 
 ```math
 E_{\rm th}=\chi E_g,
@@ -238,7 +253,7 @@ define
 r=L/\ell_E.
 ```
 
-Then the exact mean-energy threshold boundary is
+Then
 
 ```math
 \boxed{
@@ -269,9 +284,87 @@ This is a deterministic mean-energy boundary, not a zero-probability stochastic 
 
 ---
 
-## 8. Collection-boundary local tunneling resource
+## 9. Relaxation-required grading and transit floor
 
-For a wider-gap boundary with material gap increase `Delta Eg_b` and conduction-band share `alpha`, barrier-free electron extraction requires
+If
+
+```math
+\zeta>\chi/(1+\chi),
+```
+
+define
+
+```math
+\boxed{
+a=\chi(1-\zeta)/\zeta.}
+```
+
+Then the minimum safe relaxation ratio is
+
+```math
+\boxed{
+r_{\min}
+=\frac1a
++W_0\!\left[-\frac1a e^{-1/a}\right].
+}
+```
+
+Hence
+
+```math
+\boxed{L\ge\ell_Er_{\min}.}
+```
+
+Using the simplified Kane group-velocity ceiling `|v_g|<v_K`,
+
+```math
+\boxed{
+T_{\rm tr}\ge\frac{\ell_E}{v_K}r_{\min}.
+}
+```
+
+For `chi=1`, representative `r_min` values are
+
+```text
+zeta=0.55 -> 0.416
+zeta=0.60 -> 0.874
+zeta=0.70 -> 2.026
+zeta=0.80 -> 3.921
+zeta=0.90 -> 8.999
+```
+
+---
+
+## 10. Ballistic cutoff-span sanity rule
+
+The ballistic phase boundary may be written
+
+```math
+\boxed{
+E_{g,\rm in}/E_{g,\rm out}
+\le1+\chi.
+}
+```
+
+Using `E_g approximately hc/lambda_c`,
+
+```math
+\boxed{
+\lambda_{c,\rm in}
+\ge
+\lambda_{c,\rm out}/(1+\chi).
+}
+```
+
+For `chi=1`, the conditional ballistic span is approximately a factor of two in cutoff wavelength.
+
+This is a sanity rule inside the mean-energy model, not a universal HgCdTe factor-of-two law.
+
+---
+
+## 11. Collection-boundary local tunneling resource
+
+For a wider-gap boundary with gap increase `Delta Eg_b` and conduction-band share `alpha`, barrier-free extraction requires
 
 ```math
 \boxed{qV_b\ge\alpha\Delta E_g^{(b)}.}
@@ -283,7 +376,7 @@ Any nonnegative field over width `w` obeys
 \boxed{F_{\max}\ge V_b/w.}
 ```
 
-For local inverse-field tunneling mechanisms `m` with characteristic fields `F_m(x)` and required exponent margins `Sigma_m`, define
+For local inverse-field mechanisms `m` with characteristic fields `F_m(x)` and required margins `Sigma_m`, define
 
 ```math
 \boxed{
@@ -292,7 +385,7 @@ F_{\rm allow}(x)
 }
 ```
 
-Then the voltage is feasible under those local constraints iff
+The required voltage is locally feasible iff
 
 ```math
 \boxed{
@@ -300,13 +393,11 @@ V_b\le\int_0^wF_{\rm allow}(x)dx.
 }
 ```
 
-Use this for TAT and direct BTBT when their local WKB forms are valid.
-
-**Do not insert nonlocal II into this local envelope** unless a local-equilibrium reduction has been justified.
+Use this for TAT and direct BTBT where their local WKB forms are valid.
 
 ---
 
-## 9. Minimum-compensation boundary relaxation result
+## 12. Minimum-compensation boundary and cooling
 
 At
 
@@ -314,73 +405,176 @@ At
 \boxed{qV_b=\alpha\Delta E_g^{(b)},}
 ```
 
-the net conduction-edge change is
+the net conduction-edge step is zero.
 
-```math
-\boxed{\Delta E_c^{(b)}=0.}
-```
-
-The boundary adds no downhill conduction-band work.
-
-Therefore
+The boundary therefore adds no downhill carrier work and
 
 ```math
 \boxed{
 \varepsilon_b(s)
-=\varepsilon_a e^{-s/\ell_{E,b}},
+=\varepsilon_a e^{-s/\ell_{E,b}}.
 }
 ```
 
-while the local gap and approximate II threshold rise.
+while the local gap and approximate II threshold increase.
 
-Hence if the electron enters below mean threshold, a monotonic minimally compensated wider-gap boundary cannot create a new mean-threshold crossing within the stated model.
+If the carrier enters below mean threshold, a monotonic minimally compensated wider-gap boundary cannot create a new mean-threshold crossing in the current model.
 
-Overcompensation restores boundary acceleration but spends extra local field and hot-electron resource.
+To cool the carrier to fraction `c`, however,
 
----
-
-## 10. Current physical interpretation
-
-The active architecture now has a clean division of labor:
-
-```text
-quasi-neutral graded absorber
--> band-structure drive
--> direct-Zener suppression
--> nonlocal hot-electron constraint
-
-wide-gap collection boundary
--> unavoidable electrostatic voltage
--> field placed in high-gap / low-defect material
--> local TAT/BTBT constraint
--> relaxation region at minimum compensation.
+```math
+\boxed{
+w_{\rm cool}
+=\ell_{E,b}\ln(1/c).}
 ```
 
-This is the current frontier.
+Cooling is therefore not zero-length.
 
 ---
 
-## 11. Important stopped shortcuts
+## 13. Combined conditional device transit floor
+
+For a uniform boundary with required TAT and direct-Zener exponent margins,
+
+```math
+w_{\rm TAT}
+=\frac{\alpha\Delta E_g^{(b)}\Sigma_t}{qF_{\rm TAT}},
+```
+
+```math
+w_Z
+=\frac{\alpha\Delta E_g^{(b)}\Sigma_Z}{qF_K}.
+```
+
+The minimum boundary width is
+
+```math
+\boxed{
+w_b\ge
+\max\left[
+\ell_{E,b}\ln(1/c),
+ w_{\rm TAT},
+ w_Z
+\right].
+}
+```
+
+Therefore, in the constant-`v_K` kinematic model,
+
+```math
+\boxed{
+T_{\rm total}
+\ge
+\frac1{v_K}
+\left[
+\ell_{E,a}r_{\min}
++
+\max\left(
+\ell_{E,b}\ln(1/c),
+ w_{\rm TAT},
+ w_Z
+\right)
+\right].
+}
+```
+
+This is conditional and generally optimistic; real scattering and diffusion can increase the time.
+
+---
+
+## 14. Current dimensionless phase map
+
+Define absorber mean-II margin
+
+```math
+\boxed{
+\mathcal M_{\rm II}
+=
+\frac{\chi(1-\zeta)}
+{\zeta(1-e^{-r})/r}.
+}
+```
+
+Define boundary local-tunneling voltage margin
+
+```math
+\boxed{
+\mathcal M_b
+=
+\frac{q\int_0^wF_{\rm allow}(x)dx}
+{\alpha\Delta E_g^{(b)}}.
+}
+```
+
+The idealized minimum-compensation device is conditionally feasible only when
+
+```math
+\boxed{
+\mathcal M_{\rm II}\ge1,
+\qquad
+\mathcal M_b\ge1.
+}
+```
+
+Normalize latency by absorber relaxation length:
+
+```math
+\Theta
+=T_{\rm total}v_K/\ell_{E,a}.
+```
+
+Then
+
+```math
+\boxed{
+\Theta_{\min}
+=
+r_{\min}
++
+\max\left[
+\rho_E\ln(1/c),
+\nu_{\rm TAT},
+\nu_Z
+\right],
+}
+```
+
+where `rho_E=ell_E,b/ell_E,a` and the `nu` terms are boundary width requirements normalized by `ell_E,a`.
+
+This three-coordinate representation
+
+```math
+\boxed{
+(\mathcal M_{\rm II},\mathcal M_b,\Theta_{\min})
+}
+```
+
+is the current organizing device model.
+
+---
+
+## 15. Important stopped shortcuts
 
 Do not restart casually:
 
 - active-volume-only theorem;
-- finite absorber count as one-photon speed limit;
-- largest internal coupling as universal parameter;
+- finite absorber count as a one-photon speed limit;
+- largest internal coupling as a universal parameter;
 - finite internal rank as always-on detector capacity;
 - universal active `pump ~ W^2` law;
-- spectral FWHM as transport speed in arbitrary filters;
+- spectral FWHM as arbitrary transport speed;
 - low-field mobility extrapolated into high-field HgCdTe;
 - direct BTBT assumed first high-field limiter;
 - bulk II onset treated as a finite-device threshold;
 - nonuniform field alone assumed beneficial in homogeneous material;
-- pure grading assumed to eliminate all tunneling;
+- pure grading assumed to eliminate all leakage;
 - delta doping assumed to eliminate compensation field;
-- local `F_II(x)` used without a local-equilibrium justification.
+- local `F_II(x)` used without local-equilibrium justification;
+- minimum-compensation boundary treated as a zero-time cooling sink.
 
 ---
 
-## 12. Current missing inputs
+## 16. Current missing inputs
 
 Need target-composition data for
 
@@ -389,28 +583,28 @@ ell_E(E,x) / energy-loss rate
 +
 Gamma_II(E,x)
 +
-boundary trap energies, densities and capture cross sections
+boundary trap energies, densities, occupations, capture cross sections
 +
 finite self-consistent band profile under doping and bias
 +
-high-field velocity law for transit time.
+high-field velocity / transport law for actual transit time.
 ```
 
 Do not invent interpolation coefficients from narrative literature statements.
 
 ---
 
-## 13. Current numerical regressions
+## 17. Current numerical regressions
 
 Relevant checks include
 
 ```text
+numerics/hgcdte_dimensionless_device_phase_map.py
+numerics/hgcdte_ii_safe_transit_ceiling.py
 numerics/hgcdte_graded_nonlocal_ii_phase_boundary.py
 numerics/hgcdte_graded_kane_wkb.py
 numerics/hgcdte_field_profile_variational.py
-numerics/hgcdte_relaxation_length_phase_boundary.py
 numerics/hgcdte_nonlocal_ii_surrogate.py
-numerics/hgcdte_impact_dead_space.py
 numerics/hgcdte_btbt_normalized_sweep.py
 ```
 
@@ -418,30 +612,23 @@ No CI is justified yet.
 
 ---
 
-## 14. Next decisive work
+## 18. Next decisive work
 
 Do **not** jump to a manuscript.
 
-Build a finite graded-absorber + collection-boundary phase map with three simultaneous outputs:
+Use the phase map to attack the next design degree of freedom:
 
-```text
-transit time
-+
-local TAT/BTBT margin
-+
-nonlocal carrier-energy / II margin.
-```
+> **How should a finite available composition / bandgap excursion be split between downhill absorber grading (which accelerates electrons but consumes hot-electron margin) and the wider-gap collection boundary (which improves local tunneling tolerance but requires compensation voltage and cooling length)?**
 
-Sweep `ell_E` parametrically until trustworthy target-composition transport data are available.
+That optimization should remain dimensionless first.
 
-Then attack the result with
+Then test it against
 
-- non-linear composition profiles;
-- realistic `N_A(x)` / `N_v(x)` variation;
-- boundary overcompensation;
+- nonlinear composition profiles;
+- realistic `N_A(x)` / density-of-states variation;
+- overcompensated boundaries;
 - measured trap spectra;
 - stochastic II tails;
-- interface states;
 - self-consistent bias-dependent electrostatics.
 
-Only after that should publication significance be reassessed.
+Only after those attacks should publication significance be reassessed.
