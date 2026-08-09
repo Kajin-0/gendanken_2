@@ -1,25 +1,11 @@
-# HgCdTe Spectral Generation and Transport — Long-Wavelength Photons Start Near the Collection Side
+# HgCdTe Spectral Generation and Transport — Wavelength Sets Generation Geometry, Not Necessarily Full Hot-Electron Energy
 
 **Date:** 2026-08-09  
-**Status:** exact geometry and conditional mean-energy/ballistic-transport results for a linear quasi-neutral graded absorber; no novelty claim
+**Status:** corrected wavelength-resolved geometry and transport baseline for a linear quasi-neutral graded absorber; downstream photoexcitation excess energy handled explicitly; no novelty claim
 
-## 1. Critical correction
+## 1. Core geometric result
 
-The earlier full-gradient nonlocal-II calculation injects a cold electron at the upstream high-gap end.
-
-That is a valid worst-case carrier trajectory, but it is **not the trajectory of every photoelectron**.
-
-For a photon with energy below the entrance gap, ordinary interband absorption cannot occur until the local gap has fallen below the photon energy.
-
-Therefore long-wavelength photoelectrons are generated downstream and experience only the remaining part of the conduction-band drop.
-
-This wavelength-dependent generation position must be included before converting the full-span carrier result into a photodetector limit.
-
----
-
-## 2. Linear graded gap
-
-Use
+Use a linear decreasing gap
 
 ```math
 \boxed{
@@ -32,12 +18,6 @@ E_g(x)=E_{g,\rm in}-Gx,
 with
 
 ```math
-G>0,
-```
-
-and
-
-```math
 E_{g,\rm out}=E_{g,\rm in}-GL.
 ```
 
@@ -47,41 +27,25 @@ Assume the favorable quasi-neutral p-type limit
 E_v\approx\text{constant},
 ```
 
-so
-
-```math
-E_c(x)=E_v+E_g(x)
-```
-
-and the downhill conduction slope is
+so the conduction band falls with slope
 
 ```math
 S_c=G.
 ```
 
----
-
-## 3. Earliest generation position for a photon energy
-
-Take
+For a photon with
 
 ```math
-E_\gamma>E_{g,\rm out}.
+E_{g,\rm out}<E_\gamma<E_{g,\rm in},
 ```
 
-If
-
-```math
-E_\gamma<E_{g,\rm in},
-```
-
-the earliest position where ordinary above-gap absorption becomes possible is defined by
+ordinary above-gap absorption cannot begin until
 
 ```math
 E_g(x_\gamma)=E_\gamma.
 ```
 
-Thus
+Therefore
 
 ```math
 \boxed{
@@ -90,437 +54,374 @@ x_\gamma
 }
 ```
 
-If
-
-```math
-E_\gamma\ge E_{g,\rm in},
-```
-
-the whole graded region is energetically eligible and the earliest generation point is simply
-
-```math
-x_\gamma=0.
-```
-
-Define the largest local gap from which that photon can create a carrier inside the gradient:
-
-```math
-\boxed{
-E_{g,*}
-=\min(E_\gamma,E_{g,\rm in}).
-}
-```
-
----
-
-## 4. Remaining carrier-drive energy is wavelength limited
-
-The earliest generated electron of that photon energy has at most the remaining downhill gap drop
-
-```math
-\boxed{
-D_\gamma
-=E_{g,*}-E_{g,\rm out}.
-}
-```
-
-Its maximum remaining travel distance through the linear gradient is
+The maximum remaining graded distance is
 
 ```math
 \boxed{
 d_\gamma
-=\frac{D_\gamma}{G}.
-}
-```
-
-For a photon inside the gap range,
-
-```math
-E_{g,\rm out}<E_\gamma<E_{g,\rm in},
-```
-
-this becomes
-
-```math
-\boxed{
-D_\gamma
-=E_\gamma-E_{g,\rm out},
-}
-```
-
-```math
-\boxed{
-d_\gamma
+=L-x_\gamma
 =\frac{E_\gamma-E_{g,\rm out}}{G}.
 }
 ```
 
-This is the key result:
-
-> **the hot-electron drive available to a near-cutoff photoelectron is controlled by its photon excess above the narrow-gap endpoint, not by the full upstream grading span.**
-
-A wider transparent upstream section does not increase the energy gain of a photon that cannot be absorbed there.
+This geometry is exact inside the monotonic local-gap model.
 
 ---
 
-## 5. Wavelength-resolved mean-energy state
+## 2. Earliest allowed generation point
 
-Assume constant energy-relaxation length `ell_E` after generation.
+Define
 
-A cold electron generated at the earliest eligible position obeys
+```math
+\boxed{
+\delta E
+=E_\gamma-E_{g,\rm out}.
+}
+```
+
+At the earliest allowed generation point,
+
+```math
+E_g=E_\gamma,
+```
+
+so the photoelectron is born at the local absorption edge with zero photon-excess kinetic energy in the ideal direct-transition model.
+
+Its remaining downhill conduction-band drop is exactly
+
+```math
+\boxed{D_{\max}=\delta E.}
+```
+
+Therefore the earliest allowed position remains the worst case for downstream band-edge work.
+
+A transparent wider-gap section upstream of `x_gamma` does not add carrier work for that wavelength because the photon cannot be absorbed there in the ideal local-gap model.
+
+---
+
+## 3. Downstream generation is not cold — correction
+
+If the photon is absorbed farther downstream, define the local photon excess
+
+```math
+\boxed{
+u=E_\gamma-E_g(x)>0.}
+```
+
+The remaining downhill conduction-band drop is
+
+```math
+\boxed{D(u)=\delta E-u.}
+```
+
+But the electron is also born with nonzero kinetic excess.
+
+Parameterize the electron share as
+
+```math
+\boxed{
+\varepsilon_{\rm gen}=\xi_eu,
+\qquad 0\le\xi_e\le1.
+}
+```
+
+For the symmetric two-band Kane optical transition,
+
+```math
+\boxed{\xi_e=1/2.}
+```
+
+Real HgCdTe requires a multiband transition calculation; do not assume `xi_e=1/2` quantitatively.
+
+See `HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md`.
+
+---
+
+## 4. Wavelength-resolved mean-energy propagation
+
+For constant downstream gradient `G` and energy-relaxation length `ell_E`, the remaining distance is
+
+```math
+\boxed{d(u)=(\delta E-u)/G.}
+```
+
+The mean energy obeys
 
 ```math
 \frac{d\varepsilon}{ds}
-=G-\frac{\varepsilon}{\ell_E},
+=G-\frac{\varepsilon}{\ell_E}
 ```
 
-over remaining coordinate
+with
 
 ```math
-0\le s\le d_\gamma.
+\varepsilon(0)=\xi_eu.
 ```
 
-Hence its exit mean excess energy is
-
-```math
-\boxed{
-\varepsilon_{\gamma,\rm out}
-=G\ell_E
-\left(1-e^{-d_\gamma/\ell_E}\right).
-}
-```
-
-Using
-
-```math
-D_\gamma=Gd_\gamma,
-```
-
-define
+Hence the exit mean excess energy is
 
 ```math
 \boxed{
-r_\gamma
-=\frac{d_\gamma}{\ell_E}
-=\frac{D_\gamma}{G\ell_E}.
-}
-```
-
-Then
-
-```math
-\boxed{
-\varepsilon_{\gamma,\rm out}
-=D_\gamma
-\frac{1-e^{-r_\gamma}}
-{r_\gamma}.
-}
-```
-
----
-
-## 6. Spectral mean-II margin
-
-Using the same exit threshold surrogate as the current branch,
-
-```math
-E_{\rm th,out}=\chi E_{g,\rm out},
-```
-
-define
-
-```math
-\boxed{
-\mathcal M_{\rm II}^{(\gamma)}
+\varepsilon_{\rm out}(u)
 =
-\frac{\chi E_{g,\rm out}}
-{D_\gamma(1-e^{-r_\gamma})/r_\gamma}.
+\xi_eu
+\exp\!\left[-\frac{\delta E-u}{G\ell_E}\right]
++
+G\ell_E
+\left\{
+1-
+\exp\!\left[-\frac{\delta E-u}{G\ell_E}\right]
+\right\}.
 }
 ```
 
-Then
+At the earliest allowed point `u=0`, this reduces to the earlier cold-injection expression
 
 ```math
 \boxed{
-\mathcal M_{\rm II}^{(\gamma)}\ge1
+\varepsilon_{\rm out}(0)
+=G\ell_E
+\left[1-e^{-\delta E/(G\ell_E)}\right].
 }
 ```
-
-is below the deterministic mean threshold for the earliest eligible carrier generated by that photon energy.
-
-For later generation positions, the remaining distance and downhill drive are both smaller, so the exit mean energy is smaller. Thus the earliest eligible position is the worst case within the current constant-gradient/constant-relaxation model.
 
 ---
 
-## 7. Ballistic spectral safety rule
+## 5. Ballistic limit
 
-For
-
-```math
-r_\gamma\to0,
-```
-
-```math
-\varepsilon_{\gamma,\rm out}\to D_\gamma.
-```
-
-Therefore the ballistic mean-II-safe condition is simply
+For `ell_E -> infinity`,
 
 ```math
 \boxed{
-D_\gamma
-<\chi E_{g,\rm out}.
+\varepsilon_{\rm out}^{\rm bal}(u)
+=\delta E-(1-\xi_e)u.
 }
 ```
 
-For a photon inside the gap range,
-
-```math
-D_\gamma=E_\gamma-E_{g,\rm out},
-```
-
-so
+Thus
 
 ```math
 \boxed{
-E_\gamma
-<(1+\chi)E_{g,\rm out}.
+\varepsilon_{\rm out,max}^{\rm bal}
+=\delta E
 }
 ```
 
-Using photon wavelength and the output cutoff scale
+at the earliest allowed generation point.
+
+At the latest possible generation point `u=delta E`,
 
 ```math
-E_{g,\rm out}\simeq hc/\lambda_{c,\rm out},
+\boxed{
+\varepsilon_{\rm out,min}^{\rm bal}
+=\xi_e\delta E.
+}
 ```
 
-this becomes approximately
+Consequently, later generation always reduces geometric transit distance, but how much it reduces final hot-electron energy depends on the optical energy-partition factor.
+
+For `xi_e -> 1`, the final ballistic electron energy becomes nearly independent of generation position.
+
+---
+
+## 6. Wavelength-level worst-case mean-II safety
+
+Use the output threshold surrogate
+
+```math
+E_{\rm th,out}=\chi E_{g,\rm out}.
+```
+
+Because the earliest allowed position has the largest remaining band-edge work and zero initial photon-excess energy, the all-generation-position **ballistic** sufficient condition remains
+
+```math
+\boxed{
+\delta E<\chi E_{g,\rm out}.
+}
+```
+
+Equivalently,
+
+```math
+\boxed{
+E_\gamma<(1+\chi)E_{g,\rm out}.
+}
+```
+
+or approximately
 
 ```math
 \boxed{
 \lambda_\gamma
 >
-\frac{\lambda_{c,\rm out}}
-{1+\chi}.
+\frac{\lambda_{c,\rm out}}{1+\chi}.
 }
 ```
 
-For `chi=1`, any photon longer than approximately one-half of the output cutoff wavelength is below the **ballistic mean-energy** II threshold in this idealized spectral-trajectory model.
+For `chi=1`, this is the conditional half-cutoff wavelength rule.
 
-This is not a stochastic zero-II theorem.
+This is a deterministic mean-energy criterion, not a stochastic zero-ionization theorem.
 
 ---
 
-## 8. Spectral self-sorting
+## 7. Exact ballistic transit with photoexcitation excess
 
-The geometry therefore creates a natural correlation:
+Let the local generation gap be
+
+```math
+E_g(x_s)=E_\gamma-u.
+```
+
+The electron total energy in the parameterized conduction-band trajectory is
+
+```math
+\boxed{
+\mathcal E
+=E_\gamma-(1-\xi_e)u.
+}
+```
+
+Define
+
+```math
+z_s=\xi_eu,
+```
+
+```math
+z_0=\delta E-(1-\xi_e)u.
+```
+
+For the two-band Kane conduction dispersion and linear downstream gap,
+
+```math
+\boxed{
+T_{\rm bal}(u)
+=
+\frac1{Gv_K}
+\left[
+\Phi(z_0;\mathcal E)
+-
+\Phi(z_s;\mathcal E)
+\right],
+}
+```
+
+where
+
+```math
+\boxed{
+\Phi(z;\mathcal E)
+=
+\sqrt{\mathcal Ez}
++
+\frac{z^{3/2}}
+{3\sqrt{\mathcal E}}.
+}
+```
+
+At `u=0` this reduces to the cold-edge formula. At `u=delta E` the geometric transit time vanishes.
+
+Thus wavelength and generation position still produce a strong transit-time distribution even after the initial kinetic-energy correction.
+
+---
+
+## 8. Corrected spectral sorting picture
+
+The gradient creates the robust geometric chain
 
 ```text
-longer-wavelength photon
--> cannot absorb until farther downstream
--> generated closer to collection side
--> smaller remaining conduction-band drop
--> shorter remaining transit distance
--> smaller hot-electron energy gain.
+longer wavelength
+-> absorption becomes allowed farther downstream
+-> smaller maximum remaining transport distance
+-> shorter possible carrier transit.
 ```
 
-Shorter-wavelength photons can be absorbed farther upstream and can experience a larger fraction of the graded drive.
+Within a fixed wavelength channel,
 
-This is a wavelength-dependent transport effect produced by the same band-gap gradient that shapes the absorption spectrum.
+```text
+later generation
+-> shorter remaining distance
+-> larger initial photon-excess kinetic energy.
+```
+
+Therefore the strongest statements are
+
+- **generation distance and transit geometry are wavelength dependent**;
+- **hot-electron energy is wavelength and energy-partition dependent**.
+
+Do not claim that later generation removes the full corresponding hot-electron energy.
 
 ---
 
-## 9. Ballistic transit time from the generation point
+## 9. Near-cutoff limit
 
-The simplified two-band/Kane dispersion gives an exact cold ballistic trajectory in the pinned-valence gradient.
-
-Let the carrier start at local gap
-
-```math
-E_{g,*}
-```
-
-and finish at
-
-```math
-E_{g,\rm out}.
-```
-
-Define the remaining fractional gap drop
-
-```math
-\boxed{
-\zeta_\gamma
-=\frac{D_\gamma}{E_{g,*}}.
-}
-```
-
-For a linear gap over remaining length `d_gamma`, the ballistic transit time is
-
-```math
-\boxed{
-T_{\rm bal}^{(\gamma)}
-=
-\frac{d_\gamma}{v_K}
-\left[
-\frac1{\sqrt{\zeta_\gamma}}
-+
-\frac{\sqrt{\zeta_\gamma}}{3}
-\right].
-}
-```
-
-This follows from the local group velocity
-
-```math
-\boxed{
-\frac{v_g}{v_K}
-=\frac{2\sqrt u}{1+u},
-}
-```
-
-where `u` is the fraction of the starting local gap converted into kinetic energy along the no-loss trajectory.
-
-This is a cold ballistic lower-bound model, not a scattering-limited HgCdTe transit time.
-
----
-
-## 10. Near-cutoff limit
-
-For
+As
 
 ```math
 E_\gamma\to E_{g,\rm out}^{+},
 ```
 
-both
+```math
+\delta E\to0,
+```
+
+so both the maximum eligible transport distance
 
 ```math
-D_\gamma\to0
+d_\gamma=\delta E/G
+```
+
+and the worst-case ballistic electron excess at the output tend to zero.
+
+The opposing effect is optical: the eligible absorbing length and local absorption coefficient also shrink toward the band edge.
+
+Thus the near-cutoff problem remains
+
+```text
+short transport
+versus
+weak absorption.
+```
+
+---
+
+## 10. Claim boundary
+
+### Exact / robust within the stated band geometry
+
+```math
+\boxed{x_\gamma=(E_{g,\rm in}-E_\gamma)/G}
 ```
 
 and
 
 ```math
-d_\gamma\to0.
+\boxed{d_\gamma=(E_\gamma-E_{g,\rm out})/G}
 ```
 
-The earliest-generated carrier is therefore arbitrarily close to the collection side and its ideal ballistic transit time tends toward zero.
+for photons whose energy lies inside the graded gap range.
 
-That does **not** imply an ideal detector at cutoff because the optical absorption coefficient also tends toward the absorption edge and the number of absorbed photons can collapse.
+### Conditional
 
-Thus the near-cutoff competition is
-
-```text
-transport becomes geometrically short
-while
-optical absorption becomes weak.
-```
-
-This is the correct place to combine `HGCDTE_GRADED_OPTICAL_ABSORPTION_LENGTH.md` with the spectral transit result.
-
----
-
-## 11. Correction to the full-span grading interpretation
-
-`HGCDTE_GRADED_NONLOCAL_II_PHASE_BOUNDARY.md` remains correct for a cold carrier injected at the upstream edge or for a photon energetic enough to be absorbed there.
-
-But it should not be applied indiscriminately to every detected wavelength.
-
-For a given photon energy, replace the full gap span by the **remaining gap span from the earliest allowed generation position**:
-
-```math
-\boxed{
-\Delta E_g
-\rightarrow
-D_\gamma
-=\min(E_\gamma,E_{g,\rm in})-E_{g,\rm out}.
-}
-```
-
-and replace
-
-```math
-L
-\rightarrow
-d_\gamma=D_\gamma/G.
-```
-
-This is the wavelength-resolved form of the same mean-energy physics.
-
----
-
-## 12. Design consequence
-
-A large upstream wide-gap span can still be useful for
-
-- shorter-wavelength carrier transport;
-- suppressing direct-Zener geometry;
-- structural/band-engineering purposes;
-
-without automatically increasing the hot-electron energy of near-cutoff photoelectrons, because those photons are not absorbed in that upstream region.
-
-Therefore the earlier accelerator-gap ratio should be interpreted as a **worst-case injected-carrier / high-energy-photon limit**, not as a universal restriction on the material gradient seen by every detected wavelength.
-
----
-
-## 13. Claim boundary
-
-### Derived / conditional
-
-```math
-\boxed{
-D_\gamma
-=\min(E_\gamma,E_{g,\rm in})-E_{g,\rm out}
-}
-```
-
-for the maximum remaining downhill gap drop of a photoelectron of energy `E_gamma`,
-
-```math
-\boxed{
-\varepsilon_{\gamma,\rm out}
-=D_\gamma(1-e^{-r_\gamma})/r_\gamma,
-}
-```
-
-and the ballistic spectral safety condition
-
-```math
-\boxed{
-D_\gamma<\chi E_{g,\rm out}.
-}
-```
+Mean-energy and ballistic timing expressions depend on `ell_E`, the two-band Kane conduction model, and the electron photon-excess fraction `xi_e`.
 
 ### Not established
 
-- the actual generation-position probability distribution;
-- wavelength-dependent HgCdTe absorption coefficients;
-- scattering-limited transit-time distributions;
+- calibrated HgCdTe `xi_e(E_gamma,x)`;
+- actual generation-position distribution;
+- scattering-limited transit times;
 - stochastic II probability;
-- avalanche gain or multiplication noise;
-- a complete spectral impulse response;
-- novelty of the spectral-transport interpretation.
+- full wavelength-resolved detector impulse response;
+- novelty.
 
 ---
 
-## 14. Next decisive calculation
+## 11. Next decisive calculation
 
-Do not optimize the full-gradient transit time using an upstream injection assumption.
+Use the exact conditional optical-depth generation distribution from `HGCDTE_SPECTRAL_GENERATION_DISTRIBUTION.md`, but propagate each event with the corrected nonzero initial energy above.
 
-The next calculation should integrate over the actual photon-generation distribution:
+The key material question is now explicit:
 
-```math
-p(x|E_\gamma)
-\propto
-\alpha(E_\gamma,x)
-\exp\!\left[-\int_0^x\alpha(E_\gamma,s)ds\right].
-```
+> **What fraction of direct-transition photon excess enters the conduction electron in the HgCdTe wavelength/composition regime of interest?**
 
-For each generation position, propagate
-
-- carrier transit time;
-- mean energy / II margin;
-- collection probability.
-
-This will give a wavelength-resolved detector impulse response rather than a single worst-case transit time.
+Until that is calibrated, the generation-position / transit-distance prediction is stronger than the hot-electron-energy prediction.
