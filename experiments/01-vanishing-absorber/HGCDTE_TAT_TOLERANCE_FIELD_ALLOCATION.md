@@ -1,25 +1,17 @@
-# HgCdTe TAT-Tolerance Field Allocation — Maximin Placement of an Unavoidable Compensation Voltage
+# HgCdTe TAT/BTBT Tolerance Allocation — Maximin Placement of an Unavoidable Compensation Voltage
 
 **Date:** 2026-08-09  
-**Status:** exact exponent-level allocation inequality for a one-dimensional heterostructure; no novelty claim
+**Status:** exact exponent-level allocation inequality for local inverse-field tunneling constraints; nonlocal impact ionization explicitly excluded unless a local-equilibrium reduction is justified; no novelty claim
 
 ## 1. Purpose
 
-The graded-interior and boundary-layer analyses now agree on one point:
-
-> some electrostatic potential drop may remain unavoidable at the collection boundary, but heterogeneous HgCdTe gives freedom to choose **where** that field is concentrated.
-
-The local trap spectrum and band gap determine how strongly a given field activates trap-assisted tunneling.
+A graded HgCdTe collection boundary may require a fixed electrostatic compensation voltage for barrier-free minority-carrier extraction. The local gap and defect spectrum determine how much electric field a given location can tolerate before field-assisted tunneling becomes severe.
 
 Question:
 
-> For a fixed required compensation voltage, what field profile maximizes the worst local TAT exponent when the local tunneling-tolerance scale varies spatially?
+> For a fixed required voltage, where should the electric field be placed to maximize the worst local tunneling margin?
 
-The answer is closed form.
-
----
-
-## 2. Local exponent scale
+## 2. Single local tunneling mechanism
 
 Let
 
@@ -27,353 +19,273 @@ Let
 F_T(x)>0
 ```
 
-be the local characteristic field entering a TAT exponent
+be the local characteristic field in a tunneling exponent
 
 ```math
 \exp[-F_T(x)/F(x)].
 ```
 
-`F_T(x)` may vary because of
-
-- local band gap;
-- local tunneling mass;
-- trap energy relative to a band edge;
-- composition;
-- defect species.
-
-The present note concerns the exponent only. It does not include local trap-density or capture-cross-section prefactors.
-
-Assume a nonnegative field magnitude `F(x)` over a boundary region `0 <= x <= w` and a required potential drop
+Assume
 
 ```math
-\boxed{
+F(x)\ge0,
+\qquad
 V_b=\int_0^wF(x)dx.
-}
 ```
 
----
-
-## 3. Maximin problem
-
-The worst local TAT exponent is
+Define the worst normalized stress
 
 ```math
-\Sigma_{\min}[F]
-=\min_x\frac{F_T(x)}{F(x)}.
-```
-
-Equivalently define the worst normalized electrical stress
-
-```math
-s[F]
-=\max_x\frac{F(x)}{F_T(x)}.
+s[F]=\max_x\frac{F(x)}{F_T(x)}.
 ```
 
 Then
 
 ```math
-\Sigma_{\min}=1/s.
+F(x)\le sF_T(x),
 ```
 
-We seek the field profile that minimizes `s` subject to the fixed voltage `V_b`.
-
----
-
-## 4. Exact lower bound on the worst normalized stress
-
-If
+so
 
 ```math
-s=\max_x\frac{F(x)}{F_T(x)},
-```
-
-then pointwise
-
-```math
-F(x)\le sF_T(x).
-```
-
-Integrating,
-
-```math
-V_b
-=\int_0^wF(x)dx
-\le
-s\int_0^wF_T(x)dx.
+V_b\le s\int_0^wF_T(x)dx.
 ```
 
 Therefore
 
 ```math
 \boxed{
-s
-\ge
-\frac{V_b}
-{\int_0^wF_T(x)dx}.
+s\ge
+\frac{V_b}{\int_0^wF_T(x)dx}.
 }
 ```
 
----
-
-## 5. The bound is tight
-
-Choose
+The bound is tight for
 
 ```math
 \boxed{
 F_{\rm opt}(x)
-=\frac{V_bF_T(x)}
+=
+\frac{V_bF_T(x)}
 {\int_0^wF_T(x')dx'}.
 }
 ```
 
-Then
-
-```math
-\int_0^wF_{\rm opt}(x)dx
-=V_b,
-```
-
-and
-
-```math
-\frac{F_{\rm opt}(x)}{F_T(x)}
-=\frac{V_b}
-{\int_0^wF_T(x')dx'}
-```
-
-is constant everywhere.
-
-Hence the exact optimum is
+Hence the largest achievable minimum tunneling exponent is
 
 ```math
 \boxed{
-\min_F\max_x\frac{F}{F_T}
-=
-\frac{V_b}
-{\int_0^wF_T(x)dx}.
+\Sigma_*=
+\frac{\int_0^wF_T(x)dx}{V_b}.
 }
 ```
-
-Equivalently, the largest achievable minimum exponent is
-
-```math
-\boxed{
-\Sigma_{\rm TAT}^{\rm maximin}
-=
-\frac{\int_0^wF_T(x)dx}
-{V_b}.
-}
-```
-
----
-
-## 6. Physical interpretation
 
 At the optimum,
 
 ```math
 \boxed{
-F_{\rm opt}(x)\propto F_T(x).
+F_{\rm opt}(x)/F_T(x)=1/\Sigma_*
 }
 ```
 
-So more field should be placed where the local TAT characteristic field is larger.
+is spatially constant.
 
-In the simple HgCdTe TAT model,
+Interpretation:
 
-```math
-F_T
-=\frac{4\sqrt{2m^*}\Delta_t^{3/2}}
-{3q\hbar}.
-```
+> place more of the unavoidable field where the local material can tolerate more field.
 
-Therefore, all else equal, high-field burden should preferentially be placed in regions with
+## 3. Layered form
 
-```text
-larger local gap / tunneling mass
-+
-deeper traps relative to the receiving band
-+
-cleaner defect spectrum if prefactors are later included.
-```
-
-This is exactly what a wide-gap collection transition can provide.
-
----
-
-## 7. Discrete layered form
-
-For layers `i` of widths `w_i` and local exponent fields `F_{T,i}`, require
+For layers `i` of width `w_i` and characteristic field `F_{T,i}`,
 
 ```math
 \sum_iF_iw_i=V_b.
 ```
 
-The maximin solution is
+The exact maximin allocation is
 
 ```math
 \boxed{
-F_i
-=\frac{V_bF_{T,i}}
-{\sum_jw_jF_{T,j}}.
+F_i=
+\frac{V_bF_{T,i}}
+{\sum_jw_jF_{T,j}},
 }
 ```
 
-The common optimized exponent is
+with common exponent
 
 ```math
 \boxed{
-\Sigma_*
-=\frac{\sum_iw_iF_{T,i}}
-{V_b}.
+\Sigma_*=
+\frac{\sum_iw_iF_{T,i}}{V_b}.
 }
 ```
 
-Thus each layer carries the same normalized TAT stress:
+## 4. Several local inverse-field mechanisms
+
+Suppose several **local** mechanisms `m` have exponential margins
+
+```math
+\Sigma_m(x)=\frac{F_m(x)}{F(x)}.
+```
+
+If each mechanism requires at least a common exponent margin `Sigma`, define
 
 ```math
 \boxed{
-F_i/F_{T,i}=1/\Sigma_*.
+F_*(x)=\min_mF_m(x).
 }
 ```
 
-This is a useful design diagnostic for a graded boundary represented as piecewise uniform layers.
-
----
-
-## 8. Relation to the peak-field bound
-
-If `F_T(x)` is constant,
-
-```math
-F_T(x)=F_T,
-```
-
-then
-
-```math
-F_{\rm opt}=V_b/w,
-```
-
-and
-
-```math
-\Sigma_*=F_Tw/V_b.
-```
-
-This exactly recovers the uniform-field result and the peak-field width floor in
-
-`HGCDTE_ELECTROSTATIC_COMPENSATION_PEAK_FIELD_BOUND.md`.
-
-Thus the new result is the heterogeneous generalization of that boundary condition.
-
----
-
-## 9. A more practical generalized tolerance field
-
-Real leakage is not controlled by TAT alone.
-
-Define a local allowed field scale
-
-```math
-F_{\rm tol}(x)
-```
-
-that may be chosen conservatively from several constraints, for example
-
-```math
-F_{\rm tol}(x)
-=\min\left[
-\frac{F_{\rm TAT}(x)}{\Sigma_t},
-\frac{F_K(x)}{\Sigma_Z},
-F_{\rm II}(x),
-F_{\rm process}(x)
-\right].
-```
-
-Then the same proof gives the feasibility condition
+Then the same theorem applies with `F_T -> F_*`:
 
 ```math
 \boxed{
-V_b
+\Sigma_{\rm local}^{\rm maximin}
+=
+\frac{\int_0^wF_*(x)dx}{V_b}.
+}
+```
+
+For mechanism-specific required margins `Sigma_m^req`, define the local allowable field
+
+```math
+\boxed{
+F_{\rm allow}(x)
+=
+\min_m\frac{F_m(x)}{\Sigma_m^{\rm req}}.
+}
+```
+
+A compensation voltage is feasible under those local exponent requirements iff
+
+```math
+\boxed{
+V_b\le\int_0^wF_{\rm allow}(x)dx.
+}
+```
+
+This is both necessary and sufficient within the one-dimensional nonnegative-field model.
+
+For the current HgCdTe boundary branch, appropriate local mechanisms include direct BTBT and TAT when their local WKB forms are valid.
+
+## 5. Barrier-free boundary condition
+
+For a local gap increase `Delta Eg` with conduction-band share `alpha`, minimum barrier-free electron extraction requires
+
+```math
+\boxed{
+qV_b=\alpha\Delta E_g.
+}
+```
+
+Therefore the local tunneling feasibility condition becomes
+
+```math
+\boxed{
+\frac{\alpha\Delta E_g}{q}
 \le
-\int_0^wF_{\rm tol}(x)dx.
+\int_0^wF_{\rm allow}(x)dx.
 }
 ```
 
-If this inequality fails, **no one-dimensional electrostatic field profile can supply the required compensation voltage without violating at least one local field ceiling.**
+This turns local gap/trap quality into an integrated **voltage-handling capacity** of the boundary.
 
-If it holds, the equalized normalized-stress profile gives a constructive reference allocation.
+## 6. Relation to TAT
 
-This may be the most useful form for later numerical device design.
-
----
-
-## 10. Why defect density is still missing
-
-Two locations can have the same `F_T` but radically different TAT currents if their trap densities or capture cross sections differ.
-
-A more complete optimization should replace exponent-only stress with a local leakage functional
+For the standard repository TAT exponent scale,
 
 ```math
-g(x,F)
+\boxed{
+F_{\rm TAT}(x)
+=
+\frac{4\sqrt{2m^*(x)}\,\Delta_t(x)^{3/2}}
+{3q\hbar}.
+}
 ```
 
-containing
+Deep traps relative to the receiving band, larger tunneling mass, and wider local gap generally increase the field margin.
 
-- trap density;
-- occupation;
-- capture cross sections;
-- field-dependent tunneling matrix element;
-- local carrier densities.
+The exponent alone is not the full TAT current. Trap density, occupation, capture cross section, and matrix-element prefactors still matter.
 
-The repository's earlier variational rule
+## 7. Relation to direct BTBT
+
+In the simplified Kane scaling,
 
 ```math
--\frac{\partial g/\partial F}
-{\partial(1/v)/\partial F}
-=\lambda
+\boxed{
+F_K(x)
+=\frac{\pi E_g(x)^2}
+{4q\hbar v_K}.
+}
 ```
 
-is the appropriate general framework once a trustworthy `g(x,F)` is available.
+Thus a wide-gap part of the collection boundary can carry disproportionately more electrostatic field before the direct-Zener exponent collapses.
 
-The present maximin rule is a simpler robust-design limit when only exponent scales are trusted.
+## 8. Important correction — impact ionization is generally nonlocal
 
----
+The earlier version of this note placed a generic local `F_II(x)` inside `F_tol(x)`.
 
-## 11. Prior-art posture
+That is **not** valid in the thin/fast regime unless impact ionization has already been reduced to a trustworthy local-equilibrium field law.
 
-Field and band engineering in HgCdTe APDs and barrier detectors are established prior physics.
+`HGCDTE_GRADED_NONLOCAL_II_PHASE_BOUNDARY.md` shows that the mean carrier energy obeys
 
-Equalizing a normalized local constraint is elementary minimax mathematics.
+```math
+\boxed{
+\varepsilon(x)
+=
+\int_0^xS_c(s)
+\exp\!\left[-\int_s^x\frac{du}{\ell_E(u)}\right]ds.
+}
+```
 
-No novelty claim is made for the allocation rule.
+Thus impact-ionization access depends on the upstream conduction-band history.
 
-Its value in this repository is conceptual:
-
-> **the unavoidable electrostatic field should be treated as a resource to allocate according to local leakage tolerance, not as a scalar bias that must be uniform across the detector.**
-
----
-
-## 12. Next decisive model
-
-The next step should replace the abstract `F_T(x)` with an experimentally anchored defect profile.
-
-Primary HgCdTe studies report
-
-- LWIR trap levels that can make TAT important around `10^14 cm^-3` trap density;
-- DLTS-resolved electron/hole traps and capture cross sections in multilayer HgCdTe heterostructures;
-- wide-gap layers with distinct defect spectra.
-
-The next calculation should therefore build a two- or three-region boundary with measured/fitted `E_t`, `N_t`, and capture-cross-section scales and compare
+The current boundary optimization must therefore be split into
 
 ```text
-exponent-equalized field allocation
-versus
-uniform field
-versus
-delta-doped / sharply localized field.
+local constraints:
+TAT + direct BTBT + process field ceilings
+
+nonlocal state constraint:
+carrier energy / impact-ionization hazard.
 ```
 
-The goal is to determine whether realistic defect heterogeneity materially changes the optimum.
+Do not hide nonlocal II inside `F_allow(x)` without demonstrating local equilibration.
+
+## 9. Peak-field bound retained
+
+For constant local tolerance,
+
+```math
+F_{\rm opt}=V_b/w.
+```
+
+This recovers
+
+```math
+\boxed{F_{\max}\ge V_b/w.}
+```
+
+Delta doping or depletion shaping can move the field into more favorable material but cannot supply the same positive voltage drop across the same width with a smaller peak field than the uniform-field value.
+
+## 10. Prior-art posture
+
+Composition grading, doping modulation, barrier engineering, TAT, and BTBT are established HgCdTe device physics. Equalizing normalized local constraints is elementary minimax mathematics.
+
+No novelty claim is made.
+
+The useful repository interpretation is:
+
+> **the collection boundary has a finite local-tunneling voltage capacity, while nonlocal carrier heating must be tracked separately.**
+
+## 11. Next step
+
+Combine
+
+1. the local boundary voltage-capacity condition above;
+2. the nonlocal graded carrier-energy equation;
+3. a finite graded absorber + collection-boundary band profile;
+4. experimentally anchored trap parameters where available.
+
+The decisive question is whether a realistic profile can simultaneously remain barrier free, keep TAT/BTBT margins acceptable, and keep the carrier-energy trajectory below the unwanted impact-ionization regime.
