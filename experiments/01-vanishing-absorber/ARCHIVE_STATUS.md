@@ -1,207 +1,216 @@
 # Experiment 01 — Artifact Status Map
 
 **Date:** 2026-08-08  
-**Purpose:** preserve the adversarial research trail without allowing stopped or superseded branches to compete with the current frontier.
+**Purpose:** preserve the adversarial research trail without allowing stopped or superseded branches to compete with the live frontier.
 
 > Live `main`, root `AGENTS.md`, `CURRENT_STATE.md`, and `CLAIM_LEDGER.md` are authoritative.
 
----
-
-## A. Canonical current frontier
+## A. Canonical frontier
 
 Read first:
 
 1. `CURRENT_STATE.md`
 2. `CLAIM_LEDGER.md`
 3. `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
-4. `DIRECT_FEEDTHROUGH_AND_BAND_LIMIT.md`
-5. `STRUCTURED_RESERVOIR_ACCESS_AUDIT.md`
-6. `THERMODYNAMIC_OPTICAL_ACCESS_BRIDGE.md`
-7. `THERMAL_IRREVERSIBILITY_COST.md`
-8. `HOPFIELD_RESERVOIR_RESOURCE_COST.md`
-9. `HOPFIELD_RETUNING_NO_GO.md`
-10. `RESEARCH_LOG.md`
-11. `ARCHIVE_STATUS.md`
+4. `PUBLICATION_BOUNDARY_AUDIT.md`
+5. `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
+6. `TIME_DEPENDENT_CAPTURE_AUDIT.md`
+7. `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`
+8. `ALWAYS_ON_TEMPORAL_COVERAGE.md`
+9. `RESEARCH_LOG.md`
+10. `ARCHIVE_STATUS.md`
 
 There is still **no manuscript**.
 
----
-
-## B. Current strongest general supporting result
+## B. Strongest passive supporting theorem
 
 ### `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
 
-Status: **active exact finite-network theorem / detector-facing passivity corollary; novelty unassessed and not claimed**.
-
-For finite stable passive strictly proper transfer with total optical and detector access budgets
+**Status:** active exact finite passive-network theorem / detector-facing passivity corollary; no novelty claim.
 
 ```math
-L=\operatorname{Tr}\Gamma_L,
-\qquad
-R=\operatorname{Tr}\Gamma_R,
-```
-
-```math
-\boxed{
 \mathcal I_{L\to R}
 \le
 \frac{2LR}{L+R}.
-}
 ```
 
-The proof uses an exact controllability-Gramian decomposition. A single passive resonance saturates the bound.
+Tight; one passive resonance saturates. The earlier `2 min(L,R)` form is superseded.
 
-The earlier `2 min(L,R)` result is historical only.
+Numerical regression: `numerics/passive_multimode_h2_stress.py`.
 
----
-
-## C. Current loophole audits
+## C. Passive scope audits
 
 ### `DIRECT_FEEDTHROUGH_AND_BAND_LIMIT.md`
 
-Status: **active scope audit / explicit counterexample to an overgeneralized all-frequency theorem**.
+**Status:** active scope audit.
 
-Key result: ideal frequency-independent prompt feedthrough makes the total all-frequency `H2` area divergent. Over finite angular bandwidth `W`,
-
-```math
-\boxed{
-\sqrt{\mathcal I_B}
-\le
-\sqrt{\frac{W}{2\pi}}\,\|D_{RL}\|_F
-+
-\sqrt{\frac{2LR}{L+R}}.
-}
-```
-
-Interpretation: prompt coupling is an additional boundary resource with its own bandwidth/channel strength.
+Ideal constant prompt feedthrough defeats any finite all-frequency internal-access `H2` theorem by inserting infinite bandwidth. Finite-band prompt strength is counted explicitly.
 
 ### `STRUCTURED_RESERVOIR_ACCESS_AUDIT.md`
 
-Status: **active conditional continuum extension**.
+**Status:** active conditional continuum extension.
 
-If passive finite augmented realizations converge in `H2` and their terminal access budgets converge to finite `L,R`, then the limiting structured-reservoir transfer obeys the same harmonic bound.
+Finite-budget `H2`-convergent passive embeddings inherit the harmonic bound.
 
-This is not a universal continuum theorem.
-
----
-
-## D. Current optical-to-thermodynamic bridge
+## D. Passive optical / autonomous detector bridge
 
 ### `THERMODYNAMIC_OPTICAL_ACCESS_BRIDGE.md`
 
-Status: **active restricted corollary with strong prior-art overlap**.
-
-Uses the established one-free-space-channel thermodynamic coupling-rate ceiling, converted carefully from energy-decay to repository amplitude-decay convention:
-
-```math
-L_B\le\frac{W}{4\pi}.
-```
-
-Combining with the harmonic theorem gives
-
-```math
-\boxed{
-\overline T_B
-\le
-\frac{R_B}{R_B+W/(4\pi)}
-}
-```
-
-and the necessary detector-access condition
-
-```math
-\boxed{
-R_B
-\ge
-\frac{\eta}{1-\eta}
-\frac{W}{4\pi}.
-}
-```
-
-Do not claim rate matching or the optical thermodynamic bound as new.
+**Status:** restricted supporting composition with strong prior-art overlap.
 
 ### `THERMAL_IRREVERSIBILITY_COST.md`
 
-Status: **active restricted thermal detector-reservoir result**.
+**Status:** restricted detailed-balance composition; reverse activation is not automatically dark counts.
 
-Local detailed balance for a localization transition with energy release `Delta` gives
+### `AUTONOMOUS_DETECTOR_CAPTURE_GAP.md`
+
+**Status:** major prior-art boundary file.
+
+Young et al. 2018 already cover incoming-field absorption/amplification. Schwarzhans et al. 2026 already cover autonomous detector thermodynamics. The candidate unresolved intersection is bandwidth/access-aware propagating capture plus autonomous thermodynamic accounting.
+
+### `CAPTURE_TO_CLICK_COMPOSITION.md`
+
+**Status:** serial reference model, not a final unified theory.
+
+### `UNIFIED_THREE_LEVEL_CAPTURE_MACHINE.md`
+
+**Status:** active analytic testbed; strong prior-art overlap; no novelty claim.
+
+### `READINESS_BANDWIDTH_AFFINITY.md`
+
+**Status:** restricted readiness/capture composition.
+
+### `NESS_OPTICAL_RESPONSE_AUDIT.md`
+
+**Status:** active-front-end scope audit showing non-inverted readiness pumping does not exceed the fully ready absorptive population factor.
+
+## E. Publication audit
+
+### `PUBLICATION_BOUNDARY_AUDIT.md`
+
+**Status:** active go/no-go assessment.
+
+Current verdict:
+
+> **Continue research; do not write a manuscript yet.**
+
+The passive/autonomous chain is coherent but not yet isolated enough from strong prior theory to support a robust headline claim.
+
+## F. Active frequency-conversion branch
+
+### `ACTIVE_FREQUENCY_CONVERTER_BASELINE.md`
+
+**Status:** known-physics two-mode baseline.
+
+For unit peak and FWHM `W`,
 
 ```math
-k_\uparrow/k_\downarrow=e^{-\Delta/(k_BT)}.
+G_{\min}=W/(2\sqrt2).
 ```
 
-With `k_down = 2R_B`, desired band-averaged efficiency/bandwidth imposes
+For `G=g_0 sqrt(N_p)`,
 
 ```math
-\boxed{
-k_\uparrow
+N_p\ge W^2/(8g_0^2).
+```
+
+Do not generalize this architecture-level `W^2` scaling.
+
+### `MULTIMODE_ACTIVE_PUMP_RESOURCE.md`
+
+**Status:** active allocation stress test.
+
+At fixed aggregate squared nonlinear coupling `G_0^2`, independent channel subdivision preserves
+
+```math
+N_{p,\rm tot}\ge W^2/(8G_0^2).
+```
+
+### `TRAVELING_WAVE_ACTIVE_CONVERTER.md`
+
+**Status:** active continuum stress test.
+
+For first nonzero local phase-mismatch derivative order `m`, the fixed-device model gives pump flux scaling `W^(2m)`.
+
+No universal exponent is claimed.
+
+### `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
+
+**Status:** current strongest abstract finite-mode active resource result.
+
+```math
+N_p
 \ge
-\frac{\eta}{1-\eta}
-\frac{W}{2\pi}
- e^{-\Delta/(k_BT)}.
-}
+\frac{M_c\arcsin^2\sqrt\eta}
+{\Lambda\tau^2},
 ```
 
-For allowed reverse thermal activation `D_rev`,
+where `Lambda` is the device pump-to-conversion Gram-operator strength.
+
+Schmidt-mode frequency conversion is established prior theory. `Lambda` is not yet physically bounded.
+
+## G. Time-dependent capture branch
+
+### `TIME_DEPENDENT_CAPTURE_AUDIT.md`
+
+**Status:** active known-mode control baseline with strong prior-art overlap.
+
+Perfect loading schedule:
 
 ```math
-\boxed{
-\Delta
-\ge
-k_BT
-\ln\!\left[
-\frac{\eta W}
-{2\pi(1-\eta)D_{\rm rev}}
-\right].
-}
+\kappa(t)
+=
+\frac{P(t)}{2\int_{-\infty}^{t}P(t')dt'}.
 ```
 
-`D_rev` is not automatically an observable dark-count rate. A complete detector cycle is now required.
+Finite coupling/time:
 
----
+```math
+\eta_{\rm cap}
+\le
+1-e^{-2\kappa_{\max}\tau}.
+```
 
-## E. Active nonperturbative supporting branch
+### `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`
 
-### `HOPFIELD_RETUNING_NO_GO.md`
+**Status:** active temporal-coverage result.
 
-Status: **active supporting theorem; candidate distinct lemma; priority unproven**.
+For `r` coherent storage modes and `M` orthogonal possible temporal inputs,
 
-Shows that with fixed target dressed frequency and fixed local bath resources, arbitrarily increasing TRK-consistent internal coupling drives at least one dressed optical/detector access to zero.
+```math
+\sum_j\eta_j\le r.
+```
 
-### `HOPFIELD_RESERVOIR_RESOURCE_COST.md`
+Known-time perfect matching is therefore not an always-on detector counterexample.
 
-Status: **active supporting resource result**.
+### `ALWAYS_ON_TEMPORAL_COVERAGE.md`
 
-Shows that defeating the fixed-bath Hopfield collapse while preserving target peak transfer and linewidth requires at least one bare reservoir resource to grow asymptotically as `sqrt(g)`.
+**Status:** active mode-count/background/dead-time composition.
 
-### `HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
+For the stated one-channel nonparalyzable model,
 
-Status: targeted negative literature search. Deep-strong decoupling is established; priority of the exact fixed-target corollary remains unproven.
+```math
+\eta_{\rm ext}
+\le
+\frac1{1+\bar nW\tau_d/(2\pi)}.
+```
 
-### `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
+Model-level only.
 
-Status: supporting derivation with strong prior-art overlap.
+## H. Nonperturbative supporting branch
 
----
+Retain for mechanism/provenance:
 
-## F. Multimode branch
+- `HOPFIELD_RETUNING_NO_GO.md`
+- `HOPFIELD_RESERVOIR_RESOURCE_COST.md`
+- `HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
+- `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
 
-### `MULTIMODE_ESCAPE_AUDIT.md`
+Fixed-target result remains **candidate distinct supporting lemma; priority unproven**.
 
-Status: active adversarial provenance.
+## I. Earlier supporting branches
 
-Records that
-
-- spectator strong-coupling sectors defeat any theorem based only on the largest internal coupling;
-- growing useful mode density can tile bandwidth;
-- mode count is an explicit resource;
-- integrated transfer is the more robust object.
-
----
-
-## G. Earlier supporting derivations
-
-These remain scientifically useful but are not the frontier:
+Retain for provenance:
 
 - `OSCILLATOR_STRENGTH_EXTENT_STRESS_TEST.md`
 - `FINITE_EMITTER_FORM_FACTOR.md`
@@ -210,102 +219,42 @@ These remain scientifically useful but are not the frontier:
 - `THERMAL_INPUT_CHANNEL.md`
 - `ONE_PORT_RESONATOR_DYNAMICS.md`
 
----
-
-## H. Direction-changing counterexample
+## J. Permanent branch-closing counterexample
 
 ### `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
 
-Status: **branch-closing counterexample retained permanently**.
+**Status:** permanent direction-changing counterexample.
 
-It prevents resurrection of the original active-volume-only conjecture.
+Prevents resurrection of active-volume-only universal bounds under admitted ideal field concentration.
 
----
+## K. Stopped / superseded routes
 
-## I. Stopped / superseded general routes
-
-Do not restart without a concrete new assumption defeating the recorded failure.
-
-### Active-volume-only theorem — STOPPED
-
-### Finite absorber count as the missing one-photon speed limit — STOPPED
-
-### Largest multimode coupling as a universal control parameter — STOPPED
-
-### Preliminary `2 min(L,R)` multimode bound — SUPERSEDED
-
-### All-frequency harmonic theorem with arbitrary ideal feedthrough — INVALID EXTENSION
-
-A constant prompt path is an explicit counterexample because it carries infinite Markov bandwidth.
-
----
-
-## J. Numerical material
-
-Active directory: `numerics/`.
-
-### `one_port_time_domain_check.py`
-
-Validates the one-port modulation transfer function.
-
-### `passive_multimode_h2_stress.py`
-
-Validates the Gramian identity, harmonic bound, single-mode saturation, and direct frequency integration.
-
-No CI workflow is justified yet.
-
----
-
-## K. Literature state
-
-Important established prior areas now include
-
-- passive/scattering linear-system theory;
-- Maxwell and quantum passive realizations;
-- optical material/LDOS bounds;
-- thermodynamic free-space coupling-rate bounds;
-- multiresonant broadband absorption;
-- Bode-Fano matching limits;
-- reaction-coordinate / pseudomode reservoir mappings;
-- local/KMS detailed balance;
-- dark-state quantum detector models;
-- deep-strong light-matter decoupling.
-
-The project still has no integrated novelty audit because the detector-specific target continues to evolve.
-
----
+- active-volume-only theorem — STOPPED;
+- finite absorber count as missing one-photon speed limit — STOPPED;
+- largest multimode internal coupling as universal parameter — STOPPED;
+- preliminary `2 min(L,R)` bound — SUPERSEDED;
+- all-frequency harmonic theorem with arbitrary ideal feedthrough — INVALID EXTENSION;
+- generic capture+amplification novelty — STOPPED by 2018 prior art;
+- generic autonomous thermodynamic detector novelty — STOPPED by 2026 prior art;
+- universal active `pump ~ W^2` law — NOT SUPPORTED;
+- known-time dynamic capture as an always-on detector solution — INVALID GENERALIZATION.
 
 ## L. Current forward branch
 
-Build the complete minimal cyclic detector:
+Try to formulate and falsify a common **space-time mode resource law** for actively controlled always-on photodetection.
+
+The accounting should include
 
 ```text
-|g> -- photon --> |e>
-|e> <-> |d>       thermal detector bath
-|d> -- readout/reset --> |g>.
+accepted spatiotemporal mode count
++
+pump/control norm
++
+irreversible output capacity
++
+background occupation
++
+reset/dead-time capacity.
 ```
 
-The next calculation must define
-
-1. the counted transition;
-2. reverse thermal pathways;
-3. reset/readout resource;
-4. spontaneous false-count pathways;
-5. steady-state count rate and dead time;
-6. net thermodynamic cycle current versus raw count events.
-
-Do not call reverse activation a dark count until this cycle is explicit.
-
-Do not add HgCdTe-specific transport yet.
-
----
-
-## M. Archival rule
-
-When a result is superseded or invalidated:
-
-1. update `CURRENT_STATE.md`;
-2. update `CLAIM_LEDGER.md`;
-3. record the chronology in `RESEARCH_LOG.md`;
-4. mark status here;
-5. retain derivations that document important failures, corrections, or narrowing of scope.
+Attack any candidate theorem with adaptive control, noncommuting time dependence, time-switched energy trapping, feedforward, and high-rank output continua before promotion.
