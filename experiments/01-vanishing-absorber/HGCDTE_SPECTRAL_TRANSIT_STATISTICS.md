@@ -1,50 +1,89 @@
-# HgCdTe Spectral Transit Statistics — An Analytic Baseline for Mean Delay and Generation-Position Jitter
+# HgCdTe Spectral Transit Statistics — Corrected Ballistic Baseline with Photoexcitation Energy
 
 **Date:** 2026-08-09  
-**Status:** exact cold-ballistic two-band/Kane transit law combined with the exact conditional optical-depth generation distribution; no novelty claim
+**Status:** exact ballistic two-band/Kane transit integral combined with exact conditional optical-depth generation statistics and a parameterized electron photon-excess fraction; no novelty claim
 
 ## 1. Purpose
 
-`HGCDTE_SPECTRAL_GENERATION_DISTRIBUTION.md` gives the generation-position statistics for photons that are actually absorbed in a graded region.
+A photon absorbed downstream of the local band edge creates an electron with nonzero initial kinetic excess. The first version of this note treated every generation event as cold and is superseded by this corrected form.
 
-This note propagates that distribution through the cold ballistic Kane trajectory.
+The goal remains narrow:
 
-The aim is not to predict a real HgCdTe impulse response yet. It is to isolate the response-time structure produced by
-
-```text
-wavelength-dependent absorption position
-+
-linear band-gap grading
-```
-
-without inserting an unjustified high-field mobility law.
+> **Given a wavelength-dependent generation-position distribution in a linearly graded absorber, what ballistic transit-time distribution follows before adding scattering?**
 
 ---
 
-## 2. Cold ballistic trajectory from an arbitrary generation point
+## 2. Geometry and optical generation coordinate
 
-Assume the favorable quasi-neutral p-type geometry with approximately pinned valence band.
-
-Let an electron be generated cold at a point where the local gap is
+Let
 
 ```math
-E_s.
+E_0=E_{g,\rm out},
 ```
-
-Let the final narrow-gap endpoint be
 
 ```math
-E_0<E_s.
+E_\gamma=E_0+\delta E,
 ```
 
-Define the remaining downhill gap drop
+and define normalized photon excess
+
+```math
+\boxed{s=\delta E/E_0.}
+```
+
+For the illustrative local absorption law
+
+```math
+\alpha=C(E_\gamma-E_g)^\beta,
+```
+
+set
+
+```math
+n=\beta+1.
+```
+
+Conditioned on absorption, optical depth `y` obeys
 
 ```math
 \boxed{
-D=E_s-E_0.}
+p(y|{\rm abs})
+=\frac{e^{-y}}{1-e^{-\tau}},
+\qquad 0<y<\tau.
+}
 ```
 
-For a linear downstream gradient of magnitude `G`, the remaining distance is
+The local photon excess is
+
+```math
+\boxed{
+u(y)
+=\delta E
+\left(\frac{y}{\tau}\right)^{1/n}.}
+```
+
+Define
+
+```math
+\boxed{q(y)=u(y)/\delta E.}
+```
+
+Then
+
+```math
+\boxed{
+q(y)=\left(\frac{y}{\tau}\right)^{1/n},
+\qquad 0\le q\le1.
+}
+```
+
+The remaining geometric band-edge drop is
+
+```math
+\boxed{D=\delta E(1-q).}
+```
+
+and the remaining distance is
 
 ```math
 \boxed{d=D/G.}
@@ -52,182 +91,161 @@ For a linear downstream gradient of magnitude `G`, the remaining distance is
 
 ---
 
-## 3. Kane group velocity along the no-loss trajectory
+## 3. Photoelectron initial excess
 
-Set the pinned valence edge to zero. Then locally
-
-```math
-U=\Delta=E_g/2.
-```
-
-A cold electron generated at the local conduction edge has conserved total energy
+Let the electron receive fraction
 
 ```math
-E=E_s
+\boxed{\xi_e}
 ```
 
-in the ballistic static-band model.
-
-Define the fractional local drop from the generation gap
-
-```math
-u
-=\frac{E_s-E_g}{E_s}.
-```
-
-The two-band/Kane dispersion gives
+of the local photon excess:
 
 ```math
 \boxed{
-\frac{v_g}{v_K}
-=\frac{2\sqrt u}{1+u}.
+\varepsilon_{\rm gen}=\xi_eu.
 }
 ```
 
-At generation, `u=0`; the electron accelerates as the local gap falls.
+For the symmetric two-band Kane optical transition,
+
+```math
+\boxed{\xi_e=1/2.}
+```
+
+Real HgCdTe requires a multiband optical-transition model, so retain `xi_e` explicitly.
 
 ---
 
-## 4. Exact ballistic transit time
+## 4. Exact ballistic transit from a downstream generation point
 
-The final fractional drop is
+The conserved electron energy is
 
 ```math
 \boxed{
-\zeta_D
-=\frac{D}{E_s}.
+\mathcal E
+=E_\gamma-(1-\xi_e)u.
 }
 ```
 
-Direct integration gives
+Define the electron excess above the local conduction edge at generation and at the output:
 
 ```math
 \boxed{
-T_{\rm bal}(D)
-=
-\frac{d}{v_K}
-\left[
-\frac1{\sqrt{\zeta_D}}
-+
-\frac{\sqrt{\zeta_D}}3
-\right].
-}
+z_s=\xi_eu,}
 ```
 
-Equivalent energy-only form:
+```math
+\boxed{
+z_0=\delta E-(1-\xi_e)u.}
+```
+
+For the two-band Kane conduction dispersion and linear downstream gap,
 
 ```math
 \boxed{
-T_{\rm bal}(D)
+T_{\rm bal}(u)
 =
 \frac1{Gv_K}
 \left[
-\sqrt{D(E_0+D)}
-+
-\frac{D^{3/2}}
-{3\sqrt{E_0+D}}
-\right].
+\Phi(z_0;\mathcal E)
+-
+\Phi(z_s;\mathcal E)
+\right],
 }
 ```
 
-This is finite despite the zero initial velocity because the near-start singularity in `1/v` is integrable.
+where
+
+```math
+\boxed{
+\Phi(z;\mathcal E)
+=
+\sqrt{\mathcal Ez}
++
+\frac{z^{3/2}}
+{3\sqrt{\mathcal E}}.
+}
+```
+
+Checks:
+
+```text
+u=0
+-> earliest allowed cold-edge generation
+-> recovers previous formula
+
+u=delta E
+-> generation at output
+-> z_s=z_0
+-> T=0.
+```
 
 ---
 
 ## 5. Dimensionless transit function
 
-Define
+Normalize energies by `E_0`.
+
+For
 
 ```math
-\boxed{d_*=D/E_0.}
+q=u/\delta E,
 ```
 
-and
+define
 
 ```math
 \boxed{
-\theta
-\equiv
-\frac{Gv_K}{E_0}T_{\rm bal}.}
+e
+=\mathcal E/E_0
+=1+s[1-(1-\xi_e)q],
+}
+```
+
+```math
+\boxed{
+z_s^*
+=\xi_esq,
+}
+```
+
+```math
+\boxed{
+z_0^*
+=s[1-(1-\xi_e)q].
+}
+```
+
+Define
+
+```math
+\boxed{
+\phi(z,e)
+=\sqrt{ez}
++\frac{z^{3/2}}{3\sqrt e}.
+}
 ```
 
 Then
 
 ```math
 \boxed{
-\theta(d_*)
+\theta(q;s,\xi_e)
+\equiv
+\frac{Gv_K}{E_0}T_{\rm bal}
 =
-\frac{\sqrt{d_*}}
-{\sqrt{1+d_*}}
-\left(1+\frac43d_*\right).
+\phi(z_0^*,e)-\phi(z_s^*,e).
 }
 ```
 
-This dimensionless transit law depends only on the remaining drop relative to the endpoint gap.
-
-It is monotonic increasing with `d_*`.
+This is the corrected universal ballistic timing kernel.
 
 ---
 
-## 6. Generation-position map for one photon energy
+## 6. Conditional mean and timing spread
 
-For photon energy
-
-```math
-E_\gamma=E_0+\delta E,
-```
-
-define the normalized photon excess
-
-```math
-\boxed{s=\delta E/E_0.}
-```
-
-Use the illustrative local absorption model
-
-```math
-\alpha=C(E_\gamma-E_g)^\beta,
-```
-
-and
-
-```math
-n=\beta+1.
-```
-
-Conditioned on absorption, optical depth `y` has density
-
-```math
-p(y|{\rm abs})
-=\frac{e^{-y}}{1-e^{-\tau}},
-\qquad
-0<y<\tau,
-```
-
-where `tau` is the total eligible-region optical depth.
-
-The remaining normalized gap drop after generation is
-
-```math
-\boxed{
-d_*(y)
-=s\left[
-1-\left(\frac{y}{\tau}\right)^{1/n}
-\right].}
-```
-
-Therefore every absorbed event maps directly to a dimensionless transit time
-
-```math
-\boxed{
-\theta(y)=\theta[d_*(y)].}
-```
-
----
-
-## 7. Exact integral for mean ballistic transit
-
-The conditional mean dimensionless transit is
+The dimensionless mean is
 
 ```math
 \boxed{
@@ -236,38 +254,13 @@ The conditional mean dimensionless transit is
 \frac1{1-e^{-\tau}}
 \int_0^\tau
  e^{-y}
-\theta\!\left(
- s\left[1-(y/\tau)^{1/n}\right]
-\right)dy.
+\theta\!\left[
+(y/\tau)^{1/n};s,\xi_e
+\right]dy.
 }
 ```
 
-Hence
-
-```math
-\boxed{
-\langle T_{\rm bal}\rangle
-=
-\frac{E_0}{Gv_K}
-\langle\theta\rangle.
-}
-```
-
-This is a universal dimensionless baseline parameterized by only
-
-```text
-normalized photon excess s
-optical depth tau
-near-edge absorption exponent beta.
-```
-
-Absolute material scale enters through `E_0/(G v_K)`.
-
----
-
-## 8. Generation-position contribution to timing spread
-
-Define
+The second moment is
 
 ```math
 \boxed{
@@ -276,38 +269,44 @@ Define
 \frac1{1-e^{-\tau}}
 \int_0^\tau
  e^{-y}
-\theta[d_*(y)]^2dy.
+\theta\!\left[
+(y/\tau)^{1/n};s,\xi_e
+\right]^2dy.
 }
 ```
 
-The generation-position timing standard deviation in this cold-ballistic baseline is
+Hence the generation-position contribution to timing spread is
 
 ```math
 \boxed{
 \sigma_\theta
 =
-\sqrt{
-\langle\theta^2\rangle
--
-\langle\theta\rangle^2
-}.}
+\sqrt{\langle\theta^2\rangle-
+\langle\theta\rangle^2}.
+}
 ```
 
-Thus
+Absolute scales are
+
+```math
+\boxed{
+\langle T\rangle
+=\frac{E_0}{Gv_K}\langle\theta\rangle,
+}
+```
 
 ```math
 \boxed{
 \sigma_T
-=
-\frac{E_0}{Gv_K}\sigma_\theta.
+=\frac{E_0}{Gv_K}\sigma_\theta.
 }
 ```
 
-This is **not** the total detector timing jitter. It includes only variation in optical generation position mapped through the ballistic graded transit.
+These contain only generation-position timing variation. They omit scattering, diffusion, avalanche statistics, electronics, etc.
 
 ---
 
-## 9. High-optical-depth limit
+## 7. Optically thick limit — robust wavelength-delay curve
 
 As
 
@@ -315,120 +314,121 @@ As
 \tau\to\infty,
 ```
 
-the absorbed photons are concentrated near the earliest eligible optical depth.
-
-Then
+the absorbed population concentrates near the earliest allowed point:
 
 ```math
-d_*\to s,
+q\to0.
 ```
 
-so
+Therefore the result becomes independent of `xi_e`:
 
 ```math
 \boxed{
 \langle\theta\rangle
 \to
-\theta(s),
+\theta_\infty(s),
+}
+```
+
+where
+
+```math
+\boxed{
+\theta_\infty(s)
+=
+\frac{\sqrt s}{\sqrt{1+s}}
+\left(1+\frac43s\right).
 }
 ```
 
 and
 
 ```math
-\boxed{
-\sigma_\theta\to0.}
+\boxed{\sigma_\theta\to0.}
 ```
 
-Therefore high single-pass absorptance drives the ballistic baseline toward
-
-```text
-longer mean transit for that wavelength
-+
-smaller generation-position timing spread.
-```
-
-The actual detector can have additional jitter sources.
-
----
-
-## 10. Optically thin limit
-
-For
-
-```math
-\tau\ll1,
-```
-
-the conditional optical-depth variable is approximately uniform on `[0,tau]`.
-
-Define
-
-```math
-t=y/\tau.
-```
-
-Then
+Thus the high-optical-depth ballistic delay is
 
 ```math
 \boxed{
-\langle\theta\rangle_{\rm thin}
+T_\infty(E_\gamma)
 =
-\int_0^1
-\theta\!\left(
- s[1-t^{1/n}]
-\right)dt.
+\frac{E_0}{Gv_K}
+\theta_\infty\!\left(
+\frac{E_\gamma-E_0}{E_0}
+\right).
 }
 ```
 
-The absorbed subset is spread across the eligible region and is biased downstream by the rising local absorption coefficient.
-
-It therefore has a shorter mean remaining transit than the optically thick limit, but a broader generation-position timing distribution.
-
----
-
-## 11. Representative dimensionless values
-
-For the illustrative direct-edge exponent
+Equivalent energy form:
 
 ```math
-\beta=1/2,
+\boxed{
+T_\infty
+=
+\frac1{Gv_K}
+\left[
+\sqrt{\delta E(E_0+\delta E)}
++
+\frac{\delta E^{3/2}}
+{3\sqrt{E_0+\delta E}}
+\right].
+}
 ```
 
-the following values come from numerical quadrature of the exact integrals.
-
-### `s=0.1`
-
-| optical depth `tau` | absorptance | `<theta>` | `sigma_theta` |
-|---:|---:|---:|---:|
-| 0.1 | 0.095 | 0.196 | 0.079 |
-| 1.0 | 0.632 | 0.216 | 0.076 |
-| 2.303 | 0.900 | 0.241 | 0.068 |
-| 5.0 | 0.993 | 0.276 | 0.049 |
-
-### `s=0.5`
-
-| optical depth `tau` | absorptance | `<theta>` | `sigma_theta` |
-|---:|---:|---:|---:|
-| 0.1 | 0.095 | 0.502 | 0.226 |
-| 1.0 | 0.632 | 0.560 | 0.222 |
-| 2.303 | 0.900 | 0.635 | 0.204 |
-| 5.0 | 0.993 | 0.740 | 0.154 |
-
-### `s=1.0`
-
-| optical depth `tau` | absorptance | `<theta>` | `sigma_theta` |
-|---:|---:|---:|---:|
-| 0.1 | 0.095 | 0.808 | 0.396 |
-| 1.0 | 0.632 | 0.909 | 0.392 |
-| 2.303 | 0.900 | 1.042 | 0.365 |
-| 5.0 | 0.993 | 1.232 | 0.281 |
-
-These are dimensionless model values, not HgCdTe response-time predictions.
+This relative wavelength trend does not require an absorption-coefficient calibration once the optically thick limit is justified.
 
 ---
 
-## 12. Near-cutoff scaling
+## 8. Wavelength form of the thick-limit prediction
+
+Using approximately
+
+```math
+E_0=hc/\lambda_c,
+```
+
+```math
+E_\gamma=hc/\lambda,
+```
+
+then
+
+```math
+\boxed{
+s=\lambda_c/\lambda-1.}
+```
+
+So
+
+```math
+\boxed{
+T_\infty(\lambda)
+=\frac{E_0}{Gv_K}
+\theta_\infty(\lambda_c/\lambda-1).
+}
+```
+
+At fixed device profile, delay ratios between two wavelengths in this limit are simply
+
+```math
+\boxed{
+\frac{T_\infty(\lambda_1)}
+{T_\infty(\lambda_2)}
+=
+\frac{
+\theta_\infty(\lambda_c/\lambda_1-1)
+}{
+\theta_\infty(\lambda_c/\lambda_2-1)
+}.
+}
+```
+
+The unknown absolute gradient and Kane velocity cancel from the ratio.
+
+---
+
+## 9. Near-cutoff asymptote
 
 For
 
@@ -437,83 +437,154 @@ s\ll1,
 ```
 
 ```math
-\theta(d_*)\simeq\sqrt{d_*}.
-```
-
-Therefore the characteristic transit scale behaves roughly as
-
-```math
 \boxed{
-T\propto
-\frac{E_0}{Gv_K}
-\sqrt{s}
+\theta_\infty(s)
+\simeq\sqrt s.
 }
 ```
 
-up to an optical-depth-dependent dimensionless factor.
+Hence
 
-Thus, in the ideal graded ballistic model, the transport delay of absorbed photons tends downward as the photon energy approaches the narrow-gap endpoint.
-
-The opposing effect is that near-edge optical absorption also becomes weak.
-
----
-
-## 13. Physical interpretation
-
-The simple graded detector has a built-in spectral sorting mechanism:
-
-```text
-near-cutoff photons
--> eligible only very near the low-gap end
--> short transport
--> weak absorption
-
-higher-energy photons
--> eligible farther upstream
--> longer transport
--> larger hot-electron exposure
--> easier optical absorption.
+```math
+\boxed{
+T_\infty
+\sim
+\frac{E_0}{Gv_K}
+\sqrt{\frac{E_\gamma-E_0}{E_0}}.
+}
 ```
 
-Within one wavelength channel, increasing optical depth then trades
+or in wavelength language near cutoff,
 
-```text
-higher quantum efficiency
-for
-longer mean transport
-but smaller generation-position timing spread.
+```math
+\boxed{
+T_\infty
+\propto
+\sqrt{\lambda_c-\lambda}
+}
 ```
 
-This is a more specific and testable statement than a generic detector `speed versus efficiency` slogan.
+up to the first-order conversion between photon energy and wavelength.
+
+So the ideal graded ballistic transport delay tends to zero toward cutoff, while the optical absorption strength simultaneously weakens.
 
 ---
 
-## 14. Important caveats
+## 10. Representative thick-limit dimensionless curve
 
-The result assumes
+For a detector with endpoint cutoff `lambda_c=10 um`, the dimensionless thick-limit delay factor is
 
-- one-dimensional illumination and transport;
-- monotonic linear gap grading;
-- local incoherent Beer-Lambert absorption;
-- a power-law near-edge absorption model for the explicit `y -> d_*` map;
-- pinned valence band;
-- cold ballistic electron generation;
-- no energy or momentum scattering in the transit law;
-- no weighting-field nonuniformity;
-- no diffusion tail;
-- no recombination;
-- no optical interference or cavity enhancement.
+| wavelength | `s=lambda_c/lambda-1` | `theta_infty` |
+|---:|---:|---:|
+| 9.5 um | 0.0526 | 0.239 |
+| 9 um | 0.111 | 0.363 |
+| 8 um | 0.250 | 0.596 |
+| 7 um | 0.429 | 0.861 |
+| 6 um | 0.667 | 1.195 |
+| 5 um | 1.000 | 1.650 |
 
-Real HgCdTe timing can be dominated by other mechanisms.
+These are dimensionless ratios, not predicted nanoseconds.
 
 ---
 
-## 15. Next decisive comparison
+## 11. Optical-depth dependence with photoexcitation correction
 
-The next question should now be empirical/theoretical prior-art rather than more algebra:
+Numerical quadrature for the illustrative `beta=1/2` model confirms
 
-> **Has wavelength-dependent carrier-generation position in compositionally graded HgCdTe already been explicitly connected to wavelength-dependent response time or timing jitter?**
+```text
+increasing tau
+-> larger mean remaining transport
+-> mean ballistic delay approaches theta_infty(s).
+```
 
-If that connection is already established, the repository should treat the present calculation as a compact analytic baseline.
+However the generation-position timing spread is **not generally monotonic** in `tau`.
 
-If not, the next useful physics step is to add one calibrated HgCdTe absorption law and compare the predicted spectral response trend with published graded-detector frequency-response data.
+It can increase slightly between very thin and moderate optical depth before decreasing toward zero in the optically thick limit.
+
+Therefore do not summarize the result as
+
+```text
+higher QE -> lower timing jitter
+```
+
+without specifying the optical-depth regime.
+
+The robust statement is
+
+```math
+\boxed{
+\tau\to\infty
+\Rightarrow
+\langle\theta\rangle\to\theta_\infty,
+\quad
+\sigma_\theta\to0.
+}
+```
+
+---
+
+## 12. Role of `xi_e`
+
+At finite optical depth, the timing distribution depends on `xi_e` because downstream-generated electrons begin with different velocities.
+
+Larger `xi_e` generally reduces the geometric transit time of downstream events because more photon excess is initially placed in the electron.
+
+But the optically thick limit is insensitive to `xi_e` because absorption is concentrated where `u -> 0`.
+
+Thus the **high-QE wavelength-delay asymptote is more robust** than finite-QE hot-electron or timing predictions.
+
+---
+
+## 13. Prior-art posture
+
+Established HgCdTe literature already covers
+
+- grading-induced carrier drift and faster response;
+- spectral response of compositionally graded devices;
+- tunable-pulse impulse-response measurements;
+- carrier transit as a possible fast-response limit.
+
+A focused primary-source search has not yet located the exact analytic map
+
+```text
+wavelength
+-> generation optical-depth distribution
+-> graded ballistic transit distribution.
+```
+
+Status: candidate underexplored analytic connection; priority unproven.
+
+---
+
+## 14. Claim boundary
+
+### Exact within the stated symmetric/two-band ballistic model
+
+The transit integral and the `theta(q;s,xi_e)` representation.
+
+### Exact optical statistic
+
+The truncated-exponential generation distribution in optical-depth coordinates.
+
+### Conditional
+
+The power-law `y -> q` map and use of a constant `xi_e`.
+
+### Not established
+
+- real HgCdTe multiband `xi_e`;
+- scattering-limited wavelength-resolved timing;
+- measured intrinsic `T(lambda)` after de-embedding electronics;
+- calibrated optical depth versus wavelength;
+- novelty.
+
+---
+
+## 15. Next decisive test
+
+Two routes are now useful:
+
+1. **experimental collision:** find or reanalyze tunable-pulse HgCdTe measurements at several wavelengths under fixed bias/readout and look for the predicted intrinsic delay trend after common electronic poles are removed;
+2. **material calibration:** implement a primary-source HgCdTe absorption model and multiband photon-excess partition to move beyond the analytic baseline.
+
+Do not add more abstract detector resources before testing one of these.
