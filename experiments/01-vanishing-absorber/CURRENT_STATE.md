@@ -1,151 +1,365 @@
 # Current State — Experiment 01: The Vanishing Absorber
 
 **Date:** 2026-08-08  
-**Status:** exploratory; no novelty claim  
+**Status:** one-resonance model derived; broader bound unresolved; no novelty claim  
 
-## 1. Question
+## 1. Active question
 
 Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
 
-The point of the experiment is not to prove that the answer is no. The point is to identify which physical assumptions determine the answer.
+The project does not assume the answer is no. The present task is to identify exactly which physical assumptions create or remove the apparent tradeoff.
 
 ---
 
-## 2. Minimal starting model
+## 2. Canonical detailed derivation
 
-Consider an active semiconductor region of volume `V` with a dark carrier-generation event-rate density `g_d`.
+The first exact model is now documented in:
 
-At the simplest counting level,
+`ONE_PORT_RESONATOR_DYNAMICS.md`
 
-```math
-\Gamma_d = g_d V.
-```
+It treats a passive linear one-port optical resonance with external amplitude-decay rate `gamma_e` and active-material absorptive amplitude-decay rate `gamma_a`.
 
-If the relevant events are independent and each produces one collected elementary charge, the one-sided shot-noise-like current spectral density would scale as
+Using the `exp(-i omega t)` convention,
 
 ```math
-S_I \propto q^2 g_d V,
+\dot a=
+(-i\omega_0-\gamma_e-\gamma_a)a
++\sqrt{2\gamma_e}\,s_+,
 ```
 
-with the exact factor depending on the event and spectral-density convention.
-
-The only robust point currently needed is the volume scaling:
+with stored energy `U=|a|^2` and absorbed power
 
 ```math
-\Gamma_d \propto V.
+P_{\rm abs}=2\gamma_aU.
 ```
-
-Therefore shrinking the active volume appears favorable for intrinsic generation noise.
-
-This is a deliberately idealized starting point. Surface generation, contacts, tunneling, background photons, gain, recombination correlations, and readout noise are not yet included.
 
 ---
 
-## 3. The optical obstruction
+## 3. Results established within the one-resonance model
 
-For an ordinary weakly absorbing slab, reducing active thickness also reduces absorption.
-
-So the thought experiment grants the detector ideal passive optical structures capable of increasing optical dwell time or field concentration: a cavity, antenna, photon-trapping structure, slow-light region, or another passive coupler.
-
-The question then becomes:
-
-> If the absorbing volume tends toward zero while the desired absorption remains near unity, where does the physical cost reappear?
-
-A plausible place is optical temporal response.
-
----
-
-## 4. First concrete subproblem
-
-Analyze a single passive one-port resonance with external coupling rate `gamma_e` and absorber loss rate `gamma_a`.
-
-The standard coupled-mode model suggests a resonant absorptance of the form
+### 3.1 Steady-state absorptance
 
 ```math
-A(\omega)
-=
+\boxed{
+A(\omega)=
 \frac{4\gamma_e\gamma_a}
-{(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2},
+{(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2}
+}
 ```
 
-subject to normalization conventions that must be checked explicitly before this expression is treated as canonical.
-
-At resonance this model gives unity absorption when
+Unity on-resonance absorption occurs at critical coupling:
 
 ```math
-\gamma_e = \gamma_a.
+\boxed{\gamma_e=\gamma_a.}
 ```
 
-If shrinking the absorber forces `gamma_a -> 0`, maintaining critical coupling would also require `gamma_e -> 0`, suggesting a longer optical dwell time and narrower optical response.
+This is established resonator theory rederived here to fix normalization.
 
-This is the first mechanism to test, not yet a general theorem.
+### 3.2 Energy lifetime
+
+With
+
+```math
+\Gamma=\gamma_e+\gamma_a,
+```
+
+the stored energy decays as `exp(-2 Gamma t)`, so
+
+```math
+\boxed{
+\tau_U=\frac{1}{2\Gamma},
+\qquad
+Q_L=\frac{\omega_0}{2\Gamma}.
+}
+```
+
+### 3.3 Absorbed-power modulation bandwidth
+
+For a resonant optical carrier with small incident-power modulation, the fractional absorbed-power transfer function is
+
+```math
+\boxed{
+H_{\rm abs}(\Omega)=
+\frac{\Gamma}{\Gamma+i\Omega}.
+}
+```
+
+Therefore
+
+```math
+\boxed{
+B_{3\rm dB}
+=
+\frac{\gamma_e+\gamma_a}{2\pi}.
+}
+```
+
+At critical coupling,
+
+```math
+\boxed{
+B_{3\rm dB}^{\rm crit}
+=
+\frac{\gamma_a}{\pi}.
+}
+```
+
+Thus, **within this architecture**, if `gamma_a -> 0` and unity absorption is preserved by critical coupling, the absorbed-power modulation bandwidth also tends to zero.
+
+### 3.4 Optical linewidth is not modulation bandwidth
+
+At critical coupling,
+
+```math
+\boxed{
+\Delta f_{\rm abs,FWHM}
+=2B_{3\rm dB}^{\rm crit}.
+}
+```
+
+Equivalently,
+
+```math
+B_{3\rm dB}=\frac{f_0}{2Q_L},
+\qquad
+\Delta f_{\rm abs,FWHM}=\frac{f_0}{Q_L}.
+```
+
+This distinction is now fixed and should not be blurred later.
+
+### 3.5 Integrated absorption
+
+```math
+\boxed{
+\int A(f)\,df
+=
+\frac{2\gamma_e\gamma_a}
+{\gamma_e+\gamma_a}.
+}
+```
+
+At critical coupling,
+
+```math
+\boxed{
+\int A(f)\,df
+=
+\gamma_a
+=
+\pi B_{3\rm dB}^{\rm crit}.
+}
+```
+
+This may provide the natural bridge to later frequency-integrated electromagnetic bounds.
 
 ---
 
-## 5. What has actually been established
+## 4. How active material enters the optical loss rate
 
-At this stage only the following are treated as secure qualitative statements:
+For weak dielectric loss,
 
-1. For a fixed volumetric dark-event rate density, total bulk dark-event rate scales with active volume.
-2. Weak bare absorption generally decreases when absorbing material is removed.
-3. Passive resonant confinement can trade spectral/temporal extent for stronger interaction with a weak absorber.
+```math
+\boxed{
+\gamma_a
+=
+\frac{\omega\epsilon_0}{4U}
+\int_{V_a}
+\epsilon''(\mathbf r,\omega)|\mathbf E|^2\,dV.
+}
+```
 
-No general detector sensitivity-bandwidth limit has been derived.
+Therefore `gamma_a proportional to V_a` follows only in a regular shrinking limit where material response and normalized field intensity do not themselves diverge as the active volume shrinks.
 
----
+This is **not** yet a general result.
 
-## 6. Active conjectures
-
-### C1 — Resonant shrinking penalty
-
-Within a one-port passive resonant model, maintaining near-unity absorptance while absorber loss tends to zero forces the resonance lifetime to increase.
-
-This should be derivable exactly within temporal coupled-mode theory.
-
-### C2 — More general passive bound
-
-There may exist a geometry-independent relation connecting integrated absorption or absorption-weighted bandwidth to active material volume and susceptibility.
-
-No specific formula is currently claimed.
-
-### C3 — Detector-level consequence
-
-Combining an electromagnetic absorption-bandwidth bound with intrinsic carrier-generation statistics may yield a volume-independent upper bound on a properly defined sensitivity-speed metric.
-
-This is currently speculative.
+The first cavity calculation therefore establishes a penalty in terms of `gamma_a`, not directly in terms of geometric volume.
 
 ---
 
-## 7. Important non-claims
+## 5. First detector-level toy result
 
-We have **not** established that:
+Retain the idealized bulk dark-event model
 
-- `NEP -> 0` as `V -> 0` in a complete detector;
-- all passive optical architectures obey a simple `eta^2 B <= C V` law;
-- cavity photon lifetime is always the dominant detector response time;
-- active, nonreciprocal, time-varying, or gain-assisted systems obey the same restriction;
-- any current conjecture is novel.
+```math
+D=g_dV,
+```
+
+with independent events, one collected charge per event, unity post-absorption collection, no internal gain, and a one-sided shot-noise convention.
+
+Then
+
+```math
+\mathrm{NEP}^2
+=
+\frac{2(h\nu)^2D}{A_0^2}.
+```
+
+Define
+
+```math
+\boxed{
+\mathcal C
+=
+\frac{h\nu\sqrt{B_{3\rm dB}}}
+{\mathrm{NEP}}.
+}
+```
+
+This is dimensionless.
+
+Writing
+
+```math
+x=\frac{\gamma_e}{\gamma_a},
+```
+
+gives
+
+```math
+\boxed{
+\mathcal C^2
+=
+\frac{4\gamma_a}{\pi D}
+\frac{x^2}{(1+x)^3}.
+}
+```
+
+The maximum occurs at
+
+```math
+\boxed{x=2,}
+```
+
+not at critical coupling.
+
+Thus the optimum of this specific toy sensitivity-speed metric is
+
+```math
+\boxed{
+\gamma_e=2\gamma_a,
+\qquad
+A_0=\frac89,
+\qquad
+B_{3\rm dB}=\frac{3\gamma_a}{2\pi}.
+}
+```
+
+and
+
+```math
+\boxed{
+\mathcal C_{\max}^2
+=
+\frac{16\gamma_a}{27\pi D}.
+}
+```
+
+Relative to exact critical coupling,
+
+```math
+\boxed{
+\frac{\mathcal C_{\max}}
+{\mathcal C_{\rm crit}}
+=
+\sqrt{\frac{32}{27}}
+\approx1.08866.
+}
+```
+
+So sacrificing peak absorption from `1` to `8/9` improves this particular combined metric by about `8.9%`.
+
+This is a model result, not a universal detector optimum.
 
 ---
 
-## 8. Next decisive calculation
+## 6. Conditional volume cancellation
 
-Do the one-port resonator cleanly from the dynamical amplitude equation rather than importing the absorptance formula.
+If a regular regime exists in which
 
-Derive, with one normalization convention throughout:
+```math
+\gamma_a=\kappa V
+```
 
-1. steady-state absorptance `A(omega)`;
-2. the critical-coupling condition;
-3. stored optical energy and energy-decay time;
-4. the response to a small modulation of incident optical power;
-5. the exact `-3 dB` detection-response bandwidth;
-6. the relationship, if any, between this modulation bandwidth and the spectral absorption linewidth;
-7. how `gamma_a` scales with active material participation in the weak-loss limit.
+while
 
-The key question after that derivation is whether the intuitive statement
+```math
+D=g_dV,
+```
+
+then the active volume cancels:
+
+```math
+\boxed{
+\mathcal C_{\max}^2
+=
+\frac{16\kappa}{27\pi g_d}.
+}
+```
+
+This is the first exact realization of the original volume-cancellation idea.
+
+Its weakness is now precise: it depends on whether `gamma_a/V` remains bounded and well behaved as the active volume is reduced.
+
+---
+
+## 7. Verification state
+
+The modulation transfer function was checked by direct time-domain integration of the cavity envelope equation.
+
+At
 
 ```text
-less absorbing material -> longer dwell time -> lower usable bandwidth
+Omega/Gamma = 0.5, 1, 2
 ```
 
-is actually correct under the stated model, including all factors of two.
+the numerical normalized modulation amplitudes were approximately
+
+```text
+0.89449, 0.70746, 0.44757
+```
+
+versus analytic values
+
+```text
+0.89443, 0.70711, 0.44721.
+```
+
+A numerical coupling scan also recovered the optimum near
+
+```text
+gamma_e/gamma_a = 2.
+```
+
+The detailed note records two convention errors caught during the audit before this state was updated: a time-harmonic sign mismatch and an incorrect redundant `Q` rewrite. The corrected central decay-rate formulas are the ones above.
+
+---
+
+## 8. What remains explicitly unestablished
+
+We have **not** shown that:
+
+- `gamma_a/V` is bounded for arbitrary passive geometries;
+- `gamma_a proportional to V` survives extreme field concentration;
+- a geometry-independent `eta^2 B <= C V` relation exists;
+- a universal `sqrt(B)/NEP` bound exists;
+- one optical resonance is optimal;
+- traveling-wave, multi-resonant, antenna, slow-light, nonreciprocal, time-varying, active, avalanche, photoconductive-gain, nonlocal, or quantum-assisted architectures obey the same restriction;
+- any detector-level result here is novel.
+
+---
+
+## 9. Next decisive question
+
+The first thought-experiment step has resolved cleanly:
+
+> A vanishingly weak absorber can retain unity monochromatic absorption in a one-port cavity, but only by making the resonant optical response proportionally narrow.
+
+The next problem is deeper:
+
+> **Can passive electromagnetic design make `gamma_a/V` increase without bound as `V -> 0`, while preserving a physically meaningful incident channel and material model?**
+
+This is now the correct place to challenge the apparent limit.
+
+Do **not** add HgCdTe-specific transport yet.
+
+The next stage should examine electromagnetic concentration and material-response bounds, beginning with the weakest assumptions possible and actively searching for counterexamples.
