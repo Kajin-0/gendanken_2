@@ -1,60 +1,27 @@
 # Claim Ledger — Experiment 01
 
-**Updated:** 2026-08-08  
-**Status:** exploratory; abstract universal routes repeatedly narrowed or invalidated; current active branch is material-specific HgCdTe extraction/BTBT normalization; no novelty claim
+**Updated:** 2026-08-09  
+**Status:** exploratory; active frontier is finite-length HgCdTe high-field transport / nonlocal impact ionization; no novelty claim
 
-This ledger records what is known, derived here, invalidated, or still open. Historical detail remains in `RESEARCH_LOG.md` and the dedicated derivation files.
+This is the epistemic boundary. Detailed history remains in `RESEARCH_LOG.md` and dedicated derivation files.
 
----
+## Status vocabulary
 
-## 1. Active organizing question
-
-The original target
-
-```text
-small active volume
-+
-high absorption
-+
-high speed
-+
-low noise
-```
-
-has evolved into the concrete semiconductor question
-
-> **For HgCdTe at a specified cutoff wavelength, temperature, collection thickness, and allowed dark-current density, what carrier-transit speed is achievable before high-field transport and tunneling intervene?**
-
-The current load-bearing unknown is the real high-field velocity law `v_d(F)` for a stated material/composition/temperature.
+- **KNOWN:** established prior theory / experiment used as input.
+- **DERIVED:** follows analytically from stated repository assumptions.
+- **CHECKED:** independently/numerically verified.
+- **CONDITIONAL:** derived but dependent on a deliberately simplified model.
+- **INVALIDATED:** explicit counterexample or corrected interpretation found.
+- **OPEN:** unresolved.
+- **NON-CLAIM:** explicitly not asserted.
 
 ---
 
-## 2. Established prior ingredients — not novelty targets
+## 1. Major invalidated universal routes
 
-Do not claim novelty for
+### H1 — active-volume-only detector limit — INVALIDATED
 
-- temporal coupled-mode theory / critical coupling;
-- `H_2`, Lyapunov, scattering-passive network theory;
-- LDOS/material power-bandwidth bounds;
-- deep-strong light-matter decoupling;
-- quantum frequency conversion and Schmidt temporal modes;
-- dynamically matched single-photon capture;
-- adaptive quantum instruments / Kraus-rank accounting;
-- Landauer/Holevo/bosonic information-capacity theory;
-- Fermi-contact detailed balance;
-- Breit-Wigner/Landauer resonant transport;
-- Butterworth/filter-order and Wigner-Smith delay theory;
-- HgCdTe Kane/nonparabolic band structure;
-- HgCdTe BTBT, TAT, impact ionization, resonant-tunneling dark-current engineering;
-- high-field Monte Carlo transport in HgCdTe.
-
----
-
-## 3. Stopped / invalidated general routes
-
-### H1 — universal active-volume law — STOPPED
-
-A passive field-concentrating continuum counterexample has
+An ideal passive field-concentrating family permits
 
 ```math
 V_a\to0,
@@ -62,53 +29,53 @@ V_a\to0,
 \gamma_a/V_a\to\infty.
 ```
 
-Do not revive universal relations of the form
+Do not revive universal relations such as `eta^2 B <= C V_a` without new explicit constraints.
 
-```text
-eta^2 B <= C V_a
-```
+### H2 — finite absorber count as one-photon speed limit — INVALIDATED
 
-without new explicit constraints.
+The accessible one-photon / one-excitation sector remains linear.
 
-### H2 — finite absorber count as the one-photon speed limit — STOPPED
+### H3 — finite internal storage rank as always-on detector capacity — INVALIDATED AS UNIVERSAL
 
-The one-photon one-excitation sector remains linear.
-
-### H3 — finite detector storage rank as an always-on capacity — STOPPED
-
-Adaptive branching gives
+Fixed protocol:
 
 ```math
-\sum_j\eta_j\le rd,
+\sum_j\eta_j\le r.
 ```
 
-and an unrestricted output continuum can make `d` effectively unbounded by exporting arrival-time information.
+Adaptive instrument:
 
-### H4 — local Landauer work as universal adaptive detector cost — STOPPED
+```math
+\sum_j\eta_j\le rd.
+```
 
-Branch information can be exported in the useful output rather than erased locally. Output time-bandwidth can substitute for output energy.
+But an unrestricted output continuum can export arbitrarily large arrival-time/branch distinguishability.
 
-### H5 — single-Lorentzian `R_leak ~ hB^2/(4Delta)` as universal electronic speed/leakage law — STOPPED
+### H4 — local Landauer erasure as universal adaptive-detector cost — INVALIDATED
 
-Higher-order filters can suppress the tail much more strongly at the same spectral FWHM.
+The useful output can carry branch information; local erasure need not occur at the detector.
 
-### H6 — spectral FWHM as architecture-independent carrier speed — STOPPED
+### H5 — single-Lorentzian `B^2/Delta` leakage law as universal — INVALIDATED
 
-Multipole filters have growing group/Wigner delay at fixed FWHM.
+Higher-order filters suppress occupied-side tails much faster at fixed FWHM, while spending states/delay.
 
-### H7 — faster semiconductor collection always requires larger field — STOPPED
+### H6 — spectral FWHM as architecture-independent electronic speed — INVALIDATED
 
-Reducing collection thickness can increase transit speed while reducing the field required for a specified speed.
+Multipole group/Wigner delay can grow at fixed FWHM.
 
-### H8 — largest internal coupling anywhere as a universal detector control parameter — STOPPED
+### H7 — direct BTBT is automatically the first high-field speed limiter for ordinary LWIR HgCdTe — INVALIDATED AS WORKING HYPOTHESIS
 
-Disconnected/spectator strong-coupling sectors are counterexamples.
+The corrected finite-length analysis shows that high-field transport becomes non-ohmic before direct BTBT is important, while finite impact-ionization probability must be treated with dead space / energy history rather than equating bulk `~100 V/cm` onset with a micron-device ionization ceiling.
+
+### H8 — bulk II onset field equals finite-device II threshold — INVALIDATED INTERPRETATION
+
+Bulk Monte Carlo rate onset and finite-device one-pass ionization probability are different observables.
 
 ---
 
-## 4. Retained passive finite-network result
+## 2. Retained passive-network result
 
-For a finite stable passive strictly proper optical-to-detector network, with
+For a finite stable passive strictly proper optical-to-detector network with
 
 ```math
 L=\operatorname{Tr}\Gamma_L,
@@ -116,7 +83,7 @@ L=\operatorname{Tr}\Gamma_L,
 R=\operatorname{Tr}\Gamma_R,
 ```
 
-### D1 — exact Gramian decomposition
+### D1 — exact Gramian decomposition — DERIVED
 
 ```math
 \boxed{
@@ -128,7 +95,7 @@ R=\operatorname{Tr}\Gamma_R,
 }
 ```
 
-### D2 — harmonic access bound
+### D2 — harmonic transfer-area bound — DERIVED / CHECKED
 
 ```math
 \boxed{
@@ -140,91 +107,24 @@ R=\operatorname{Tr}\Gamma_R,
 
 A matched one-mode passive resonance saturates it.
 
-**Status:** exact detector-facing passivity corollary; standard mathematical ingredients; exact priority unassessed; no novelty claim.
+**Novelty status:** standard `H_2`/Lyapunov/passivity ingredients; exact mathematical priority unassessed; no novelty claim.
+
+This is retained structure, not the active material frontier.
 
 ---
 
-## 5. Retained active/time-domain resource results
-
-### D3 — finite pumped conversion strength
-
-For
-
-```math
-H_{\rm conv}/\hbar
-=\mathbf b^\dagger K\mathbf a+h.c.,
-```
-
-`M_c` orthogonal conversion channels with efficiency at least `eta` in time `tau` require
-
-```math
-\boxed{
-\|K\|_F^2
-\ge
-\frac{M_c}{\tau^2}
-\arcsin^2\sqrt\eta.
-}
-```
-
-### D4 — exact known-mode loading schedule
-
-For one time-controlled storage mode,
-
-```math
-\boxed{
-\kappa(t)
-=
-\frac{P_{\rm in}(t)}
-{2\int_{-\infty}^{t}P_{\rm in}(t')dt'}.
-}
-```
-
-With bounded coupling,
-
-```math
-\boxed{
-\eta_{\rm cap}
-\le1-e^{-2\kappa_{\max}\tau}.
-}
-```
-
-### D5 — adaptive finite-instrument capacity
-
-For `d` successful branches each terminating in at most `r` retained modes,
-
-```math
-\boxed{
-\sum_j\eta_j\le rd.
-}
-```
-
-For equal-prior inputs and average success `eta_bar`, successful branch entropy obeys
-
-```math
-\boxed{
-H_{\rm branch|succ}
-\ge
-\max\left[0,\ln(M\bar\eta/r)\right].
-}
-```
-
-These results remain supporting insights, not current publication targets.
-
----
-
-## 6. Semiconductor Fermi-contact result
-
-Canonical file: `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`.
+## 3. Semiconductor Fermi-contact baseline
 
 For one electronic state weakly coupled to a Fermi contact,
+
+### D3 — extraction / reverse-loading ratio — KNOWN + DERIVED COMPOSITION
 
 ```math
 \boxed{
 \frac{k_{\rm in}}
 {k_{\rm out}}
 =
-\zeta
-\exp[-(E-\mu)/(k_BT)].
+\zeta e^{-(E-\mu)/(k_BT)}.
 }
 ```
 
@@ -241,35 +141,23 @@ B_{\rm evt}
 =\frac{k_{\rm out}+k_r}{2\pi},
 ```
 
-so
-
-```math
-\boxed{
-k_{\rm out}
-=2\pi\eta_{\rm col}B_{\rm evt},
-}
-```
-
-and
+then
 
 ```math
 \boxed{
 k_{\rm in}
-=
-2\pi\zeta\eta_{\rm col}B_{\rm evt}
-\exp[-(E-\mu)/(k_BT)].
+=2\pi\zeta\eta_{\rm col}B_{\rm evt}
+ e^{-(E-\mu)/(k_BT)}.
 }
 ```
 
-**Scope:** sequential weak tunneling. `k_in` is reverse loading hazard, not automatically dark current/count.
+`k_in` is a reverse-loading hazard, not automatically a measured dark current/count.
 
 ---
 
-## 7. Lifetime-broadened resonant-filter result
+## 4. Electronic energy-filter results
 
-Canonical file: `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`.
-
-For a unit-peak Breit-Wigner resonance centered `Delta` above a zero-temperature filled source,
+### D4 — one Breit-Wigner zero-temperature leakage — DERIVED
 
 ```math
 \boxed{
@@ -277,75 +165,44 @@ R_{\rm leak}
 =
 \frac{\Gamma_E}{2h}
 \left[
-\frac\pi2
--
-\arctan\left(\frac{2\Delta}{\Gamma_E}\right)
+\frac\pi2-
+\arctan(2\Delta/\Gamma_E)
 \right].
 }
 ```
 
-For a one-pole lifetime bandwidth `B_evt=Gamma_E/h`, sharp-filter asymptotic:
+Sharp-filter one-pole asymptotic:
 
 ```math
-\boxed{
-R_{\rm leak}
-\simeq
-\frac{hB_{\rm evt}^2}{4\Delta}.
-}
+R_{\rm leak}\simeq hB_{\rm evt}^2/(4\Delta).
 ```
 
-**Status:** exact one-resonance model result; not universal once higher-order filters are admitted.
+### D5 — multipole tail / delay counterexample — DERIVED
 
----
-
-## 8. Multipole energy-filter result
-
-Canonical file: `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`.
-
-For
+For the stated Butterworth-type family,
 
 ```math
-\mathcal T_N(E)
-=
-\frac1{1+[2(E-E_0)/\Gamma_E]^{2N}},
-```
-
-sharp-stopband leakage is
-
-```math
-\boxed{
 R_N
 \simeq
-\frac{\Gamma_E}
-{2h(2N-1)}
-\left(
-\frac{\Gamma_E}{2\Delta}
-\right)^{2N-1}.
-}
+\frac{\Gamma_E}{2h(2N-1)}
+\left(\frac{\Gamma_E}{2\Delta}\right)^{2N-1},
 ```
 
-Minimum-phase Butterworth center group delay:
+while
 
 ```math
-\boxed{
 \tau_g(0)
-=
-\frac{2\hbar}{\Gamma_E}
-\csc\left(\frac{\pi}{2N}\right)
-\sim
-\frac{4N\hbar}{\pi\Gamma_E}.
-}
+=\frac{2\hbar}{\Gamma_E}
+\csc\left(\frac{\pi}{2N}\right).
 ```
 
-**Interpretation:** filter order is a real rejection resource, but it carries internal-state/delay cost. No universal delay-leakage theorem was established.
+Thus filter order is a rejection resource and FWHM alone is not speed.
 
 ---
 
-## 9. Fixed-thickness field-driven collection
+## 5. Fixed-thickness field-driven collection
 
-Canonical file: `FIELD_DRIVEN_COLLECTION_TUNNELING.md`.
-
-For one constant-velocity transit under the rectangular Ramo-pulse convention,
+For a constant-velocity transit,
 
 ```math
 \boxed{
@@ -356,145 +213,75 @@ c_t\simeq0.44295.
 }
 ```
 
-In the low-field drift model `v_d=mu F` and a generic Kane law
+In the low-field approximation `v_d=mu F` with generic Kane-type
 
 ```math
 J=A F^2e^{-F_K/F},
 ```
 
-### D6 — fixed-thickness transit/BTBT relation
+### D6 — fixed-thickness speed/BTBT relation — DERIVED / CONDITIONAL
 
 ```math
 \boxed{
 J(B_{\rm tr})
 =
-A
-\left(
-\frac{LB_{\rm tr}}
-{c_t\mu}
+A\left(
+\frac{LB_{\rm tr}}{c_t\mu}
 \right)^2
 \exp\left[-
-\frac{F_Kc_t\mu}
-{LB_{\rm tr}}
+\frac{F_Kc_t\mu}{LB_{\rm tr}}
 \right].
 }
 ```
 
-At fixed `L`, this is monotonic increasing in `B_tr`.
+Shrinking `L` is an explicit escape; this is not universal.
 
-**Scope:** low-field mobility model only. The branch explicitly records thinning `L` as a counterexample to universality.
-
----
-
-## 10. Small-`L` ballistic barrier audit
-
-Canonical file: `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`.
-
-For one rectangular barrier separating dark and useful carrier energies by `Delta E`, optimize barrier placement at fixed useful ballistic transit bandwidth.
-
-### D7 — optimized one-barrier exponent
-
-```math
-\boxed{
-\mathcal T_d
-\gtrsim
-\exp\left[-
-\frac{2c_t\Delta E}
-{\hbar B_{\rm tr}}
-\right].
-}
-```
-
-Equivalent inverse-transit-rate form:
-
-```math
-\mathcal T_d
-\gtrsim
-\exp[-2\Delta E/(\hbar\Omega_{\rm tr})].
-```
-
-The effective mass cancels in the ideal parabolic model.
-
-**Scope:** one barrier only. Multi-barrier/resonant structures are explicit counterexamples.
+Low-field `mu F` extrapolation into the HgCdTe high-field regime is forbidden.
 
 ---
 
-## 11. HgCdTe Kane scaling
-
-Canonical file: `HGCDTE_KANE_SCALE_AUDIT.md`.
+## 6. HgCdTe Kane / direct-BTBT normalization
 
 Using the simplified narrow-gap relation
 
 ```math
 E_g=2m_Kv_K^2,
+\qquad
+v_K\simeq1.07\times10^6\ {\rm m/s},
 ```
 
-with `v_K ~= 1.07e6 m/s`, and identifying the tunneling mass with `m_K` for a scaling audit:
+and identifying the BTBT mass with `m_K` only for this scaling model:
 
-### D8 — characteristic BTBT field
+### D7 — characteristic BTBT field — DERIVED / CONDITIONAL
 
 ```math
 \boxed{
 F_K
-\simeq
-\frac{\pi E_g^2}
-{4q\hbar v_K}
-=
-\frac{\pi^3\hbar c^2}
+=\frac{\pi E_g^2}{4q\hbar v_K}
+=\frac{\pi^3\hbar c^2}
 {qv_K\lambda_c^2}.
 }
 ```
 
-Hence
+Thus
 
 ```math
-\boxed{F_K\propto\lambda_c^{-2}.}
+F_K\propto\lambda_c^{-2}.
 ```
 
-### D9 — Kane length
+### D8 — Kane length — DERIVED
 
 ```math
 \boxed{
 \ell_K
 =\frac{\hbar v_K}{E_g}
-=\frac{v_K}{2\pi c}\lambda_c,
+=\frac{v_K}{2\pi c}\lambda_c.
 }
 ```
 
-so
+### D9 — normalized direct-BTBT shape — DERIVED / CHECKED
 
-```math
-\boxed{\ell_K\propto\lambda_c.}
-```
-
-**Status:** material scaling, not calibrated junction theory.
-
----
-
-## 12. Current canonical HgCdTe BTBT normalization
-
-Canonical file: `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`.
-
-Start from the published uniform-field HgCdTe BTBT form
-
-```math
-J_{\rm BTBT}
-=
-\frac{q^3\sqrt{2m^*}F V}
-{4\pi^3\hbar^2E_g^{1/2}}
-\exp\left[-
-\frac{\pi\sqrt{m^*}E_g^{3/2}}
-{2\sqrt2q\hbar F}
-\right].
-```
-
-With `V=FL` and the simplified Kane-mass substitution
-
-```math
-m^*=E_g/(2v_K^2),
-```
-
-### D10 — HgCdTe simplified BTBT law
+For a uniform region `V=FL`,
 
 ```math
 \boxed{
@@ -510,24 +297,10 @@ Define
 ```math
 x=F/F_K,
 \qquad
-j=J/J_K.
-```
-
-### D11 — universal normalized shape within this model
-
-```math
-\boxed{j=x^2e^{-1/x}.}
+j=J/J_K,
 ```
 
 with
-
-```math
-\boxed{
-F_K
-=\frac{\pi^3\hbar c^2}
-{qv_K\lambda_c^2},
-}
-```
 
 ```math
 \boxed{
@@ -537,97 +310,381 @@ J_K
 }
 ```
 
-Thus
+Then
 
 ```math
-F_K\propto\lambda_c^{-2},
-\qquad
-J_K\propto L\lambda_c^{-4}.
+\boxed{j=x^2e^{-1/x}.}
 ```
 
-### D12 — exact inversion
+Exact inversion:
 
 ```math
 \boxed{
-x(j)
-=\frac1{2W_0[1/(2\sqrt j)]}.
-}
-```
-
-Therefore
-
-```math
-\boxed{
-F_{\max}^{\rm BTBT}
-=
-\frac{F_K}
+F_J
+=\frac{F_K}
 {2W_0[\tfrac12\sqrt{J_K/J_*}]}.
 }
 ```
 
-**Status:** exact nondimensionalization after explicit simplifying substitutions; no novelty claim.
-
-Regression:
-
-```text
-numerics/hgcdte_btbt_normalized_sweep.py
-```
+**Status:** exact nondimensionalization after stated simplifying substitutions; no novelty claim.
 
 ---
 
-## 13. Critical caveat on speed conversion
+## 7. Field-regime crossover
 
-### H9 — using low-field `mu F` at the BTBT field ceiling — FORBIDDEN
+Write
 
-Primary 77 K Monte Carlo work on `Hg_0.8Cd_0.2Te` reports hot-electron/non-ohmic and impact-ionization behavior around `100 V/cm`.
+```math
+J_{\rm BTBT}
+=C L F^2
+\exp[-D/(F\lambda_c^2)],
+```
 
-The direct-BTBT-only field ceilings from the simplified model can be several `kV/cm`.
+where
 
-Therefore the next speed calculation must use a traceable high-field `v_d(F)` model:
+```math
+C=\frac{q^3}{4\pi^3\hbar^2v_K},
+\qquad
+D=\frac{\pi^3\hbar c^2}{qv_K}.
+```
+
+### D10 — exact crossover cutoff at a stated field/current budget — DERIVED / CHECKED
 
 ```math
 \boxed{
-B_{\rm tr,max}
+\lambda_\times
 =
-\frac{c_t}{L}
-\,v_d(F_{\max}^{\rm BTBT}).
+\left[
+\frac{D}
+{F_R\ln(CLF_R^2/J_*)}
+\right]^{1/2}.
 }
 ```
 
-Do not invent a generic saturation law merely to complete a plot.
+For `L=1 um`, `J*=1e-12 A/cm2`, the simplified model gives
+
+```text
+F_R=100 V/cm  -> lambda_x~74.4 um
+F_R=500 V/cm  -> lambda_x~31.7 um
+F_R=1 kV/cm   -> lambda_x~22.0 um.
+```
+
+This demonstrates that ordinary 8–14 um direct BTBT is still exponentially closed across much of the non-ohmic transport regime in this stripped model.
+
+### D11 — local marginal field-cost identity — DERIVED
+
+```math
+\boxed{
+\frac{d\ln J_{\rm BTBT}}
+{d\ln F}
+=2+\frac{F_K}{F}.
+}
+```
+
+For
+
+```math
+s_v=d\ln v/d\ln F,
+```
+
+```math
+\boxed{
+\frac{d\ln J_{\rm BTBT}}
+{d\ln B_{\rm tr}}
+=\frac{2+F_K/F}{s_v(F)}.
+}
+```
+
+As `s_v -> 0+`, field becomes an inefficient way to buy additional transit speed even if absolute BTBT remains small.
 
 ---
 
-## 14. Explicit non-claims
+## 8. Finite impact-ionization dead space
 
-Do not claim
+Let
 
-- a universal photodetector sensitivity-speed theorem;
+```math
+E_{\rm th}=\chi E_g.
+```
+
+### D12 — cold-injection field-work threshold — DERIVED / CONDITIONAL
+
+```math
+\boxed{
+F_{\rm dead}
+\simeq
+\frac{\chi E_g}{qL}.
+}
+```
+
+This is a cold-injection field-work estimate, not a universal stochastic onset field.
+
+### D13 — dead-space / Kane-scale relation — DERIVED
+
+```math
+\boxed{
+\frac{F_{\rm dead}}{F_K}
+=
+\frac{4\chi}{\pi}
+\frac{\ell_K}{L}.
+}
+```
+
+### D14 — normalized direct BTBT at the dead-space scale — DERIVED
+
+```math
+\boxed{
+j_{\rm dead}
+=
+\left(
+\frac{4\chi\ell_K}{\pi L}
+\right)^2
+\exp\left[-
+\frac{\pi L}{4\chi\ell_K}
+\right].
+}
+```
+
+For `L >> ell_K`, this is exponentially small.
+
+This gives a cleaner reason why finite impact-ionization accessibility can precede strong direct BTBT than simply comparing a bulk `100 V/cm` onset against a BTBT field table.
+
+---
+
+## 9. Nonlocal mean-energy surrogate
+
+### D15 — effective acceleration length — DERIVED
+
+For
+
+```math
+\dot\varepsilon
+=qFv-\varepsilon/\tau_E,
+```
+
+with
+
+```math
+\ell_E=v\tau_E,
+```
+
+```math
+\boxed{
+L_{\rm eff}
+=\ell_E(1-e^{-L/\ell_E}),
+}
+```
+
+and
+
+```math
+\boxed{
+\varepsilon(L)=qF L_{\rm eff}.
+}
+```
+
+### D16 — mean threshold field — DERIVED / CONDITIONAL
+
+```math
+\boxed{
+F_{\rm th}^{(\rm mean)}
+=\frac{\Delta E_{\rm th}}
+{qL_{\rm eff}}.
+}
+```
+
+For cold injection, `E_th=chi E_g`:
+
+```math
+\boxed{
+\frac{F_{\rm th}^{(\rm mean)}}{F_K}
+=\frac{4\chi}{\pi}
+\frac{\ell_K}{L_{\rm eff}}.
+}
+```
+
+Limits:
+
+```text
+L << ell_E -> finite ballistic dead space
+L >> ell_E -> bulk-like energy-relaxation limit.
+```
+
+This is a mean-trajectory criterion, not a true stochastic II onset; a high-energy distribution tail can ionize while the mean remains below threshold.
+
+---
+
+## 10. First closed nonlocal II probability surrogate
+
+Prior HgCdTe APD models use
+
+```math
+\Gamma_{\rm II}(E)
+=A
+\frac{(E/E_{\rm th}-1)^\alpha}
+{(E/E_{\rm th})^\beta}
+```
+
+above threshold.
+
+For the analytic test case
+
+```math
+\alpha=1,
+\qquad
+\beta=0,
+```
+
+let
+
+```math
+E_{\rm ss}=qF\ell_E,
+\qquad
+T=L/v.
+```
+
+If `E_ss > E_th`,
+
+```math
+\boxed{
+t_d
+=\tau_E
+\ln\left[
+\frac{E_{\rm ss}}
+{E_{\rm ss}-E_{\rm th}}
+\right].
+}
+```
+
+For `T > t_d`,
+
+```math
+\boxed{
+\Xi_{\rm II}
+=
+\frac{A}{E_{\rm th}}
+\left\{
+(E_{\rm ss}-E_{\rm th})(T-t_d)
++E_{\rm ss}\tau_E
+[e^{-T/\tau_E}-e^{-t_d/\tau_E}]
+\right\},
+}
+```
+
+```math
+\boxed{
+P_{\rm II}=1-e^{-\Xi_{\rm II}}.
+}
+```
+
+### D17 — dimensionless collapse — DERIVED / CHECKED
+
+Define
+
+```math
+\theta=qF\ell_E/E_{\rm th},
+\qquad
+\ell=L/\ell_E,
+\qquad
+a=A\tau_E.
+```
+
+The mean trajectory reaches threshold before exit iff
+
+```math
+\boxed{
+\theta(1-e^{-\ell})>1.
+}
+```
+
+The analytic test-case probability becomes
+
+```math
+\boxed{
+P_{\rm II}=1-e^{-aH(\theta,\ell)}.
+}
+```
+
+The closed hazard was independently checked by direct numerical time integration.
+
+**Status:** analytic surrogate only. The target-composition calibration of `tau_E(F)` and `A,alpha,beta` remains OPEN.
+
+---
+
+## 11. Established external HgCdTe facts used now
+
+### K1 — KNOWN
+
+Primary Monte Carlo work specifically for `Hg_0.8Cd_0.2Te` at 77 K calculates drift velocity, mean energy, impact-ionization rate, velocity relaxation and energy relaxation, and reports hot-electron / II physics at fields of order `10^2 V/cm` in bulk.
+
+### K2 — KNOWN
+
+The same literature states that analytical interpolation formulas were provided, but the currently accessible primary-source text does not expose the coefficients required for direct reuse.
+
+### K3 — KNOWN
+
+Modern HgCdTe APD modeling evaluates II probability from carrier energy history; dead-space / history-dependent treatment is established and necessary in thin multiplication regions.
+
+### K4 — KNOWN
+
+A steady-state electron velocity scale of order `5e5 m/s` is consistent with target-composition high-field transport studies; submicron transient overshoot can be larger and must not be substituted as universal steady-state drift.
+
+---
+
+## 12. Current open quantities
+
+### O1 — OPEN
+
+Target `Hg_0.8Cd_0.2Te`, 77 K energy-relaxation law
+
+```text
+tau_E(F)
+or
+ell_E(F).
+```
+
+### O2 — OPEN
+
+Target energy-dependent impact-ionization rate
+
+```text
+Gamma_II(E)
+```
+
+or calibrated `A,alpha,beta` suitable for the target composition/temperature.
+
+### O3 — OPEN
+
+Trap-assisted tunneling field/current relation for the same geometry and defect assumptions.
+
+### O4 — OPEN
+
+Full detector speed after combining transit with lifetime, diffusion, contacts, RC, readout, etc.
+
+---
+
+## 13. Explicit non-claims
+
+Do **not** claim
+
+- a universal photodetector limit;
 - a universal HgCdTe speed-dark-current theorem;
-- that direct BTBT is always the first practical dark-current limiter;
-- that the simplified Kane tunneling mass is quantitatively exact at every cutoff;
-- that `E_g=hc/lambda_c` is a precision bandgap model;
-- that `v_K` is the drift saturation velocity;
-- that the direct-BTBT-only field table is a safe operating-field table;
-- novelty of the normalized `j=x^2 exp(-1/x)` collapse;
+- that `100 V/cm` is the II ceiling of a `1 um` detector;
+- that the mean-energy surrogate reproduces the stochastic high-energy tail;
+- that `E_th=E_g` is exact for every HgCdTe composition;
+- that direct BTBT is negligible in every LWIR junction geometry;
+- that BTBT is always secondary to II/TAT;
+- a complete HgCdTe dark-current model;
+- novelty of the dead-space or nonlocal surrogate ingredients;
 - readiness for a manuscript.
 
 ---
 
-## 15. Current promotion criterion
+## 14. Current promotion criterion
 
-The next result can be promoted only after a traceable high-field velocity model is coupled to the normalized BTBT inversion.
+The next material result should either
 
-Required sequence:
+1. calibrate the nonlocal surrogate from primary `x=0.20`, 77 K transport/II data; or
+2. prove that the device-level mechanism ordering is insensitive over a physically defensible range of `ell_E` and `A tau_E`.
 
-1. obtain primary-source `v_d(F)` coefficients/curve for a specified HgCdTe composition, carrier density and temperature;
-2. compute `F_max(J_*,lambda_c,L)`;
-3. compute
-
-```math
-B_{\rm tr,max}=c_t v_d(F_{\max})/L;
-```
-
-4. identify whether hot-carrier/impact-ionization physics intervenes before the direct-BTBT target is reached;
-5. only then add TAT/SRH and compare with real detector data;
-6. perform a focused prior-art search on any resulting normalized frontier before novelty language.
+Only then add TAT and compare the diode-like field problem with HgCdTe photoconductors, where lifetime/gain may replace transit as the dominant speed physics.
