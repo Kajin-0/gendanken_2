@@ -241,14 +241,138 @@ The main decay-rate result and the `gamma_e/gamma_a = 2` optimization were unaff
 
 The cavity question is now sufficiently answered for this stage.
 
-The bottleneck has moved.
+The bottleneck moved to whether active material volume itself constrains `gamma_a`.
 
-The active question is no longer simply whether a weak critically coupled absorber becomes slow. It does in this model.
+---
 
-The next question is:
+## 2026-08-08 — Active-volume-only bound falsified in the continuum model
 
-> Can passive electromagnetic design make `gamma_a/V` diverge as active volume tends to zero while preserving a physical input channel and material model?
+### Counterexample search succeeded
 
-That question attacks the assumption on which the apparent volume cancellation rests.
+The next branch deliberately tried to defeat the assumption
 
-Do not add material-specific carrier transport until this electromagnetic question is understood.
+```math
+\gamma_a\propto V_a.
+```
+
+An explicit family of ideal dielectric capacitors does so.
+
+Take a parallel-plate capacitor filled by the active dielectric and scale
+
+```math
+d=s d_0,
+\qquad
+A=s A_0,
+\qquad
+s\to0.
+```
+
+Then
+
+```math
+C=\frac{\epsilon_0\epsilon' A}{d}=C_0
+```
+
+stays fixed while
+
+```math
+V_a=Ad\propto s^2\to0.
+```
+
+For fixed resonant modal energy, the capacitor voltage remains fixed and therefore
+
+```math
+|E|^2\propto d^{-2}\propto s^{-2}.
+```
+
+Hence
+
+```math
+|E|^2V_a=\text{constant}.
+```
+
+For fixed dielectric loss tangent and finite electric-energy participation,
+
+```math
+\gamma_a
+=
+\frac{\omega}{2}p_a\tan\delta
+```
+
+stays finite while `V_a -> 0`.
+
+Thus
+
+```math
+\boxed{\gamma_a/V_a\to\infty.}
+```
+
+The detailed derivation is in `ACTIVE_VOLUME_COUNTEREXAMPLE.md`.
+
+### What failed
+
+The conjecture that passivity alone should keep `gamma_a/V_a` bounded is false under ideal local linear continuum electrodynamics when arbitrary lossless field concentration is allowed.
+
+The earlier conditional volume cancellation remains algebraically correct only in scaling families where `gamma_a proportional to V_a` actually holds.
+
+The provisional active-volume-only law
+
+```text
+eta^2 B <= C V_a
+```
+
+is therefore no longer an active target.
+
+### Why established material bounds do not contradict the counterexample
+
+Primary electromagnetic-limit work such as Miller et al. bounds absorption for a specified material susceptibility and specified background excitation. If a separate field concentrator is allowed to reshape the background field, then the local field at the shrinking active material can itself increase as volume falls.
+
+Thus a per-volume material-response bound is not automatically an active-volume-only detector bound.
+
+The resource accounting must include the electromagnetic environment or a more microscopic material quantity.
+
+### Toy detector consequence exposes the model breakdown
+
+If the old continuum dark-event law
+
+```math
+D=g_dV_a
+```
+
+is retained simultaneously with the fixed-`gamma_a` capacitor family, then
+
+```math
+\mathcal C_{\max}\propto V_a^{-1/2}.
+```
+
+The resulting divergence is not interpreted as infinite physical detector performance. It is a diagnostic that the continuum electromagnetic model and the extensive dark-event model cannot both be extrapolated to arbitrarily small active volume.
+
+### Microscopic physics becomes unavoidable
+
+For fixed modal energy the field grows as the gap shrinks. For a one-photon excitation, the available energy scale is fixed by `hbar omega`, so the single-photon field also grows rather than being rescaled away.
+
+Eventually the following continuum assumptions fail:
+
+- linear material response;
+- local bulk susceptibility;
+- thermodynamic extensivity of dark events;
+- an arbitrarily large number of microscopic absorbers inside `V_a`;
+- ideal lossless field concentration.
+
+### Important prior-art collision
+
+Young, Sarovar & Léonard, *Physical Review A* 97, 033836 (2018), developed a fully quantum single-photon detector model in which rapid incoherent transfer to an optically dark monitored state can, under their ideal assumptions, simultaneously approach unit efficiency, negligible dark counts, and minimal jitter.
+
+That result is important because it warns against assuming that quantum mechanics alone supplies a universal efficiency-dark-count-speed tradeoff. Architecture and thermodynamic resource accounting matter.
+
+It does not solve the active-volume problem studied here.
+
+### Direction change
+
+The active question is now microscopic rather than geometric:
+
+> What physical resource cannot be concentrated away when the active material approaches a finite number of absorbers?
+
+Candidate resources include oscillator number, total oscillator strength, transition dipole moment, single-photon saturation, nonlocal/atomic length scales, and thermodynamic free-energy/reset resources.
+
+The next calculation should use a finite microscopic absorber model and should separately test the restricted passive-equilibrium case, where detailed balance has a chance to produce a real bound.
