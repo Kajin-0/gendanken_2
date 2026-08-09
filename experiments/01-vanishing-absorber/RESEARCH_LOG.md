@@ -2,367 +2,481 @@
 
 Chronological recovery log. Dedicated derivation files preserve the full algebra; this file records **why the direction changed**.
 
+---
+
 ## 2026-08-08 — Experiment opened
 
 Starting question:
 
-> Can an ideal photodetector be made arbitrarily small, fast, sensitive, and perfectly absorbing?
+> Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
 
-No theorem was assumed.
+Initial intuition:
+
+```text
+smaller active volume
+-> fewer bulk dark events
+
+passive optical confinement
+-> recover absorption
+
+possible cost
+-> increased optical dwell time / reduced response bandwidth.
+```
+
+The project explicitly refused to assume that a volume-based theorem existed.
+
+---
 
 ## One-port resonator
 
-Unity resonant absorption survived for arbitrarily weak absorber loss only by narrowing temporal response. This established the first penalty migration but only in a single-resonance model.
+The first exact model showed that a weak absorber can retain unity resonant absorption at critical coupling while its useful temporal response narrows as absorber loss decreases.
 
-## Active-volume route killed
+A factor-of-two distinction was established between spectral absorption FWHM and small-signal absorbed-power response bandwidth.
 
-A shrinking-gap field-concentration counterexample kept finite optical participation while `V_a -> 0`.
+A toy bulk-dark-event sensitivity-speed metric was optimized at modest overcoupling rather than exact critical coupling.
 
-**Direction change:** geometric active volume is not the fundamental optical resource.
+Direction: ask whether absorber loss rate must scale with active volume.
 
-## Microscopic optical chain
+---
 
-Finite absorber number did not impose a one-photon speed ceiling. LDOS/emitter-size bounds eventually ran into the breakdown of weak-coupling Purcell theory.
+## Active-volume theorem falsified
 
-**Direction:** treat light and matter nonperturbatively.
+A shrinking-gap passive dielectric family retained finite energy participation and finite absorptive decay while active volume tended to zero.
+
+Therefore geometric active volume alone is not a universal optical resource.
+
+Direction: replace geometric volume with microscopic transition resources.
+
+---
+
+## Microscopic transition / LDOS / finite-emitter branch
+
+Finite absorber number did not impose a one-photon speed ceiling because the one-excitation sector remained linear.
+
+Bandwidth-averaged LDOS bounds gave useful conditional constraints, but point-dipole divergences required finite emitter extent and weak-coupling formulas eventually failed as the formal rate approached the optical frequency.
+
+Direction: move to nonperturbative light-matter coupling.
+
+---
 
 ## Hopfield / deep-strong branch
 
-A fixed-target Hopfield calculation showed that extreme internal coupling can collapse at least one required external access. Scaling external reservoirs can compensate, but spends a new resource.
+A gauge-consistent two-mode model reproduced established deep-strong light-matter decoupling.
 
-Deep-strong decoupling itself is known prior physics. Exact fixed-target corollary retained only as **candidate distinct supporting lemma; priority unproven**.
+Holding a dressed mode at a fixed detector frequency while taking internal coupling large gave the supporting result
 
-## Passive multimode theorem
+```math
+\min(\Gamma_L,\Gamma_R)\to0
+```
 
-Mode proliferation killed single-resonance bandwidth reasoning but led to a stronger aggregate quantity.
+for fixed local reservoir resources.
 
-For finite passive strictly proper optical-to-detector networks,
+Reservoir strengthening can evade the collapse but then becomes an explicit new resource.
+
+Direction: test arbitrary multimode passive networks.
+
+---
+
+## Finite passive multimode theorem
+
+The optical-to-detector transfer area was written as an `H2` norm.
+
+A preliminary bound
+
+```math
+\mathcal I\le2\min(L,R)
+```
+
+was superseded by the sharper exact harmonic form
 
 ```math
 \boxed{
-\mathcal I_{L\to R}
+\mathcal I
 \le
 \frac{2LR}{L+R}.
 }
 ```
 
-A matched single resonance saturates the bound.
+A single resonance saturates it.
 
-`H_2`/Lyapunov/passivity ingredients are standard; novelty not claimed.
+This made **external access** a more robust resource than internal mode count.
 
-## Feedthrough / continua / autonomous-detector collisions
+Direct feedthrough and structured-continuum audits then showed the precise scope of the finite-network theorem.
 
-Ideal direct feedthrough imports infinite Markov bandwidth. Finite passive augmented structured reservoirs retain the harmonic bound.
+---
 
-Major prior-art collisions:
+## Optical access + autonomous detector thermodynamics
 
-- Young, Sarovar & Leonard (2018): incoming quantum field + absorption + amplification + efficiency/dark-count/timing framework.
-- Schwarzhans et al. (2026): autonomous detector thermodynamics, work/reset, dark counts, jitter/dead time, entropy production.
+Prior-art collisions narrowed the problem sharply.
 
-**Decision:** do not reinvent generic capture/amplification or autonomous detector thermodynamics.
+Young, Sarovar & Leonard (2018) already treat incoming few-photon fields, absorption, amplification, efficiency, dark counts, and timing.
 
-## Active conversion / time-dependent capture
+Schwarzhans et al. (2026) already treat autonomous detector work/reset, entropy production, internal dark counts, jitter, and dead time.
 
-Pumped conversion exposed pump/control resources. Known-time dynamic loading can perfectly match one temporal mode but requires controlled coupling and fails as an always-on solution when arrival time is unknown.
+The repository therefore did not claim generic capture+amplification or generic detector thermodynamics as new.
 
-Adaptive control moves capacity into measurement/output record dimensions. An unrestricted output continuum exports that distinguishability.
+A three-level testbed was used only to understand how optical capture, readiness, click events, and thermodynamic cycle current differ.
 
-**Decision:** stop stacking abstract detector-resource coordinates and return to actual semiconductor physics.
+Publication audit verdict:
 
-## Fermi-contact extraction
+> continue research; do not write a manuscript yet.
 
-Sequential tunneling made extraction and reverse thermal loading explicit through Fermi detailed balance.
+---
 
-Finite linewidth then showed that even at `T=0`, a broadened collecting state can overlap occupied states.
+## Active frequency conversion / time-dependent capture
 
-## Multipole filter counterexample
+Pumped frequency converters showed that active control can buy bandwidth, but architecture-specific `W^2` pump scaling was not universal.
 
-Higher-order filters suppress leakage tails much faster at fixed FWHM, but add group/Wigner delay and state count.
+A singular-value formulation showed that pump photons purchase finite conversion-channel strength, with the device coupling operator remaining another resource.
 
-**Correction:** spectral FWHM is not architecture-independent carrier speed.
+Time-dependent impedance matching can capture one known temporal mode efficiently, but unknown arrival time reintroduced storage/output mode capacity.
 
-## HgCdTe field-driven collection
+Adaptive feedforward then showed that the missing rank can be exported into the measurement/output record.
 
-Transit contribution:
+An unrestricted output continuum therefore defeats a universal finite detector-only space-time capacity theorem.
 
-```math
-B_{\rm tr}=c_t v/L,
-\qquad c_t\simeq0.44295.
-```
+Direction: stop adding abstract resource coordinates and return to a real semiconductor detector.
 
-Low-field `v=mu F` could not be extrapolated into high field.
+---
 
-## HgCdTe Kane / direct-BTBT normalization
+## Semiconductor contact / energy-filter branch
 
-Using a published direct-BTBT expression plus simplified Kane mass relation:
+A Fermi contact established the expected detailed-balance relation between extraction and reverse thermal loading.
 
-```math
-\boxed{j=x^2e^{-1/x},}
-```
+A single resonant energy filter added lifetime-broadening leakage even at zero temperature, but a multipole filter showed that spectral FWHM is not a universal transport-speed variable: sharper tails can be bought with more internal delay/state weight.
 
-with
+Direction: use actual narrow-gap semiconductor field-driven collection.
 
-```math
-x=F/F_K,
-```
+---
+
+## HgCdTe direct-BTBT normalization
+
+A standard HgCdTe direct-tunneling expression combined with the simplified Kane relation gave
 
 ```math
-F_K\propto\lambda_c^{-2},
+j=x^2e^{-1/x},
 ```
+
+with field scale
+
+```math
+F_K\propto\lambda_c^{-2}
+```
+
+and current scale
 
 ```math
 J_K\propto L\lambda_c^{-4}.
 ```
 
-An exact Lambert-W field inversion was obtained for a stated BTBT current budget.
+This clean normalization separated tunneling from high-field transport.
 
-## Bulk high-field onset corrected by finite dead space
+Primary HgCdTe work made clear that low-field mobility cannot be extrapolated into the relevant high-field regime; velocity can become non-ohmic, saturate, or decrease.
 
-Bulk `Hg_0.8Cd_0.2Te`, 77 K Monte Carlo work shows non-ohmic/hot-electron/II activity at fields of order `10^2 V/cm`.
+Direction: treat TAT and nonlocal impact ionization explicitly rather than assuming direct BTBT is first.
 
-This was initially in danger of being misread as a finite-device II threshold.
+---
 
-Correction:
+## TAT and nonlocal II
 
-```math
-\boxed{
-F_{\rm dead}\simeq\chi E_g/(qL),
-}
-```
+A standard trap-assisted-tunneling exponent showed why shallow traps can activate leakage at fields far below the direct-BTBT scale.
 
-and
+A finite dead-space / energy-relaxation surrogate was developed for impact ionization:
 
 ```math
-\boxed{
-F_{\rm dead}/F_K
-=(4\chi/\pi)(\ell_K/L).
-}
-```
-
-Finite II probability is nonlocal and depends on carrier energy history.
-
-## Nonlocal mean-energy surrogate
-
-A one-relaxation-time energy model gave
-
-```math
-\boxed{
 L_{\rm eff}
-=\ell_E(1-e^{-L/\ell_E}),
+=\ell_E(1-e^{-L/\ell_E}).
+```
+
+This replaced a bulk field-onset statement with carrier energy history.
+
+The missing quantitative input became a calibrated energy-relaxation and energy-dependent II model for the target HgCdTe composition near 77 K.
+
+---
+
+## Homogeneous field-profile theorem
+
+For the stated homogeneous drift and local WKB leakage models, field shaping alone could not beat the speed–leakage trade at fixed transit time.
+
+Uniform field was the optimum.
+
+This was an important negative result:
+
+> nonuniform electric field is not automatically beneficial; a real escape requires material heterogeneity.
+
+Direction: allocate field across heterogeneous regions.
+
+---
+
+## Heterostructure allocation
+
+A variational condition showed that a heterogeneous detector should place field until each region has the same marginal leakage cost per marginal transit-time improvement.
+
+A separate voltage–transit inequality made bias an independent resource.
+
+Direction: ask whether composition grading can change the Hamiltonian itself rather than merely move the electrostatic field.
+
+---
+
+## Graded-band HgCdTe — direct-Zener escape
+
+A two-band/Kane linear-edge model was solved exactly.
+
+At fixed conduction-band downhill slope, replacing common electrostatic tilt with a decreasing gap increased the direct-Zener WKB action.
+
+The decisive geometry was rewritten without relying on a symmetric band-offset assumption:
+
+```math
+S_v=S_c-G,
+```
+
+where
+
+```math
+G=-dE_g/dx.
+```
+
+Defining
+
+```math
+\delta=G/S_c,
+```
+
+the exact linear-profile action ratio became
+
+```math
+\boxed{
+\frac{\mathcal S_Z(\delta)}
+{\mathcal S_Z(0)}
+=
+\frac{(2-\delta)^2}
+{4(1-\delta)^{3/2}}.
 }
 ```
 
-and
+It diverges as `delta -> 1-`.
+
+This was a genuine direction change: composition grading can preserve useful conduction drive while removing the relative band geometry that enables the ordinary direct-Zener path.
+
+---
+
+## Self-consistent electrostatics — quasi-neutral majority-band pinning
+
+A uniformly depleted multi-micron graded layer produced an unrealistic `N_eff L^2` Poisson burden.
+
+The correct interior picture became quasi neutral.
+
+For p-type material,
 
 ```math
-F_{\rm th}^{(\rm mean)}
-=\Delta E_{\rm th}/(qL_{\rm eff}).
+\frac{dE_v}{dx}
+\simeq
+k_BT\frac{d}{dx}\ln(N_A/N_v).
 ```
 
-For an analytic energy-dependent II-rate test case, a closed hazard `P_II=1-e^{-Xi}` was derived and numerically checked.
-
-## Relaxation-length phase boundary
-
-Instead of demanding a full unknown `tau_E(F)` interpolation, the project solved for the critical relaxation length at which mean-II threshold and a chosen BTBT budget exchange order:
+For nearly constant `N_A/N_v`,
 
 ```math
-\frac{1-e^{-y_*}}{y_*}=r,
+E_v\approx\text{constant},
+```
+
+and therefore
+
+```math
+S_c\approx G.
+```
+
+So self-consistent equilibrium can naturally approach the favorable direct-Zener geometry rather than destroying it.
+
+Direction: find where the unavoidable electrostatic penalty reappears.
+
+---
+
+## Collection boundary — voltage and local tunneling
+
+A wider-gap collection transition can remain barrier free for minority electrons only if
+
+```math
+qV_b\ge\alpha\Delta E_g^{(b)}.
+```
+
+Any one-sign field over width `w` obeys
+
+```math
+F_{\max}\ge V_b/w.
+```
+
+Delta doping or depletion shaping cannot remove that integral electrostatic requirement.
+
+A TAT width/delay criterion followed immediately.
+
+Measured/fitted HgCdTe trap spectra showed that the boundary is not automatically doomed, but shallow interface states can be much more dangerous than geometrical delay.
+
+---
+
+## Local tunneling field allocation
+
+For a fixed boundary voltage and a local TAT tolerance field `F_T(x)`, the exact maximin profile is
+
+```math
+F_{\rm opt}(x)\propto F_T(x).
+```
+
+For several **local** inverse-field tunneling mechanisms, define
+
+```math
+F_{\rm allow}(x)
+=\min_m F_m(x)/\Sigma_m.
+```
+
+Then
+
+```math
+V_b\le\int F_{\rm allow}(x)dx
+```
+
+is the exact one-dimensional feasibility condition.
+
+This established a useful local-tunneling **voltage capacity** of the boundary.
+
+At this point the earlier suggestion of placing a generic local `F_II(x)` inside the same envelope was recognized as wrong in the nonlocal thin-device regime.
+
+---
+
+## 2026-08-09 — Graded nonlocal carrier-energy phase boundary
+
+The mean carrier-energy equation was generalized from homogeneous field to an arbitrary conduction-band landscape:
+
+```math
+\boxed{
+\frac{d\varepsilon}{dx}
+=S_c(x)-\frac{\varepsilon}{\ell_E(x)}.
+}
+```
+
+Thus hot-electron energy depends on the **total conduction-band slope**, not on whether the slope came from electrostatic potential or composition grading.
+
+This exposed the next penalty migration:
+
+> grading can suppress direct-Zener overlap while leaving hot-electron energy input intact.
+
+For the favorable quasi-neutral linear graded absorber
+
+```math
+E_g=E_{g0}-Gx,
 \qquad
-r=F_{\rm dead}/F_J,
+S_c=G,
 ```
+
+and constant `ell_E`,
 
 ```math
-\boxed{
-y_*=1/r+W_0[-r^{-1}e^{-1/r}].}
+\varepsilon(L)
+=\Delta E_g
+\frac{1-e^{-L/\ell_E}}
+{L/\ell_E}.
 ```
-
-For ordinary LWIR examples, the critical `tau_E` lies in the sub-ps/few-ps regime.
-
-Primary data do not currently justify assigning the target high-field value exactly.
-
-## TAT becomes the more realistic early tunneling channel
-
-A simple HgCdTe TAT exponent gives
-
-```math
-\boxed{
-F_{\rm TAT}/F_K
-=\frac{16}{3\pi}(\Delta_t/E_g)^{3/2}.
-}
-```
-
-Near-band-edge traps can therefore reduce the tunneling exponent field by orders of magnitude relative to direct BTBT.
-
-Measured/fitted LWIR HgCdTe studies report technologically realistic TAT trap densities around `10^13–10^14 cm^-3` in some devices.
-
-A TAT/BTBT current ratio and crossover trap-density condition were derived.
-
-**Direction:** treat field allocation as a materials-quality problem, not a single intrinsic BTBT ceiling.
-
-## Homogeneous field-shaping attack
-
-Could a nonuniform `F(x)` give the same transit time with less local WKB leakage?
-
-For
-
-```math
-v(F)=\mu F/[1+(F/d)^r],
-```
-
-and
-
-```math
-g(F)=AF^pe^{-K/F},
-```
-
-leakage is strictly convex as a function of reciprocal velocity over the rising branch; the falling branch is dominated.
-
-Therefore
-
-```math
-\boxed{G[F]\ge Lg(F_0)}
-```
-
-at fixed transit time, with equality only for uniform field.
-
-**Direction change:** field shaping alone is not the escape; heterogeneity is.
-
-## Two-region heterostructure allocation
-
-For spatially varying local laws, the optimum satisfies
-
-```math
-\boxed{
--\frac{\partial g/\partial F}
-{\partial(1/v)/\partial F}
-=\lambda.
-}
-```
-
-Interpretation:
-
-> Put field where the local material buys the most transit improvement per unit leakage cost.
-
-A dimensionless two-region example lowered modeled leakage by ~20.6% at the same transit time.
-
-## Voltage cost of redistribution
-
-For ohmic spatial transport,
-
-```math
-\boxed{
-VT
-\ge
-\left[\int dx/\sqrt{\mu(x)}\right]^2.
-}
-```
-
-The same two-region example required only ~2.2% extra bias for the ~20.6% leakage reduction.
-
-Thus heterostructure field protection consumes voltage but can have exponential leakage leverage.
-
-## Bandgap-gradient escape
-
-Composition grading changes the Hamiltonian rather than merely redistributing one field variable.
 
 Using
 
 ```math
-H=U I+v_Kp\sigma_x+\Delta\sigma_z,
+E_{\rm th}=\chi E_g,
 ```
 
+define
+
 ```math
-E_c=U+\Delta,
+\zeta=\Delta E_g/E_{g0},
 \qquad
-E_v=U-\Delta,
+r=L/\ell_E.
 ```
 
-a gap gradient can slope the conduction band while pulling the valence edge in the opposite direction.
-
-This suggested a genuine escape from the homogeneous electrostatic speed–Zener tradeoff.
-
-Primary HgCdTe work confirms composition-gradient built-in/quasi-electric carrier-driving fields are real and technologically used.
-
-## 2026-08-09 — Exact linear graded-gap Kane WKB result
-
-For linear band edges
-
-```math
-E_c=E_{c0}-S_cx,
-```
-
-```math
-E_v=E_{v0}-S_vx,
-```
-
-the forbidden-region WKB action integrates exactly:
+The exact mean-energy threshold boundary is
 
 ```math
 \boxed{
-\mathcal S(E)
-=\frac{\pi\sqrt{S_cS_v}}
-{4\hbar v_K}(x_c-x_v)^2.
+\zeta_{\rm II}
+=
+\frac{\chi}
+{\chi+(1-e^{-r})/r}.
 }
 ```
 
-The constant-gap/common-field limit recovers the previous Kane exponent.
-
-Decompose
-
-```math
-S_c=S_U+S_\Delta,
-\qquad
-S_v=S_U-S_\Delta.
-```
-
-Hold useful conduction slope `S_c=S` fixed and define
-
-```math
-\eta=S_\Delta/S.
-```
-
-For `0<=eta<1/2`,
+In the ballistic limit,
 
 ```math
 \boxed{
-\frac{\mathcal S_Z(\eta)}
-{\mathcal S_Z(0)}
-=\frac{(1-\eta)^2}
-{(1-2\eta)^{3/2}}.
+\zeta_{\rm II}\to\chi/(1+\chi).
 }
 ```
 
-This is strictly increasing.
+For `chi=1`, the electron reaches mean II threshold after roughly one-half of the entrance gap has been removed.
 
-As `eta -> 1/2-`, the valence turning point recedes and the action diverges. For stronger grading, if the finite region remains positive-gap and terminates before gap closure, that conventional two-turning-point direct-Zener path is absent inside the ideal model.
+A deterministic numerical regression confirmed the phase boundary.
 
-A direct numerical WKB integration reproduces the closed formula.
+---
 
-### Prior-art status
+## Graded absorber + wide-gap relaxation boundary
 
-Graded HgCdTe, WKB graded-gap analysis, Kane/Zener tunneling and analytical heterojunction band profiles are established prior work.
+The collection boundary was then combined with the nonlocal energy state.
 
-A focused search did **not** locate this exact fixed-conduction-slope ratio.
+At minimum barrier-free compensation,
 
-Verdict:
+```math
+qV_b=\alpha\Delta E_g^{(b)},
+```
 
-> **exact internally derived linear-profile WKB corollary; priority unassessed; no novelty claim.**
+the net conduction-edge step is zero:
 
-## Current direction
+```math
+\Delta E_c^{(b)}=0.
+```
 
-The next attack is self-consistent and finite:
+Therefore the boundary adds no downhill conduction-band work.
+
+The carrier energy relaxes while the local gap and approximate II threshold rise:
+
+```math
+\varepsilon_b(s)
+=\varepsilon_a e^{-s/\ell_{E,b}}.
+```
+
+Consequently, if the electron enters below the mean II threshold, the minimally compensated monotonic wider-gap boundary cannot create a new mean-threshold crossing in this model.
+
+This produced a clean architecture-level division of labor:
 
 ```text
-realistic HgCdTe composition profile
-+
-band-offset partition
-+
-Poisson electrostatics
--> full Ec(x), Ev(x)
--> transit
--> direct WKB
--> TAT/interface states
--> nonlocal II.
+quasi-neutral graded absorber
+-> carrier drive
+-> direct-Zener suppression
+-> nonlocal hot-electron constraint
+
+wide-gap collection boundary
+-> unavoidable electrostatic voltage
+-> TAT/BTBT field allocation
+-> hot-electron relaxation at minimum compensation.
 ```
 
-Do not return to a uniform-field detector estimate or open a manuscript yet.
+Overcompensation is now recognized as an explicit extra speed resource: it can add boundary acceleration but simultaneously increases field-assisted leakage stress and carrier heating.
+
+---
+
+## Current frontier
+
+The next task is not another abstract theorem.
+
+Build a finite graded-absorber + collection-boundary **phase map** that evaluates simultaneously
+
+```text
+transit time
++
+local TAT/BTBT margin
++
+nonlocal carrier-energy / II margin.
+```
+
+Use a parameter sweep over energy-relaxation length until target-composition HgCdTe data are recovered.
+
+Do not use low-field mobility as the high-field velocity model.
+
+Do not write a manuscript yet.
