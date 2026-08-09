@@ -1,104 +1,100 @@
-# HgCdTe Spectral Timing Two-Moment Inverse — Reconstructing Mean Transport and Timing Broadening
+# HgCdTe Spectral Timing Two-Moment Inverse — Mean Transport and Timing Broadening
 
 **Date:** 2026-08-09  
-**Status:** exact law-of-total-variance inverse under additive conditional timing cumulants; local drift-diffusion interpretation is conditional; no novelty claim
+**Status:** exact law-of-total-variance inverse under additive conditional timing cumulants; collection orientation and common-cumulant identifiability corrected; local drift-diffusion interpretation is conditional; no novelty claim
 
 ## 1. Purpose
 
-The current spectral timing inverse reconstructs the spatial mean-delay density
+The full complex timing response contains more information than the mean delay.
+
+For a normalized timing transfer factor,
 
 ```math
-q_1(x)=1/v_{\rm eff}(x)
+\ln H_i(\Omega)
+=-i\Omega\kappa_{1,i}
+-\frac{\Omega^2}{2}\kappa_{2,i}
++O(\Omega^3).
 ```
 
-from wavelength-dependent mean timing.
-
-The full complex frequency response contains more information than mean delay.
-
-At low modulation frequency,
-
-```math
-\arg H_\lambda(\Omega)
-=-\Omega\kappa_1(\lambda)+O(\Omega^3),
-```
-
-while
-
-```math
-\ln|H_\lambda(\Omega)|
-=-\frac{\Omega^2}{2}\kappa_2(\lambda)+O(\Omega^4).
-```
-
-Thus phase provides the first timing cumulant and magnitude curvature provides the second.
+Thus phase gives the first timing cumulant and magnitude curvature gives the second.
 
 Question:
 
-> After reconstructing the mean transport profile, can the wavelength-dependent timing variance be inverted into a spatial broadening profile?
+> After reconstructing the spatial mean-delay modes, can wavelength-dependent timing variance reconstruct a spatial broadening profile as well?
 
-Under an additive conditional-cumulant model, yes.
-
----
-
-## 2. Conditional timing model
-
-For a carrier generated at position `x`, let its conditional collection-time mean be
-
-```math
-\boxed{
-m(x)
-=\int_x^L q_1(s)ds.
-}
-```
-
-Let its conditional transport variance be additive along the remaining path:
-
-```math
-\boxed{
-V(x)
-=\int_x^L q_2(s)ds.
-}
-```
-
-Here `q_2(s)>=0` is a local timing-broadening density.
-
-This model does not require `q_2` to be identified with diffusion until a specific transport closure is chosen.
+Under an additive conditional-cumulant model, yes — with the same collection-orientation and common-offset limitations as the first moment.
 
 ---
 
-## 3. Wavelength-dependent generation kernel
+## 2. Orientation-dependent path model
 
-For wavelength index `i`, let
-
-```math
-p_i(x)
-=p(x|E_{\gamma,i},{\rm abs})
-```
-
-be the known normalized generation-position density.
-
-Define its cumulative kernel
+Let
 
 ```math
-\boxed{
-K_i(s)
-=\int_0^s p_i(x)dx.
-}
+q_1(s)
 ```
 
-The same kernel appears in both moment inversions.
+be local mean-delay density and
+
+```math
+q_2(s)\ge0
+```
+
+local conditional timing-variance density.
+
+### Collection at `L`
+
+For generation at `x`,
+
+```math
+m_L(x)=\int_x^Lq_1(s)ds,
+```
+
+```math
+V_L(x)=\int_x^Lq_2(s)ds.
+```
+
+The timing kernel is the generation CDF
+
+```math
+K_{L,i}(s)=F_i(s)=P(X_g\le s).
+```
+
+### Collection at `0`
+
+For generation at `x`,
+
+```math
+m_0(x)=\int_0^xq_1(s)ds,
+```
+
+```math
+V_0(x)=\int_0^xq_2(s)ds.
+```
+
+The timing kernel is the survival function
+
+```math
+K_{0,i}(s)=S_i(s)=P(X_g\ge s).
+```
+
+Write the correct kernel for the chosen device simply as
+
+```math
+K_i(s).
+```
 
 ---
 
-## 4. First moment
+## 3. First moment
 
-The measured intrinsic mean delay is
+The wavelength-dependent intrinsic mean is
 
 ```math
-\mu_i
-=\mathbb E_i[m(X)].
+\mu_i=\mathbb E_i[m(X)].
 ```
 
-As derived previously,
+For either one-boundary orientation,
 
 ```math
 \boxed{
@@ -112,15 +108,13 @@ Discretely,
 ```math
 \boxed{
 \boldsymbol\mu
-=\mathbf A\mathbf q_1+c_1\mathbf1,
+=\mathbf A\mathbf q_1.
 }
 ```
 
-where `c_1` can absorb a wavelength-independent common group delay.
-
 ---
 
-## 5. Total variance
+## 4. Total variance
 
 The law of total variance gives
 
@@ -132,19 +126,9 @@ The law of total variance gives
 }
 ```
 
-The two terms have different meanings.
+The first term is conditional transport broadening; the second is broadening caused solely by the wavelength-dependent generation-position distribution.
 
-### Transport broadening
-
-```math
-\mathbb E_i[V(X)]
-=\int_0^L p_i(x)
-\left[
-\int_x^L q_2(s)ds
-\right]dx.
-```
-
-Swap integrals:
+Because the same path geometry applies to `V(x)`,
 
 ```math
 \boxed{
@@ -153,25 +137,19 @@ Swap integrals:
 }
 ```
 
-### Generation-position broadening
+Once `q_1` has been reconstructed to the available spatial resolution, `m(x)` is known and
 
 ```math
-\boxed{
 \operatorname{Var}_i[m(X)]
-=\int p_i(x)m^2(x)dx
--\left[
-\int p_i(x)m(x)dx
-\right]^2.
-}
 ```
 
-Once `q_1` is reconstructed, `m(x)` is known and this term is calculable entirely from the optical generation kernel.
+can be calculated from the optical generation kernel.
 
 ---
 
-## 6. Second inverse
+## 5. Second inverse
 
-Define the corrected variance datum
+Define
 
 ```math
 \boxed{
@@ -196,92 +174,55 @@ Discretely,
 ```math
 \boxed{
 \mathbf y_2
+=\mathbf A\mathbf q_2.
+}
+```
+
+The **same orientation-correct spatial matrix** appears in both moment inversions.
+
+---
+
+## 6. Common mean and broadening contributions are gauge-like
+
+If a wavelength-independent instrument chain contributes cumulants `c_1` and `c_2`, one may write formally
+
+```math
+\boldsymbol\mu^{\rm meas}
+=\mathbf A\mathbf q_1+c_1\mathbf1,
+```
+
+```math
+\mathbf y_2^{\rm meas}
 =\mathbf A\mathbf q_2+c_2\mathbf1.
-}
 ```
 
-The **same spatial forward matrix** `A` is used for the first and second moments.
+However, appending constant nuisance columns does **not** guarantee unique separation from arbitrary boundary-localized `q_1` or `q_2`.
 
-A wavelength-independent common broadening contribution from the readout can be represented by nuisance constant `c_2` to the extent that its low-frequency logarithmic transfer cumulant is additive and wavelength independent.
+At the collecting boundary the timing kernel tends to unity for every wavelength. Therefore a sufficiently boundary-localized internal contribution is spectrally indistinguishable from a common instrumental cumulant.
+
+So the robust objects are
+
+```text
+wavelength-dependent / differential q1 modes
++
+wavelength-dependent / differential q2 modes.
+```
+
+Absolute common delay and absolute common broadening require external calibration, a gauge constraint, or a physical boundary prior.
+
+Earlier synthetic recovery of fitted common constants was regularization-dependent and is **not** proof of structural identifiability.
 
 ---
 
-## 7. Local drift-diffusion interpretation
+## 7. Frequency-domain extraction
 
-For a constant-coefficient drift-diffusion first-passage segment of length `dx`,
-
-```math
-\mathbb E[dT]
-=\frac{dx}{v},
-```
-
-and
-
-```math
-\operatorname{Var}(dT)
-=\frac{2D}{v^3}dx.
-```
-
-Thus in the local advection-dominated additive-segment approximation,
-
-```math
-\boxed{
-q_1(x)=\frac1{v(x)},
-}
-```
-
-```math
-\boxed{
-q_2(x)\simeq\frac{2D(x)}{v^3(x)}.
-}
-```
-
-Therefore after reconstructing both profiles,
-
-```math
-\boxed{
-v(x)=1/q_1(x),
-}
-```
-
-and
-
-```math
-\boxed{
-D(x)
-\simeq
-\frac{q_2(x)}{2q_1^3(x)}.
-}
-```
-
-This identification is **conditional**, not a general theorem for arbitrary position-dependent stochastic transport.
-
-For a full drift-diffusion operator with strongly varying coefficients, mean and variance satisfy backward differential equations rather than exactly independent local increments.
-
----
-
-## 8. Frequency-domain extraction of the two cumulants
-
-For a normalized timing transfer factor,
-
-```math
-\boxed{
-\ln H_i(\Omega)
-=-i\Omega\mu_i
--\frac{\Omega^2}{2}\sigma_i^2
-+\frac{i\Omega^3}{6}\kappa_{3,i}
-+O(\Omega^4).
-}
-```
-
-Therefore
+At low frequency,
 
 ```math
 \boxed{
 \mu_i
 =-\left.
-\frac{d}{d\Omega}
-\arg H_i(\Omega)
+\frac{d}{d\Omega}\arg H_i(\Omega)
 \right|_{0},
 }
 ```
@@ -292,176 +233,150 @@ and
 \boxed{
 \sigma_i^2
 =-\left.
-\frac{d^2}{d\Omega^2}
-\ln|H_i(\Omega)|
+\frac{d^2}{d\Omega^2}\ln|H_i(\Omega)|
 \right|_{0}.
 }
 ```
 
-At finite low frequency,
+Equivalently,
 
 ```math
-\boxed{
 \arg H_i\approx-\Omega\mu_i,
-}
 ```
 
 ```math
-\boxed{
 \ln|H_i|
 \approx-\frac{\Omega^2}{2}\sigma_i^2.
+```
+
+Using several RF frequencies is preferable to estimating either cumulant from a single point.
+
+Differential phase removes the common first cumulant. Differential log-magnitude curvature removes a wavelength-independent second cumulant.
+
+---
+
+## 8. Conditional drift-diffusion interpretation
+
+For a local constant-coefficient advection-diffusion segment,
+
+```math
+\mathbb E[dT]=\frac{dx}{v},
+```
+
+```math
+\operatorname{Var}(dT)=\frac{2D}{v^3}dx.
+```
+
+Thus in the local additive high-Peclet approximation,
+
+```math
+\boxed{q_1(x)=1/v(x),}
+```
+
+```math
+\boxed{q_2(x)\simeq2D(x)/v^3(x).}
+```
+
+If both are known on an identifiable differential/gauge-fixed basis,
+
+```math
+\boxed{
+D(x)\simeq\frac{q_2(x)}{2q_1^3(x)}.
 }
 ```
 
-Using several modulation frequencies is preferable to estimating the second cumulant from one amplitude point.
+This is **not** a general theorem for strongly nonlocal or strongly position-dependent HgCdTe transport. A full drift-diffusion or Monte Carlo model must validate the local interpretation.
 
 ---
 
-## 9. Common instrument response
+## 9. What the second moment adds
 
-If
-
-```math
-H_{\rm meas}(\Omega,\lambda)
-=H_{\rm det}(\Omega,\lambda)
-H_{\rm common}(\Omega),
-```
-
-then
-
-```math
-\ln H_{\rm meas}
-=\ln H_{\rm det}+\ln H_{\rm common}.
-```
-
-Hence the low-frequency cumulant-like coefficients of the common transfer add equally at every wavelength.
-
-The inverse may therefore fit
+Mean timing alone cannot distinguish
 
 ```text
-one common first-order delay nuisance
-+
-one common second-order magnitude-curvature nuisance
-```
-
-provided the common chain is stable and wavelength independent.
-
-This does not remove wavelength-dependent source or optical-system transfer effects.
-
----
-
-## 10. Why the second moment adds real information
-
-A wavelength-dependent mean delay can identify a slow region but does not distinguish whether that region is
-
-```text
-slow but deterministic
-```
-
-or
-
-```text
-slow and strongly diffusive / stochastic.
-```
-
-The second-moment inverse separates
-
-```text
-mean transport density q1
+slow but narrow timing
 ```
 
 from
 
 ```text
-transport timing-broadening density q2.
+slow and strongly broadened timing.
 ```
 
-The generation-position contribution to timing spread is not confused with carrier-scattering broadening because it is explicitly calculable once the optical kernel and mean-delay profile are known.
+The second moment can separate a spatial mean-delay anomaly from a spatial timing-broadening anomaly, provided the optical generation broadening is first accounted for.
+
+This is why the two-moment method is potentially more useful than a single wavelength-dependent bandwidth curve.
 
 ---
 
-## 11. Connection to HgCdTe transport physics
+## 10. Existing synthetic result
 
-Primary HgCdTe Monte Carlo work calculates both
+The deterministic regression
 
-- drift velocity;
-- diffusion / velocity fluctuations;
-- velocity relaxation;
-- energy relaxation;
-- impact ionization.
+`numerics/hgcdte_spectral_timing_two_moment_inverse.py`
 
-Therefore a two-profile reconstruction has a natural comparison target in microscopic transport modeling.
+uses separate synthetic slow-transport and high-broadening regions.
 
-The method should not be advertised as a direct measurement of the microscopic diffusion coefficient until its local additive approximation has been validated against such a model.
+It shows that, in a controlled normalized problem, the two profiles can be numerically separated.
 
----
+Its common-offset recovery should now be interpreted only as one **regularized gauge choice**, not an independently verified absolute calibration.
 
-## 12. Synthetic falsification target
-
-A meaningful numerical test should generate
-
-```text
-known q1(x)
-known q2(x)
-known wavelength-dependent p_i(x)
-common mean-delay offset
-common broadening offset
-measurement noise in phase and magnitude.
-```
-
-Then reconstruct
-
-```text
-q1 from first cumulants
-q2 from variance after subtracting generation-position variance.
-```
-
-The decisive test is whether a region with enhanced transport broadening can be localized independently of a region with reduced mean velocity.
+A future regression should use the published sample-B matrix and differential phase/magnitude observables.
 
 ---
 
-## 13. Claim boundary
+## 11. Claim boundary
 
-### Derived exactly under the additive conditional-cumulant assumptions
+### DERIVED under additive conditional cumulants
 
 ```math
 \boxed{
-\mu_i=\int K_i q_1,
+\mu_i=\int K_iq_1,
 }
 ```
 
 ```math
 \boxed{
 \sigma_i^2
-=\int K_i q_2
+=\int K_iq_2
 +\operatorname{Var}_{p_i}[m(X)].
 }
 ```
 
-and therefore the corrected second linear inverse.
+with `K_i=F_i` or `S_i` according to the collection boundary.
 
-### Conditional transport identification
+### DERIVED IDENTIFIABILITY LIMIT
+
+Wavelength-independent first- and second-cumulant contributions are not generically separable from arbitrary boundary-localized internal transport without extra information.
+
+### CONDITIONAL
 
 ```math
 q_1=1/v,
 \qquad
-q_2\simeq2D/v^3
+q_2\simeq2D/v^3.
 ```
 
-requires a local advection-dominated drift-diffusion interpretation.
+### NOT ESTABLISHED
 
-### Not established
-
-- experimental second-moment precision in graded HgCdTe;
-- local `D(x)` recoverability in real nonlocal HgCdTe transport;
-- a real two-profile reconstruction;
-- novelty.
+- real sample-B `q_2(z)`;
+- experimental second-cumulant precision;
+- local diffusion recovery in nonlocal HgCdTe transport;
+- novelty / priority.
 
 ---
 
-## 14. Next decisive work
+## 12. Next decisive work
 
-1. build a synthetic two-moment inversion where slow velocity and large diffusion occur at different positions;
-2. establish conditioning/noise sensitivity of `q_2`, which will be worse than `q_1` because magnitude curvature is harder to measure than phase;
-3. compare the reconstructed profiles to a microscopic HgCdTe transport simulation before assigning `q_2` a diffusion interpretation;
-4. if successful, include phase **and magnitude** in the proposed wavelength-resolved experiment rather than measuring only group delay.
+Do not add another formal moment.
+
+The high-value next experiment/model is a **multi-frequency complex-response inversion** on the published-sample-B optical matrix:
+
+```text
+phase slope -> differential q1 modes
+magnitude curvature -> differential q2 modes
+```
+
+with realistic wavelength-dependent SNR and covariance.
+
+Only after that should the project claim any practical ability to separate internal mean transport from timing broadening.
