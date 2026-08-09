@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **open theoretical/experimental-method exploration; active frontier is few-mode wavelength × frequency inverse metrology of internal transport in a real graded-HgCdTe geometry; no novelty claim**
+**Current mode:** **open theoretical/experimental-method exploration; active frontier is few-mode differential wavelength × RF transport metrology in graded HgCdTe, with sample-B iso-kernel calibration and paired A/B validation; no novelty claim**
 
 Read this file first.
 
@@ -50,58 +50,70 @@ Do not use `first`, `new fundamental`, `universal`, etc. without a focused prima
 ## 3. Current research path
 
 ```text
-active-volume thought experiment
--> universal volume bound killed
+vanishing-absorber thought experiment
+-> universal active-volume route killed
 
-optical / network / active-control branches
--> successive loopholes and resource dependence
+abstract optical/network/control branches
+-> successive resource loopholes
 
-HgCdTe tunneling / transport / grading
--> material-specific design constraints
+HgCdTe transport / tunneling / grading
+-> material-specific branch
 
 wavelength-resolved generation
--> photon wavelength encodes generation depth in a monotonic gap
+-> spectral coordinate inside a monotonic gap
 
-ballistic spectral timing
--> entrance-gap timing maximum proposed
+ballistic timing peak
+-> proposed then killed as universal by momentum-scattering models
 
-momentum-scattering attack
--> maximum not universal
-
-prior-art collision
--> wavelength-dependent generation + graded transport + response-time forward modeling already exists
--> localized-position HgCdTe timing already exists
-
-inverse formulation
--> known optical kernels + timing data -> spatial delay density
+inverse reformulation
+-> known optical kernels + timing -> internal delay-density modes
 
 orientation correction
 -> downstream collection uses CDF kernel
 -> front collection uses survival kernel
 
 identifiability correction
--> wavelength-independent boundary/common delay is gauge-like
--> same issue applies to timing broadening
+-> wavelength-independent boundary/common delay and broadening are gauge-like
 
-published 2023 sample-B instantiation
+published 2023 sample B
 -> W ~3.7 um
--> nominal x ~0.316
 -> nonlinear region removed
--> 100-200 V/cm linear-gradient bracket
--> Moazzami above-gap alpha
+-> weak 100-200 V/cm linear gradient
+-> smooth calibration/control case
 
-real matrix
--> conditional mean generation depth shifts by ~2.85 um over useful MWIR sweep
+published sample B dimensional optics
+-> mean generation depth shifts by ~2.85 um over useful MWIR sweep
 -> only a few spatial modes are strongly conditioned
 
-phase-noise test
--> subtle internal anomaly produces sub-degree residual phase
--> ~3 coarse modes survive ~0.1 degree phase noise in the stated synthetic test
+phase-noise audit
+-> subtle internal structure produces sub-degree residual phase
+-> wavelength-dependent absorbed signal makes covariance heteroscedastic
+
+optimal design
+-> first 3 transport modes + common phase need ~4 information-rich wavelength bands
+-> uniform dense sampling is inefficient
+
+RF-frequency audit
+-> usable first-moment phase band scales with transport speed
+-> full complex fit required at higher normalized frequency
+
+paired A/B protocol
+-> same-source A-B subtraction cancels arbitrary wavelength-dependent source phase
+-> sample A supplies nonlinear/high-field contrast
+
+sample-B temperature iso-kernel design
+-> mid/deep optical timing kernels can be held nearly invariant by retuning wavelength
+-> fixed-wavelength temperature comparisons are optically confounded
+
+compatibility correction
+-> paired common-source cancellation and independent A/B iso-kernel wavelengths cannot be combined automatically
+-> need one common JOINT iso-kernel wavelength schedule or explicit kernel modeling
 
 CURRENT FRONTIER
--> recover a finite set of differential internal transport modes
--> obtain real x(z) / instrument covariance / complex-response data
--> validate against localized excitation or microscopic transport.
+-> recover sample A x(z)
+-> build A_A(T,lambda) and A_B(T,lambda)
+-> test whether a common joint iso-kernel schedule exists
+-> then perform paired A/B transport-contrast validation.
 ```
 
 ---
@@ -114,50 +126,43 @@ CURRENT FRONTIER
 4. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
 5. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`
 6. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_SAMPLE_B_DIMENSIONAL_FORWARD_MATRIX.md`
-7. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_SAMPLE_B_PHASE_PRECISION.md`
-8. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
-9. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_DIFFERENTIAL_PHASE.md`
-10. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
-11. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_GRADED_DEVICE_TOMOGRAPHY_CASE.md`
-12. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-13. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+7. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_SAMPLE_B_HETEROSCEDASTIC_PHASE_NOISE.md`
+8. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_SAMPLE_B_OPTIMAL_MEASUREMENT_DESIGN.md`
+9. `experiments/01-vanishing-absorber/HGCDTE_SAMPLE_B_RF_FREQUENCY_VALIDITY.md`
+10. `experiments/01-vanishing-absorber/HGCDTE_TEMPERATURE_ISO_KERNEL_DESIGN.md`
+11. `experiments/01-vanishing-absorber/HGCDTE_PAIRED_SAMPLE_AB_DIFFERENTIAL_PHASE.md`
+12. `experiments/01-vanishing-absorber/HGCDTE_PAIRED_AB_TEMPERATURE_DESIGN.md`
+13. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
+14. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
+15. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
+16. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
 
 Older ballistic-peak, normalized-kernel, optical-resource, and active-volume branches are provenance/supporting work, not the active claim.
 
 ---
 
-## 5. What is already prior art
+## 5. Hard prior-art boundary
 
 Do **not** claim novelty for
 
 - wavelength-dependent absorption / generation depth;
-- wavelength-dependent photodiode transit time or bandwidth;
+- wavelength-dependent photodiode timing/bandwidth;
 - graded-bandgap carrier transport;
 - wavelength- and depth-dependent generation in graded HgCdTe;
-- graded-HgCdTe response-time forward models;
+- graded-HgCdTe forward response-time modeling;
 - localized-position HgCdTe transit measurements.
 
 Sang et al. 2022 already combine wavelength/depth generation with graded-HgCdTe forward transport/response modeling.
 
-Perrais et al. already use localized excitation to study HgCdTe transit behavior.
+Perrais et al. already use localized excitation to study HgCdTe transit timing.
 
-A 2024 same-group paper titled `Potential application of HgCdTe detector with composition gradient in laser measurement` remains an unresolved close collision. Treat priority as unresolved until the paper is read.
+A 2024 same-group paper titled `Potential application of HgCdTe detector with composition gradient in laser measurement` remains an unresolved close collision. Its title/metadata are known; its technical content has not been recovered. Treat priority as unresolved until it is read.
 
 ---
 
-## 6. Active operator — collection orientation matters
+## 6. Active inverse operator
 
-Let
-
-```math
-p_i(x)=p(x|\lambda_i,{\rm abs})
-```
-
-and local mean-delay density
-
-```math
-q_1(x).
-```
+Let `p_i(x)` be the known conditional generation density and `q_1(x)` the path-additive mean-delay density.
 
 ### Collection at `L`
 
@@ -181,25 +186,23 @@ S_i(s)=P(X_g\ge s).
 }
 ```
 
-Discretize with **cell-integrated kernels**:
+Use **cell-integrated kernels**:
 
 ```math
 \boxed{
-A_{ij}=\int_{\text{cell }j}K_i(s)ds,
+A_{ij}=\int_{\mathrm{cell }j}K_i(s)ds,
 }
 ```
 
 so
 
 ```math
-\boxed{
-\mathbf T=\mathbf A\mathbf q_1.
-}
+\boxed{\mathbf T=\mathbf A\mathbf q_1.}
 ```
 
-The 2023 sample-B device is a front-collection / survival-kernel case.
+Published samples A/B are front-collection / survival-kernel geometries.
 
-Under a local path-additive interpretation only,
+Only under a local path-additive interpretation may one identify
 
 ```math
 q_1=1/v_{\rm eff}.
@@ -207,24 +210,20 @@ q_1=1/v_{\rm eff}.
 
 ---
 
-## 7. Common-delay / common-broadening gauge
+## 7. Common-mode gauge
 
-Do **not** state that a wavelength-independent common delay can always be fitted uniquely with arbitrary `q_1`.
+Do not claim arbitrary wavelength-independent common delay or broadening is uniquely separable from arbitrary boundary-localized internal transport.
 
-At the collecting boundary the timing kernel tends to unity for every wavelength. Boundary-localized internal delay can therefore be indistinguishable from common electronics/optics.
-
-The same issue applies to wavelength-independent second-cumulant broadening and arbitrary boundary-localized `q_2`.
-
-Robust options:
+Use
 
 ```text
 differential phase/timing
 independent common-chain calibration
-boundary transport prior
-lower-dimensional physical model.
+boundary priors
+or lower-dimensional physical models.
 ```
 
-Regularization may choose a decomposition; it does not prove identifiability.
+Regularization selecting one split is not structural identifiability evidence.
 
 ---
 
@@ -233,9 +232,7 @@ Regularization may choose a decomposition; it does not prove identifiability.
 For the orientation-correct kernel `K_i`, additive conditional cumulants give
 
 ```math
-\boxed{
-\mu_i=\int K_iq_1,
-}
+\boxed{\mu_i=\int K_iq_1,}
 ```
 
 ```math
@@ -246,7 +243,7 @@ For the orientation-correct kernel `K_i`, additive conditional cumulants give
 }
 ```
 
-Only under a local high-Peclet drift-diffusion approximation may one identify
+Only under a local high-Peclet drift-diffusion approximation:
 
 ```math
 q_1=1/v,
@@ -258,15 +255,13 @@ Do not call `q_2` microscopic diffusion without validation.
 
 ---
 
-## 9. Frequency-domain observable
-
-For the carrier timing distribution,
+## 9. Complex-response observable
 
 ```math
 H_i(\Omega)=\langle e^{-i\Omega T_i}\rangle.
 ```
 
-Low-frequency cumulants give
+Low-frequency cumulants:
 
 ```math
 \arg H_i=-\Omega\mu_i+O(\Omega^3),
@@ -276,162 +271,245 @@ Low-frequency cumulants give
 \ln|H_i|=-\frac{\Omega^2}{2}\sigma_i^2+O(\Omega^4).
 ```
 
-Hence
-
-```text
-differential phase -> differential mean-delay modes
-magnitude curvature -> differential broadening modes.
-```
-
-At higher RF frequency, stop using the truncated cumulant approximation and fit the full complex transfer function.
+At higher normalized frequency fit the full complex transfer.
 
 ---
 
-## 10. Published sample-B dimensional baseline
-
-Current literature-constrained 300 K envelope:
+## 10. Published sample B — current calibration envelope
 
 ```text
-W = 3.7 um
-nominal x_low = 0.316
-field bracket = 100-200 V/cm
+W ~3.7 um
+nominal x ~0.316
 nonlinear interdiffusion region removed
-junction at high-Cd end.
+junction at high-Cd end
+remaining linear-gradient field ~100-200 V/cm.
 ```
 
-Correct Hansen relation gives
+Current 300 K central envelope uses correct Hansen gap plus Moazzami above-gap absorption.
 
-```math
-E_{g,\rm low}=0.312314\ {\rm eV},
-\qquad
-\lambda_{g,\rm low}=3.9699\ {\rm um}.
-```
-
-Field bracket implies approximately
+Representative result:
 
 ```text
-100 V/cm -> x_high=0.34348 -> 3.5494 um
-150 V/cm -> x_high=0.35721 -> 3.3708 um
-200 V/cm -> x_high=0.37091 -> 3.2094 um.
-```
-
-Use Moazzami et al. 2005 above-gap absorption for the current forward kernels.
-
-The exact sample-B fitted `x(z)` is still OPEN.
-
----
-
-## 11. Real-matrix result
-
-For the central 150 V/cm envelope, current calculation gives approximately
-
-```text
-lambda 2.80 um -> Pabs 0.998, mean z 0.677 um
-lambda 3.88 um -> Pabs 0.070, mean z 3.523 um.
+2.80 um -> Pabs~0.998, mean depth~0.677 um
+3.88 um -> Pabs~0.070, mean depth~3.523 um.
 ```
 
 Thus
 
 ```math
-\boxed{\Delta\langle z\rangle\approx2.85\ {\rm um}.}
+\Delta\langle z\rangle\approx2.85\ {\rm um}.
 ```
 
-At illustrative `v_eff=1e5 m/s`, this is about
+At illustrative `v_eff=1e5 m/s`, this is about `28.5 ps` or `10.25 degrees` at `1 GHz`.
 
-```text
-28.5 ps
-10.25 degrees at 1 GHz.
-```
-
-That is a scale, not a sample-B transport prediction.
-
-Using 80 spatial cells, `0.01 um` wavelength sampling, and `Pabs>=0.05`, singular-mode counts are approximately
+Real optical matrix mode counts above relative thresholds `[1e-1,1e-2,1e-3,1e-4]`:
 
 ```text
 100 V/cm -> [2,5,10,20]
 150 V/cm -> [2,5,10,21]
-200 V/cm -> [2,5,11,23]
+200 V/cm -> [2,5,11,23].
 ```
 
-above relative thresholds `[1e-1,1e-2,1e-3,1e-4]`.
-
-The defensible interpretation is **few-mode band-limited tomography**, not pointwise imaging.
+Interpretation: **few-mode band-limited tomography**.
 
 ---
 
-## 12. Phase-noise result
+## 11. Experimental covariance / optimal design
 
-Current synthetic stress test on the real optical matrix:
+Do not use equal phase noise as the default at fixed incident power.
+
+Current retained-end absorbed-signal ratio is about `17.6`.
+
+Illustrative fixed-power phase scalings:
 
 ```text
-baseline v = 1e5 m/s
-25% slowdown
-center = 2.30 um
-sigma = 0.35 um
-f = 1 GHz.
+statistics-like: sigma_phi proportional to Pabs^(-1/2)
+additive-like: sigma_phi proportional to Pabs^(-1).
 ```
 
-Residual anomaly phase:
+The experimentally relevant matrix is noise-whitened and common-mode projected.
+
+For a reduced target of 3 transport modes + 1 common-phase nuisance, D-optimal wavelength/time design uses about four support bands.
+
+Statistics-like:
+
+```text
+2.800, 3.410, 3.632, 3.840 um.
+```
+
+Additive-like:
+
+```text
+2.800, 3.400, 3.596, 3.780 um.
+```
+
+These are conditional design results, not universal wavelengths.
+
+---
+
+## 12. RF-frequency rule
+
+For the current sample-B optical distributions and deterministic `T=z/v`, an illustrative `|H|>0.98` envelope is
 
 ```math
-\boxed{\Delta\phi_{pp}\approx0.935^\circ.}
+\boxed{f_{\max}\approx0.13\,v/W.}
 ```
 
-Three-mode reconstruction at `0.10 degree` independent per-wavelength phase noise gives approximately
-
-```text
-17.5% median error relative to the recoverable rank-3 target
-0.13 um 90% peak-location error.
-```
-
-At `0.25 degree`, localization degrades strongly.
-
-Five modes require substantially better phase precision for this anomaly.
-
-This is an illustrative conditioning result, not an instrument or sample-defect claim.
+This is optical-only and nonuniversal. Stochastic transport/electrical response may lower the usable band.
 
 ---
 
-## 13. Important nonclaims
+## 13. Published A/B validation logic
+
+### Sample B
+
+Smooth calibration/control case. The 2023 authors infer its remaining `100-200 V/cm` linear-gradient field does not strongly alter carrier motion.
+
+### Sample A
+
+Nonlinear/high-field contrast case. It retains part of the nonlinear interdiffusion region and reaches local composition-gradient field near `2e3 V/cm`.
+
+The authors attribute the A/B photoelectric difference primarily to composition-gradient effects on minority-carrier motion.
+
+---
+
+## 14. Paired A/B differential phase
+
+With the same coherent modulated source at the same wavelength/frequency,
+
+```math
+\boxed{
+\Delta\phi_{AB}
+=-\Omega
+(\mathbf A_A\mathbf q_A-
+ \mathbf A_B\mathbf q_B)
++\Delta\phi_{\rm path}
++\Delta\phi_{\rm elec}.
+}
+```
+
+Arbitrary common source phase cancels.
+
+A reciprocal device/arm swap can cancel stable arm asymmetry under its stated assumptions.
+
+The paired observable is a transport **contrast**, not an absolute profile.
+
+---
+
+## 15. Temperature iso-kernel rule
+
+Fixed-wavelength temperature sweeps are optically confounded because
+
+```math
+\mathbf A=\mathbf A(T,\lambda).
+```
+
+For one device, define
+
+```math
+\boxed{
+\lambda_*(T)
+=\arg\min_\lambda
+\frac{
+\|\mathbf A(T,\lambda)-\mathbf A(T_0,\lambda_0)\|_2
+}{
+\|\mathbf A(T_0,\lambda_0)\|_2
+}.
+}
+```
+
+Current sample-B results:
+
+```text
+300 K 3.410 um
+-> 215 K 3.52095 um (~2.45% mismatch)
+-> 115 K 3.65954 um (~5.08%)
+
+300 K 3.632 um
+-> 215 K 3.79272 um (~0.44%)
+-> 115 K 4.00268 um (~0.84%)
+
+300 K 3.840 um
+-> 215 K 4.04232 um (~0.043%)
+-> 115 K 4.31011 um (~0.112%).
+```
+
+The shallow 2.800-um reference cannot be cleanly reproduced at 115 K inside the spectral range used to establish the current absorption fit; do not use its unconstrained ~1.15-um mathematical optimum as a validated prediction.
+
+---
+
+## 16. Paired-temperature compatibility correction
+
+Same-source A-B phase cancellation requires A and B to see the **same wavelength**.
+
+Independent device iso-kernel wavelengths therefore cannot simply be combined.
+
+Need a common joint schedule:
+
+```math
+\boxed{
+\lambda_*(T)
+=\arg\min_\lambda
+\left[
+w_A\epsilon_A^2(T,\lambda)
++w_B\epsilon_B^2(T,\lambda)
+\right].
+}
+```
+
+Whether a useful joint A/B iso-kernel schedule exists is OPEN until sample A's actual profile is recovered.
+
+If it does not exist, retain same-wavelength paired measurement and model both temperature-dependent kernels explicitly.
+
+---
+
+## 17. Rejected route
+
+Reverse/sapphire-side illumination was tested conceptually/numerically on the sample-B envelope. It added little strongly conditioned rank relative to the optical/systematic complexity.
+
+**Status:** reject for now.
+
+---
+
+## 18. Important nonclaims
 
 Do not claim
 
 - pointwise high-resolution `v(z)` reconstruction;
-- absolute common delay from wavelength data alone;
-- absolute common broadening from wavelength data alone;
-- calibrated sample-B velocity/diffusion;
-- actual sample-B transport defects;
+- absolute common delay/broadening from wavelength data alone;
+- calibrated sample-A/B velocity/diffusion;
+- actual internal defects;
+- existence of a useful joint A/B iso-kernel schedule;
 - novelty/priority;
 - manuscript readiness.
 
 ---
 
-## 14. Current numerical regressions
+## 19. Active numerical regressions
 
 ```text
 numerics/hgcdte_published_sample_b_forward_matrix.py
 numerics/hgcdte_published_sample_b_phase_noise.py
-numerics/hgcdte_spectral_timing_linear_inverse.py
-numerics/hgcdte_spectral_timing_kernel_tomography.py
-numerics/hgcdte_spectral_timing_svd_resolution.py
+numerics/hgcdte_published_sample_b_heteroscedastic_phase.py
+numerics/hgcdte_published_sample_b_optimal_design.py
+numerics/hgcdte_sample_b_frequency_validity.py
+numerics/hgcdte_sample_b_iso_kernel_temperature.py
 numerics/hgcdte_spectral_timing_two_moment_inverse.py
 ```
 
-Older ballistic timing regressions remain provenance.
-
 ---
 
-## 15. Next decisive work
+## 20. Next decisive work
 
-Do **not** add another abstract inverse theorem.
+Do **not** add another generic inverse theorem.
 
-Next priority:
+Priority:
 
-1. obtain/digitize the actual 2023 sample-B `x(z)` fit;
-2. build a realistic wavelength × RF-frequency covariance model for tunable-MWIR complex response;
-3. include reflection/Urbach/interference only where they materially change the kernels;
-4. fit multiple RF frequencies simultaneously;
-5. validate recovered modes against localized-position timing or calibrated microscopic transport;
+1. recover/digitize sample A's `x(z)` profile;
+2. build `A_A(T,lambda)` and `A_B(T,lambda)`;
+3. test common joint iso-kernel temperature schedules;
+4. obtain realistic wavelength × RF-frequency covariance;
+5. validate sample B first, then paired A/B transport contrast;
 6. read the unresolved 2024 laser-measurement paper before any novelty language.
 
-Only after a real-data or independently validated inversion should manuscript readiness be reassessed.
+Only after real-data or independently validated inversion should manuscript readiness be reassessed.
