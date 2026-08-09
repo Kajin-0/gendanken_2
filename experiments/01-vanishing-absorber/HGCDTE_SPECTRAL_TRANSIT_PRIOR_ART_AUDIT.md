@@ -5,162 +5,226 @@
 
 ## 1. Candidate connection being tested
 
-The current graded-detector calculation predicts the chain
+The current graded-detector calculation predicts
 
 ```text
 photon wavelength
--> earliest/local generation position from Eg(x)
--> generation-position probability distribution
--> remaining graded conduction-band drop
--> carrier transit time / hot-electron exposure
--> wavelength-resolved response delay and generation-position jitter.
+-> first/likely generation position in Eg(x)
+-> remaining graded transport distance
+-> ballistic/scattering transit
+-> wavelength-resolved response delay and generation-position timing spread.
 ```
 
-The question for this audit is not whether graded HgCdTe or fast HgCdTe detectors are known. They are.
+After correcting photoexcitation energy partition, the strongest high-optical-depth prediction is more specific:
 
-The narrow question is:
+> **intrinsic ballistic transit delay rises from the long-wave endpoint to a maximum at the photon energy equal to the entrance band gap, then decreases for higher photon energy because the generation point is pinned at the entrance while initial electron kinetic energy continues to rise.**
 
-> **Has primary HgCdTe literature already made this explicit wavelength -> generation-position -> graded-transit/timing connection?**
+The narrow prior-art question is whether primary HgCdTe literature already derives or measures this spectral timing fingerprint.
 
-## 2. Primary work that already covers grading and response time
+---
+
+## 2. Grading and response time are established prior physics
 
 ### Singh et al., Solid-State Electronics 142, 41-46 (2018)
 
-Title: `Impulse response measurement in the HgCdTe avalanche photodiode`
+`Impulse response measurement in the HgCdTe avalanche photodiode`
 
 DOI: `10.1016/j.sse.2018.02.002`
 
-The paper explicitly reports the effect of band-gap grading on impulse response in an `n+/nu/p+` HgCdTe e-APD. Its stated mechanism is reduction of carrier diffusion so that the response becomes transit-time limited.
+The paper explicitly reports band-gap grading in an `n+/nu/p+` HgCdTe e-APD and attributes improved impulse response to reduced diffusion / transit-time-limited carrier transport.
 
-This establishes
+Established:
 
 ```text
-composition grading -> carrier transport -> response time
+grading -> faster carrier transport -> faster response.
 ```
 
-as prior HgCdTe physics.
+The accessible article record does not present a wavelength sweep of intrinsic transit time through the graded absorption edge.
 
-It does not, in the inspected abstract/metadata, state the wavelength-resolved generation-position timing map derived in this repository.
+### High speed uncooled MWIR infrared HgCdTe photodetector based on graded bandgap structure (2022)
 
-### Grodecki et al., Metrology and Measurement Systems 24, 509-514 (2017)
+DOI: `10.11972/j.issn.1001-9014.2022.06.005`
 
-Title: `Fast Response Hot (111) HgCdTe MWIR Detectors`
+This work reports a graded HgCdTe detector with approximately `1.33 ns` response at room temperature and models the composition-gradient built-in field.
 
-DOI: `10.1515/mms-2017-0044`
+The impulse/frequency-response measurements described in the accessible primary article use fixed short-wave sources around `1.55 um`; switching measurements also use `2 um` illumination.
 
-The response was measured using approximately 25 ps pulses from a tunable OPO covering `1.55-16 um`.
+Thus the paper strongly establishes
 
-The inspected article reports spectral responsivity separately and presents the time response primarily as a function of bias/readout conditions. It does not appear to extract a wavelength-resolved transit-time law from the tunable source.
+```text
+grading -> built-in field -> faster response
+```
 
-This paper is especially relevant experimental prior art because the measurement apparatus could in principle probe the effect now predicted.
+but does not provide the wavelength scan through the device's graded infrared absorption edge needed to test the present prediction.
 
 ### Martyniuk et al., Optical and Quantum Electronics 46, 1303-1312 (2014)
 
-Title: `Modeling of HOT (111) HgCdTe MWIR detector for fast response operation`
+`Modeling of HOT (111) HgCdTe MWIR detector for fast response operation`
 
-The paper models fast response in a graded/multilayer HgCdTe detector and compares against experiment. The inspected article states that the time-response simulation used a particular laser wavelength and treats device architecture/bias dependence.
+The work models response time versus architecture and bias in graded/multilayer HgCdTe and compares with experiment.
 
-This establishes sophisticated coupled detector-response modeling but not the explicit spectral timing map found here.
+Again, this establishes sophisticated response modeling but not the present wavelength-resolved generation-position timing map.
 
-## 3. Primary work that already covers grading and spectral response
+---
+
+## 3. Grading and spectral response are also established separately
 
 ### FDTD simulation of compositionally graded HgCdTe photodetectors, Infrared Physics & Technology 97, 203-209 (2019)
 
 DOI: `10.1016/j.infrared.2018.12.041`
 
-This work treats realistic composition profiles in full-wave optical calculations and shows that grading can materially affect quantum-efficiency spectra and cutoff estimates.
+This work treats realistic composition profiles in full-wave optical calculations and shows that grading materially modifies spectral QE/cutoff behavior.
 
-This establishes
-
-```text
-composition grading -> spatial optical properties -> spectral QE
-```
-
-as prior physics.
-
-The inspected paper is an electromagnetic/spectral modeling paper rather than a wavelength-resolved carrier-timing treatment.
-
-### High speed uncooled MWIR infrared HgCdTe photodetector based on graded bandgap structure (2022)
-
-The primary journal article models a linearly graded p-type region, composition-induced built-in field, quantum efficiency / spectral response, and response time of graded HgCdTe photodiodes.
-
-This is the closest inspected collision because optical and transport properties are treated in the same graded device.
-
-The available text explicitly links grading to carrier evacuation and improved frequency response. However, the inspected sections do not state the specific mapping
+Established:
 
 ```text
-photon wavelength
--> first allowed generation position
--> remaining graded transport distance
--> wavelength-dependent delay distribution.
+grading -> spatial optical profile -> spectral QE.
 ```
 
-## 4. Related non-graded wavelength-response timing result
+The inspected work is not a spectral carrier-timing calculation.
 
-Soderman and Pinkston, Applied Optics 11, 2162-2168 (1972), measured HgCdTe photodiode response using several optical wavelengths.
+### Graded-HgCdTe device optimization literature
 
-They reported no strong wavelength dependence in the approximately `10 ns` module response under their conditions because electronics/RC limitations dominated. A much faster broadband readout exposed a secondary carrier-transit timescale.
+Multiple HOT HgCdTe device papers optimize graded interfaces, absorber thickness, responsivity, dark current, and response time together.
+
+These are important architectural prior art. They do not by themselves establish the present spectral timing extremum.
+
+---
+
+## 4. HgCdTe Kane optical-transition prior art
+
+Primary magneto-optical HgCdTe work uses a simplified Kane model with
+
+```text
+conduction electron branch
+light-hole branch
+nearly flat heavy-hole branch.
+```
+
+Observed interband transitions include heavy-hole-to-electron transitions.
+
+This makes the repository heavy-hole baseline
+
+```math
+\xi_e\approx1
+```
+
+a direct model consequence rather than a claimed new material property.
+
+Therefore do not claim novelty for the statement that a heavy-hole transition can place most photon excess into the electron.
+
+---
+
+## 5. Existing wavelength-dependent HgCdTe timing measurements
+
+### Soderman and Pinkston, Applied Optics 11, 2162-2168 (1972)
+
+Response measurements were performed at several wavelengths.
+
+The approximately `10 ns` detector-module response was reported as not strongly wavelength dependent because RC/amplifier bandwidth dominated. With a broadband amplifier, a secondary several-nanosecond carrier-transit contribution appeared.
 
 This is useful caution:
 
-> even if a graded absorber has an intrinsic wavelength-dependent transit contribution, ordinary RC/readout poles can hide it experimentally.
+> intrinsic spectral transit structure can be hidden by a common readout pole.
 
-## 5. Current collision verdict
+The device was not the graded architecture analyzed here.
 
-### Established prior physics
+### Grodecki et al., Metrology and Measurement Systems 24, 509-514 (2017)
 
-Do not claim novelty for
+A tunable OPO covering roughly `1.55-16 um` was available in the response-time experiment.
 
-- graded HgCdTe photodetectors;
+The inspected primary article presents spectral responsivity and time-response characterization, but does not report a systematic wavelength-resolved intrinsic timing curve through a graded absorption edge.
+
+This remains one of the most relevant experimental templates for a future test.
+
+---
+
+## 6. Current collision verdict
+
+### Established prior physics — no novelty claim
+
+- compositionally graded HgCdTe detectors;
 - grading-induced carrier drift / reduced diffusion;
-- the effect of grading on detector response time;
-- spectral-response / QE modeling of compositionally graded HgCdTe;
-- spatial generation distance as a contributor to drift/diffusion response time;
-- tunable-wavelength ultrafast characterization of HgCdTe detectors.
+- graded HgCdTe response-time improvement;
+- spectral-QE modeling of graded HgCdTe;
+- spatial generation distance as a carrier-transit variable;
+- tunable-wavelength ultrafast HgCdTe characterization;
+- heavy-hole-to-electron Kane optical transitions.
 
-### Candidate underexplored connection
+### Candidate underexplored analytic connection
 
-The focused search did **not** locate an inspected primary HgCdTe source explicitly deriving or plotting
+The focused search has **not** located an inspected primary HgCdTe source explicitly deriving or plotting
 
 ```text
 lambda
--> conditional generation-position distribution in Eg(x)
--> remaining graded carrier drive
--> wavelength-resolved mean transit and timing spread.
+-> generation-position distribution in Eg(x)
+-> corrected photoelectron initial energy
+-> graded transit-time distribution.
 ```
 
-The repository currently has closed-form expressions for that connection in the simplified linear/Kane/Beer-Lambert model.
+### Stronger candidate prediction
 
-**Status:** candidate underexplored detector-facing synthesis / analytic reduction; priority unproven.
-
-A negative literature search is not evidence of novelty.
-
-## 6. Why this direction is stronger than the earlier abstract branches
-
-The candidate connection is
-
-- specific to a real photodetector material architecture;
-- directly measurable with a tunable pulsed IR source;
-- naturally linked to both spectral QE and time response;
-- capable of making a wavelength-dependent prediction rather than only a broad resource statement;
-- already adjacent to existing graded-HgCdTe experiments, which makes validation plausible.
-
-This does not make it publishable yet.
-
-## 7. Decisive next validation
-
-The next step should not be another generic literature search.
-
-Build the wavelength-resolved analytic baseline for a realistic example profile and predict
+The search also has not located an inspected primary source predicting the high-optical-depth intrinsic timing shape
 
 ```text
-absorptance(lambda)
-mean generation position(lambda)
-mean ballistic transit(lambda)
-generation-position timing spread(lambda)
-mean-II margin(lambda).
+near output cutoff:
+T -> 0 in the ideal transport model
+
+within graded gap range:
+T rises as generation moves upstream
+
+at E_gamma = Eg,in:
+T reaches a maximum
+
+above entrance gap:
+generation stays at entrance
+initial electron kinetic energy rises
+T decreases toward L/vK.
 ```
 
-Then compare the trend against any published tunable-pulse HgCdTe data that expose multiple wavelengths under otherwise fixed bias/readout conditions.
+**Status:** CANDIDATE DISTINCT / UNDEREXPLORED ANALYTIC PREDICTION — PRIORITY UNPROVEN.
 
-If published data are insufficient, the result becomes a concrete proposed experiment rather than a claimed observed effect.
+A negative search is not evidence of novelty.
+
+---
+
+## 7. Why the entrance-gap timing peak is a stronger target
+
+Compared with the earlier abstract resource bounds, this prediction is
+
+- material/device specific;
+- dimensionless in shape;
+- tied directly to the engineered composition profile;
+- falsifiable with a tunable ultrafast source;
+- predicted to have a specific extremum wavelength;
+- separable, in principle, from a wavelength-independent RC/readout pole.
+
+It is therefore a better experimental/theoretical target even before publication status is reconsidered.
+
+---
+
+## 8. Decisive next validation
+
+The next validation should target one compositionally graded HgCdTe device and sweep pulse wavelength across
+
+```text
+output cutoff
+-> graded absorption range
+-> entrance-gap wavelength
+-> shorter-than-entrance wavelengths.
+```
+
+Under fixed bias, temperature, spot geometry, and readout, extract
+
+```text
+pulse centroid / mean delay
+rise time / fall time
+frequency response where possible
+spectral responsivity / absorbed fraction.
+```
+
+Then de-embed or jointly fit the common electrical transfer function.
+
+If no suitable published data exist, formulate this as the concrete proposed experiment.
+
+Do not claim the timing peak has been observed.
