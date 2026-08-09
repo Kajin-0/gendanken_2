@@ -1,7 +1,7 @@
 # Experiment 01 — Artifact Status Map
 
 **Date:** 2026-08-09  
-**Purpose:** keep the active inverse-metrology frontier distinct from supporting, superseded, corrected, and stopped branches.
+**Purpose:** separate the active few-mode inverse-metrology frontier from supporting, superseded, corrected, and stopped branches.
 
 > Live `main`, root `AGENTS.md`, `CURRENT_STATE.md`, and `CLAIM_LEDGER.md` are authoritative.
 
@@ -16,151 +16,202 @@ Read first:
 1. `CURRENT_STATE.md`
 2. `CLAIM_LEDGER.md`
 3. `HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`
-4. `HGCDTE_SPECTRAL_TIMING_KERNEL_TOMOGRAPHY.md`
-5. `HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
-6. `HGCDTE_SPECTRAL_TIMING_DIFFERENTIAL_PHASE.md`
-7. `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_RESOLUTION.md`
+4. `HGCDTE_PUBLISHED_SAMPLE_B_DIMENSIONAL_FORWARD_MATRIX.md`
+5. `HGCDTE_PUBLISHED_SAMPLE_B_PHASE_PRECISION.md`
+6. `HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
+7. `HGCDTE_SPECTRAL_TIMING_DIFFERENTIAL_PHASE.md`
 8. `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
 9. `HGCDTE_PUBLISHED_GRADED_DEVICE_TOMOGRAPHY_CASE.md`
-10. `HGCDTE_ENTRANCE_GAP_INITIAL_CONDITION_SWITCH.md`
-11. `RESEARCH_LOG.md`
+10. `RESEARCH_LOG.md`
 
 ### Active candidate
 
-Use a known monotonic graded `E_g(x)` / optical generation profile as an internal spectral position encoder and solve measured wavelength-resolved timing data as an inverse problem for internal transport.
-
-Mean-delay inverse:
-
-```math
-\boxed{
-\mu_i
-=\int_0^L K_i(s)q_1(s)ds,
-\qquad
-K_i(s)=P(X_g\le s|E_{\gamma,i},{\rm abs}).
-}
-```
-
-Discretely:
-
-```math
-\boxed{
-\mathbf T
-=\mathbf A\mathbf q_1+c_1\mathbf1.
-}
-```
-
-Optional second-moment inverse:
-
-```math
-\boxed{
-\sigma_i^2
-=\int_0^L K_i(s)q_2(s)ds
-+\operatorname{Var}_{p_i}[m(X)].
-}
-```
+Use a known monotonic graded-HgCdTe optical profile and wavelength-resolved complex response to recover a **finite set of differential internal transport modes** without physically scanning generation position.
 
 Status:
 
 **CANDIDATE UNDEREXPLORED INVERSE-METROLOGY METHOD — PRIORITY UNPROVEN.**
 
-The forward wavelength/depth generation and graded-HgCdTe timing physics are already prior art.
+The forward wavelength/depth generation and graded-HgCdTe timing physics are prior art.
 
 ---
 
-## B. Active inverse-metrology files
+## B. Active core derivations
 
 ### `HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`
 
-**Status:** active exact linear inverse under path-additive mean delay.
+**Status:** active exact operator / corrected.
 
-Role: derives the full finite-depth operator and common-delay nuisance parameter.
+Role:
 
-### `HGCDTE_SPECTRAL_TIMING_KERNEL_TOMOGRAPHY.md`
-
-**Status:** active finite-optical-depth analytic kernel result.
-
-Role: shows that the timing derivative measures a kernel-averaged inverse velocity and identifies the optical point-spread scale.
+- downstream collection -> CDF timing kernel;
+- front collection -> survival timing kernel;
+- cell-integrated matrix discretization;
+- wavelength-independent boundary/common delay is not generically identifiable without calibration/gauge/prior.
 
 ### `HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
 
-**Status:** active conditional extension.
+**Status:** active conditional extension / corrected.
 
-Role: separates mean transport density from timing-broadening density using the law of total variance.
+Role:
+
+- same orientation-correct matrix for mean-delay and conditional-broadening densities;
+- law-of-total-variance subtraction of generation-position broadening;
+- common first/second timing cumulants have the same boundary gauge ambiguity;
+- local `q_1=1/v`, `q_2≈2D/v^3` interpretation is conditional.
 
 ### `HGCDTE_SPECTRAL_TIMING_DIFFERENTIAL_PHASE.md`
 
-**Status:** active experimental implementation note.
+**Status:** active measurement formulation.
 
-Role: maps wavelength-dependent complex RF response to timing cumulants and shows how common wavelength-independent electronics can cancel or be fitted.
+Role: low-frequency complex response gives timing cumulants; differential phase removes wavelength-independent mean delay.
+
+The old statement that a common delay can always be uniquely fitted should be interpreted through the corrected identifiability discussion in `HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`.
+
+---
+
+## C. Published sample-B dimensional branch — ACTIVE FRONTIER
+
+### `HGCDTE_PUBLISHED_SAMPLE_B_DIMENSIONAL_FORWARD_MATRIX.md`
+
+**Status:** active literature-constrained dimensional result.
+
+Primary published constraints:
+
+```text
+W ~ 3.7 um
+nominal x ~ 0.316
+nonlinear interdiffusion region removed
+junction at high-Cd end
+linear-gradient field ~100-200 V/cm.
+```
+
+Uses
+
+- Hansen-Schmit-Casselman `E_g(x,T)` with `+0.832x^3`;
+- Moazzami et al. above-gap `alpha(E,x,T)`;
+- front-collection survival timing kernel.
+
+Current central result:
+
+```text
+2.80 um -> mean generation depth ~0.677 um, Pabs ~0.998
+3.88 um -> mean generation depth ~3.523 um, Pabs ~0.070
+```
+
+so
+
+```math
+\Delta\langle z\rangle\approx2.85\ {\rm um}.
+```
+
+At illustrative `v_eff=1e5 m/s`, this is approximately `28.5 ps` or `10.25 degrees` at `1 GHz`.
+
+Real matrix singular-mode counts above relative thresholds `[1e-1,1e-2,1e-3,1e-4]`:
+
+```text
+100 V/cm -> [2,5,10,20]
+150 V/cm -> [2,5,10,21]
+200 V/cm -> [2,5,11,23].
+```
+
+Interpretation: **few-mode, band-limited tomography**.
+
+### `HGCDTE_PUBLISHED_SAMPLE_B_PHASE_PRECISION.md`
+
+**Status:** active deterministic phase-noise stress test.
+
+Synthetic anomaly:
+
+```text
+25% slowdown
+center 2.30 um
+sigma 0.35 um
+baseline v=1e5 m/s.
+```
+
+Residual spectral anomaly phase is approximately `0.935 degree peak-to-peak` at `1 GHz`.
+
+For a three-mode reconstruction at `0.10 degree` independent phase noise:
+
+```text
+median noise error vs recoverable target ~17.5%
+90% peak-location error ~0.13 um.
+```
+
+At `0.25 degree`, localization degrades strongly. Five modes require substantially better phase precision for this anomaly.
+
+This is conditioning, not an instrument/sample performance claim.
+
+---
+
+## D. Active numerical regressions
+
+```text
+numerics/hgcdte_published_sample_b_forward_matrix.py
+numerics/hgcdte_published_sample_b_phase_noise.py
+numerics/hgcdte_spectral_timing_linear_inverse.py
+numerics/hgcdte_spectral_timing_kernel_tomography.py
+numerics/hgcdte_spectral_timing_svd_resolution.py
+numerics/hgcdte_spectral_timing_two_moment_inverse.py
+```
+
+Interpretation:
+
+- published optical physics limits the practical spatial rank;
+- a few coarse differential modes can survive realistic finite phase noise in the stated synthetic test;
+- higher spatial rank is rapidly noise amplified;
+- common timing offsets are gauge-like unless independently constrained.
+
+---
+
+## E. Supporting inverse files
+
+### `HGCDTE_SPECTRAL_TIMING_KERNEL_TOMOGRAPHY.md`
+
+**Status:** supporting finite-optical-depth analytic result.
+
+Role: derives stationary optical-kernel intuition and kernel-averaged inverse velocity in a simplified linear-gap/power-law absorption model.
+
+The published sample-B Moazzami matrix now supersedes it as the active real-device optical model.
 
 ### `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_RESOLUTION.md`
 
-**Status:** active resolution budget.
+**Status:** supporting general resolution budget.
 
-Role: tracks optical-kernel width, wavelength resolution, gap-profile uncertainty, timing/phase precision, and inverse conditioning.
+Role: tracks optical width, spectral linewidth, composition-profile uncertainty, timing precision, and conditioning.
 
 ### `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
 
 **Status:** active hard claim boundary.
 
-Role: records strong prior-art collisions including wavelength-dependent transit physics, localized-position HgCdTe timing, and the 2022 graded-HgCdTe forward model.
+Role: records collisions with wavelength-dependent transit physics, localized-position HgCdTe timing, and graded-HgCdTe forward modeling.
 
 ### `HGCDTE_PUBLISHED_GRADED_DEVICE_TOMOGRAPHY_CASE.md`
 
-**Status:** active real-device validation proposal.
+**Status:** supporting primary-source device selection / validation proposal.
 
-Role: identifies the 2022/2023 VPE graded-HgCdTe structures as experimentally adjacent test cases without inventing missing profile parameters.
-
----
-
-## C. Active numerical regressions
-
-```text
-numerics/hgcdte_spectral_timing_linear_inverse.py
-numerics/hgcdte_spectral_timing_kernel_tomography.py
-numerics/hgcdte_spectral_timing_svd_resolution.py
-numerics/hgcdte_spectral_timing_two_moment_inverse.py
-numerics/hgcdte_spectral_momentum_scattering_surrogate.py
-```
-
-Interpretation:
-
-- synthetic nonuniform mean-delay profiles can be reconstructed in controlled cases;
-- separate synthetic timing-broadening regions can be reconstructed in the two-moment case;
-- optical-kernel broadening sharply reduces recoverable spatial modes;
-- extreme-cutoff kernel truncation can invalidate naive point inversion.
-
-These are **conditioning checks only**, not experimental performance claims.
+The new sample-B dimensional file is the more specific active calculation.
 
 ---
 
-## D. Entrance-gap crossover branch — supporting, not headline
-
-### `HGCDTE_ENTRANCE_GAP_INITIAL_CONDITION_SWITCH.md`
-
-**Status:** active supporting geometry.
-
-Role: below `E_g,in`, photon energy primarily moves the first allowed generation position; above `E_g,in`, generation is pinned and photon energy changes the injected carrier state.
-
-This is the physical reason the wavelength sweep has spatial encoding power below the entrance gap and hot-carrier diagnostic power above it.
-
-### `HGCDTE_SPECTRAL_DRIFT_DIFFUSION_ROBUSTNESS.md`
-
-**Status:** supporting correction.
-
-Role: shows that strong momentum randomization gives rise -> plateau, not a universal peak.
-
-### `HGCDTE_SPECTRAL_MOMENTUM_SCATTERING_SURROGATE.md`
-
-**Status:** supporting adversarial stress test.
-
-Role: shows that post-crossover decline/plateau/rise depends on momentum-memory assumptions.
-
----
-
-## E. Ballistic timing-peak branch — SUPERSEDED AS UNIVERSAL CLAIM
+## F. Entrance-gap crossover branch — supporting geometry
 
 Retain:
+
+```text
+HGCDTE_ENTRANCE_GAP_INITIAL_CONDITION_SWITCH.md
+HGCDTE_SPECTRAL_DRIFT_DIFFUSION_ROBUSTNESS.md
+HGCDTE_SPECTRAL_MOMENTUM_SCATTERING_SURROGATE.md
+```
+
+The entrance-gap switch explains why wavelength can encode position, but a mandatory visible timing peak/cusp is not claimed.
+
+---
+
+## G. Ballistic timing-peak branch — SUPERSEDED AS UNIVERSAL CLAIM
+
+Retain as provenance:
 
 ```text
 HGCDTE_SPECTRAL_DELAY_PEAK.md
@@ -170,55 +221,39 @@ numerics/hgcdte_spectral_delay_peak.py
 numerics/hgcdte_spectral_delay_relaxation.py
 ```
 
-These remain valid inside their directed-ballistic / mean-energy assumptions.
+These remain valid only inside their directed-ballistic / mean-energy assumptions.
 
 Do **not** present the entrance-gap timing maximum as transport independent.
 
 ---
 
-## F. Photoexcitation correction files
+## H. Photoexcitation / graded-material supporting branches
 
-Retain:
+Retain as provenance/support:
 
 ```text
 HGCDTE_PHOTOEXCITATION_ENERGY_PARTITION.md
 HGCDTE_HEAVY_HOLE_PHOTOEXCITATION_LIMIT.md
 HGCDTE_SPECTRAL_GENERATION_DISTRIBUTION.md
 HGCDTE_SPECTRAL_GENERATION_TRANSPORT.md
-```
-
-Important permanent correction:
-
-> downstream-generated photoelectrons are not generally cold; excess photon energy must be included before assigning carrier momentum/energy.
-
-Do not equate excess energy to persistent forward longitudinal velocity without a scattering model.
-
----
-
-## G. Graded-HgCdTe material branch — supporting architecture
-
-Retain as active provenance:
-
-```text
 HGCDTE_LINEAR_GRADED_KANE_WKB.md
 HGCDTE_QUASINEUTRAL_GRADING_SELF_CONSISTENCY.md
 HGCDTE_GRADED_POISSON_ROBUSTNESS.md
-HGCDTE_BOUNDARY_LAYER_TAT_TRADEOFF.md
-HGCDTE_ELECTROSTATIC_COMPENSATION_PEAK_FIELD_BOUND.md
 HGCDTE_TAT_TOLERANCE_FIELD_ALLOCATION.md
-HGCDTE_NONLOCAL_IONIZATION_SURROGATE.md
 HGCDTE_GRADED_NONLOCAL_II_PHASE_BOUNDARY.md
-HGCDTE_GRADED_RELAXATION_SPEED_CEILING.md
-HGCDTE_GRADED_ABSORBER_BOUNDARY_PHASE_MAP.md
 ```
 
-These files explain why composition grading is physically interesting, but they are no longer the immediate publication frontier.
+Important permanent corrections:
+
+- downstream-generated photoelectrons are not generally cold;
+- excess energy is not automatically persistent forward velocity;
+- nonlocal II cannot always be represented by a local threshold field.
 
 ---
 
-## H. Earlier abstract branches — provenance only
+## I. Earlier abstract branches — provenance only
 
-Retain but do not restart without a new reason:
+Retain but do not restart without a new physical reason:
 
 ```text
 ONE_PORT_RESONATOR_DYNAMICS.md
@@ -231,11 +266,11 @@ ADAPTIVE_FEEDFORWARD_MODE_CAPACITY.md
 OUTPUT_RECORD_INFORMATION_CAPACITY.md
 ```
 
-These establish how the original universal-bound program progressively failed or narrowed.
+These document how the original universal-bound program failed or narrowed.
 
 ---
 
-## I. Hard prior-art boundary
+## J. Hard prior-art boundary
 
 Do not claim novelty for
 
@@ -253,21 +288,20 @@ Journal of Applied Optics (2024)
 DOI 10.5768/JAO202445.0310009
 ```
 
-Its metadata are confirmed, but the full technical paper has not been recovered in the current search.
+Metadata are confirmed; full technical collision remains OPEN.
 
 ---
 
-## J. Current forward branch
+## K. Current forward branch
 
-Do not add more generic inverse mathematics.
+Do **not** add more generic inverse mathematics.
 
 Next work:
 
-1. recover a dimensional published `x(z)` / `E_g(z)` profile;
-2. obtain/calibrate `alpha(z,lambda)`;
-3. build the real optical timing matrix `A`;
-4. predict differential phase/magnitude versus wavelength and modulation frequency;
-5. quantify recoverable singular modes and required phase precision;
-6. compare the reconstructed transport profile against localized excitation or validated transport simulation;
-7. read the 2024 laser-measurement paper before any novelty claim;
-8. reassess publication readiness only after real-device inversion or experimental validation.
+1. obtain/digitize the actual 2023 sample-B `x(z)` fit;
+2. construct an instrument-level wavelength × RF-frequency covariance model;
+3. add Urbach/reflection/interference only if they materially change the kernel matrix;
+4. fit multiple RF frequencies simultaneously;
+5. validate recovered differential modes against localized-position timing or calibrated microscopic transport;
+6. read the unresolved 2024 laser-measurement paper;
+7. reassess publication readiness only after real-data or independently validated inversion.
