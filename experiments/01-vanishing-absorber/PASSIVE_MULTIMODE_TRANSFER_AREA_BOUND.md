@@ -1,19 +1,21 @@
-# Passive Multimode Transfer-Area Bound — External Access, Not Mode Count, Limits Integrated Transfer
+# Passive Multimode Transfer-Area Bound — Harmonic External-Access Limit
 
 **Date:** 2026-08-08  
-**Status:** exact derivation for a finite-dimensional stable passive Markov/LTI network; mathematical ingredients are standard control/passivity theory; detector interpretation retained as a supporting result; no novelty claim  
+**Status:** exact derivation for a finite-dimensional stable passive Markov/LTI network; mathematical ingredients are standard control/passivity theory; no novelty claim  
 
-## 1. Purpose
+## 1. Result
 
-`MULTIMODE_ESCAPE_AUDIT.md` showed that a growing bank of narrow resonances can compensate the collapse of each individual linewidth by increasing the number/density of useful modes.
+Consider an arbitrary finite stable passive linear network connecting a useful optical reservoir `L` to an irreversible detector reservoir `R`, with no direct `L -> R` feedthrough.
 
-That construction raises the real question:
+Define total bare access budgets
 
-> Can arbitrarily complicated passive multimode interference produce arbitrarily large **frequency-integrated optical-to-detector transfer** while the total optical and detector access resources remain fixed?
+```math
+L\equiv\operatorname{Tr}\Gamma_L,
+\qquad
+R\equiv\operatorname{Tr}\Gamma_R.
+```
 
-For the finite passive linear network defined below, the answer is no.
-
-The exact result is
+Then the full frequency-integrated transfer obeys
 
 ```math
 \boxed{
@@ -27,37 +29,47 @@ G_{RL}^\dagger(i\omega)
 G_{RL}(i\omega)
 \right]
 \le
-2\min\!\left[
-\operatorname{Tr}\Gamma_L,
-\operatorname{Tr}\Gamma_R
-\right].
+\frac{2LR}{L+R}.
 }
 ```
 
-The result is independent of
+The right side is the harmonic mean of the two aggregate external-access budgets.
 
-- the number of internal modes;
-- their frequencies;
-- coherent internal coupling topology;
-- resonance overlap;
-- Fano interference inside the finite state-space model;
-- reciprocity.
+This is stronger than the preliminary bound
 
-What matters is the total access encoded at the two external boundaries.
+```math
+\mathcal I_{L\to R}
+\le
+2\min(L,R),
+```
 
-This is a passivity/resource-accounting result, not a universal Maxwell theorem.
+which remains true but is no longer canonical.
+
+The harmonic bound is tight: a single lossless internal resonance saturates it exactly.
+
+The theorem is independent of
+
+- internal mode count;
+- internal resonance frequencies;
+- coherent Hermitian coupling topology;
+- overlap of resonances;
+- internal Fano-type interference;
+- reciprocity;
+- additional passive parasitic loss.
+
+It is a finite passive-network resource result, not a universal nonlinear/active/Maxwell theorem.
 
 ---
 
-## 2. Finite passive network model
+## 2. Model
 
-Let the internal complex mode-amplitude vector be
+Let
 
 ```math
-\mathbf a(t)\in\mathbb C^N.
+\mathbf a(t)\in\mathbb C^N
 ```
 
-Use the amplitude equation
+be the internal amplitude vector and write
 
 ```math
 \boxed{
@@ -92,45 +104,27 @@ and
 \Gamma_I\succeq0.
 ```
 
-Interpret
+`Gamma_I` represents any additional unobserved passive loss.
 
-- `Gamma_L` — coupling/damping associated with the useful optical input/output reservoir(s);
-- `Gamma_R` — coupling/damping associated with the irreversible detector reservoir(s);
-- `Gamma_I` — all additional unobserved passive loss.
-
-Normalize the left input matrix by
+Normalize the optical input and detector output by
 
 ```math
 \boxed{
-B_LB_L^\dagger=2\Gamma_L.
+B_LB_L^\dagger=2\Gamma_L,
 }
 ```
-
-The detector-reservoir output is
 
 ```math
 \boxed{
 \mathbf y_R=C_R\mathbf a,
-}
-```
-
-with
-
-```math
-\boxed{
+\qquad
 C_R^\dagger C_R=2\Gamma_R.
 }
 ```
 
 Assume `A` is Hurwitz stable.
 
-There is **no direct feedthrough/bypass from the left optical input to the detector output** in this model. A direct feedthrough term is a separate access resource and is discussed later.
-
----
-
-## 3. Optical-to-detector transfer matrix
-
-The strictly proper transfer matrix is
+The strictly proper transfer block is
 
 ```math
 \boxed{
@@ -139,41 +133,11 @@ G_{RL}(s)
 }
 ```
 
-For a monochromatic input, the total transferred fraction summed over input/output channels is represented by
-
-```math
-\operatorname{Tr}
-\left[
-G_{RL}^\dagger(i\omega)
-G_{RL}(i\omega)
-\right].
-```
-
-Define its full frequency-integrated area
-
-```math
-\boxed{
-\mathcal I_{L\to R}
-=
-\int_{-\infty}^{\infty}
-\frac{d\omega}{2\pi}
-\operatorname{Tr}
-\left[
-G_{RL}^\dagger(i\omega)
-G_{RL}(i\omega)
-\right].
-}
-```
-
-`mathcal I` has units of angular frequency.
-
-Mathematically this is the squared `H_2` norm of the strictly proper transfer block.
-
 ---
 
-## 4. Controllability Gramian
+## 3. `H_2` / Gramian representation
 
-Let `Q_L` solve
+Let the left controllability Gramian satisfy
 
 ```math
 \boxed{
@@ -181,7 +145,7 @@ AQ_L+Q_LA^\dagger+2\Gamma_L=0.
 }
 ```
 
-For stable `A`,
+Then
 
 ```math
 Q_L
@@ -198,119 +162,206 @@ The standard `H_2` identity gives
 \boxed{
 \mathcal I_{L\to R}
 =
-\operatorname{Tr}
-(C_RQ_LC_R^\dagger)
-=
 2\operatorname{Tr}(\Gamma_RQ_L).
 }
 ```
 
+A first passivity argument gives
+
+```math
+0\preceq Q_L\preceq I,
+```
+
+and therefore the preliminary trace bound
+
+```math
+\mathcal I_{L\to R}
+\le
+2\min(L,R).
+```
+
+The sharper result follows by using the **diagonal part of the Lyapunov equation in the eigenbasis of `Q_L`**.
+
 ---
 
-## 5. Passivity forces `0 <= Q_L <= I`
+## 4. Exact diagonal identity
 
-The passive state matrix obeys
-
-```math
-A+A^\dagger
-=-2(\Gamma_L+\Gamma_R+\Gamma_I).
-```
-
-Define
+Diagonalize
 
 ```math
-Z_L=I-Q_L.
+Q_L
+=U\,\operatorname{diag}(q_1,\ldots,q_N)\,U^\dagger.
 ```
 
-Subtracting the Gramian equation from the equation for `I` gives
+In this basis define the nonnegative diagonal matrix elements
 
 ```math
-AZ_L+Z_LA^\dagger
-+2(\Gamma_R+\Gamma_I)=0.
+\ell_i
+=\left(U^\dagger\Gamma_LU\right)_{ii},
 ```
 
-Therefore
+```math
+r_i
+=\left(U^\dagger\Gamma_RU\right)_{ii},
+```
+
+```math
+\iota_i
+=\left(U^\dagger\Gamma_IU\right)_{ii}.
+```
+
+The Lyapunov equation can be written
+
+```math
+-i[H,Q_L]
+-\{\Gamma_L+\Gamma_R+\Gamma_I,Q_L\}
++2\Gamma_L
+=0.
+```
+
+For every eigenvector of `Q_L`, the diagonal matrix element of the commutator vanishes exactly:
+
+```math
+\left([H,Q_L]\right)_{ii}=0.
+```
+
+Therefore each direction with
+
+```math
+\ell_i+r_i+\iota_i>0
+```
+
+obeys
 
 ```math
 \boxed{
-Z_L
-=
-\int_0^\infty
- e^{At}
-2(\Gamma_R+\Gamma_I)
- e^{A^\dagger t}
-\,dt
-\succeq0.
+q_i
+=\frac{\ell_i}
+{\ell_i+r_i+\iota_i}.
 }
+```
+
+If the denominator vanishes, positivity of the damping matrices implies
+
+```math
+\ell_i=r_i=\iota_i=0,
+```
+
+so that direction contributes nothing to the transfer area.
+
+This identity is the key simplification: **the internal Hamiltonian disappears from the diagonal energy-partition relation.**
+
+---
+
+## 5. Exact transfer-area decomposition
+
+Using the eigenbasis of `Q_L`,
+
+```math
+\frac{\mathcal I_{L\to R}}{2}
+=
+\operatorname{Tr}(\Gamma_RQ_L)
+=
+\sum_i r_iq_i.
 ```
 
 Hence
 
 ```math
 \boxed{
-0\preceq Q_L\preceq I.
-}
-```
-
-Physical interpretation: starting from excitation injected through the left access, the state-space reachability Gramian cannot exceed the unit passive energy metric because some energy must leave through the right reservoir or other passive loss.
-
----
-
-## 6. First transfer-area bound
-
-Using
-
-```math
-0\preceq Q_L\preceq I
-```
-
-in
-
-```math
-\mathcal I_{L\to R}
-=2\operatorname{Tr}(\Gamma_RQ_L)
-```
-
-gives
-
-```math
-\boxed{
-\mathcal I_{L\to R}
-\le
-2\operatorname{Tr}\Gamma_R.
-}
-```
-
-This already says that arbitrarily many optical modes cannot create unbounded integrated transfer into a detector reservoir whose total access matrix trace remains fixed.
-
----
-
-## 7. Dual bound from observability
-
-Now let `P_R` solve the observability Lyapunov equation
-
-```math
-\boxed{
-A^\dagger P_R+P_RA+2\Gamma_R=0.
-}
-```
-
-The same argument gives
-
-```math
-\boxed{
-0\preceq P_R\preceq I.
-}
-```
-
-The dual `H_2` identity gives
-
-```math
-\mathcal I_{L\to R}
+\frac{\mathcal I_{L\to R}}{2}
 =
-\operatorname{Tr}
-(B_L^\dagger P_RB_L)
-=2\operatorname{Tr}(\Gamma_LP_R).
+\sum_i
+\frac{\ell_i r_i}
+{\ell_i+r_i+\iota_i}.
+}
+```
+
+Parasitic loss can only reduce every term, so
+
+```math
+\frac{\mathcal I_{L\to R}}{2}
+\le
+\sum_i
+\frac{\ell_i r_i}
+{\ell_i+r_i}.
+```
+
+The remaining problem is purely scalar.
+
+---
+
+## 6. Cauchy-Schwarz closes the bound
+
+Use the identity
+
+```math
+\frac{\ell_i r_i}{\ell_i+r_i}
+=
+\frac14
+\left[
+(\ell_i+r_i)
+-
+\frac{(\ell_i-r_i)^2}
+{\ell_i+r_i}
+\right].
+```
+
+Summing gives
+
+```math
+\sum_i
+\frac{\ell_i r_i}{\ell_i+r_i}
+=
+\frac14
+\left[
+L+R
+-
+\sum_i
+\frac{(\ell_i-r_i)^2}
+{\ell_i+r_i}
+\right].
+```
+
+By Cauchy-Schwarz / Titu's lemma,
+
+```math
+\sum_i
+\frac{(\ell_i-r_i)^2}
+{\ell_i+r_i}
+\ge
+\frac{
+\left[
+\sum_i(\ell_i-r_i)
+\right]^2
+}
+{
+\sum_i(\ell_i+r_i)
+}.
+```
+
+Since
+
+```math
+\sum_i\ell_i=L,
+\qquad
+\sum_i r_i=R,
+```
+
+we obtain
+
+```math
+\sum_i
+\frac{\ell_i r_i}{\ell_i+r_i}
+\le
+\frac14
+\left[
+L+R
+-
+\frac{(L-R)^2}{L+R}
+\right]
+=
+\frac{LR}{L+R}.
 ```
 
 Therefore
@@ -319,292 +370,316 @@ Therefore
 \boxed{
 \mathcal I_{L\to R}
 \le
-2\operatorname{Tr}\Gamma_L.
+\frac{2LR}{L+R}.
 }
 ```
 
-Combining both inequalities yields the main result:
-
-```math
-\boxed{
-\mathcal I_{L\to R}
-\le
-2\min\!\left(
-\operatorname{Tr}\Gamma_L,
-\operatorname{Tr}\Gamma_R
-\right).
-}
-```
+QED.
 
 ---
 
-## 8. Single-mode check
+## 7. Equality conditions
 
-For one internal mode with amplitude-decay rates `gamma_L` and `gamma_R` and no other loss,
+The proof shows what is needed to saturate the bound.
+
+First, no participating direction may have parasitic loss:
 
 ```math
-T(\omega)
-=
-\frac{4\gamma_L\gamma_R}
-{(\omega-\omega_0)^2+(\gamma_L+\gamma_R)^2}.
+\iota_i=0.
 ```
 
-Its exact area is
+Second, equality in Cauchy-Schwarz requires the ratio
+
+```math
+\frac{\ell_i-r_i}
+{\ell_i+r_i}
+```
+
+to be the same for every participating direction. Equivalently,
+
+```math
+\boxed{
+\frac{\ell_i}{r_i}
+=\frac{L}{R}
+}
+```
+
+for all transfer-active directions.
+
+Thus optimal integrated transfer requires **local matching in the same aggregate ratio as the global optical/detector access budgets**.
+
+A single internal resonance automatically satisfies this condition and gives
 
 ```math
 \boxed{
 \mathcal I
 =
 \frac{2\gamma_L\gamma_R}
-{\gamma_L+\gamma_R}.
+{\gamma_L+\gamma_R},
 }
 ```
 
-The general theorem gives
+exactly saturating the theorem.
+
+For matched total budgets `L=R=Gamma`,
 
 ```math
-\mathcal I
+\boxed{
+\mathcal I\le\Gamma.
+}
+```
+
+---
+
+## 8. Physical interpretation
+
+The bound is stronger than saying the smaller reservoir is the bottleneck.
+
+It says both access budgets enter through their harmonic mean:
+
+```math
+\boxed{
+\text{integrated transfer area}
 \le
-2\min(\gamma_L,\gamma_R).
+\operatorname{HM}(L,R).
+}
 ```
 
-If one rate is much smaller than the other, for example `gamma_L << gamma_R`, then
+A very large optical coupling cannot compensate for an arbitrarily weak detector reservoir, and vice versa.
+
+If
+
+```math
+L\ll R,
+```
+
+then
 
 ```math
 \mathcal I
-\simeq2\gamma_L,
+\lesssim2L,
 ```
 
-so the factor of `2` in the theorem is asymptotically attainable.
-
-For exact matching `gamma_L=gamma_R=gamma`,
+while for matched budgets
 
 ```math
-\mathcal I=\gamma,
+L=R,
 ```
 
-while the general bound gives `2 gamma`; the bound is not always tight.
+```math
+\mathcal I\le L=R.
+```
+
+This is the aggregate multimode analogue of ordinary rate matching / critical coupling.
 
 ---
 
 ## 9. Fixed target-band corollary
 
-Let a target angular-frequency band `B` have width
+For a target angular-frequency band `B` of width
 
 ```math
-W=|B|.
+W=|B|,
 ```
 
-Define the average total transfer in that band:
+define the average total transfer
 
 ```math
-\boxed{
 \overline T_B
 =
 \frac1W
 \int_B
 \operatorname{Tr}
 \left[
-G_{RL}^\dagger(i\omega)
-G_{RL}(i\omega)
-\right]
-\,d\omega.
-}
+G_{RL}^\dagger G_{RL}
+\right]d\omega.
 ```
 
-Because the target-band integral cannot exceed the full-line integral,
-
-```math
-\overline T_B
-\le
-\frac{2\pi}{W}
-\mathcal I_{L\to R}.
-```
-
-Hence
+Since the band integral cannot exceed the full-line integral,
 
 ```math
 \boxed{
 \overline T_B
 \le
-\frac{4\pi}{W}
-\min\!\left(
-\operatorname{Tr}\Gamma_L,
-\operatorname{Tr}\Gamma_R
-\right).
+\frac{4\pi LR}
+{W(L+R)}.
 }
 ```
 
-Equivalently, demanding
+Therefore a required average transfer
 
 ```math
-\overline T_B\ge T_*>0
+\overline T_B\ge T_*
 ```
 
-requires
+implies
 
 ```math
 \boxed{
-\min\!\left(
-\operatorname{Tr}\Gamma_L,
-\operatorname{Tr}\Gamma_R
-\right)
+\frac{LR}{L+R}
 \ge
 \frac{T_*W}{4\pi}.
 }
 ```
 
-This is an **external-access budget floor**, not an absolute bandwidth limit.
+For equal total access budgets
 
-Bandwidth can be increased, but the required total optical and detector coupling resources must increase with it.
-
----
-
-## 10. Why internal mode count does not evade the result
-
-The matrices `H`, `Gamma_L`, `Gamma_R`, and `Gamma_I` may have arbitrary finite dimension.
-
-Therefore adding
-
-- more cavity modes;
-- more material modes;
-- stronger coherent internal couplings;
-- overlapping resonances;
-- dark/bright internal superpositions;
-- nonreciprocal phase structure in the Hermitian Hamiltonian;
-
-cannot increase `mathcal I` beyond the trace bound **if the total boundary-access matrices remain fixed**.
-
-A multimode escape must therefore spend at least one new resource:
-
-```text
-larger Tr Gamma_L,
-larger Tr Gamma_R,
-direct feedthrough,
-active/time-varying elements,
-non-Markovian reservoir structure,
-or an effectively infinite-dimensional continuum not captured by fixed finite access budgets.
+```math
+L=R=\Gamma_{\rm access},
 ```
 
-This makes the mode-density resource identified in `MULTIMODE_ESCAPE_AUDIT.md` more precise: proliferating useful modes can broaden response only if the aggregate access budget represented by the reservoir couplings is also available.
+this reduces to
+
+```math
+\boxed{
+\Gamma_{\rm access}
+\ge
+\frac{T_*W}{2\pi}.
+}
+```
+
+This is an external-access resource floor, not an absolute bandwidth limit.
 
 ---
 
-## 11. Relation to standard systems theory
+## 10. Why arbitrary finite internal mode complexity does not evade it
 
-The derivation uses standard mathematical ingredients:
+The proof never assumes isolated resonances or diagonal internal Hamiltonians.
 
-- the `H_2` norm as a frequency-integrated squared transfer magnitude;
-- controllability and observability Gramians;
-- continuous Lyapunov equations;
-- scattering/passive linear-system energy balance.
+`H` may contain arbitrary finite Hermitian couplings, including complex phases. Thus the result permits
 
-These ingredients are established in control theory and passive linear-system theory.
+- overlapping modes;
+- internal Fano interference;
+- bright/dark superpositions;
+- multimode photonic and material sectors;
+- nonreciprocal phase structure compatible with a Hermitian passive Hamiltonian;
+- arbitrary finite passive parasitic loss.
 
-Relevant general sources include
+Mode proliferation can reshape the spectrum, but at fixed
 
-- O. J. Staffans and G. Weiss, *SIAM Journal on Control and Optimization* **50** (2012), `A Physically Motivated Class of Scattering Passive Linear Systems`, DOI `10.1137/110846403`;
-- G. Weiss and O. J. Staffans, *SIAM Journal on Control and Optimization* **51** (2013), `Maxwell's Equations as a Scattering Passive Linear System`, DOI `10.1137/120869444`;
-- J. E. Gough and G. Zhang, arXiv `1311.1375`, `On Realization Theory of Quantum Linear Systems`, including passive/lossless bounded-real realizations.
+```math
+L=Tr Gamma_L,
+\qquad
+R=Tr Gamma_R,
+```
 
-A targeted initial search has not identified this exact two-access trace inequality stated as an optical-to-detector transfer-area bound.
+it cannot increase the full transfer area above their harmonic mean.
 
-That negative search is **not** evidence of novelty.
-
-Treat this result as a useful detector-facing corollary of standard passivity/Gramian theory unless a broader literature review establishes otherwise.
-
----
-
-## 12. Relation to multiresonant absorption literature
-
-This theorem is consistent with, but not identical to, contemporary broadband-absorption bounds.
-
-Collin and Giteau, *PRX Energy* **5**, 023006 (2026), DOI `10.1103/1tzg-hgqx`, derive broadband-absorption bounds for multiple overlapping resonances using quasinormal modes, radiative/nonradiative decay rates, and mode-density/resource accounting.
-
-Huang, Yeung, and Raman, *Frontiers in Optics* (2020), `Limits on Thermal Emission from Multiple Coupled Resonators`, derive bounds on total emitted power versus bandwidth for arbitrary numbers of coupled resonators in temporal coupled-mode theory.
-
-Those results concern absorption/emission objectives. The present note instead isolates transfer between two separately identified access reservoirs in a finite passive state-space network.
-
-No priority distinction is claimed.
+To increase broadband transfer, an architecture must spend additional access resource, introduce a direct path, use active/time-varying dynamics, or leave the finite passive Markov/LTI class.
 
 ---
 
-## 13. Direct feedthrough and bypass channels
+## 11. Direct feedthrough
 
-If the detector output contains a direct left-to-right term
+If
 
 ```math
 \mathbf y_R
 =D_{RL}\mathbf s_L+C_R\mathbf a,
 ```
 
-then the strictly proper `H_2` integral over the entire real frequency axis is no longer the appropriate resource metric when `D_RL != 0`: a frequency-independent direct term has infinite full-line `H_2` energy.
-
-Physically, such a bypass is an additional direct optical-to-detector access channel.
-
-It must be counted explicitly rather than treated as an internal-mode loophole.
-
-Over a finite target band, a direct term contributes a finite amount proportional to the target bandwidth and `Tr(D_RL^dagger D_RL)`.
-
----
-
-## 14. Non-Markovian and strong-reservoir regimes
-
-A structured or strongly coupled external reservoir can often be represented by promoting reaction-coordinate / pseudomode degrees of freedom into an enlarged internal state vector and leaving a residual Markov boundary coupling.
-
-When that finite enlargement is valid, the same theorem applies to the enlarged passive network and the new residual `Gamma_L`, `Gamma_R`.
-
-The theorem does not by itself cover
-
-- genuinely infinite-dimensional reservoirs without a finite rational representation;
-- active gain;
-- explicitly time-varying systems;
-- nonlinear/saturating dynamics;
-- direct bypass/feedthrough not counted in the access budget.
-
-These remain legitimate counterexample directions.
-
----
-
-## 15. Current interpretation
-
-The original thought experiment repeatedly tried to improve detector performance by increasing **internal** electromagnetic sophistication:
-
-```text
-field concentration
--> stronger light-matter coupling
--> more modes
--> retuning / hybridization.
-```
-
-For the finite passive linear class here, none of those operations creates unlimited frequency-integrated transfer at fixed external access budgets.
-
-The resource statement is instead
+with
 
 ```math
-\boxed{
-\text{integrated useful transfer}
-\lesssim
-\text{smaller total external access budget}.
-}
+D_{RL}\ne0,
 ```
 
-This does not say that bandwidth is fundamentally bounded.
+then the full-line `H_2` integral is not the appropriate metric because a frequency-independent direct term has infinite area over an infinite frequency axis.
 
-It says that broadband efficient detection requires proportionally sufficient access to **both** the optical and irreversible detector sides.
+Physically, direct feedthrough is a separate broadband access resource.
 
-That is the most general form so far of the recurring two-access idea.
+Over a finite target band it contributes a finite term proportional to
+
+```math
+W\operatorname{Tr}(D_{RL}^\dagger D_{RL}),
+```
+
+plus interference with the resonant pathway.
+
+It must be counted explicitly rather than described as a multimode loophole.
 
 ---
 
-## 16. Next tests
+## 12. Structured / non-Markovian reservoirs
 
-Before any publication positioning:
+A finite structured reservoir can often be represented by promoting reaction-coordinate or pseudomode degrees of freedom into the internal state vector, leaving residual passive Markov boundaries.
 
-1. run numerical random-matrix stress tests of the Lyapunov inequality;
-2. search passive-network and scattering literature more deeply for an equivalent trace/H2 result;
-3. test whether a tighter two-sided bound involving both access traces can be proved;
-4. analyze finite-band direct-feedthrough contributions explicitly;
-5. determine how the finite-network access budget maps onto a microscopic photodetector: oscillator strength, collection channels, irreversible relaxation, and thermal/noise reservoirs.
+When such a finite realization exists, the theorem applies to the enlarged system with the residual boundary access matrices.
 
-Do not yet call this a new detector theorem.
+The present proof does not cover
+
+- genuinely infinite-dimensional reservoirs without a finite passive realization;
+- strong boundary coupling for which the chosen local damping representation fails;
+- active gain;
+- explicit time dependence;
+- nonlinear or saturating detector dynamics.
+
+---
+
+## 13. Mathematical prior-art boundary
+
+The proof uses established mathematical ingredients:
+
+- `H_2` transfer norms;
+- controllability/observability Gramians;
+- continuous Lyapunov equations;
+- passive/scattering energy balance.
+
+Relevant general sources include
+
+- O. J. Staffans and G. Weiss, *SIAM Journal on Control and Optimization* **50** (2012), DOI `10.1137/110846403`;
+- G. Weiss and O. J. Staffans, *SIAM Journal on Control and Optimization* **51** (2013), DOI `10.1137/120869444`;
+- J. E. Gough and G. Zhang, arXiv `1311.1375`, on passive quantum linear-system realizations.
+
+Broadband multimode optical-response bounds are also established in coupled-resonator and quasinormal-mode literature.
+
+An initial targeted search has **not** identified this exact harmonic two-access trace bound stated in optical-to-detector language.
+
+That is a negative search result only.
+
+Do not claim novelty or priority without a much broader systems/network/scattering literature audit.
+
+---
+
+## 14. Numerical verification
+
+`numerics/passive_multimode_h2_stress.py` performs deterministic random-network tests.
+
+The regression checks
+
+- the Lyapunov solution;
+- `0 <= Q_L <= I`;
+- the integrated transfer bound;
+- direct numerical frequency integration for one representative multimode system.
+
+The script should now use the harmonic trace bound
+
+```math
+\mathcal I_{L\to R}
+\le
+\frac{2LR}{L+R}
+```
+
+as its canonical assertion.
+
+---
+
+## 15. Current significance
+
+This result gives the cleanest version yet of the recurring detector idea:
+
+> **Internal electromagnetic sophistication can redistribute useful transfer, but it cannot replace simultaneous access to the optical input and irreversible detector reservoirs. In a finite passive linear network, the total frequency-integrated transfer is bounded by the harmonic mean of those aggregate access budgets.**
+
+This is a robust model-level organizing statement.
+
+It is not yet a claimed new photodetector theorem.
+
+---
+
+## 16. Next attacks
+
+1. search control/network/scattering literature specifically for the harmonic trace inequality;
+2. test whether a finite-band version including direct feedthrough has an equally clean resource decomposition;
+3. test infinite-dimensional passive limits and strong structured reservoirs;
+4. map `L` and `R` onto microscopic semiconductor optical-coupling and irreversible-relaxation resources;
+5. add thermal/dark/reset thermodynamics only after that mapping is explicit.
