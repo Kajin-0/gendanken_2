@@ -1,8 +1,8 @@
 # Claim Ledger — Experiment 01
 
 **Updated:** 2026-08-08  
-**Status:** exploratory; one-resonance model derived  
-**Purpose:** keep known inputs, derivations, conjectures, and invalidated ideas from being conflated.
+**Status:** exploratory; one-resonance model derived; active-volume-only optical bound invalidated in ideal local continuum electrodynamics  
+**Purpose:** keep known inputs, derivations, conjectures, invalidated ideas, and prior-art collisions separate.
 
 ---
 
@@ -11,7 +11,7 @@
 Can an ideal photodetector simultaneously approach
 
 ```math
-V\to0,
+V_a\to0,
 \qquad
 \eta_{\rm abs}\to1,
 \qquad
@@ -22,6 +22,10 @@ B\to\infty,
 
 The project does not assume these limits are incompatible.
 
+The current issue is no longer whether a weak one-port absorber becomes slow. That is established within the one-resonance model.
+
+The current issue is what physical resource replaces geometric active volume once field concentration is allowed.
+
 ---
 
 ## 2. Known or model-defining ingredients
@@ -31,50 +35,80 @@ The project does not assume these limits are incompatible.
 For a uniform volumetric dark-generation event-rate density `g_d`,
 
 ```math
-\Gamma_d=g_dV.
+D=g_dV_a.
 ```
 
-This is an extensivity assumption/model definition, not a new result.
+This is an extensivity assumption/model definition. It is not expected to remain valid when the active degrees of freedom become microscopic and discrete.
 
 ### K2 — Temporal coupled-mode framework
 
-A passive linear one-port resonance can be represented by a single complex mode amplitude coupled to one external channel and one internal absorptive channel.
+A passive linear one-port resonance can be represented by a complex mode amplitude coupled to an external channel and an internal absorptive channel.
 
-This is established resonator theory.
+Established resonator theory.
 
 ### K3 — Critical coupling
 
 Unity monochromatic absorption in the one-port model occurs when external leakage equals internal absorption loss.
 
-This is established resonator physics, rederived here to lock conventions.
+Established resonator physics.
 
-### K4 — Optical confinement can separate collection area from active material volume
+### K4 — Dielectric participation-factor loss
 
-Resonators, antennas, gratings, photon trapping, slow-light structures, etc. can increase optical interaction with a small absorber.
+For a weakly lossy dielectric in a weakly damped resonator,
 
-This is established photonic engineering, not a novelty claim.
+```math
+\gamma_a
+=
+\frac{\omega}{2}p_a\tan\delta,
+```
+
+where `p_a` is the electric-energy participation fraction of the active dielectric.
+
+This is standard resonator loss physics.
+
+### K5 — Material-response absorption bounds
+
+Passivity and the optical theorem give geometry-independent absorption bounds for a specified lossy susceptibility and specified background excitation. A representative homogeneous-isotropic form is
+
+```math
+P_{\rm abs}
+\le
+\frac{\omega\epsilon_0}{2}
+\frac{|\chi|^2}{\operatorname{Im}\chi}
+\int_{V_a}|\mathbf E_{\rm bg}|^2\,dV.
+```
+
+For a uniform plane wave,
+
+```math
+\frac{\sigma_{\rm abs}}{V_a}
+\le
+k\frac{|\chi|^2}{\operatorname{Im}\chi}.
+```
+
+This is prior electromagnetic theory, not a repository novelty claim.
+
+Primary source: Miller et al., *Optics Express* 24, 3329-3364 (2016), DOI `10.1364/OE.24.003329`.
 
 ---
 
-## 3. Derived results within the one-resonance model
+## 3. Derived results — one-port resonator
 
 Canonical derivation:
 
 `ONE_PORT_RESONATOR_DYNAMICS.md`
 
-### D1 — Exact absorptance
-
-With external amplitude-decay rate `gamma_e`, absorptive amplitude-decay rate `gamma_a`, and detuning `Delta = omega - omega_0`,
+### D1 — Absorptance
 
 ```math
 \boxed{
 A(\omega)=
 \frac{4\gamma_e\gamma_a}
-{\Delta^2+(\gamma_e+\gamma_a)^2}.
+{(\omega-\omega_0)^2+(\gamma_e+\gamma_a)^2}.
 }
 ```
 
-### D2 — Critical-coupling condition
+### D2 — Critical coupling
 
 ```math
 \boxed{\gamma_e=\gamma_a}
@@ -82,31 +116,7 @@ A(\omega)=
 
 gives `A(omega_0)=1`.
 
-### D3 — Energy lifetime and quality factor
-
-With `Gamma = gamma_e + gamma_a`,
-
-```math
-\boxed{
-\tau_U=\frac{1}{2\Gamma},
-\qquad
-Q_L=\frac{\omega_0}{2\Gamma}.
-}
-```
-
-### D4 — Small-signal absorbed-power modulation response
-
-For a resonant optical carrier,
-
-```math
-\boxed{
-H_{\rm abs}(\Omega)
-=
-\frac{\Gamma}{\Gamma+i\Omega}.
-}
-```
-
-Therefore
+### D3 — Absorbed-power modulation bandwidth
 
 ```math
 \boxed{
@@ -126,9 +136,9 @@ B_{3\rm dB}^{\rm crit}
 }
 ```
 
-**Interpretation:** in this architecture, maintaining unity absorption while `gamma_a -> 0` forces the absorbed-power modulation bandwidth to zero.
+Thus `gamma_a -> 0` with unity absorption implies a narrow absorbed-power response in this architecture.
 
-### D5 — Optical linewidth versus modulation bandwidth
+### D4 — Optical linewidth versus modulation bandwidth
 
 At critical coupling,
 
@@ -138,15 +148,7 @@ At critical coupling,
 }
 ```
 
-Equivalently,
-
-```math
-B_{3\rm dB}=\frac{f_0}{2Q_L},
-\qquad
-\Delta f_{\rm abs,FWHM}=\frac{f_0}{Q_L}.
-```
-
-### D6 — Integrated absorptance
+### D5 — Integrated absorptance
 
 ```math
 \boxed{
@@ -160,42 +162,18 @@ B_{3\rm dB}=\frac{f_0}{2Q_L},
 At critical coupling,
 
 ```math
-\boxed{
-\int A(f)\,df=\gamma_a.
-}
+\boxed{\int A(f)\,df=\gamma_a.}
 ```
 
-### D7 — Weak-loss material-overlap expression
+### D6 — Toy dark-event sensitivity-speed metric
 
-For weak dielectric loss,
+For
 
 ```math
-\boxed{
-\gamma_a
-=
-\frac{\omega\epsilon_0}{4U}
-\int_{V_a}
-\epsilon''|\mathbf E|^2\,dV.
-}
+D=g_dV_a
 ```
 
-This is a standard perturbative material-loss relation used here to expose the dependence on active-material participation.
-
-### D8 — Toy sensitivity-speed metric
-
-Under the minimal Poisson bulk-dark-event model,
-
-```math
-D=g_dV,
-```
-
-```math
-\mathrm{NEP}^2
-=
-\frac{2(h\nu)^2D}{A_0^2},
-```
-
-and defining
+and
 
 ```math
 \mathcal C
@@ -203,213 +181,270 @@ and defining
 \frac{h\nu\sqrt{B_{3\rm dB}}}{\mathrm{NEP}},
 ```
 
-with
-
-```math
-x=\frac{\gamma_e}{\gamma_a},
-```
-
-gives
+with a one-sided Poisson event-noise model,
 
 ```math
 \boxed{
 \mathcal C^2
 =
 \frac{4\gamma_a}{\pi D}
-\frac{x^2}{(1+x)^3}.
+\frac{x^2}{(1+x)^3},
+\qquad
+x=\frac{\gamma_e}{\gamma_a}.
 }
 ```
 
-### D9 — Optimum coupling for this specific metric
-
-The nonzero maximum occurs at
+The optimum occurs at
 
 ```math
-\boxed{x=2.}
+\boxed{x=2,}
 ```
 
-Thus
+so
 
 ```math
 \boxed{
-\gamma_e=2\gamma_a,
-\qquad
 A_0=\frac89,
 \qquad
-B_{3\rm dB}=\frac{3\gamma_a}{2\pi}.
-}
-```
-
-and
-
-```math
-\boxed{
+B_{3\rm dB}=\frac{3\gamma_a}{2\pi},
+\qquad
 \mathcal C_{\max}^2
 =
 \frac{16\gamma_a}{27\pi D}.
 }
 ```
 
-This improves `C` by approximately `8.9%` relative to exact critical coupling.
+This is a model result, not a universal detector optimum.
 
-This is not claimed as a universal detector optimum.
+---
 
-### D10 — Conditional volume cancellation
+## 4. Derived result — active-volume counterexample
 
-If, over a regular scaling regime,
+Canonical derivation:
 
-```math
-\gamma_a=\kappa V
-```
+`ACTIVE_VOLUME_COUNTEREXAMPLE.md`
 
-and
+Take an ideal parallel-plate capacitor filled by the active dielectric and scale
 
 ```math
-D=g_dV,
+d=s d_0,
+\qquad
+A=s A_0,
+\qquad
+s\to0.
 ```
 
-then
+Then
+
+```math
+C=\frac{\epsilon_0\epsilon' A}{d}=C_0
+```
+
+remains fixed while
+
+```math
+\boxed{V_a=Ad\propto s^2\to0.}
+```
+
+For fixed modal energy, capacitor voltage stays fixed and
+
+```math
+|E|^2\propto s^{-2}.
+```
+
+Therefore
+
+```math
+|E|^2V_a=\text{constant}.
+```
+
+The active dielectric participation stays finite, so for fixed loss tangent
 
 ```math
 \boxed{
+\gamma_a
+=
+\frac{\omega}{2}p_a\tan\delta
+=\text{constant}.
+}
+```
+
+Hence
+
+```math
+\boxed{
+\frac{\gamma_a}{V_a}\to\infty.
+}
+```
+
+### D7 — Consequence
+
+Geometric active volume alone does **not** bound the absorptive modal decay rate in the ideal local linear continuum model when arbitrary ideal field concentration is allowed.
+
+### D8 — Toy metric divergence under the same assumptions
+
+If the separate dark-event assumption `D = g_d V_a` is retained while `gamma_a` stays fixed, then
+
+```math
+\boxed{
+\mathcal C_{\max}^2\propto V_a^{-1},
+\qquad
+\mathcal C_{\max}\propto V_a^{-1/2}.
+}
+```
+
+This divergence is a diagnostic that the combined continuum/noise assumptions break before `V_a -> 0`; it is not a prediction of infinite real detector performance.
+
+---
+
+## 5. Invalidated conjectures
+
+### H1 — Bounded `gamma_a/V_a` from passivity alone
+
+Earlier conjecture:
+
+```text
+passivity may force gamma_a / V_a to remain bounded as V_a -> 0
+```
+
+**Status: INVALIDATED under the ideal local-linear model with arbitrary lossless field concentration.**
+
+The constant-capacitance shrinking-gap family is an explicit counterexample.
+
+### H2 — Universal active-volume cancellation
+
+Earlier conditional result:
+
+```math
+\gamma_a=\kappa V_a,
+\qquad
+D=g_dV_a
+\Rightarrow
 \mathcal C_{\max}^2
-=
-\frac{16\kappa}{27\pi g_d},
-}
+=\frac{16\kappa}{27\pi g_d}.
 ```
 
-so `V` cancels.
+The algebra remains correct **when its premise holds**, but the premise `gamma_a proportional to V_a` is not general.
 
-The cancellation is a derived **conditional toy-model result**, not a universal bound.
+Therefore active-volume cancellation is not a universal passive detector law.
+
+### H3 — Universal law of the form `eta^2 B <= C V_a`
+
+No such active-volume-only law is supported by the current analysis.
+
+Treat the earlier expression only as historical motivation, not an active conjecture.
 
 ---
 
-## 4. Verification state
+## 6. Why prior per-volume optical bounds do not restore H1
 
-### V1 — Modulation response
+The Miller-type material bound is referenced to the field in a specified background problem.
 
-Direct time-domain integration of the resonant cavity-envelope equation agrees with
+If an ideal lossless field concentrator is treated as part of that background, then the field at the active material can itself scale as the active region shrinks.
+
+In the capacitor family,
 
 ```math
-|H_{\rm abs}|
-=
-\frac{\Gamma}{\sqrt{\Gamma^2+\Omega^2}}
+|E_{\rm bg}|^2\propto\frac{1}{V_a},
 ```
 
-at representative frequencies to better than roughly `4e-4` absolute amplitude in the initial check.
+so
 
-### V2 — Coupling optimization
-
-A numerical scan recovers the optimum near
-
-```text
-gamma_e/gamma_a = 2.00003
+```math
+V_a|E_{\rm bg}|^2
 ```
 
-with
+need not vanish.
 
-```text
-A_0 ~= 0.888884,
-```
+Therefore a material-per-volume bound is not the same as an active-volume-only detector bound.
 
-consistent with `2` and `8/9`.
-
-A dedicated repository regression script has not yet been promoted to canonical infrastructure.
+The full electromagnetic environment and allowed material resources matter.
 
 ---
 
-## 5. Active conjectures / open questions
+## 7. Current open questions
 
-### C1 — Bounded active-loss rate per active volume
+### C1 — Microscopic absorber resource
 
-There may exist physically meaningful conditions under which
+What replaces geometric volume when the continuum dielectric description fails?
 
-```math
-\frac{\gamma_a}{V}
-```
+Candidate resources include:
 
-cannot diverge as `V -> 0` for passive local materials coupled to a specified incident channel.
+- absorber number;
+- total oscillator strength;
+- transition dipole strength;
+- single-photon saturation field;
+- nonlocal/atomic length scales.
 
-**Status:** open; now the primary theoretical target.
+**Status:** primary open question.
 
-### C2 — General passive material-response bound
+### C2 — Thermodynamic resource
 
-A frequency-integrated electromagnetic bound may constrain absorption strength or active loss rate in terms of material susceptibility and absorber amount.
+Can an ideal detector evade sensitivity/speed/dark-count tradeoffs by using irreversible, nonequilibrium internal states or amplification, and if so what free-energy/reset resource must be counted?
 
-**Status:** plausible from known classes of optical bounds; exact statement not yet selected.
+**Status:** open; directly relevant prior quantum-photodetector literature exists.
 
-### C3 — Detector-level geometry-independent sensitivity-speed bound
+### C3 — Constrained electromagnetic bound
 
-If C1/C2 yields a rigorous optical/material constraint and the relevant intrinsic fluctuation rate remains extensive in the same active material, a detector-level bound may result after eliminating active volume.
+If the full passive concentrating structure, its materials, bounding region, and input channel are constrained, can a useful frequency-integrated optical bound be combined with detector noise?
 
-**Status:** speculative.
+**Status:** plausible but no exact detector statement selected.
 
----
+### C4 — Equilibrium thermal bound
 
-## 6. Explicitly unestablished statements
+For a detector restricted to passive thermal equilibrium, detailed balance or fluctuation-dissipation may link absorptance to thermal excitation/dark events.
 
-Do not present any of the following as results:
-
-- `gamma_a proportional to V` for arbitrary field-concentrating structures;
-- bounded `gamma_a/V` without a proof and explicit material/input-channel assumptions;
-- `eta^2 B <= C V` as a universal law;
-- `sqrt(B)/NEP <= constant` as a universal detector bound;
-- optimality of a single resonance;
-- the claim that passive nanophotonics cannot improve every sensible detector figure of merit simultaneously;
-- the claim that cavity photon lifetime always sets total detector bandwidth;
-- the claim that active volume alone determines dark current or NEP in real detectors;
-- any claim of novelty or priority.
+**Status:** promising restricted problem; not universal for driven nonequilibrium detectors.
 
 ---
 
-## 7. Correction history
+## 8. Important prior-art collision
 
-### H1 — Time-harmonic sign convention
+Young, Sarovar & Léonard, *Physical Review A* 97, 033836 (2018), DOI `10.1103/PhysRevA.97.033836`, developed a fully quantum photodetector model and showed that a detector architecture with rapid incoherent transfer from the optically active state to an optically dark monitored state can, in their idealized model, approach 100% efficiency, zero dark counts, and minimal jitter.
 
-The first draft of the one-port derivation combined an `exp(-i omega t)` drive with the opposite sign convention in the resonant-frequency term of the amplitude equation.
+This is important for the present project because it argues strongly against assuming a universal quantum efficiency-dark-count-jitter tradeoff without specifying thermodynamic and architectural resources.
 
-It was corrected before the result was promoted into `CURRENT_STATE.md`.
-
-### H2 — Redundant quality-factor rewrite
-
-The first draft correctly derived
-
-```math
-B_{3\rm dB}=\frac{\Gamma}{2\pi}
-```
-
-but incorrectly rewrote it as `f_0/(4Q_L)`.
-
-Given
-
-```math
-Q_L=\frac{\omega_0}{2\Gamma},
-```
-
-the correct relation is
-
-```math
-\boxed{
-B_{3\rm dB}=\frac{f_0}{2Q_L}.
-}
-```
-
-The decay-rate result and optimized-coupling result were unaffected.
+Their result does not address the exact active-volume question studied here, but it narrows the next target.
 
 ---
 
-## 8. Promotion criteria remain unchanged
+## 9. Explicit non-claims
 
-A conjecture can move to **derived result** only after:
+Do not claim that:
 
-1. assumptions are explicit;
-2. normalization and bandwidth conventions are explicit;
-3. units and limiting cases pass;
-4. the derivation is internally checked;
-5. obvious counterexamples are tested.
+- real detector performance diverges as active volume tends to zero;
+- ideal lossless concentration exists at arbitrarily small physical scale;
+- continuum `epsilon` and `tan delta` remain meaningful for a few microscopic absorbers;
+- `D = g_d V_a` survives to the single-absorber limit;
+- oscillator strength, detailed balance, nonlocality, or quantum backaction already yields a universal detector theorem here;
+- any present detector-level result is novel.
 
-A result can move to **publication claim candidate** only after, additionally:
+---
 
-6. an independent derivation or numerical falsification test where feasible;
-7. focused primary-source prior-art comparison;
-8. explicit statement of architectures/regimes outside the claim.
+## 10. Correction history retained
+
+### C0.1 — Time-harmonic sign convention
+
+Corrected during the one-port derivation before state promotion.
+
+### C0.2 — Quality-factor rewrite
+
+The correct relation is
+
+```math
+\boxed{B_{3\rm dB}=\frac{f_0}{2Q_L}.}
+```
+
+The earlier redundant `f_0/(4Q_L)` rewrite was incorrect and was removed.
+
+---
+
+## 11. Next promotion criterion
+
+Do not promote a new bound until it survives:
+
+1. explicit resource accounting;
+2. a counterexample search including lossless concentration and nonequilibrium dark-state architectures;
+3. microscopic normalization of optical coupling;
+4. thermal/detailed-balance checks where equilibrium is assumed;
+5. primary-source prior-art comparison.
