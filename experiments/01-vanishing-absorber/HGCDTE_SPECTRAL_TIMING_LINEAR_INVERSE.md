@@ -1,128 +1,154 @@
 # HgCdTe Spectral Timing Linear Inverse — Reconstructing Delay Density Without Differentiating Noisy Data
 
 **Date:** 2026-08-09  
-**Status:** exact linear-operator formulation under a path-additive mean-delay model with known optical generation kernels; synthetic inversion target; no novelty claim
+**Status:** exact linear-operator formulation under a path-additive mean-delay model with known optical generation kernels; collection-boundary orientation and common-delay identifiability corrected; no novelty claim
 
 ## 1. Purpose
 
-The pointwise spectral timing inversion
+The pointwise relation
 
 ```math
 v_{\rm eff}=1/[G(dT/dE_\gamma)]
 ```
 
-is simple but numerical differentiation amplifies measurement noise.
+is useful in a sharp-generation limit, but numerical differentiation amplifies noise and finite optical depth spatially averages the measurement.
 
-Finite optical depth also turns the point measurement into a spatially averaged one.
-
-There is a better formulation.
-
-Because carrier collection delay is linear in the local **delay density**
+A more general formulation is linear in the local **delay density**
 
 ```math
-q(x)=1/v_{\rm eff}(x),
+\boxed{q(x)=1/v_{\rm eff}(x).}
 ```
 
-the complete wavelength-resolved mean-delay data form a linear inverse problem for `q(x)`.
+The wavelength-resolved mean-delay data then form a linear inverse problem for `q(x)`.
 
-No derivative is required.
+The timing kernel depends on **which boundary collects the carrier**.
 
 ---
 
 ## 2. Generation distribution
 
-For wavelength / photon energy index `i`, let
+For wavelength / photon-energy index `i`, let
 
 ```math
 \boxed{
-p_i(x)
-=p(x|E_{\gamma,i},{\rm abs})
+p_i(x)=p(x|E_{\gamma,i},{\rm abs})
 }
 ```
 
-be the normalized conditional generation-position density inside the active region:
+be the normalized conditional generation-position density:
 
 ```math
 \int_0^L p_i(x)dx=1.
 ```
 
-The kernel may come from
+It may come from Beer-Lambert absorption, transfer-matrix/FDTD optics, or a measured calibrated optical model.
 
-- Beer-Lambert absorption in a graded material;
-- a transfer-matrix / FDTD optical calculation;
-- a measured/calibrated optical model.
+Define the conditional CDF
 
-No power-law edge assumption is required for the linear inverse below.
+```math
+\boxed{
+F_i(s)=P(X_g\le s)=\int_0^s p_i(x)dx.
+}
+```
+
+and survival function
+
+```math
+\boxed{
+S_i(s)=P(X_g\ge s)=1-F_i(s).
+}
+```
 
 ---
 
-## 3. Path-additive mean collection time
+## 3. Collection at the downstream boundary `L`
 
-Define local delay density
-
-```math
-\boxed{
-q(s)=\frac1{v_{\rm eff}(s)}.
-}
-```
-
-For a carrier generated at `x`, let the mean collection delay be
+If every generated carrier moves toward `x=L`, then
 
 ```math
 \boxed{
-T(x)
-=\int_x^L q(s)ds.
+T_L(x)=\int_x^L q(s)ds.
 }
 ```
 
-The mean intrinsic delay at photon energy `i` is
+The wavelength-dependent mean delay is
 
 ```math
-\boxed{
-\bar T_i
-=\int_0^L p_i(x)T(x)dx.
-}
-```
-
-Substitute `T(x)`:
-
-```math
-\bar T_i
+\bar T_{L,i}
 =\int_0^L p_i(x)
 \left[
 \int_x^L q(s)ds
 \right]dx.
 ```
 
----
-
-## 4. Swap the integration order
-
-The region of integration is
-
-```text
-0 <= x <= s <= L.
-```
-
-Therefore
-
-```math
-\bar T_i
-=\int_0^L q(s)
-\left[
-\int_0^s p_i(x)dx
-\right]ds.
-```
-
-Define the cumulative generation kernel
+Swap the integration order:
 
 ```math
 \boxed{
-K_i(s)
-\equiv
-P(X_g\le s|E_{\gamma,i},{\rm abs})
-=\int_0^s p_i(x)dx.
+\bar T_{L,i}
+=\int_0^L F_i(s)q(s)ds.
 }
+```
+
+Thus the downstream-collection timing kernel is
+
+```math
+\boxed{K_{L,i}(s)=F_i(s).}
+```
+
+A delay element at `s` contributes only when the carrier was generated upstream of it.
+
+---
+
+## 4. Collection at the entrance boundary `0`
+
+For a front-side junction, as in the 2023 published graded-HgCdTe sample-B geometry, the carrier instead returns toward `x=0`.
+
+Then
+
+```math
+\boxed{
+T_0(x)=\int_0^x q(s)ds.
+}
+```
+
+and
+
+```math
+\bar T_{0,i}
+=\int_0^L p_i(x)
+\left[
+\int_0^x q(s)ds
+\right]dx.
+```
+
+Swapping integrals gives
+
+```math
+\boxed{
+\bar T_{0,i}
+=\int_0^L S_i(s)q(s)ds.
+}
+```
+
+Therefore the front-collection kernel is
+
+```math
+\boxed{K_{0,i}(s)=S_i(s)=1-F_i(s).}
+```
+
+A delay element at depth `s` contributes only when the photon was generated at or beyond that depth.
+
+This correction is essential when instantiating the inverse on a real device.
+
+---
+
+## 5. Unified linear operator
+
+For either one-boundary geometry, write the appropriate timing kernel as
+
+```math
+K_i(s).
 ```
 
 Then
@@ -134,113 +160,130 @@ Then
 }
 ```
 
-This is the central linear-operator identity.
-
----
-
-## 5. Physical interpretation of the cumulative kernel
-
-A local delay element `q(s) ds` contributes to a detected event only if that event was generated **upstream** of position `s`.
-
-The probability of that condition is exactly
-
-```math
-K_i(s)=P(X_g\le s).
-```
-
-So the timing kernel is not the local absorption density itself.
-
-It is its **cumulative distribution**.
-
-This is why the timing inversion is naturally linear in `q=1/v`.
-
----
-
-## 6. Discrete inverse problem
-
-Discretize the device into spatial cells `j` of widths `Delta x_j`.
-
-Let
-
-```math
-q_j\approx q(x_j).
-```
-
-For measured wavelength `i`, define
+Discretize the device into cells `j` and integrate the kernel over each cell:
 
 ```math
 \boxed{
-A_{ij}=K_i(x_j)\Delta x_j.
+A_{ij}
+=\int_{x_{j-1}}^{x_j}K_i(s)ds.
 }
 ```
 
-Then
+This cell-integrated form is preferable to simply evaluating `K_i` at a cell edge.
+
+The discrete forward model is
 
 ```math
 \boxed{
-\mathbf T
-=\mathbf A\mathbf q.
+\mathbf T=\mathbf A\mathbf q.
 }
 ```
 
-This is a standard linear inverse problem.
-
-The unknown is the **spatial delay density** `q`, from which
+If `q_j>0`, a local effective velocity may be reported as
 
 ```math
-\boxed{
-v_{\rm eff}(x_j)=1/q_j.}
+\boxed{v_{\rm eff}(x_j)=1/q_j.}
 ```
 
-provided `q_j>0`.
+subject to the path-additive interpretation.
 
 ---
 
-## 7. Include common readout delay as a nuisance parameter
+## 6. Important correction — a common timing offset is not generically identifiable
 
-Suppose every timing datum contains a wavelength-independent electronics / cable / amplifier delay `c`:
-
-```math
-\boxed{
-T_i^{\rm meas}
-=\sum_jA_{ij}q_j+c.
-}
-```
-
-Augment the system with one constant column:
+Suppose the measured timing data contain a wavelength-independent common delay `c`:
 
 ```math
 \boxed{
 \mathbf T^{\rm meas}
-=
-\begin{bmatrix}
-\mathbf A & \mathbf 1
-\end{bmatrix}
-\begin{bmatrix}
-\mathbf q\\
-c
-\end{bmatrix}.
+=\mathbf A\mathbf q+c\mathbf1.
 }
 ```
 
-Thus the common delay can be estimated simultaneously instead of removed by numerical differentiation.
+It is algebraically possible to append a constant column,
 
-This is a major practical advantage of the full inverse formulation.
+```math
+[\mathbf A\ \mathbf1],
+```
+
+but this does **not** guarantee that `c` and all components of `q` are uniquely separable.
+
+For front collection,
+
+```math
+S_i(0)=1
+```
+
+for every wavelength.
+
+For downstream collection,
+
+```math
+F_i(L)=1
+```
+
+for every wavelength.
+
+Therefore transport concentrated arbitrarily close to the collecting boundary produces an approximately wavelength-independent delay and becomes degenerate with `c`.
+
+In a finite discretization, the boundary-cell column can be strongly correlated with the constant column.
+
+Hence the earlier statement
+
+```text
+"the common delay can simply be estimated simultaneously"
+```
+
+was too strong.
+
+The safe statement is
+
+> **spectral timing determines wavelength-dependent / differential transport modes. A wavelength-independent boundary/common component requires calibration, a gauge constraint, or a physical prior.**
 
 ---
 
-## 8. Regularization
+## 7. Practical ways to fix the delay gauge
 
-The matrix is generally ill conditioned because neighboring wavelength kernels overlap strongly.
+A real inversion should use at least one of the following:
 
-A natural smoothness-regularized estimate is
+### Differential timing
+
+Choose a reference wavelength and use
+
+```math
+\Delta T_i=T_i-T_{\rm ref}.
+```
+
+The common delay cancels exactly, but the absolute spectrally invariant transport component is also removed.
+
+### Independent common-delay calibration
+
+Measure or model the electronics/optical common group delay separately.
+
+### Boundary condition / transport prior
+
+Constrain the delay density near the collection boundary using independent transport information.
+
+### Parametric transport model
+
+Fit a lower-dimensional physical model whose constant-delay component is separately defined.
+
+Regularization by itself may select one decomposition of `q` and `c`, but that choice is not evidence that the decomposition is physically unique.
+
+---
+
+## 8. Regularized inversion
+
+The kernel matrix is generally ill conditioned because neighboring wavelength kernels overlap strongly.
+
+A smoothness-regularized estimate may use
 
 ```math
 \boxed{
-(\hat{\mathbf q},\hat c)
-=\arg\min
+\hat{\mathbf q}
+=\arg\min_{\mathbf q}
 \left\|
-\mathbf A\mathbf q+c\mathbf1-\mathbf T^{\rm meas}
+\mathbf A_\Delta\mathbf q-\mathbf T_\Delta
 \right\|_2^2
 +
 \lambda
@@ -250,240 +293,205 @@ A natural smoothness-regularized estimate is
 }
 ```
 
-where `D_2` is a second-difference operator.
+where the subscript `Delta` indicates either differential data or a system projected orthogonal to the common-delay mode.
 
-Physical constraints may additionally impose
+Physical constraints may impose
 
 ```math
-\boxed{q_j>0.}
+q_j>0.
 ```
 
-More sophisticated inversions can use
+Other defensible choices include Bayesian smoothness priors, total variation for sharp interfaces, or a lower-dimensional transport parameterization.
 
-- positivity-constrained least squares;
-- Bayesian smoothness priors;
-- total variation if sharp transport interfaces are expected;
-- parameterized transport models instead of free `q_j`.
-
-The repository should not choose one method as universally optimal.
+No regularizer is universally optimal.
 
 ---
 
-## 9. Sharp-generation limit recovers the derivative result
+## 9. Sharp-generation limit
 
-If wavelength `i` creates carriers at a sharply localized position `x_g`, then
+For downstream collection, if
 
 ```math
-p_i(x)\to\delta(x-x_g).
+p_i(x)\to\delta(x-x_g),
 ```
 
-Therefore
+then
 
 ```math
-K_i(s)\to H(s-x_g),
+F_i(s)\to H(s-x_g),
 ```
 
 and
 
 ```math
-\bar T(E_\gamma)
+\bar T_L(E_\gamma)
 =\int_{x_g(E_\gamma)}^Lq(s)ds.
 ```
 
-Differentiating gives
+For a linear gap with
+
+```math
+x_g=(E_{g,\rm in}-E_\gamma)/G,
+```
 
 ```math
 \boxed{
-G\frac{d\bar T}{dE_\gamma}
-=q[x_g(E_\gamma)],
+G\frac{d\bar T_L}{dE_\gamma}
+=q[x_g(E_\gamma)].
 }
 ```
 
-which is exactly
+For front collection, the sign/orientation changes consistently because
 
 ```math
-\boxed{
-v_{\rm eff}
-=1/[G(dT/dE_\gamma)].
-}
+\bar T_0(E_\gamma)
+=\int_0^{x_g(E_\gamma)}q(s)ds.
 ```
 
-So the derivative tomography is the singular-kernel limit of the full linear inverse.
+The pointwise derivative formula is therefore only a special limit of the correct orientation-dependent integral operator.
 
 ---
 
-## 10. Finite-depth kernel connection
+## 10. Identifiability and spatial rank
 
-For the linear-gap power-law edge model, the generation density relative to the first allowed point becomes a stationary Weibull kernel away from the downstream truncation.
+The inverse requires sufficiently diverse wavelength kernels.
 
-The full operator then represents a smoothed cumulative version of that optical point-spread function.
+If all wavelengths generate the same spatial distribution, the rows of `A` are nearly identical and no internal profile can be reconstructed.
 
-This makes the hierarchy clear:
+Even with strongly wavelength-dependent generation, the optical kernels are smooth, so only a finite number of spatial modes are well conditioned.
+
+The relevant questions are therefore
 
 ```text
-sharp optical localization
--> pointwise derivative tomography
-
-finite known optical kernel
--> linear deconvolution for q(x)
-
-unknown optical kernel
--> transport and optics are not separately identifiable without additional information.
+How many singular modes survive the experimental noise floor?
+Which spatial combinations do those modes represent?
+Which modes are lost to the common-delay gauge?
 ```
+
+The number of wavelength samples is **not** the number of recoverable spatial degrees of freedom.
 
 ---
 
-## 11. Identifiability
+## 11. Spatial resolution
 
-The inversion requires sufficiently diverse kernels `K_i(s)`.
+Resolution is controlled jointly by
 
-If all wavelengths generate the same spatial distribution, the rows of `A` are nearly identical and the internal delay profile cannot be recovered.
-
-A monotonic graded gap is useful precisely because it causes the generation kernel to move spatially with photon energy.
-
-The entrance-gap crossover marks the point where this spatial scan saturates:
-
-```math
-E_\gamma\ge E_{g,\rm in}
-\quad\Rightarrow\quad
-x_g\to0.
-```
-
-Wavelengths far above the entrance gap therefore add little new **position-tomography rank** in the sharp-limit model. Their value is instead in probing hot-carrier injection and scattering.
-
----
-
-## 12. Spatial resolution
-
-The inverse cannot resolve transport structure much finer than the wavelength-dependent optical generation kernels permit.
-
-A local absorption length / Weibull scale `ell_alpha` therefore acts as an approximate point-spread length.
-
-Additional resolution limits come from
-
-- wavelength sampling density;
-- spectral linewidth of the source;
-- uncertainty in `E_g(x)`;
-- timing noise;
-- regularization strength;
+- optical generation-kernel width;
+- wavelength grid and source linewidth;
+- uncertainty in `E_g(x)` / composition profile;
+- timing or RF-phase precision;
+- common-delay calibration;
+- regularization;
 - nonlocal carrier transport.
 
-Thus this is not unlimited tomography.
-
-Its value is that the resolution is physically calculable from detector optics rather than guessed.
+Thus the method is a **band-limited transport tomography**, not arbitrary microscopic imaging.
 
 ---
 
-## 13. Synthetic reconstruction target
+## 12. Relation to the synthetic regressions
 
-A meaningful numerical falsification should use
+Earlier synthetic regressions appended a common constant and recovered it numerically under smoothness regularization.
 
-```text
-known nonuniform velocity v_true(x)
-+
-finite wavelength-dependent generation kernels
-+
-unknown common timing offset
-+
-added timing noise.
-```
+Those tests remain useful demonstrations that a regularized solver can reproduce the imposed synthetic profile.
 
-Generate
+However, the apparent recovery of the common constant should **not** be interpreted as proof of structural identifiability.
+
+The regularizer and discretization choose one solution from a nearly degenerate family.
+
+Future regressions should report differential-profile recovery separately from absolute common-delay recovery.
+
+---
+
+## 13. Experimental observable
+
+Low-frequency differential phase is particularly natural:
 
 ```math
-\mathbf T_{\rm synth}
-=\mathbf A\mathbf q_{\rm true}
-+c\mathbf1
-+\boldsymbol\epsilon,
+\Delta T
+\simeq
+-\frac{\Delta\phi}{\Omega}.
 ```
 
-then reconstruct `q` without giving the inversion the true profile.
+A wavelength-independent electronic or optical delay cancels in the phase difference.
 
-Success should be judged by
+This aligns the observable with what the inverse can identify most robustly: **spectrally varying internal transport**.
 
-- profile reconstruction error;
-- recovery of a localized slow/fast region;
-- common-delay recovery;
-- stability versus timing noise;
-- resolution versus optical kernel width.
-
-A regression implementing this test accompanies the present note.
+A wavelength-dependent optical-path or electronic phase must still be calibrated because it can masquerade as transport structure.
 
 ---
 
-## 14. Experimental observable
+## 14. Reviewer-level significance test
 
-The preferred data are low-frequency group delay or impulse centroid versus wavelength under identical detector conditions.
+Wavelength-dependent carrier generation and response time are established photodiode physics.
 
-Absolute waveform rise time is less attractive because multiple poles and threshold conventions obscure the linear transit interpretation.
+The scientific value of this method, if any, must come from demonstrating useful inverse metrology beyond ordinary bandwidth comparison:
 
-If
+- reconstructing a nonuniform transport profile;
+- detecting a buried slow or broadening region;
+- validating against localized excitation or microscopic transport;
+- extracting several internal transport modes from real wavelength-resolved complex response data.
 
-```math
-H_{\rm meas}(\Omega,E_\gamma)
-=H_{\rm det}(\Omega,E_\gamma)
-H_{\rm common}(\Omega),
-```
-
-and `H_common` is wavelength independent, its group delay enters as the fitted nuisance constant `c`.
-
-A wavelength-dependent optical path delay must be calibrated separately.
+The calculus identity itself is not the contribution.
 
 ---
 
-## 15. Reviewer-level significance test
+## 15. Claim boundary
 
-The algebra alone is not enough for publication significance.
+### DERIVED
 
-Wavelength-dependent carrier generation and response time are old photodiode physics.
-
-The useful question is whether this inverse formulation can recover transport information that ordinary bandwidth comparison does not.
-
-A convincing result would demonstrate at least one of
-
-- reconstruction of a nonuniform carrier-velocity profile;
-- detection/localization of a slow transport layer;
-- independent agreement with a transport simulation;
-- recovery of a profile from real wavelength-resolved timing data.
-
-Until then, treat this as a candidate measurement method rather than a new detector principle.
-
----
-
-## 16. Claim boundary
-
-### Derived
+For collection at `L`,
 
 ```math
 \boxed{
 \bar T_i
-=\int_0^L K_i(s)q(s)ds,
-\qquad
-K_i(s)=P(X_g\le s|E_i,{\rm abs}).
+=\int_0^L F_i(s)q(s)ds.
 }
 ```
 
-and the corresponding discrete linear system including a constant timing nuisance parameter.
+For collection at `0`,
 
-### Conditional
+```math
+\boxed{
+\bar T_i
+=\int_0^L S_i(s)q(s)ds.
+}
+```
+
+### DERIVED IDENTIFIABILITY LIMIT
+
+A wavelength-independent delay component is not generically separable from arbitrary delay density near the collection boundary without extra information.
+
+### CONDITIONAL
 
 - path-additive mean delay;
 - known/calibrated optical generation kernels;
-- wavelength-independent additive common delay;
-- sufficient kernel diversity for inversion.
+- one-boundary transport geometry;
+- local interpretation `q=1/v_eff`;
+- sufficient kernel diversity.
 
-### Not established
+### NOT ESTABLISHED
 
+- absolute boundary delay without calibration/prior;
 - experimental stability in HgCdTe;
 - unique high-resolution reconstruction for arbitrary profiles;
-- calibrated HgCdTe kernels;
 - novelty / priority.
 
 ---
 
-## 17. Next decisive work
+## 16. Next decisive work
 
-1. run the synthetic inversion regression;
-2. quantify reconstruction error versus timing-noise level and optical kernel width;
-3. estimate the timing precision required for micron/submicron spatial resolution in a plausible HgCdTe gradient;
-4. only then decide whether a real-device inverse design is justified.
+Use the **published 2023 sample-B dimensional matrix** rather than another normalized toy problem.
+
+Quantify reconstruction versus
+
+```text
+0.1-1 degree RF phase noise
++
+unknown common phase
++
+real Moazzami optical kernels
++
+several smooth transport modes.
+```
+
+Judge success on recovery of differential transport structure, not on artificial recovery of an uncalibrated absolute common delay.
