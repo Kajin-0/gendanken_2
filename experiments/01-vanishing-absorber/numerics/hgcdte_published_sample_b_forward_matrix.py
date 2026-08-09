@@ -103,7 +103,7 @@ def linear_x_profile(field_v_cm: float) -> tuple[np.ndarray, np.ndarray]:
 def optical_distribution(
     wavelength_um: float, field_v_cm: float
 ) -> tuple[float, float, float, np.ndarray]:
-    """Return Pabs, conditional mean/std depth [um], and cell probabilities."""
+    """Return Pabs, conditional mean/std depth [um], and exact timing row."""
     z_um, x = linear_x_profile(field_v_cm)
     z_cm = z_um * 1.0e-4
     photon_energy = HC_EV_UM / wavelength_um
@@ -113,25 +113,31 @@ def optical_distribution(
     cdf_unconditional = 1.0 - np.exp(-tau)
     p_abs = float(cdf_unconditional[-1])
 
-    edges_um = np.linspace(0.0, W_UM, N_CELL + 1)
     if p_abs <= 1.0e-15:
         return p_abs, np.nan, np.nan, np.zeros(N_CELL)
 
-    cdf_edges = np.interp(edges_um, z_um, cdf_unconditional) / p_abs
-    probs = np.diff(cdf_edges)
-    centers = 0.5 * (edges_um[:-1] + edges_um[1:])
-    mean_um = float(np.sum(probs * centers))
-    std_um = float(np.sqrt(np.sum(probs * (centers - mean_um) ** 2)))
-    return p_abs, mean_um, std_um, probs
+    cdf = cdf_unconditional / p_abs
+    survival = 1.0 - cdf
 
-
-def front_collection_timing_matrix(probability_rows: np.ndarray) -> np.ndarray:
-    """A_ij for T(z)=integral_0^z q(s) ds; matrix lengths are in um."""
-    dx_um = W_UM / N_CELL
-    survival = np.flip(
-        np.cumsum(np.flip(probability_rows, axis=1), axis=1), axis=1
+    # Conditional generation density for accurate moments.
+    p_density_cm = alpha * np.exp(-tau) / p_abs
+    mean_cm = float(np.trapezoid(z_cm * p_density_cm, z_cm))
+    variance_cm2 = float(
+        np.trapezoid((z_cm - mean_cm) ** 2 * p_density_cm, z_cm)
     )
-    return survival * dx_um
+    mean_um = mean_cm * 1.0e4
+    std_um = np.sqrt(max(variance_cm2, 0.0)) * 1.0e4
+
+    # Exact piecewise-constant-q discretization:
+    # A_ij = integral_cell P(Z_g >= s | lambda_i, abs) ds.
+    edges_um = np.linspace(0.0, W_UM, N_CELL + 1)
+    survival_integral = np.concatenate(
+        ([0.0], cumulative_trapezoid(survival, z_um))
+    )
+    integral_at_edges = np.interp(edges_um, z_um, survival_integral)
+    timing_row_um = np.diff(integral_at_edges)
+
+    return p_abs, mean_um, std_um, timing_row_um
 
 
 def field_from_linear_x(field_target: float) -> tuple[float, float]:
@@ -161,8 +167,8 @@ def main() -> None:
         p_abs_values = []
         means = []
         for wavelength in LAMBDA_GRID:
-            p_abs, mean_um, _, probs = optical_distribution(wavelength, field)
-            rows.append(probs)
+            p_abs, mean_um, _, timing_row = optical_distribution(wavelength, field)
+            rows.append(timing_row)
             p_abs_values.append(p_abs)
             means.append(mean_um)
 
@@ -170,7 +176,7 @@ def main() -> None:
         p_abs_values = np.asarray(p_abs_values)
         means = np.asarray(means)
         keep = p_abs_values >= PABS_MIN
-        A = front_collection_timing_matrix(rows[keep])
+        A = rows[keep]
 
         singular = np.linalg.svd(A, compute_uv=False)
         relative = singular / singular[0]
@@ -203,7 +209,7 @@ def main() -> None:
         assert np.all(np.diff(means[finite]) >= -2.0e-3)
 
     # Stable deterministic conditioning regression for the central profile.
-    assert mode_counts[150.0] == (2, 5, 10, 22)
+    assert mode_counts[150.0] == (2, 5, 10, 21)
 
     print("Central 150 V/cm profile: generation-depth / phase scale")
     ref_mean = None
