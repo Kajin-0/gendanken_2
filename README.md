@@ -2,7 +2,7 @@
 
 First-principles thought experiments in photodetector physics.
 
-The purpose of this repository is to start from physically simple questions and follow the logic wherever it leads. The objective is not to force a predetermined theorem, reproduce the path of another project, or optimize an existing detector design. A branch is valuable if it clarifies the physics, even when it ends by showing that an apparent novelty is already known or that a conjecture is false.
+The purpose of this repository is to start from physically simple questions and follow the logic wherever it leads. The objective is not to force a predetermined theorem, reproduce the path of another project, or optimize an existing detector design. A branch is valuable if it clarifies the physics, including when it kills the conjecture that motivated it.
 
 ## Current experiment
 
@@ -12,13 +12,35 @@ Start with the question:
 
 > Can an ideal photodetector be made arbitrarily small, arbitrarily fast, arbitrarily sensitive, and still absorb essentially every incident photon?
 
-The initial tension is simple:
+## What has happened so far
 
-- reducing active semiconductor volume can reduce intrinsic carrier-generation noise and carrier transit distance;
-- passive optical confinement can restore high absorption in a weak absorber;
-- restoring absorption by increasing photon dwell time may reintroduce a temporal-bandwidth penalty.
+The first one-port resonator calculation established a clean local tradeoff:
 
-The current task is to determine exactly what follows from these statements and what does not.
+> if the active optical loss rate `gamma_a` tends to zero while unity resonant absorption is maintained by critical coupling, the absorbed-power modulation bandwidth also tends to zero.
+
+But the next counterexample changed the direction.
+
+A shrinking lossy dielectric capacitor can keep its electromagnetic energy participation and `gamma_a` finite while its geometric active volume tends to zero. In the ideal local linear continuum model,
+
+```math
+V_a\to0
+```
+
+can coexist with
+
+```math
+\gamma_a=\text{constant},
+\qquad
+\gamma_a/V_a\to\infty.
+```
+
+Therefore **geometric active volume alone is not the fundamental optical resource**.
+
+The apparent `V_a -> 0` divergence then runs into microscopic physics: finite oscillator number and strength, saturation, nonlocality, atomic granularity, thermal reverse processes, and the resources required for irreversible detection/amplification.
+
+That is the active frontier of the thought experiment.
+
+## Canonical files
 
 Active state:
 
@@ -27,6 +49,14 @@ Active state:
 Claim/conjecture boundary:
 
 [`experiments/01-vanishing-absorber/CLAIM_LEDGER.md`](experiments/01-vanishing-absorber/CLAIM_LEDGER.md)
+
+One-port dynamics:
+
+[`experiments/01-vanishing-absorber/ONE_PORT_RESONATOR_DYNAMICS.md`](experiments/01-vanishing-absorber/ONE_PORT_RESONATOR_DYNAMICS.md)
+
+Active-volume counterexample:
+
+[`experiments/01-vanishing-absorber/ACTIVE_VOLUME_COUNTEREXAMPLE.md`](experiments/01-vanishing-absorber/ACTIVE_VOLUME_COUNTEREXAMPLE.md)
 
 Research history:
 
@@ -38,9 +68,11 @@ Artifact status:
 
 ## Current scientific status
 
-This project is **exploratory**.
+This project is **exploratory** and makes no novelty claim.
 
-No novelty claim is currently made. In particular, no general sensitivity-bandwidth bound has been established. The proposed relations in the active notes are conjectures or targets until explicitly marked otherwise in the claim ledger.
+The active-volume-only route to a universal passive optical bound has been explicitly invalidated within the ideal local linear continuum model. The next stage is to determine what microscopic or thermodynamic resource, if any, cannot be concentrated away.
+
+A relevant prior-art collision already warns against assuming a universal quantum efficiency-dark-count-jitter tradeoff: fully quantum dark-state detector models can evade that tradeoff under idealized nonequilibrium assumptions. Therefore future claims must account explicitly for architecture, reservoirs, thermal reverse rates, amplification, and reset/free-energy resources.
 
 ## Research standard
 
@@ -49,13 +81,14 @@ A publication-level result should eventually survive, as applicable:
 1. explicit assumptions and normalization;
 2. units and dimensional checks;
 3. exact limiting cases;
-4. at least one independent analytic route for load-bearing results when feasible;
+4. independent derivation for load-bearing results when feasible;
 5. numerical checks that do not merely restate the analytic formula;
 6. adversarial counterexample search;
 7. primary-source prior-art comparison;
-8. a narrow claim ledger distinguishing known ingredients from any genuinely new result.
+8. explicit thermodynamic/resource accounting;
+9. a narrow claim ledger distinguishing known ingredients from any genuinely new result.
 
-Failed or superseded branches should normally be preserved as provenance rather than erased.
+Failed or superseded branches are preserved as provenance rather than erased.
 
 ## Start here
 
