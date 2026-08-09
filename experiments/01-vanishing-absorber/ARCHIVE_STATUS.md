@@ -5,28 +5,139 @@
 
 > Live `main`, root `AGENTS.md`, `CURRENT_STATE.md`, and `CLAIM_LEDGER.md` are authoritative.
 
-## A. Canonical frontier
+There is still **no manuscript**.
+
+## A. Canonical current frontier
 
 Read first:
 
 1. `CURRENT_STATE.md`
 2. `CLAIM_LEDGER.md`
-3. `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
-4. `PUBLICATION_BOUNDARY_AUDIT.md`
-5. `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
-6. `TIME_DEPENDENT_CAPTURE_AUDIT.md`
-7. `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`
-8. `ALWAYS_ON_TEMPORAL_COVERAGE.md`
-9. `RESEARCH_LOG.md`
-10. `ARCHIVE_STATUS.md`
+3. `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
+4. `HGCDTE_KANE_SCALE_AUDIT.md`
+5. `FIELD_DRIVEN_COLLECTION_TUNNELING.md`
+6. `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`
+7. `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`
+8. `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`
+9. `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`
+10. `RESEARCH_LOG.md`
+11. `ARCHIVE_STATUS.md`
 
-There is still **no manuscript**.
+## B. Active HgCdTe/material branch
 
-## B. Strongest passive supporting theorem
+### `HGCDTE_NORMALIZED_BTBT_FRONTIER.md`
+
+**Status:** current active material normalization; no novelty claim.
+
+Key result after explicit simplified Kane substitution:
+
+```math
+j=x^2e^{-1/x},
+\qquad
+x=F/F_K,
+\qquad
+j=J/J_K,
+```
+
+with
+
+```math
+F_K\propto\lambda_c^{-2},
+\qquad
+J_K\propto L\lambda_c^{-4}.
+```
+
+Exact current-target inversion is recorded with Lambert `W`.
+
+Next missing input: primary high-field `v_d(F)` for a definite HgCdTe composition/density/temperature.
+
+Regression:
+
+`numerics/hgcdte_btbt_normalized_sweep.py`.
+
+### `HGCDTE_KANE_SCALE_AUDIT.md`
+
+**Status:** active material-scale interpretation.
+
+Maps simplified Kane velocity, tunneling field, microscopic length and cutoff wavelength. Establishes that the one-barrier quantum speed scale is generally far above practical detector response, whereas BTBT field scales can be technologically relevant.
+
+### `FIELD_DRIVEN_COLLECTION_TUNNELING.md`
+
+**Status:** active supporting fixed-thickness model.
+
+At fixed thickness and in the low-field drift regime, increasing field-driven transit speed increases direct BTBT. Explicitly records thinning as a counterexample to universality.
+
+### `BALLISTIC_BARRIER_SPEED_LEAKAGE.md`
+
+**Status:** supporting small-length quantum audit.
+
+One optimized parabolic rectangular barrier gives
+
+```math
+\mathcal T_d
+\gtrsim
+\exp[-2c_t\Delta E/(\hbar B_{\rm tr})].
+```
+
+Useful as an asymptotic warning, not the practical HgCdTe frontier.
+
+## C. Electronic energy-filter branch
+
+### `FERMI_CONTACT_EXTRACTION_REVERSE_LOADING.md`
+
+**Status:** active supporting semiconductor detailed-balance result.
+
+Links useful contact extraction and reverse Fermi loading. Reverse loading hazard is not automatically a dark current/count.
+
+### `RESONANT_ENERGY_FILTER_SPEED_LEAKAGE.md`
+
+**Status:** one-pole supporting model.
+
+Derives exact zero-temperature occupied-side leakage through a finite-linewidth Breit-Wigner resonance and the sharp-filter `hB^2/(4Delta)` asymptotic.
+
+The latter is **not universal**.
+
+### `MULTIPOLE_ENERGY_FILTER_DELAY_AUDIT.md`
+
+**Status:** direction-correcting counterexample/audit.
+
+Shows higher-order filters can suppress occupied-side tails far more strongly at fixed FWHM, while group/Wigner delay grows with filter order.
+
+Permanent lesson:
+
+> spectral FWHM is not an architecture-independent electronic transport speed.
+
+Further abstract Wigner-Smith/filter generalization is currently stopped.
+
+## D. Abstract adaptive/output branch — closed as universal route
+
+### `ADAPTIVE_FEEDFORWARD_MODE_CAPACITY.md`
+
+**Status:** exact finite-instrument supporting theorem.
+
+```math
+\sum_j\eta_j\le rd.
+```
+
+Adaptive branching replaces storage rank with storage × branch rank.
+
+Regression:
+
+`numerics/adaptive_instrument_rank_stress.py`.
+
+### `OUTPUT_RECORD_INFORMATION_CAPACITY.md`
+
+**Status:** branch-closing output-continuum audit.
+
+Shows why local Landauer work or finite internal storage rank cannot become universal always-on detector limits when branch/arrival information can be exported into a large output record continuum.
+
+**Decision:** do not keep extending abstract space-time resource vectors without a concrete detector need.
+
+## E. Strongest retained passive optical/network result
 
 ### `PASSIVE_MULTIMODE_TRANSFER_AREA_BOUND.md`
 
-**Status:** active exact finite passive-network theorem / detector-facing passivity corollary; no novelty claim.
+**Status:** exact finite passive-network detector-facing corollary; no novelty claim.
 
 ```math
 \mathcal I_{L\to R}
@@ -34,227 +145,131 @@ There is still **no manuscript**.
 \frac{2LR}{L+R}.
 ```
 
-Tight; one passive resonance saturates. The earlier `2 min(L,R)` form is superseded.
+Tight; one matched passive resonance saturates.
 
-Numerical regression: `numerics/passive_multimode_h2_stress.py`.
+Regression:
 
-## C. Passive scope audits
+`numerics/passive_multimode_h2_stress.py`.
 
-### `DIRECT_FEEDTHROUGH_AND_BAND_LIMIT.md`
+Keep as structural provenance, not the active material frontier.
 
-**Status:** active scope audit.
+## F. Active/time-dependent supporting branch
 
-Ideal constant prompt feedthrough defeats any finite all-frequency internal-access `H2` theorem by inserting infinite bandwidth. Finite-band prompt strength is counted explicitly.
+Retain as supporting resource/counterexample work:
 
-### `STRUCTURED_RESERVOIR_ACCESS_AUDIT.md`
+- `ACTIVE_FREQUENCY_CONVERTER_BASELINE.md`
+- `MULTIMODE_ACTIVE_PUMP_RESOURCE.md`
+- `TRAVELING_WAVE_ACTIVE_CONVERTER.md`
+- `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
+- `TIME_DEPENDENT_CAPTURE_AUDIT.md`
+- `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`
+- `ALWAYS_ON_TEMPORAL_COVERAGE.md`
 
-**Status:** active conditional continuum extension.
+These established that active and time-dependent control can beat passive stationary matching, but only by introducing pump/control/timing/output resources. Strong prior-art overlap prevents treating those generic mechanisms as current novelty targets.
 
-Finite-budget `H2`-convergent passive embeddings inherit the harmonic bound.
+## G. Passive/autonomous detector bridge
 
-## D. Passive optical / autonomous detector bridge
+Retain for prior-art and resource provenance:
 
-### `THERMODYNAMIC_OPTICAL_ACCESS_BRIDGE.md`
+- `THERMODYNAMIC_OPTICAL_ACCESS_BRIDGE.md`
+- `THERMAL_IRREVERSIBILITY_COST.md`
+- `AUTONOMOUS_DETECTOR_CAPTURE_GAP.md`
+- `CAPTURE_TO_CLICK_COMPOSITION.md`
+- `UNIFIED_THREE_LEVEL_CAPTURE_MACHINE.md`
+- `READINESS_BANDWIDTH_AFFINITY.md`
+- `NESS_OPTICAL_RESPONSE_AUDIT.md`
+- `PUBLICATION_BOUNDARY_AUDIT.md`
 
-**Status:** restricted supporting composition with strong prior-art overlap.
+Key prior-art boundary:
 
-### `THERMAL_IRREVERSIBILITY_COST.md`
+- Young, Sarovar & Leonard (2018) already cover incoming fields + absorption + amplification + efficiency/dark counts/timing.
+- Schwarzhans et al. (2026) already cover autonomous work/reset + entropy + internal dark counts/jitter/dead time.
 
-**Status:** restricted detailed-balance composition; reverse activation is not automatically dark counts.
+Publication audit remains:
 
-### `AUTONOMOUS_DETECTOR_CAPTURE_GAP.md`
+> **Continue research; no manuscript yet.**
 
-**Status:** major prior-art boundary file.
-
-Young et al. 2018 already cover incoming-field absorption/amplification. Schwarzhans et al. 2026 already cover autonomous detector thermodynamics. The candidate unresolved intersection is bandwidth/access-aware propagating capture plus autonomous thermodynamic accounting.
-
-### `CAPTURE_TO_CLICK_COMPOSITION.md`
-
-**Status:** serial reference model, not a final unified theory.
-
-### `UNIFIED_THREE_LEVEL_CAPTURE_MACHINE.md`
-
-**Status:** active analytic testbed; strong prior-art overlap; no novelty claim.
-
-### `READINESS_BANDWIDTH_AFFINITY.md`
-
-**Status:** restricted readiness/capture composition.
-
-### `NESS_OPTICAL_RESPONSE_AUDIT.md`
-
-**Status:** active-front-end scope audit showing non-inverted readiness pumping does not exceed the fully ready absorptive population factor.
-
-## E. Publication audit
-
-### `PUBLICATION_BOUNDARY_AUDIT.md`
-
-**Status:** active go/no-go assessment.
-
-Current verdict:
-
-> **Continue research; do not write a manuscript yet.**
-
-The passive/autonomous chain is coherent but not yet isolated enough from strong prior theory to support a robust headline claim.
-
-## F. Active frequency-conversion branch
-
-### `ACTIVE_FREQUENCY_CONVERTER_BASELINE.md`
-
-**Status:** known-physics two-mode baseline.
-
-For unit peak and FWHM `W`,
-
-```math
-G_{\min}=W/(2\sqrt2).
-```
-
-For `G=g_0 sqrt(N_p)`,
-
-```math
-N_p\ge W^2/(8g_0^2).
-```
-
-Do not generalize this architecture-level `W^2` scaling.
-
-### `MULTIMODE_ACTIVE_PUMP_RESOURCE.md`
-
-**Status:** active allocation stress test.
-
-At fixed aggregate squared nonlinear coupling `G_0^2`, independent channel subdivision preserves
-
-```math
-N_{p,\rm tot}\ge W^2/(8G_0^2).
-```
-
-### `TRAVELING_WAVE_ACTIVE_CONVERTER.md`
-
-**Status:** active continuum stress test.
-
-For first nonzero local phase-mismatch derivative order `m`, the fixed-device model gives pump flux scaling `W^(2m)`.
-
-No universal exponent is claimed.
-
-### `ACTIVE_CONVERSION_SINGULAR_VALUE_BOUND.md`
-
-**Status:** current strongest abstract finite-mode active resource result.
-
-```math
-N_p
-\ge
-\frac{M_c\arcsin^2\sqrt\eta}
-{\Lambda\tau^2},
-```
-
-where `Lambda` is the device pump-to-conversion Gram-operator strength.
-
-Schmidt-mode frequency conversion is established prior theory. `Lambda` is not yet physically bounded.
-
-## G. Time-dependent capture branch
-
-### `TIME_DEPENDENT_CAPTURE_AUDIT.md`
-
-**Status:** active known-mode control baseline with strong prior-art overlap.
-
-Perfect loading schedule:
-
-```math
-\kappa(t)
-=
-\frac{P(t)}{2\int_{-\infty}^{t}P(t')dt'}.
-```
-
-Finite coupling/time:
-
-```math
-\eta_{\rm cap}
-\le
-1-e^{-2\kappa_{\max}\tau}.
-```
-
-### `TEMPORAL_UNCERTAINTY_MODE_CAPACITY.md`
-
-**Status:** active temporal-coverage result.
-
-For `r` coherent storage modes and `M` orthogonal possible temporal inputs,
-
-```math
-\sum_j\eta_j\le r.
-```
-
-Known-time perfect matching is therefore not an always-on detector counterexample.
-
-### `ALWAYS_ON_TEMPORAL_COVERAGE.md`
-
-**Status:** active mode-count/background/dead-time composition.
-
-For the stated one-channel nonparalyzable model,
-
-```math
-\eta_{\rm ext}
-\le
-\frac1{1+\bar nW\tau_d/(2\pi)}.
-```
-
-Model-level only.
-
-## H. Nonperturbative supporting branch
+## H. Nonperturbative Hopfield supporting branch
 
 Retain for mechanism/provenance:
 
+- `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
 - `HOPFIELD_RETUNING_NO_GO.md`
 - `HOPFIELD_RESERVOIR_RESOURCE_COST.md`
 - `HOPFIELD_RETUNING_PRIOR_ART_SWEEP.md`
-- `NONPERTURBATIVE_HOPFIELD_CAPTURE.md`
 
-Fixed-target result remains **candidate distinct supporting lemma; priority unproven**.
+The fixed-target retuning result remains **candidate distinct supporting lemma; priority unproven**.
 
-## I. Earlier supporting branches
+## I. Earlier optical/microscopic provenance
 
-Retain for provenance:
+Retain:
 
-- `OSCILLATOR_STRENGTH_EXTENT_STRESS_TEST.md`
-- `FINITE_EMITTER_FORM_FACTOR.md`
-- `FINITE_TRANSITION_LDOS_BANDWIDTH_BOUND.md`
-- `MICROSCOPIC_SINGLE_TRANSITION.md`
-- `THERMAL_INPUT_CHANNEL.md`
+- `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
 - `ONE_PORT_RESONATOR_DYNAMICS.md`
+- `THERMAL_INPUT_CHANNEL.md`
+- `MICROSCOPIC_SINGLE_TRANSITION.md`
+- `FINITE_TRANSITION_LDOS_BANDWIDTH_BOUND.md`
+- `FINITE_EMITTER_FORM_FACTOR.md`
+- `OSCILLATOR_STRENGTH_EXTENT_STRESS_TEST.md`
 
-## J. Permanent branch-closing counterexample
+`ACTIVE_VOLUME_COUNTEREXAMPLE.md` is permanent because it prevents resurrection of the original false active-volume theorem.
 
-### `ACTIVE_VOLUME_COUNTEREXAMPLE.md`
+## J. Stopped / invalidated general routes
 
-**Status:** permanent direction-changing counterexample.
+Do not restart without a new explicit assumption that defeats the recorded counterexample:
 
-Prevents resurrection of active-volume-only universal bounds under admitted ideal field concentration.
+- active-volume-only universal theorem;
+- finite absorber count as missing one-photon speed limit;
+- largest internal coupling as universal multimode parameter;
+- preliminary `2 min(L,R)` passive bound — superseded;
+- all-frequency passive theorem with ideal feedthrough;
+- generic capture+amplification novelty;
+- generic autonomous detector-thermodynamics novelty;
+- universal active `pump ~ W^2` law;
+- finite internal storage as always-on detector capacity;
+- local Landauer erasure as universal adaptive detector cost;
+- single-Lorentzian `B^2/Delta` leakage as universal electronic theorem;
+- spectral FWHM as universal transport speed;
+- fixed-thickness field-speed tradeoff as universal when thickness may shrink;
+- low-field mobility extrapolation into HgCdTe high-field operation.
 
-## K. Stopped / superseded routes
+## K. Active numerical files
 
-- active-volume-only theorem — STOPPED;
-- finite absorber count as missing one-photon speed limit — STOPPED;
-- largest multimode internal coupling as universal parameter — STOPPED;
-- preliminary `2 min(L,R)` bound — SUPERSEDED;
-- all-frequency harmonic theorem with arbitrary ideal feedthrough — INVALID EXTENSION;
-- generic capture+amplification novelty — STOPPED by 2018 prior art;
-- generic autonomous thermodynamic detector novelty — STOPPED by 2026 prior art;
-- universal active `pump ~ W^2` law — NOT SUPPORTED;
-- known-time dynamic capture as an always-on detector solution — INVALID GENERALIZATION.
+- `numerics/one_port_time_domain_check.py`
+- `numerics/passive_multimode_h2_stress.py`
+- `numerics/adaptive_instrument_rank_stress.py`
+- `numerics/hgcdte_btbt_normalized_sweep.py`
+
+No CI workflow is currently justified.
 
 ## L. Current forward branch
 
-Try to formulate and falsify a common **space-time mode resource law** for actively controlled always-on photodetection.
+The next task is **not** another abstract theorem.
 
-The accounting should include
+Obtain a traceable high-field electron velocity law for a definite HgCdTe composition and temperature, then combine it with
 
-```text
-accepted spatiotemporal mode count
-+
-pump/control norm
-+
-irreversible output capacity
-+
-background occupation
-+
-reset/dead-time capacity.
+```math
+F_{\max}^{\rm BTBT}
+=
+\frac{F_K}
+{2W_0[\tfrac12\sqrt{J_K/J_*}]}
 ```
 
-Attack any candidate theorem with adaptive control, noncommuting time dependence, time-switched energy trapping, feedforward, and high-rank output continua before promotion.
+and
+
+```math
+B_{\rm tr,max}
+=\frac{c_t}{L}v_d(F_{\max}).
+```
+
+Then determine which mechanism intervenes first:
+
+```text
+direct BTBT
+vs
+hot-electron/impact-ionization transport
+vs
+TAT / SRH / another real device mechanism.
+```
+
+Follow whichever physics actually wins.
