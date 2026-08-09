@@ -1,230 +1,264 @@
-# Prior-Art Collision — Autonomous Detector Thermodynamics Starts After Capture
+# Prior-Art Boundary — Propagating-Field Detector Dynamics Versus Autonomous Detector Thermodynamics
 
 **Date:** 2026-08-08  
-**Status:** major scope-defining prior-art collision; no novelty claim  
+**Status:** major scope-defining prior-art collision; targeted junction search negative so far; no novelty claim  
 
-## 1. Source
+## 1. Two primary prior frameworks now define the boundary
 
-E. Schwarzhans, T. J. G. Apollaro, I. Khomchenko, M. P. E. Lock, M. T. Mitchison, and M. Huber,
+### A. Young, Sarovar & Léonard — Physical Review A 98, 063835 (2018)
 
-**“Quantum Detectors as Autonomous Machines: Assessing the Nonequilibrium Thermodynamics of Information Acquisition,”**
+**“General Modeling Framework for Quantum Photodetectors.”**
 
-*PRX Quantum* **7**, 033001 (2026), DOI `10.1103/wm5p-tjtg`.
+This work treats
 
-Published 1 July 2026.
+```text
+quantized incoming photon field
++
+optical absorption
++
+internal detector dynamics
++
+amplification / monitored states
+```
+
+as one coupled quantum system.
+
+The paper explicitly models few-photon wavepackets incident on a subwavelength detector, defines detection efficiency, dark counts, jitter and latency, and allows the input pulse to be propagated through the detector's internal dynamics before a monitored output is registered.
+
+Therefore the following are **not** novelty targets for this repository:
+
+- joining a propagating quantum field to detector matter;
+- modeling absorption and amplification in one quantum framework;
+- defining efficiency/dark counts/timing from the incoming field and monitored detector states;
+- saying that detector architecture affects these performance metrics.
+
+The inspected framework does not provide an autonomous nonequilibrium thermodynamic accounting of the work source, heat currents, entropy production, or reset cost.
 
 ---
 
-## 2. What the paper already does
+### B. Schwarzhans et al. — PRX Quantum 7, 033001 (2026)
 
-The paper constructs a self-contained autonomous quantum particle detector maintained in a nonequilibrium steady state.
+**“Quantum Detectors as Autonomous Machines: Assessing the Nonequilibrium Thermodynamics of Information Acquisition.”**
 
-Its model includes
+This work constructs a minimal autonomous quantum particle detector maintained out of equilibrium by a quantum thermal machine.
 
-- a work source implemented by a quantum thermal machine;
-- a three-level gain medium with a metastable detection-ready state;
-- coherent interaction with the quantum excitation to be detected;
-- a thermal detection channel producing an amplified output;
-- reset back to the detection-ready state.
-
-It explicitly defines and studies
+It explicitly analyzes
 
 - detection efficiency;
 - gain;
 - detection jitter;
 - dead time;
 - steady-state dark count rate;
-- entropy production.
+- entropy production / dissipation.
 
-The paper reports thermodynamic performance tradeoffs including increased dissipation for improved detector performance and inverse trends between dark counts and jitter/dead time in its model.
+Its transient protocol treats the target quantum excitation as already present in a two-level system coupled to the gain medium rather than deriving its capture from a propagating optical spectrum.
 
-These topics are therefore **not open novelty targets** for this repository in generic form.
+The authors explicitly identify capture as outside the thermodynamic stage they analyze and note that capture may bring additional costs and inefficiencies.
 
----
-
-## 3. Their input excitation is already present
-
-Their transient detection protocol does not begin with a propagating optical field incident on the detector.
-
-The detector is first allowed to reach its nonequilibrium steady state. To model a detection event, the target system `S` is then conditioned/replaced into its excited state before the coupled detector dynamics are evolved.
-
-Thus their efficiency is a **conditional post-capture detection/amplification efficiency** for an excitation that is already present in the target degree of freedom.
-
-It is not an externally normalized spectral capture efficiency from a propagating optical channel.
+Therefore generic autonomous-detector thermodynamics, dark-count/dead-time/jitter tradeoffs, and thermodynamic reset/amplification costs are also **not** open novelty targets for this repository.
 
 ---
 
-## 4. The authors explicitly identify capture as outside their thermodynamic analysis
+## 2. The prior-art box
 
-In their conclusion, the authors state that their thermodynamic analysis focuses on amplification after the particle has been captured and note that capture itself may carry additional costs and inefficiencies.
+The two frameworks cover complementary pieces:
 
-This is the most important prior-art boundary for the present repository.
+```text
+Young et al. (2018)
+propagating quantum field
+-> absorption
+-> amplification / monitored output
 
-It means that building another generic autonomous three-state/cyclic detector and rediscovering dark-count/dead-time/entropy tradeoffs would mostly duplicate a problem that has now been treated directly and recently.
+Schwarzhans et al. (2026)
+captured target excitation
+-> autonomous nonequilibrium amplification
+-> click current / reset
+-> entropy production, dark counts, jitter, dead time
+```
+
+Thus the repository must not claim that either
+
+```text
+capture + amplification
+```
+
+or
+
+```text
+amplification + thermodynamic detector costs
+```
+
+is conceptually new.
 
 ---
 
-## 5. What their paper does not supply
+## 3. The narrowed candidate junction
 
-In the inspected paper, no incident-field spectral bandwidth figure of merit is formulated for the capture stage.
+The remaining candidate gap is the **intersection**:
 
-In particular, it does not derive
+> **A propagating-field photodetector whose externally normalized spectral capture/access is constrained by passive electromagnetic resource bounds, while the amplification/readout/reset stage is itself an autonomous thermodynamic machine with explicit entropy production and internal dark counts.**
 
-- capture probability as a function of incident optical frequency;
-- a propagating-channel absorption/capture bandwidth;
-- a broadband optical access budget;
-- a Maxwell/passivity/Bode-Fano capture bound;
-- a multimode integrated optical-to-detector transfer-area theorem;
-- a composition from external optical capture to autonomous amplification/readout.
+In schematic form,
 
-The word `bandwidth` does not appear as a detector performance metric in the inspected article text.
+```text
+propagating optical continuum
+        |
+        v
+causal/passive capture and storage
+        |
+        v
+autonomous nonequilibrium detector machine
+        |
+        v
+registered click
+```
+
+with the full theory retaining simultaneously
+
+- incident-field normalization;
+- capture probability versus optical frequency;
+- capture bandwidth / integrated transfer;
+- internal detector dark current;
+- external thermal/background photons admitted through the capture band;
+- jitter/dead time;
+- thermodynamic work/heat/entropy resources.
 
 ---
 
-## 6. Relation to this repository
+## 4. What the targeted search found
 
-This repository approached the detector from the opposite side.
+A focused 2026 search was performed using combinations of
 
-The strongest general finite-network result here is the capture/access statement
+```text
+photodetector
+photon capture
+input-output
+propagating photon
+bandwidth
+thermodynamics
+entropy production
+autonomous detector
+dark counts
+```
+
+and direct searches combining the titles/authors of the 2018 and 2026 frameworks.
+
+The search recovered
+
+- Young et al. (2018) as the major propagating-field / absorption / amplification framework;
+- Schwarzhans et al. (2026) as the major autonomous thermodynamic detector framework;
+- detector-specific experimental/theoretical work on bandwidth, blackbody-background counts, and dark-count statistics;
+- quantum-measurement thermodynamic literature;
+- input-output photon-counter models.
+
+No inspected primary source was found that explicitly combines the **passive broadband capture/access constraint** with an **autonomous thermodynamic detector back end** in one source-resolved detector model.
+
+This is a **negative search result only**. It is not proof of novelty or priority.
+
+---
+
+## 5. Relation to repository results
+
+The repository's strongest front-end result is
 
 ```math
+\boxed{
 \mathcal I_{L\to R}
 \le
-\frac{2LR}{L+R},
+\frac{2LR}{L+R}
+}
 ```
 
-with
+for a finite passive strictly proper optical-to-receiving network, where
 
 ```math
-L=\operatorname{Tr}\Gamma_L
+L=\operatorname{Tr}\Gamma_L,
+\qquad
+R=\operatorname{Tr}\Gamma_R.
 ```
-
-the aggregate propagating optical access and
-
-```math
-R=\operatorname{Tr}\Gamma_R
-```
-
-the aggregate irreversible receiving-side access.
 
 For a target angular-frequency band `W`,
 
 ```math
+\boxed{
 \overline T_B
 \le
 \frac{4\pi LR}{W(L+R)}.
-```
-
-The project then connected a known thermodynamic ceiling on one free-space optical channel to a minimum receiving-side access resource.
-
-These results address **capture/access before amplification**, whereas Schwarzhans et al. explicitly focus on the thermodynamic detector machinery after capture.
-
----
-
-## 7. Natural composition
-
-The scientifically natural architecture is now
-
-```text
-propagating optical mode
-        |
-        v
-capture / storage front end
-        |
-        v
-excitation already present in S
-        |
-        v
-autonomous amplification / readout / reset
-        |
-        v
-registered macroscopic click.
-```
-
-This separates two efficiencies:
-
-```math
-\eta_{\rm cap}(\omega)
-```
-
-for capture from the propagating optical channel and
-
-```math
-\eta_D
-```
-
-for the conditional autonomous detector back end.
-
-Under a serial architecture with no bypass and approximately frequency-independent back-end efficiency across the capture band,
-
-```math
-\boxed{
-\eta_{\rm ext}(\omega)
-=
-\eta_{\rm cap}(\omega)\eta_D.
 }
 ```
 
-This composition is elementary; it is not itself a novelty claim.
-
-Its value is that it identifies the missing interface between two existing bodies of theory.
-
----
-
-## 8. Dark-count accounting must also be separated
-
-Schwarzhans et al. define dark counts from the detector's nonequilibrium steady-state detection current in the absence of externally injected target excitations.
-
-That is an **internal detector dark-count current**.
-
-A real optical system can additionally generate counts from actual background photons entering through the accepted optical channel.
-
-Therefore future work must distinguish
+The repository has also separated
 
 ```text
-internal autonomous-detector dark counts
+internal detector dark events
 ```
 
 from
 
 ```text
-external thermal/background photon counts admitted by the capture bandwidth.
+real external thermal/background photons admitted by the optical acceptance band.
 ```
 
-This distinction is consistent with the repository's earlier thermal-input-channel calculation.
+Those distinctions can be carried into a thermodynamically autonomous detector model.
 
 ---
 
-## 9. Current novelty boundary
+## 6. Serial composition remains only a first diagnostic
+
+`CAPTURE_TO_CLICK_COMPOSITION.md` uses the deliberately simple factorization
+
+```math
+\eta_{\rm ext}(\omega)
+=
+\eta_{\rm cap}(\omega)\eta_D.
+```
+
+This is useful for resource bookkeeping but is not the final model.
+
+Young et al. already show that absorption and amplification can be dynamically coupled rather than artificially time-separated.
+
+Therefore a publishable next step cannot merely multiply a capture efficiency by a back-end efficiency and call the result a unified detector theory.
+
+The serial result should be retained as a limiting/reference case.
+
+---
+
+## 7. Current novelty boundary
 
 Do **not** claim novelty for
 
+- a quantum incoming-field photodetector model;
+- coupling photon absorption to amplification;
+- efficiency/dark-count/jitter definitions from quantum trajectories or monitored states;
 - autonomous detector thermodynamics;
-- entropy-production versus efficiency tradeoffs;
-- dark-count/jitter tradeoffs;
-- dark-count/dead-time tradeoffs;
-- metastable-state amplification;
-- defining dark counts as a steady-state detector current;
-- generic thermodynamic costs of reset/readout.
+- entropy-production versus detector-performance tradeoffs;
+- dark-count/jitter or dark-count/dead-time tradeoffs;
+- generic capture-to-click efficiency factorization.
 
-The potentially useful unexplored junction is narrower:
+The only plausible unresolved target now is narrower:
 
-> **external propagating-mode capture bandwidth and access resources composed with an autonomous nonequilibrium detector back end.**
+> **a bandwidth/access-aware thermodynamic photodetector model in which propagating optical capture and autonomous detector energetics are treated consistently in the same resource accounting.**
 
-Whether this junction is genuinely unpublished remains to be established by a targeted prior-art search.
+Priority remains unproven.
 
 ---
 
-## 10. Direction change
+## 8. Next decisive model
 
-Do not independently build the generic thermodynamic detector cycle that was planned before this collision.
+Do not build another generic three-state detector cycle.
 
-Instead:
+Instead, build the minimum unified model that contains the missing intersection:
 
-1. treat the 2026 autonomous-detector model as prior back-end theory;
-2. retain the repository harmonic access theorem as front-end theory;
-3. derive the clean serial capture-to-click composition;
-4. distinguish external background counts from internal detector dark counts;
-5. search specifically for prior work that already joins spectral optical capture to autonomous detector thermodynamics.
+1. one explicitly normalized incident optical channel / few-photon wavepacket;
+2. one or more capture states coupled to that channel;
+3. an autonomous thermodynamic gain/readout subsystem rather than a phenomenological measurement operator;
+4. thermal forward/reverse rates and an explicit work source;
+5. a counted output channel;
+6. external thermal photon occupation in the incident channel;
+7. internal dark-count current with the incident field in vacuum;
+8. an externally normalized spectral click probability `eta_ext(omega)`;
+9. entropy production and dead-time/jitter observables from the same Liouvillian.
 
-Only after that search should the project decide whether the capture-to-click bridge is a viable paper direction.
+Then test whether the passive harmonic capture/access bound remains a valid upper envelope once the back end is dynamically coupled instead of represented by a serial black box.
+
+Only if that survives should the project reassess publication potential.
