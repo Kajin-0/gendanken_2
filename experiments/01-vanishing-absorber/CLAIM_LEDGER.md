@@ -1,61 +1,101 @@
 # Claim Ledger — Experiment 01
 
 **Updated:** 2026-08-09  
-**Status:** exploratory; current frontier is graded-band HgCdTe transport versus Zener/TAT/nonlocal II; no novelty claim
+**Status:** exploratory; active frontier is graded HgCdTe carrier drive versus nonlocal hot-electron physics plus boundary TAT/BTBT; no novelty claim
 
-This file defines the epistemic boundary. `RESEARCH_LOG.md` preserves chronology and superseded branches.
+This file is the epistemic boundary. `RESEARCH_LOG.md` preserves chronology; specialized derivation files preserve detailed assumptions and proofs.
 
 ## Status vocabulary
 
 - **KNOWN** — established external result used as input.
 - **DERIVED** — exact consequence of stated repository assumptions.
-- **CHECKED** — independently/numerically verified.
+- **CHECKED** — independently or numerically verified.
 - **CONDITIONAL** — exact only inside a deliberately simplified model.
+- **CANDIDATE DISTINCT** — potentially unusual formulation; priority unproven.
 - **INVALIDATED** — explicit counterexample or correction found.
+- **SUPERSEDED** — replaced by a stronger/corrected statement.
 - **OPEN** — unresolved.
 - **NON-CLAIM** — explicitly not asserted.
 
+---
+
 ## 1. Permanent invalidations / stopped universal routes
 
-### H1 — active-volume-only universal detector limit — INVALIDATED
+### H1 — active-volume-only universal detector limit
 
-Ideal field concentration permits finite optical participation while `V_a -> 0`.
+**Status:** INVALIDATED
 
-### H2 — finite absorber count as one-photon speed limit — INVALIDATED
+Ideal field concentration permits finite optical participation while active material volume tends to zero. Do not revive a universal `eta^2 B <= C V` law without new constraints.
+
+### H2 — finite absorber count as the missing one-photon speed limit
+
+**Status:** INVALIDATED
 
 The one-photon / one-excitation sector remains linear.
 
-### H3 — finite internal storage rank as universal always-on detector capacity — INVALIDATED
+### H3 — largest internal coupling as universal multimode control parameter
 
-Adaptive branching and unrestricted output continua export the missing distinguishability.
+**Status:** INVALIDATED
 
-### H4 — local Landauer erasure as universal detector cost — INVALIDATED
+Spectator strongly coupled sectors are counterexamples.
 
-Useful output can carry the record information.
+### H4 — finite coherent storage rank as universal always-on detector capacity
 
-### H5 — one-Lorentzian leakage law or spectral FWHM as universal electronic speed — INVALIDATED
+**Status:** INVALIDATED
 
-Higher-order filters trade spectral rejection against delay/state count.
+Adaptive branching and unrestricted output continua can export the missing distinguishability.
 
-### H6 — low-field `v=mu F` extrapolation as high-field HgCdTe speed law — INVALIDATED
+### H5 — local Landauer erasure as a universal detector-event cost
 
-Primary HgCdTe transport is strongly non-ohmic at high field.
+**Status:** INVALIDATED
 
-### H7 — direct BTBT automatically first high-field limiter in ordinary LWIR — INVALIDATED AS WORKING HYPOTHESIS
+The useful output can itself carry the record information.
 
-TAT, nonlocal II, and transport nonlinearity intervene on distinct and often earlier scales.
+### H6 — spectral FWHM as architecture-independent carrier speed
 
-### H8 — bulk `~100 V/cm` II onset equals finite-device II threshold — INVALIDATED INTERPRETATION
+**Status:** INVALIDATED
 
-Finite-device II depends on dead space and carrier energy history.
+Multipole filters can keep spectral width fixed while increasing delay/storage-state weight.
 
-### H9 — nonuniform field alone improves homogeneous speed–tunneling tradeoff — INVALIDATED WITHIN LOCAL MODEL
+### H7 — low-field mobility extrapolated to high-field HgCdTe
 
-For the stated homogeneous transport/leakage family, uniform field is the unique minimizer at fixed transit time.
+**Status:** INVALIDATED SHORTCUT
 
-## 2. Retained passive-network theorem
+Primary high-field HgCdTe transport is non-ohmic; velocity need not increase monotonically with field.
+
+### H8 — direct BTBT must be the first HgCdTe high-field limiter
+
+**Status:** INVALIDATED SHORTCUT
+
+TAT and nonlocal impact-ionization/hot-electron physics can intervene earlier depending on defect spectrum, geometry, and energy relaxation.
+
+### H9 — nonuniform electric field alone improves homogeneous local WKB leakage at fixed transit time
+
+**Status:** INVALIDATED in the stated homogeneous local model
+
+Uniform field is the leakage-minimizing profile under the derived assumptions. Heterogeneity in material/defect/transport parameters is required for a genuine allocation benefit.
+
+### H10 — local `F_II(x)` can always be inserted into a tunneling tolerance envelope
+
+**Status:** INVALIDATED GENERALIZATION
+
+In the thin/fast regime, impact ionization is history dependent. Use a nonlocal carrier-energy state unless local equilibration has been justified.
+
+---
+
+## 2. Important supporting results from earlier abstract branches
+
+### P1 — finite passive-network harmonic transfer-area bound
+
+**Status:** DERIVED / CHECKED; mathematical ingredients established prior theory; novelty not claimed
 
 For a finite stable passive strictly proper network,
+
+```math
+L=\operatorname{Tr}\Gamma_L,
+\qquad
+R=\operatorname{Tr}\Gamma_R,
+```
 
 ```math
 \boxed{
@@ -65,274 +105,64 @@ For a finite stable passive strictly proper network,
 }
 ```
 
-**Status:** DERIVED / CHECKED; standard `H_2`/Lyapunov ingredients; exact priority unassessed; not the active material frontier.
-
-## 3. HgCdTe direct-BTBT normalization
-
-Using the published uniform-field HgCdTe form plus the simplified Kane mass relation:
+The band-averaged corollary is
 
 ```math
 \boxed{
-J_{\rm BTBT}
-=\frac{q^3L}{4\pi^3\hbar^2v_K}
-F^2e^{-F_K/F},
+\overline T_B
+\le
+\frac{4\pi LR}{W(L+R)}.
 }
 ```
 
+This is retained as an external-access resource law, not an absolute detector bandwidth theorem.
+
+### P2 — fixed-target Hopfield access collapse
+
+**Status:** CANDIDATE DISTINCT supporting lemma; priority unproven
+
+For the stated fixed-target two-mode Hopfield model with fixed local bath resources and `g -> infinity`,
+
 ```math
 \boxed{
-F_K
-=\frac{\pi E_g^2}{4q\hbar v_K}
-=\frac{\pi^3\hbar c^2}{qv_K\lambda_c^2},
+\min(\Gamma_L,\Gamma_R)\to0.
 }
 ```
 
-```math
-\boxed{
-J_K
-=\frac{q\pi^3c^4L}{4v_K^3\lambda_c^4}.
-}
-```
+Deep-strong decoupling itself is established prior physics.
 
-With `x=F/F_K`, `j=J/J_K`:
+### P3 — active finite-mode conversion resource
 
-```math
-\boxed{j=x^2e^{-1/x}.}
-```
-
-**Status:** DERIVED / CHECKED / CONDITIONAL. Scaling model only.
-
-## 4. Finite impact-ionization scales
-
-For `E_th=chi E_g`, cold field-work threshold:
-
-```math
-\boxed{F_{\rm dead}\simeq\chi E_g/(qL).}
-```
-
-Kane relation:
+**Status:** DERIVED bookkeeping result built on established Schmidt/singular-mode conversion theory
 
 ```math
 \boxed{
-F_{\rm dead}/F_K
-=(4\chi/\pi)(\ell_K/L),
-\qquad
-\ell_K=\hbar v_K/E_g.
-}
-```
-
-With one energy-relaxation time,
-
-```math
-\boxed{
-L_{\rm eff}
-=\ell_E(1-e^{-L/\ell_E}),
-}
-```
-
-```math
-\boxed{
-F_{\rm th}^{(\rm mean)}
-=\Delta E_{\rm th}/(qL_{\rm eff}).
-}
-```
-
-**Status:** DERIVED / CONDITIONAL. Mean trajectory is not the stochastic high-energy tail.
-
-For the analytic `alpha=1,beta=0` II-rate test case, the repository has a closed nonlocal hazard and
-
-```math
-\boxed{P_{\rm II}=1-e^{-\Xi_{\rm II}}.}
-```
-
-**Status:** DERIVED / CHECKED / CONDITIONAL.
-
-Target `x=0.20`, 77 K `ell_E(F)` and `Gamma_II(E)` calibration remain OPEN.
-
-## 5. Relaxation-length phase boundary
-
-Let `F_J` be the direct-BTBT field for a chosen current budget and
-
-```math
-r=F_{\rm dead}/F_J.
-```
-
-The mean-II/BTBT boundary obeys
-
-```math
-\boxed{
-\frac{1-e^{-y_*}}{y_*}=r,
-\qquad
-y_*=L/\ell_{E,*}.
-}
-```
-
-For `0<r<1`,
-
-```math
-\boxed{
-y_*
-=\frac1r+W_0[-r^{-1}e^{-1/r}],}
-```
-
-```math
-\boxed{\ell_{E,*}=L/y_*.}
-```
-
-**Status:** DERIVED / CHECKED / CONDITIONAL. One-sided evidence only because stochastic II can occur below mean threshold.
-
-## 6. Trap-assisted tunneling scale
-
-For trap depth
-
-```math
-\Delta_t=E_g-E_T,
-```
-
-simple TAT exponent field:
-
-```math
-\boxed{
-F_{\rm TAT}
-=\frac{4\sqrt{2m^*}\Delta_t^{3/2}}
-{3q\hbar}.
-}
-```
-
-Relative to direct BTBT:
-
-```math
-\boxed{
-\frac{F_{\rm TAT}}{F_K}
-=\frac{16}{3\pi}
-(\Delta_t/E_g)^{3/2}.
-}
-```
-
-**Status:** DERIVED from standard simplified TAT/BTBT exponents; no universal trap depth/prefactor.
-
-Within the shared simplified current models,
-
-```math
-\boxed{
-N_{T,\times}
-=\frac{2\sqrt2q\hbar\Delta_tF}
-{\pi^2\kappa_d^2\sqrt{m^*E_g}}
-\exp[-(F_K-F_T)/F].
-}
-```
-
-**Status:** DERIVED / CONDITIONAL.
-
-Real HgCdTe studies report technologically relevant TAT with trap densities around `10^13–10^14 cm^-3` in some LWIR devices. Those are external device-specific benchmarks, not universal values.
-
-## 7. Homogeneous field-profile theorem
-
-For
-
-```math
-v(F)=\mu F/[1+(F/d)^r],
-\qquad r>1,
-```
-
-and
-
-```math
-g(F)=AF^pe^{-K/F},
-\qquad p>0,
-```
-
-local leakage is strictly convex as a function of reciprocal velocity over the entire rising-velocity branch; the falling branch is dominated.
-
-Hence, at fixed transit time,
-
-```math
-\boxed{
-G[F]\ge Lg(F_0),
-}
-```
-
-where `F_0` is uniform and satisfies `v(F_0)=L/T`.
-
-**Status:** DERIVED / CHECKED. Standard convexity/Jensen mathematics; local homogeneous model only.
-
-## 8. Heterogeneous marginal field allocation
-
-For spatially varying local laws,
-
-```math
-\boxed{
--\frac{\partial g/\partial F}
-{\partial(1/v)/\partial F}
-=\lambda
-}
-```
-
-at an interior transit-constrained optimum.
-
-For ohmic WKB regions,
-
-```math
-\boxed{
-\mathcal M_i
-=\mu_iA_iF_i^{p+1}e^{-K_i/F_i}
-(p+K_i/F_i).
-}
-```
-
-**Status:** DERIVED. Standard constrained optimization.
-
-The repository two-region example reduces modeled leakage by about `20.6%` at fixed transit time while requiring about `2.2%` extra voltage.
-
-## 9. Voltage–transit inequality
-
-For ohmic spatial transport,
-
-```math
-\boxed{
-VT
+N_p
 \ge
-\left[
-\int_0^L\frac{dx}{\sqrt{\mu(x)}}
-\right]^2.
+\frac{M_c\arcsin^2\sqrt\eta}
+{\Lambda\tau^2}.
 }
 ```
 
-Equality requires
+`Lambda` remains an unbounded device/material resource in that abstraction.
 
-```math
-\boxed{F(x)\propto\mu(x)^{-1/2}.}
-```
+These results are supporting provenance, not the current HgCdTe frontier.
 
-For two equal-length/equal-mobility regions at bias ratio `beta=V/V_min`,
+---
 
-```math
-\boxed{s=\sqrt{1-1/\beta},}
-```
+## 3. HgCdTe graded direct-Zener results
 
-```math
-\boxed{F_{\rm low,high}=F_{\rm bar}/(1\pm s).}
-```
+### G1 — exact linear graded-Kane WKB action
 
-**Status:** DERIVED. Standard Cauchy mathematics.
+**Status:** DERIVED / CHECKED / CONDITIONAL
 
-## 10. Linear graded-gap Kane WKB result — current strongest new model-level corollary
-
-Use
-
-```math
-(E-U)^2=\Delta^2+(\hbar v_Kk)^2,
-```
-
-with linear edges
+For linear edges
 
 ```math
 E_c=E_{c0}-S_cx,
 \qquad
-E_v=E_{v0}-S_vx.
+E_v=E_{v0}-S_vx,
 ```
-
-For `S_c,S_v>0`, the exact WKB action is
 
 ```math
 \boxed{
@@ -342,120 +172,366 @@ For `S_c,S_v>0`, the exact WKB action is
 }
 ```
 
-Constant gap/common slope recovers
+The constant-gap common-field limit recovers the simplified Kane/Zener exponent.
+
+### G2 — band-offset-partition invariant geometry
+
+**Status:** DERIVED
+
+Define
+
+```math
+G=-dE_g/dx,
+\quad
+S_c=-dE_c/dx,
+\quad
+S_v=-dE_v/dx.
+```
+
+Then identically
+
+```math
+\boxed{S_v=S_c-G.}
+```
+
+The relative conduction/valence geometry does not depend on the bare band-offset partition parameter.
+
+### G3 — fixed-conduction-slope Zener action ratio
+
+**Status:** DERIVED / CHECKED / CONDITIONAL; exact formula priority unassessed
+
+At fixed `S_c=S`, define
+
+```math
+\delta=G/S.
+```
+
+For the linear two-turning-point model,
 
 ```math
 \boxed{
-\mathcal S_0
-=\frac{\pi E_g^2}{4q\hbar v_KF}.
-}
-```
-
-Decompose
-
-```math
-S_c=S_U+S_\Delta,
-\qquad
-S_v=S_U-S_\Delta.
-```
-
-Hold useful conduction slope `S_c=S` fixed and define
-
-```math
-\eta=S_\Delta/S.
-```
-
-For `0<=eta<1/2`,
-
-```math
-\boxed{
-\frac{\mathcal S_Z(\eta)}
+\frac{\mathcal S_Z(\delta)}
 {\mathcal S_Z(0)}
 =
-\frac{(1-\eta)^2}
-{(1-2\eta)^{3/2}}.
+\frac{(2-\delta)^2}
+{4(1-\delta)^{3/2}},
+\qquad 0\le\delta<1.
 }
 ```
 
-It is strictly increasing:
+The ratio increases monotonically and diverges as `delta -> 1-`.
+
+This concerns one direct-Zener path only.
+
+---
+
+## 4. Self-consistent quasi-neutral grading
+
+### Q1 — majority-band pinning in p-type quasi-neutral material
+
+**Status:** DERIVED / CONDITIONAL
+
+For nondegenerate holes with `p approximately N_A`,
 
 ```math
 \boxed{
-\frac{d\ln R}{d\eta}
-=\frac{1+\eta}
-{(1-\eta)(1-2\eta)}>0.
+\frac{dE_v}{dx}
+\simeq
+k_BT\frac{d}{dx}\ln(N_A/N_v).
 }
 ```
 
-As `eta -> 1/2-`, the valence turning point recedes and the action diverges.
-
-For `eta>=1/2`, if the finite graded region remains positive-gap and ends before gap closure, the conventional same-energy two-turning-point direct-Zener path is absent inside this ideal model.
-
-**Status:** DERIVED / CHECKED / CONDITIONAL.
-
-**Priority:** graded-gap HgCdTe, WKB and Kane/Zener are established. The exact fixed-conduction-slope ratio was not found in the inspected focused search. That negative search is not proof of novelty. Current label: **exact internally derived linear-profile WKB corollary; priority unassessed.**
-
-## 11. Grading resource requirement
-
-In the symmetric two-band picture,
+For nearly constant `N_A/N_v`,
 
 ```math
-S_\Delta L=\Delta E_g/2.
+\boxed{E_v\approx\text{constant}.}
 ```
 
-Therefore
+Hence with decreasing gap
 
 ```math
-\boxed{\Delta E_g=2\eta SL.}
+\boxed{S_c\approx G.}
 ```
 
-Composition grading exchanges electrostatic/common-mode drive for finite bandgap/band-offset range; it is not free acceleration.
+This naturally approaches the favorable `delta -> 1` direct-Zener geometry for minority-electron collection.
 
-## 12. OPEN questions now
+### Q2 — uniformly depleted multi-micron grading is not the default physical picture
 
-### O1
+**Status:** CONDITIONAL design conclusion
 
-Real HgCdTe conduction/valence band-offset partition versus composition in the target grading range.
+Uniform uncompensated charge gives a Poisson correction scaling as `N_eff L^2`, which becomes severe rapidly with length. The current physical model is therefore
 
-### O2
+```text
+quasi-neutral graded interior
++
+short screening/depletion/boundary regions.
+```
 
-Self-consistent `U(x)` generated by doping, fixed charge and carrier redistribution in a graded structure.
+---
 
-### O3
+## 5. Collection-boundary electrostatic results
 
-Full finite-profile direct WKB current after integrating over tunneling energy and transverse states.
+### B1 — barrier-free compensation voltage
 
-### O4
+**Status:** DERIVED
 
-TAT in the graded profile with spatially varying trap energy/density.
+For a local gap increase `Delta Eg_b` with conduction-band share `alpha`, barrier-free electron extraction requires
 
-### O5
+```math
+\boxed{
+qV_b\ge\alpha\Delta E_g^{(b)}.
+}
+```
 
-Nonlocal impact-ionization probability in the same profile.
+At equality the net conduction-edge step is zero.
 
-### O6
+### B2 — peak-field lower bound
 
-Whether the exact graded-action corollary has prior mathematical/device literature under another notation.
+**Status:** DERIVED
 
-## 13. Explicit non-claims
+For any nonnegative one-dimensional compensating field over width `w`,
 
-Do **not** claim
+```math
+\boxed{F_{\max}\ge V_b/w.}
+```
 
-- a universal photodetector limit;
-- a universal HgCdTe speed-dark-current theorem;
-- zero tunneling in a real graded detector;
-- that real grading has `U'=0`;
-- that TAT or II are eliminated by grading;
-- that the exact WKB ratio is novel;
-- readiness for a manuscript.
+Delta doping or depletion shaping can redistribute field but cannot lower the peak below this integral bound at fixed positive voltage and width.
 
-## 14. Promotion criterion
+### B3 — local tunneling voltage capacity
 
-The graded-action result becomes publication-relevant only if it survives
+**Status:** DERIVED / CONDITIONAL
 
-1. realistic HgCdTe band-offset partition;
-2. finite positive-gap endpoints;
-3. self-consistent Poisson electrostatics;
-4. TAT/interface-state attack;
-5. nonlocal impact-ionization attack;
-6. deeper prior-art collision.
+For local inverse-field mechanisms `m` with characteristic fields `F_m(x)` and required exponent margins `Sigma_m`, define
+
+```math
+\boxed{
+F_{\rm allow}(x)
+=\min_m\frac{F_m(x)}{\Sigma_m}.
+}
+```
+
+Then the compensation voltage is feasible under those local constraints iff
+
+```math
+\boxed{
+V_b\le\int_0^wF_{\rm allow}(x)dx.
+}
+```
+
+At minimum barrier-free compensation,
+
+```math
+\boxed{
+\frac{\alpha\Delta E_g^{(b)}}{q}
+\le
+\int_0^wF_{\rm allow}(x)dx.
+}
+```
+
+In the current model, TAT and direct BTBT belong in this local envelope; nonlocal II generally does not.
+
+### B4 — maximin field allocation
+
+**Status:** DERIVED
+
+For one local exponent scale `F_T(x)`, the field profile maximizing the worst local exponent is
+
+```math
+\boxed{
+F_{\rm opt}(x)
+=\frac{V_bF_T(x)}
+{\int F_Tdx}.
+}
+```
+
+Thus the optimum equalizes normalized tunneling stress.
+
+---
+
+## 6. New graded nonlocal carrier-energy results
+
+### N1 — general graded-band mean-energy state
+
+**Status:** DERIVED / CONDITIONAL
+
+```math
+\boxed{
+\frac{d\varepsilon}{dx}
+=S_c(x)-\frac{\varepsilon}{\ell_E(x)}.
+}
+```
+
+For cold injection,
+
+```math
+\boxed{
+\varepsilon(x)
+=
+\int_0^x
+S_c(s)
+\exp\!\left[-\int_s^x\frac{du}{\ell_E(u)}\right]ds.
+}
+```
+
+This makes impact-ionization access a path-dependent state constraint in the thin/fast regime.
+
+### N2 — linear graded absorber phase boundary
+
+**Status:** DERIVED / CHECKED / CONDITIONAL; exact formula priority unassessed
+
+For
+
+```math
+E_v\approx\text{constant},
+```
+
+```math
+E_g(x)=E_{g0}-Gx,
+```
+
+constant `ell_E`, and threshold surrogate
+
+```math
+E_{\rm th}(x)=\chi E_g(x),
+```
+
+define
+
+```math
+\zeta=\Delta E_g/E_{g0},
+\qquad
+r=L/\ell_E.
+```
+
+Then mean threshold access occurs when
+
+```math
+\boxed{
+\zeta
+\ge
+\zeta_{\rm II}(r,\chi)
+=
+\frac{\chi}
+{\chi+(1-e^{-r})/r}.
+}
+```
+
+In the ballistic limit,
+
+```math
+\boxed{
+\zeta_{\rm II}	o\frac{\chi}{1+\chi}.
+}
+```
+
+For `chi=1`, the threshold is reached after a one-half fractional entrance-gap drop.
+
+This is a mean-energy threshold, not a true stochastic zero-probability boundary.
+
+### N3 — minimum-compensation wider-gap boundary cannot create a new mean crossing
+
+**Status:** DERIVED / CONDITIONAL
+
+At
+
+```math
+qV_b=\alpha\Delta E_g^{(b)},
+```
+
+```math
+\Delta E_c^{(b)}=0.
+```
+
+Therefore the boundary mean energy relaxes as
+
+```math
+\boxed{
+\varepsilon_b(s)
+=\varepsilon_a e^{-s/\ell_{E,b}},
+}
+```
+
+while the wider local gap makes the threshold increase.
+
+If
+
+```math
+\varepsilon_a<\chi E_{g,a},
+```
+
+then
+
+```math
+\boxed{
+\varepsilon_b(s)<\chi E_g(s)
+}
+```
+
+throughout the monotonic wider-gap boundary in this model.
+
+Overcompensation restores a downhill conduction slope and therefore adds both field stress and hot-electron drive.
+
+---
+
+## 7. Established external ingredients — do not claim novelty
+
+Known prior physics includes
+
+- graded-gap and graded-composition HgCdTe detectors;
+- composition-induced built-in/quasi-electric fields;
+- HgCdTe heterojunction and unipolar-barrier band engineering;
+- TAT, direct BTBT, SRH/Auger leakage and interface traps;
+- electron-dominated HgCdTe impact ionization and dead-space effects;
+- energy-dependent Monte Carlo treatment of HgCdTe e-APDs;
+- carrier-relaxation/collection regions in graded HgCdTe APD designs;
+- standard WKB, Kane, Poisson, detailed-balance, and semiconductor transport theory.
+
+---
+
+## 8. Current open questions
+
+### O1 — target-composition energy relaxation
+
+**Status:** OPEN
+
+Need defensible `ell_E(E,x)` or equivalent energy-loss data for the target narrow-gap HgCdTe composition near 77 K.
+
+### O2 — target-composition energy-dependent II probability
+
+**Status:** OPEN
+
+Need calibrated `Gamma_II(E,x)` for the same material regime before turning the mean-energy phase boundary into a probability/gain/noise prediction.
+
+### O3 — boundary trap spectrum and prefactors
+
+**Status:** OPEN
+
+Measured/fitted trap energies exist, but actual local `N_t`, occupation, capture cross sections, and interface-state densities for the intended graded boundary determine whether TAT current is acceptable.
+
+### O4 — finite self-consistent device profile
+
+**Status:** OPEN
+
+Need one finite `E_g(x), E_c(x), E_v(x)` profile under doping and bias, not only local analytic segments.
+
+### O5 — publication significance
+
+**Status:** OPEN
+
+Do not open a manuscript yet. The exact graded WKB and nonlocal phase-boundary reductions are interesting but require broader prior-art collision and a realistic phase map before a defensible headline claim can be stated.
+
+---
+
+## 9. Explicit non-claims
+
+The project does **not** presently claim
+
+- a universal photodetector sensitivity-speed theorem;
+- a universal active-volume bound;
+- that grading eliminates all tunneling;
+- that a mean-energy threshold is a true stochastic II onset;
+- that TAT can be predicted from exponent alone;
+- that the current HgCdTe architecture is new;
+- a calibrated HgCdTe 77 K speed/dark-current limit;
+- novelty or priority for the exact graded-WKB or graded-II phase-boundary formulas;
+- manuscript readiness.
