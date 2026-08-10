@@ -1,7 +1,7 @@
 # Current State — Experiment 01: The Vanishing Absorber
 
 **Date:** 2026-08-09  
-**Status:** exploratory; active frontier is **few-mode, differential wavelength × RF-frequency transport metrology** in graded HgCdTe, with a paired A/B temperature experiment emerging as the strongest validation path; no novelty claim
+**Status:** exploratory; active frontier is **few-mode, differential wavelength × RF-frequency transport metrology** in graded HgCdTe, with sample-B calibration, paired A/B differential phase, and a provisional common-wavelength temperature control; no novelty claim
 
 ## 1. Current question
 
@@ -28,11 +28,14 @@ After root `AGENTS.md`:
 7. `HGCDTE_TEMPERATURE_ISO_KERNEL_DESIGN.md`
 8. `HGCDTE_PAIRED_SAMPLE_AB_DIFFERENTIAL_PHASE.md`
 9. `HGCDTE_PAIRED_AB_TEMPERATURE_DESIGN.md`
-10. `HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
-11. `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
-12. `CLAIM_LEDGER.md`
-13. `RESEARCH_LOG.md`
-14. `ARCHIVE_STATUS.md`
+10. `HGCDTE_PHASE_PRECISION_SNR_REQUIREMENT.md`
+11. `HGCDTE_PAIRED_PHASE_COMMON_MODE_REQUIREMENTS.md`
+12. `HGCDTE_SAMPLE_A_CONSTRAINT_FAMILY_JOINT_ISO_KERNEL.md`
+13. `HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
+14. `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
+15. `CLAIM_LEDGER.md`
+16. `RESEARCH_LOG.md`
+17. `ARCHIVE_STATUS.md`
 
 Older ballistic timing-peak and abstract universal-resource files are provenance only.
 
@@ -218,10 +221,13 @@ The authors infer that this remaining linear field does not strongly alter carri
 
 ```text
 processed thickness ~7.6 um
+nominal FTIR x ~0.320
 part of nonlinear interdiffusion region retained
 junction at high-Cd end
 local nonlinear-gradient field approaches ~2e3 V/cm.
 ```
+
+The accessible primary text also gives the explicit composition-fit functional form, reports the nonlinear/interdiffusion region as approximately `4 um`, reports A's linear field as about `30 V/cm` larger than B at equal temperature, and shows interference near sample A's cutoff.
 
 The authors attribute the samples' different photoelectric behavior primarily to the effect of composition-gradient field on minority-carrier motion.
 
@@ -232,7 +238,7 @@ sample B -> smooth calibration case
 sample A -> nonlinear/high-field transport-contrast case.
 ```
 
-The exact fitted A/B `x(z)` parameters remain unavailable in machine-readable form; the paper provides the fit model but the curves/parameters are graphical.
+The exact fitted A/B `x(z)` parameter tuples remain unavailable in machine-readable form; the curves/parameters are graphical.
 
 ---
 
@@ -499,13 +505,13 @@ Therefore temperature comparisons should use **full-kernel-matched wavelengths**
 
 ---
 
-## 18. Important compatibility correction — paired A/B plus iso-kernel
+## 18. Compatibility correction — paired A/B plus iso-kernel
 
 The two strongest controls do **not** combine automatically.
 
 Simultaneous A-B source-phase cancellation requires both devices to see the **same wavelength**.
 
-Exact iso-kernel matching generally gives a device-specific wavelength because A and B have different composition profiles.
+Exact one-device iso-kernel matching generally gives device-specific wavelengths because A and B have different composition profiles.
 
 The correct common-wavelength design is therefore
 
@@ -516,19 +522,141 @@ The correct common-wavelength design is therefore
 \left[
 w_A\epsilon_A^2(T,\lambda)
 +w_B\epsilon_B^2(T,\lambda)
-\right],
+\right].
 }
 ```
 
-where `epsilon_A,B` are normalized full-kernel mismatches relative to each device's reference kernel.
-
-Whether a useful **joint A/B iso-kernel schedule** exists is OPEN until the real sample-A profile is recovered.
-
-Do not claim the paired temperature difference-in-differences experiment is optically controlled before that test.
+Independent A/B iso-kernel schedules therefore remain invalid as a direct common-source cancellation protocol.
 
 ---
 
-## 19. Rejected/low-value branch — reverse illumination
+## 19. Phase precision and common-mode requirements
+
+For coherent photocurrent
+
+```math
+i(t)=I_1\cos(\Omega t+\phi)+n(t)
+```
+
+with one-sided white current-noise PSD `S_I` and coherent integration time `t`, the high-SNR phase variance is
+
+```math
+\boxed{
+\sigma_\phi^2\simeq\frac{S_I}{I_1^2t}.
+}
+```
+
+Defining
+
+```math
+\rho=\frac{I_1^2t}{S_I},
+```
+
+```math
+\boxed{\sigma_\phi\simeq\rho^{-1/2}.}
+```
+
+Thus
+
+```text
+0.10 degree single-phase precision -> ~55.2 dB coherent power-SNR
+0.10 degree A-B differential precision with equal independent channels -> ~58.2 dB/channel.
+```
+
+For correlated A/B phase errors,
+
+```math
+\boxed{
+\sigma_{AB}^2
+=\sigma_A^2+\sigma_B^2-2\rho_c\sigma_A\sigma_B.
+}
+```
+
+For equal channels and a `0.10 degree` differential target:
+
+```text
+1 degree individual RMS -> rho_c >0.995
+5 degree -> rho_c >0.9998
+10 degree -> rho_c >0.99995.
+```
+
+A reciprocal swap leaves residual
+
+```math
+\boxed{
+\delta\phi_{\rm swap}
+=[\psi(t_1)-\psi(t_2)]/2.
+}
+```
+
+so a `0.10 degree` systematic budget requires differential arm drift substantially below about `0.20 degree` over the swap interval.
+
+The swap is a systematic-rejection technique, not a free white-noise SNR gain.
+
+---
+
+## 20. New result — sample-A constraint family supports a robust mid/deep common A/B temperature schedule
+
+The exact sample-A fitted parameters are still graphical. Instead of inventing them, use the primary 2023 fit law and reported text constraints to build an explicit sensitivity family.
+
+Current family:
+
+```text
+W_A = 7.6 um
+conditional x_s = 0.320
+A linear field = 130, 150, 180, 200 V/cm
+Delta z = 3.5, 4.0, 4.5 um
+processed front field = 1800, 2000, 2200 V/cm
+both mathematical surface-field roots retained.
+```
+
+The `Delta z` and front-field spans are sensitivity ranges, **not** experimental uncertainty bars.
+
+This gives `72` sample-A profiles. Across that deliberately broad family, the `3.632 um` 300 K common reference gives:
+
+```text
+215 K:
+common lambda = 3.793356-3.793566 um
+A kernel mismatch = 0.215-0.229%
+B kernel mismatch = 0.447-0.453%
+A Pabs = 0.290-0.410
+B Pabs ~0.474
+
+115 K:
+common lambda = 4.004157-4.004870 um
+A kernel mismatch = 0.400-0.445%
+B kernel mismatch = 0.857-0.873%
+A Pabs = 0.213-0.309
+B Pabs = 0.357-0.358.
+```
+
+Therefore the earlier statement
+
+```text
+joint A/B iso-kernel feasibility is completely blocked until exact x_A(z) is recovered
+```
+
+is too strong.
+
+The corrected status is:
+
+> **Within the current Hansen/Moazzami Beer-Lambert sensitivity model, a useful mid/deep common-wavelength temperature control exists and its approximate wavelength is extremely insensitive to the unresolved sample-A profile.**
+
+A provisional schedule is
+
+```text
+300 K -> 3.632 um
+215 K -> ~3.7935 um
+115 K -> ~4.0045 um.
+```
+
+The deeper `3.840 um` reference matches even more accurately, but at 115 K modeled sample-A absorption falls to only about `0.017-0.027`; the primary paper also reports A-side interference near cutoff. It is therefore rejected as the preferred first paired-temperature band.
+
+Exact sample-A digitization is still required for calibrated A inversion, shallow-mode design, joint transport-mode identifiability, and final uncertainty propagation.
+
+---
+
+## 21. Rejected/low-value branch — reverse illumination
 
 Opposite-side illumination through the sapphire-supported side was considered because it changes the optical kernels without changing the device transport.
 
@@ -538,55 +666,67 @@ The current sample-B envelope gives only modest improvement in strongly conditio
 
 ---
 
-## 20. Current strongest experimental hierarchy
+## 22. Current strongest experimental hierarchy
 
-### Stage 1 — sample B calibration
+### Stage 1 — sample B / instrument calibration
 
-Use denser wavelength × RF data initially to validate
+Before interpreting HgCdTe transport, measure and validate
 
 ```text
 optical kernels
-phase covariance
-common-mode cancellation
+sigma_A(lambda,f)
+sigma_B(lambda,f)
+rho_c(lambda,f)
+residual differential phase PSD
+Allan deviation / drift versus time
+swap repeatability
 frequency regime
 few-mode inverse stability.
 ```
 
-Use temperature-dependent iso-kernel wavelengths rather than fixed wavelengths.
+### Stage 2 — interference-aware sample-A optics
 
-### Stage 2 — recover sample A optical profile
+The new constraint-family result weakens the exact-profile feasibility blocker, but the primary sample-A data explicitly show interference near cutoff.
 
-Build `A_A(T,lambda)` from the actual composition profile, including interference if material.
+Add a reflection/interference-aware optical model and test whether the provisional
 
-### Stage 3 — test joint A/B wavelength schedule
+```text
+3.632 -> 3.7935 -> 4.0045 um
+```
 
-Determine whether one common wavelength at each temperature keeps both device kernels sufficiently invariant.
+common schedule survives.
+
+### Stage 3 — recover the actual A/B profile fits
+
+Digitize/recover the graphical fit parameters when a usable primary figure becomes available and replace the sensitivity envelopes with the real profiles.
 
 ### Stage 4 — paired transport contrast
 
-If feasible, use simultaneous A/B differential phase, reciprocal arm swaps, and temperature perturbation to test for extra internal transport structure associated with sample A's retained nonlinear-gradient region.
+Use simultaneous A/B differential phase, reciprocal arm swaps, adaptive RF frequency, and the validated common-wavelength temperature perturbation to test for extra internal transport structure associated with sample A's retained nonlinear-gradient region.
 
 ---
 
-## 21. What remains missing
+## 23. What remains missing
 
-- actual fitted/digitized sample A and B `x(z)` curves;
+- exact fitted/digitized sample A and B `x(z)` curves;
+- interference/reflection-aware sample-A generation kernels;
 - full technical text of the 2024 close-collision paper;
 - realistic wavelength × RF-frequency phase/magnitude covariance;
-- interference/reflection corrections where material, especially sample A;
 - calibrated transport model / independent localized-position validation;
 - real complex-response data.
 
 ---
 
-## 22. Next decisive work
+## 24. Next decisive work
 
 Do **not** add another generic inverse theorem.
 
-The highest-value next step is:
+The highest-value next theoretical/numerical collision is:
 
-> **recover/digitize sample A's composition profile and test whether a common A/B iso-kernel temperature schedule exists.**
+> **Build an interference-aware optical model for sample A and test whether the provisional `3.632 -> 3.7935 -> 4.0045 um` common A/B temperature schedule survives.**
 
-If the real A profile cannot be recovered, the next best step is an instrument-level covariance model for sample B followed by a real calibration measurement.
+In parallel, the decisive pre-detector metrology experiment remains measurement of the two-arm differential phase covariance and drift.
+
+Exact sample-A profile recovery remains important, but it is no longer the sole feasibility gate for the mid/deep common-wavelength temperature control.
 
 Only after real-data or independently validated inversion should manuscript readiness be reassessed.
