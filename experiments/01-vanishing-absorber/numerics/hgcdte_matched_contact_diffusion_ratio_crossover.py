@@ -1,0 +1,258 @@
+"""Continuous transport crossover between local drift and drift-diffusion.
+
+For local drift-diffusion
+
+    D T'' - mu F T' = -1,
+
+write
+
+    Theta = D/mu   [volts],
+    U = mu T.
+
+Then
+
+    Theta U'' - F U' = -1.
+
+Theta therefore controls the relative diffusion/drift weighting independently
+of the absolute mobility scale.  The deterministic local-drift limit is
+Theta->0.  The nondegenerate Einstein reference at 300 K is
+Theta_E = k_B T/q ~=25.85 mV.
+
+This script uses the preferred downstream-compensated matched-contact family,
+reflecting back boundary, infinite bulk lifetime, and common assisting-field
+sensitivities 0, 100, 300 V/cm.  For beta=1,2,3 it locates where two transport
+observables change sign as Theta is swept:
+
+1. wavelength-averaged contrast-minus-control mean timing shift;
+2. gauge-free endpoint differential
+       deltaT(3.83 um)-deltaT(2.80 um).
+
+The SAME contrast optical generation kernel is used for null and alternative,
+so the sign change is a transport-model effect rather than a control/contrast
+optical-generation difference.
+
+No claim is made that D/mu in a real graded HgCdTe device equals the classical
+Einstein value.  Theta is the experimentally/model-relevant transport ratio to
+be constrained.
+"""
+
+from __future__ import annotations
+
+import numpy as np
+from scipy.optimize import brentq
+from scipy.sparse import csc_matrix, lil_matrix
+from scipy.sparse.linalg import splu
+
+from hgcdte_matched_contact_downstream_compensation import (
+    BETA_VALUES,
+    L_UM,
+    control_profile,
+    contrast_profile,
+)
+from hgcdte_matched_contact_recombination_boundary import (
+    K_B_EV_K,
+    LAMBDA_GRID,
+    MU_REF_CM2_VS,
+    N_TRANSPORT,
+    collected_spectrum,
+)
+
+T_K = 300.0
+THETA_EINSTEIN_V = K_B_EV_K * T_K
+COMMON_FIELDS_V_CM = (0.0, 100.0, 300.0)
+SEARCH_THETA_V = (0.5e-3, 50.0e-3)
+
+
+def interpolate_profile(z_um: np.ndarray, values: np.ndarray):
+    z_new = np.linspace(0.0, L_UM, N_TRANSPORT)
+    return z_new, np.interp(z_new, z_um, values)
+
+
+def solve_mean_time(
+    z_um: np.ndarray,
+    field_v_cm: np.ndarray,
+    theta_v: float,
+    common_field_v_cm: float,
+):
+    """Mean first-passage time for reflecting back boundary, no killing."""
+    z_cm = z_um * 1.0e-4
+    dz = float(z_cm[1] - z_cm[0])
+    n = len(z_cm)
+
+    diffusion = MU_REF_CM2_VS * theta_v
+    drift = MU_REF_CM2_VS * (field_v_cm + common_field_v_cm)
+
+    matrix = lil_matrix((n, n), dtype=float)
+    matrix[0, 0] = 1.0
+
+    for i in range(1, n - 1):
+        matrix[i, i - 1] = diffusion / dz**2 + drift[i] / (2.0 * dz)
+        matrix[i, i] = -2.0 * diffusion / dz**2
+        matrix[i, i + 1] = diffusion / dz**2 - drift[i] / (2.0 * dz)
+
+    # Reflecting back boundary T'(L)=0.
+    matrix[-1, -1] = 3.0
+    matrix[-1, -2] = -4.0
+    matrix[-1, -3] = 1.0
+
+    rhs = np.zeros(n)
+    rhs[1:-1] = -1.0
+    return splu(csc_matrix(matrix)).solve(rhs)
+
+
+def transport_observables(
+    beta: float,
+    theta_v: float,
+    common_field_v_cm: float,
+):
+    z0_fine, _, _, field0_fine = control_profile()
+    _, x1_fine, _, field1_fine, _, _ = contrast_profile(beta)
+
+    z, field0 = interpolate_profile(z0_fine, field0_fine)
+    x1 = np.interp(z, z0_fine, x1_fine)
+    field1 = np.interp(z, z0_fine, field1_fine)
+
+    T0 = solve_mean_time(z, field0, theta_v, common_field_v_cm)
+    T1 = solve_mean_time(z, field1, theta_v, common_field_v_cm)
+
+    # No killing -> h=1.  collected_spectrum expects h and m, and m=T here.
+    h = np.ones_like(z)
+    t0, _ = collected_spectrum(z, x1, h, T0)
+    t1, _ = collected_spectrum(z, x1, h, T1)
+    delta_ps = (t1 - t0) * 1.0e12
+
+    return {
+        "mean_ps": float(np.mean(delta_ps)),
+        "endpoint_ps": float(delta_ps[-1] - delta_ps[0]),
+        "peak_to_peak_ps": float(np.ptp(delta_ps)),
+    }
+
+
+def find_roots(beta: float, common_field: float, key: str):
+    low, high = SEARCH_THETA_V
+    grid = np.linspace(low, high, 90)
+    values = np.asarray(
+        [transport_observables(beta, theta, common_field)[key] for theta in grid]
+    )
+
+    roots = []
+    for left, right, f_left, f_right in zip(
+        grid[:-1], grid[1:], values[:-1], values[1:]
+    ):
+        if f_left * f_right < 0.0:
+            roots.append(
+                brentq(
+                    lambda theta: transport_observables(
+                        beta, theta, common_field
+                    )[key],
+                    left,
+                    right,
+                    xtol=2.0e-9,
+                )
+            )
+    return roots
+
+
+def main() -> None:
+    print("Matched-contact D/mu transport-sign crossover")
+    print(f"300 K Einstein reference D/mu = {1e3*THETA_EINSTEIN_V:.3f} mV")
+    print(
+        f"root search = {1e3*SEARCH_THETA_V[0]:.1f}-"
+        f"{1e3*SEARCH_THETA_V[1]:.1f} mV"
+    )
+    print()
+
+    results = {}
+    for beta in BETA_VALUES:
+        print(f"beta={beta:.0f}")
+        for common_field in COMMON_FIELDS_V_CM:
+            mean_roots = find_roots(beta, common_field, "mean_ps")
+            endpoint_roots = find_roots(beta, common_field, "endpoint_ps")
+
+            at_einstein = transport_observables(
+                beta, THETA_EINSTEIN_V, common_field
+            )
+            results[(beta, common_field)] = (
+                mean_roots,
+                endpoint_roots,
+                at_einstein,
+            )
+
+            mean_text = (
+                ", ".join(f"{1e3*r:.3f}" for r in mean_roots)
+                if mean_roots
+                else "none in search interval"
+            )
+            endpoint_text = (
+                ", ".join(f"{1e3*r:.3f}" for r in endpoint_roots)
+                if endpoint_roots
+                else "none in search interval"
+            )
+
+            print(f"  common field {common_field:.0f} V/cm")
+            print(f"    mean-timing zero(s): {mean_text} mV")
+            print(f"    endpoint-differential zero(s): {endpoint_text} mV")
+            print(
+                f"    at D/mu=kT/q: mean={at_einstein['mean_ps']:.3f} ps, "
+                f"endpoint={at_einstein['endpoint_ps']:.3f} ps, "
+                f"p-p={at_einstein['peak_to_peak_ps']:.3f} ps"
+            )
+        print()
+
+    # Key regression anchors.
+    r10 = results[(1.0, 0.0)]
+    r20 = results[(2.0, 0.0)]
+    r30 = results[(3.0, 0.0)]
+
+    assert len(r10[0]) == 0
+    assert 9.14e-3 < r10[1][0] < 9.17e-3
+
+    assert 6.62e-3 < r20[0][0] < 6.65e-3
+    assert 13.44e-3 < r20[1][0] < 13.48e-3
+
+    assert 8.91e-3 < r30[0][0] < 8.95e-3
+    assert 15.82e-3 < r30[1][0] < 15.86e-3
+
+    # The largest endpoint crossover among the tested common fields stays below
+    # the classical 300 K Einstein reference.
+    endpoint_roots_all = [
+        root
+        for mean_roots, endpoint_roots, _ in results.values()
+        for root in endpoint_roots
+    ]
+    maximum_endpoint_root = max(endpoint_roots_all)
+    assert 21.37e-3 < maximum_endpoint_root < 21.43e-3
+    assert maximum_endpoint_root < THETA_EINSTEIN_V
+
+    # At the nondegenerate Einstein reference, every tested beta/common-field
+    # endpoint differential is on the negative/speedup side of its crossover.
+    for _, _, at_einstein in results.values():
+        assert at_einstein["endpoint_ps"] < 0.0
+        assert at_einstein["mean_ps"] < 0.0
+
+    print(
+        "largest endpoint-differential crossover over beta/common-field bracket = "
+        f"{1e3*maximum_endpoint_root:.3f} mV"
+    )
+    print(
+        f"classical 300 K kT/q sits {1e3*(THETA_EINSTEIN_V-maximum_endpoint_root):.3f} "
+        "mV above that crossover."
+    )
+    print()
+    print(
+        "PASS: the deterministic-versus-diffusive disagreement is a continuous "
+        "D/mu crossover rather than an arbitrary numerical contradiction. For "
+        "the stronger beta=2/3 devices with zero common field, the wavelength-"
+        "averaged timing change flips near ~6.63/~8.93 mV and the gauge-free "
+        "endpoint differential flips near ~13.46/~15.84 mV. Across the complete "
+        "0-300 V/cm common-field bracket, the largest endpoint crossover is "
+        "~21.41 mV, below the classical 300 K Einstein value 25.85 mV. Thus a "
+        "nondegenerate Einstein model lies consistently on the speedup side, "
+        "while sufficiently small D/mu approaches the local-drift penalty. The "
+        "real device prediction now hinges on constraining D/mu and carrier/band-"
+        "edge orientation rather than on lifetime or back-boundary choice alone."
+    )
+
+
+if __name__ == "__main__":
+    main()
