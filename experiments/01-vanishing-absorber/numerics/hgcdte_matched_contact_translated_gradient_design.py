@@ -33,7 +33,7 @@ sample-A branch, while the surrounding field is about 220 V/cm.
 Measurement model
 -----------------
 - lambda = 2.00-2.80 um in 0.01 um steps;
-- f = 0.25, 0.50, 1, 2, 3 GHz;
+- f = 0.25, 0.5, 1, 2, 3 GHz;
 - finite-RF deterministic-transit Jacobian, baseline v0 = 1e5 m/s;
 - illustrative 25% support-shaped transport perturbation;
 - phase + log-magnitude complex response;
@@ -52,6 +52,10 @@ adversarial stress allows those nuisance amplitudes to vary independently in the
 two devices. The large difference between these cases quantifies why matched
 fabrication is scientifically essential.
 
+The primary design objective is the *absolute nuisance-orthogonal complex
+response norm*, not principal angle alone. A large angle with very small raw
+signal is not automatically the best experiment.
+
 No novelty claim.
 """
 
@@ -61,7 +65,9 @@ import numpy as np
 from scipy.integrate import cumulative_trapezoid
 
 from hgcdte_sample_a_constraint_family_joint_iso_kernel import (
+    HC_EV_UM,
     N_CELL,
+    alpha_moazzami,
     deg_dx_hansen,
 )
 from hgcdte_shortwave_finite_rf_jacobian import (
@@ -142,13 +148,17 @@ def phase_projection(target: np.ndarray, nuisance: np.ndarray):
 
 
 def pabs_and_mean_depth(z: np.ndarray, x: np.ndarray):
+    """Return modeled absorption probability and conditional mean depth."""
     pabs = []
     means = []
+    z_cm = z * 1.0e-4
     for wavelength in LAMBDA_GRID:
-        probability, centers, _, p_abs = generation_probabilities(
+        probability, centers, _ = generation_probabilities(
             z, x, float(wavelength)
         )
-        pabs.append(p_abs)
+        alpha = alpha_moazzami(HC_EV_UM / float(wavelength), x, 300.0)
+        tau = np.concatenate(([0.0], cumulative_trapezoid(alpha, z_cm)))
+        pabs.append(float(1.0 - np.exp(-tau[-1])))
         means.append(float(probability @ centers))
     return np.asarray(pabs), np.asarray(means)
 
@@ -247,14 +257,18 @@ def main() -> None:
     candidates = []
     for i, z1 in enumerate(POSITION_GRID_UM):
         for z2 in POSITION_GRID_UM[i + 1 :]:
-            if z2 - z1 < 0.4:
+            if z2 - z1 < 0.4 - 1.0e-12:
                 continue
             candidates.append(pair_metrics(float(z1), float(z2)))
 
-    # The same pair maximizes both common-mode complex angle and residual norm on
-    # this explicit grid.
-    best_angle = max(candidates, key=lambda row: row["common_complex_angle_deg"])
-    best_residual = max(candidates, key=lambda row: row["common_complex_residual"])
+    # Primary objective: maximum absolute nuisance-orthogonal complex signal.
+    best_residual = max(
+        candidates, key=lambda row: row["common_complex_residual"]
+    )
+    # Geometry-only diagnostic: maximum principal angle can occur elsewhere.
+    best_angle = max(
+        candidates, key=lambda row: row["common_complex_angle_deg"]
+    )
 
     print("Matched-contact translated-gradient pair design")
     print(
@@ -269,53 +283,63 @@ def main() -> None:
     print()
 
     print(
-        "best common-mode complex pair = "
-        f"{best_angle['z1']:.2f} -> {best_angle['z2']:.2f} um"
+        "best nuisance-orthogonal-signal pair = "
+        f"{best_residual['z1']:.2f} -> {best_residual['z2']:.2f} um"
     )
     print(
         "  local field maxima = "
-        f"{best_angle['field1_max']:.1f}, {best_angle['field2_max']:.1f} V/cm"
+        f"{best_residual['field1_max']:.1f}, "
+        f"{best_residual['field2_max']:.1f} V/cm"
     )
-    print(f"  minimum Pabs = {best_angle['min_pabs']:.6f}")
-    print(f"  minimum |H| = {best_angle['min_abs_H']:.6f}")
+    print(f"  minimum Pabs = {best_residual['min_pabs']:.6f}")
+    print(f"  minimum |H| = {best_residual['min_abs_H']:.6f}")
     print(
         "  mean generation depth @2.00 um = "
-        f"{best_angle['mean_depth_2um'][0]:.3f}, "
-        f"{best_angle['mean_depth_2um'][1]:.3f} um"
+        f"{best_residual['mean_depth_2um'][0]:.3f}, "
+        f"{best_residual['mean_depth_2um'][1]:.3f} um"
     )
     print(
         "  mean generation depth @2.80 um = "
-        f"{best_angle['mean_depth_2p8um'][0]:.3f}, "
-        f"{best_angle['mean_depth_2p8um'][1]:.3f} um"
+        f"{best_residual['mean_depth_2p8um'][0]:.3f}, "
+        f"{best_residual['mean_depth_2p8um'][1]:.3f} um"
     )
     print(
         f"  1-GHz differential phase p-p = "
-        f"{best_angle['phase_1ghz_pp_deg']:.6f} deg"
+        f"{best_residual['phase_1ghz_pp_deg']:.6f} deg"
     )
     print(
         f"  matched common nuisance: complex angle = "
-        f"{best_angle['common_complex_angle_deg']:.6f} deg, "
-        f"residual = {best_angle['common_complex_residual']:.9f}"
+        f"{best_residual['common_complex_angle_deg']:.6f} deg, "
+        f"residual = {best_residual['common_complex_residual']:.9f}"
     )
     print(
         f"  matched common nuisance: phase angle = "
-        f"{best_angle['common_phase_angle_deg']:.6f} deg, "
-        f"residual norm = {best_angle['common_phase_residual_deg']:.6f} deg"
+        f"{best_residual['common_phase_angle_deg']:.6f} deg, "
+        f"residual norm = {best_residual['common_phase_residual_deg']:.6f} deg"
     )
     print(
         f"  independent nuisance stress: complex angle = "
-        f"{best_angle['independent_complex_angle_deg']:.6f} deg"
+        f"{best_residual['independent_complex_angle_deg']:.6f} deg"
     )
     print(
         f"  independent nuisance stress: phase angle = "
-        f"{best_angle['independent_phase_angle_deg']:.6f} deg"
+        f"{best_residual['independent_phase_angle_deg']:.6f} deg"
+    )
+    print()
+    print(
+        "largest geometry-only complex angle occurs at "
+        f"{best_angle['z1']:.2f} -> {best_angle['z2']:.2f} um: "
+        f"angle={best_angle['common_complex_angle_deg']:.6f} deg, "
+        f"residual={best_angle['common_complex_residual']:.9f}"
     )
 
     complex_noise_rad = np.deg2rad(REFERENCE_NOISE_DEG)
-    complex_snr = best_angle["common_complex_residual"] / complex_noise_rad
-    phase_snr = best_angle["common_phase_residual_deg"] / REFERENCE_NOISE_DEG
-    complex_sigma_3 = np.degrees(best_angle["common_complex_residual"] / 3.0)
-    phase_sigma_3 = best_angle["common_phase_residual_deg"] / 3.0
+    complex_snr = best_residual["common_complex_residual"] / complex_noise_rad
+    phase_snr = best_residual["common_phase_residual_deg"] / REFERENCE_NOISE_DEG
+    complex_sigma_3 = np.degrees(
+        best_residual["common_complex_residual"] / 3.0
+    )
+    phase_sigma_3 = best_residual["common_phase_residual_deg"] / 3.0
     print()
     print("illustrative no-prior noise resource under matched nuisances")
     print(
@@ -339,32 +363,38 @@ def main() -> None:
         f"{(REFERENCE_NOISE_DEG / phase_sigma_3)**2:.1f}x"
     )
 
-    assert abs(best_angle["z1"] - 2.6) < 1.0e-12
+    assert abs(best_residual["z1"] - 2.6) < 1.0e-12
+    assert abs(best_residual["z2"] - 3.2) < 1.0e-12
+    assert abs(best_angle["z1"] - 2.8) < 1.0e-12
     assert abs(best_angle["z2"] - 3.2) < 1.0e-12
-    assert best_residual["z1"] == best_angle["z1"]
-    assert best_residual["z2"] == best_angle["z2"]
-    assert 1890.0 < best_angle["field1_max"] < 1920.0
-    assert 1880.0 < best_angle["field2_max"] < 1910.0
-    assert best_angle["min_pabs"] > 0.996
-    assert best_angle["min_abs_H"] > 0.987
-    assert 0.144 < best_angle["phase_1ghz_pp_deg"] < 0.146
-    assert 5.47 < best_angle["common_complex_angle_deg"] < 5.49
-    assert 0.00245 < best_angle["common_complex_residual"] < 0.00247
-    assert 1.99 < best_angle["common_phase_angle_deg"] < 2.01
-    assert 0.051 < best_angle["common_phase_residual_deg"] < 0.052
-    assert 0.065 < best_angle["independent_complex_angle_deg"] < 0.067
-    assert 0.027 < best_angle["independent_phase_angle_deg"] < 0.028
+    assert 7.15 < best_angle["common_complex_angle_deg"] < 7.18
+    assert best_angle["common_complex_residual"] < best_residual[
+        "common_complex_residual"
+    ]
+
+    assert 1890.0 < best_residual["field1_max"] < 1920.0
+    assert 1880.0 < best_residual["field2_max"] < 1910.0
+    assert best_residual["min_pabs"] > 0.996
+    assert best_residual["min_abs_H"] > 0.987
+    assert 0.144 < best_residual["phase_1ghz_pp_deg"] < 0.146
+    assert 5.47 < best_residual["common_complex_angle_deg"] < 5.49
+    assert 0.00245 < best_residual["common_complex_residual"] < 0.00247
+    assert 1.99 < best_residual["common_phase_angle_deg"] < 2.01
+    assert 0.051 < best_residual["common_phase_residual_deg"] < 0.052
+    assert 0.065 < best_residual["independent_complex_angle_deg"] < 0.067
+    assert 0.027 < best_residual["independent_phase_angle_deg"] < 0.028
 
     print()
     print(
         "PASS: a mean-preserving translated internal gradient can keep the front/"
         "back compositions identical while moving a ~1.9-kV/cm buried feature. "
-        "On the current 2.0-2.8 um / 0.25-3 GHz model, translating that feature "
-        "from 2.6 to 3.2 um gives the strongest common-mode matched-control "
-        "fingerprint on the tested grid. The separation collapses if the two "
-        "devices are allowed arbitrary independent bulk/contact changes, so "
-        "matched fabrication is an identifiability condition, not merely an "
-        "experimental convenience."
+        "On the stated 2.0-2.8 um / 0.25-3 GHz grid, translating that feature "
+        "from 2.6 to 3.2 um maximizes the absolute common-nuisance-orthogonal "
+        "complex signal. A 2.8-to-3.2 um pair has a larger principal angle but "
+        "a smaller residual signal, demonstrating why angle alone is not the "
+        "design objective. The separation collapses if the two devices are "
+        "allowed arbitrary independent bulk/contact changes, so matched "
+        "fabrication is an identifiability condition."
     )
 
 
