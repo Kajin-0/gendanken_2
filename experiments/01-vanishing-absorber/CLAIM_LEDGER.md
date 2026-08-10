@@ -1,7 +1,7 @@
 # Claim Ledger — Experiment 01
 
 **Updated:** 2026-08-09  
-**Status:** exploratory; active frontier is **few-mode differential wavelength × RF transport metrology** in graded HgCdTe; strongest validation path is a sample-B calibration followed by paired A/B transport contrast; no novelty claim
+**Status:** exploratory; active frontier is **few-mode differential wavelength × RF transport metrology** in graded HgCdTe; strongest validation path is sample-B calibration followed by paired A/B transport contrast and a provisional mid/deep common-wavelength temperature control; no novelty claim
 
 This file is the epistemic boundary. `RESEARCH_LOG.md` preserves chronology; specialized files preserve detailed derivations and failed branches.
 
@@ -578,6 +578,22 @@ sample A -> nonlinear/high-field transport contrast.
 
 This is not yet a timing measurement.
 
+### A3 — primary-text sample-A constraints
+**Status:** KNOWN FROM PRIMARY 2023 SOURCE
+
+The accessible full text gives the explicit longitudinal fit law and reports, among other constraints,
+
+```text
+nominal FTIR x_A ~0.320
+processed W_A ~7.6 um
+nonlinear/interdiffusion region ~4 um
+linear-region field ~100-200 V/cm
+A-B linear-field difference ~30 V/cm at equal temperature
+processed A nonlinear surface field up to ~2e3 V/cm.
+```
+
+The fitted numerical parameter tuple remains embedded graphically rather than machine readable. The same paper reports interference structure near sample A's cutoff, so Beer-Lambert optics are not sufficient there for a final kernel.
+
 ---
 
 ## 8. Paired A/B differential-phase claims
@@ -681,7 +697,7 @@ Matching only mean generation depth does not guarantee equal timing weighting; t
 
 ---
 
-## 10. Paired A/B temperature compatibility limit
+## 10. Paired A/B temperature compatibility and current robustness result
 
 ### PT1 — independent A/B iso-kernel schedules are incompatible with direct common-source cancellation unless wavelengths coincide
 **Status:** DERIVED
@@ -704,10 +720,41 @@ w_A\epsilon_A^2(T,\lambda)
 }
 ```
 
-### PT3 — joint A/B iso-kernel feasibility
-**Status:** OPEN
+### PT3 — provisional mid/deep joint A/B schedule survives broad sample-A profile uncertainty
+**Status:** CHECKED NUMERICALLY / CONDITIONAL SENSITIVITY RESULT
 
-Cannot be evaluated until sample A's actual optical/composition profile is recovered.
+The exact fitted sample-A profile remains unavailable. Instead, use the primary 2023 fit law and reported textual constraints to construct an explicit 72-member sensitivity family spanning
+
+```text
+A linear field: 130, 150, 180, 200 V/cm
+Delta z: 3.5, 4.0, 4.5 um
+processed front field: 1800, 2000, 2200 V/cm
+both mathematical surface-field roots.
+```
+
+The spans around `4 um` and `2e3 V/cm` are sensitivity ranges, not experimental uncertainty bars.
+
+For the 300 K common reference `3.632 um`, equal-weight joint kernel matching gives across all 72 A profiles:
+
+```text
+215 K:
+lambda* = 3.793356-3.793566 um
+A mismatch = 0.215-0.229%
+B mismatch = 0.447-0.453%
+A Pabs = 0.290-0.410
+B Pabs ~0.474
+
+115 K:
+lambda* = 4.004157-4.004870 um
+A mismatch = 0.400-0.445%
+B mismatch = 0.857-0.873%
+A Pabs = 0.213-0.309
+B Pabs = 0.357-0.358.
+```
+
+Thus, **within the current Beer-Lambert sensitivity model**, existence and approximate location of a useful mid/deep common-wavelength temperature control are robust to the unresolved A-profile parameters.
+
+This does not establish the exact real-device schedule.
 
 ### PT4 — residual kernel bias
 **Status:** DERIVED
@@ -733,6 +780,17 @@ and
 ```
 
 A small percentage kernel mismatch is therefore not automatically the same percentage timing error.
+
+### PT5 — deepest matched band is not the preferred first experiment
+**Status:** CHECKED NUMERICALLY / CONDITIONAL EXPERIMENTAL-DESIGN RESULT
+
+For the `3.840 um` 300 K reference, the same sensitivity family gives sub-`0.16%` A/B kernel mismatch at 115 K, but sample-A modeled absorbed fraction falls to only about
+
+```math
+\boxed{P_{\rm abs,A}\approx0.017-0.027.}
+```
+
+The primary 2023 paper also reports sample-A interference near cutoff. Therefore the deepest nominally best-matched band is currently rejected as the first paired-temperature band because its signal and optical-model robustness are poor.
 
 ---
 
@@ -770,19 +828,19 @@ The value must come from demonstrated inverse metrology and falsifiable validati
 
 ### O1 — actual sample A/B profiles
 
-Need fitted/digitized `x_A(z)` and `x_B(z)` rather than the current sample-B field-bracket envelope.
+Need fitted/digitized `x_A(z)` and `x_B(z)` rather than the current sample-B field-bracket and sample-A sensitivity-family envelopes for calibrated inversion and final uncertainty propagation.
 
-### O2 — sample-A optics
+### O2 — sample-A interference-aware optics
 
-Need interference/reflection-aware kernels if the reported sample-A interference is material.
+Need reflection/interference-aware kernels before treating the provisional mid/deep A/B schedule as a real-device prescription. This is now the leading optical-model blocker because the primary paper reports sample-A interference near cutoff.
 
 ### O3 — realistic instrument covariance
 
 Need wavelength × RF-frequency phase/magnitude covariance for a tunable-MWIR measurement.
 
-### O4 — joint A/B iso-kernel schedule
+### O4 — exact joint A/B iso-kernel schedule
 
-Need sample-A kernel matrix before feasibility can be assessed.
+A useful mid/deep schedule is **conditionally supported** by the 72-profile sensitivity calculation, but the exact real-device schedule remains open until sample-A profile uncertainty and interference/reflection are propagated.
 
 ### O5 — independent transport validation
 
@@ -814,6 +872,6 @@ The project does **not** presently claim
 - absolute common-broadening recovery from spectral data alone;
 - calibrated sample-A/B carrier velocity or diffusion;
 - actual internal defects in sample A or B;
-- existence of a useful joint A/B iso-kernel schedule;
+- an exact interference-corrected joint A/B temperature wavelength schedule for the real devices;
 - novelty or priority for the inverse method;
 - manuscript readiness.
