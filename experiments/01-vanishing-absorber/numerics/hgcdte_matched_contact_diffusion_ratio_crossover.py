@@ -14,13 +14,13 @@ Then
     Theta U'' - F U' = -1.
 
 Theta therefore controls the relative diffusion/drift weighting independently
-of the absolute mobility scale.  The deterministic local-drift limit is
-Theta->0.  The nondegenerate Einstein reference at 300 K is
+of the absolute mobility scale. The deterministic local-drift limit is
+Theta->0. The nondegenerate Einstein reference at 300 K is
 Theta_E = k_B T/q ~=25.85 mV.
 
 This script uses the preferred downstream-compensated matched-contact family,
 reflecting back boundary, infinite bulk lifetime, and common assisting-field
-sensitivities 0, 100, 300 V/cm.  For beta=1,2,3 it locates where two transport
+sensitivities 0, 100, 300 V/cm. For beta=1,2,3 it locates where two transport
 observables change sign as Theta is swept:
 
 1. wavelength-averaged contrast-minus-control mean timing shift;
@@ -32,17 +32,24 @@ so the sign change is a transport-model effect rather than a control/contrast
 optical-generation difference.
 
 No claim is made that D/mu in a real graded HgCdTe device equals the classical
-Einstein value.  Theta is the experimentally/model-relevant transport ratio to
+Einstein value. Theta is the experimentally/model-relevant transport ratio to
 be constrained.
 """
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 import numpy as np
+from scipy.integrate import cumulative_trapezoid
 from scipy.optimize import brentq
 from scipy.sparse import csc_matrix, lil_matrix
 from scipy.sparse.linalg import splu
 
+from hgcdte_sample_a_constraint_family_joint_iso_kernel import (
+    HC_EV_UM,
+    alpha_moazzami,
+)
 from hgcdte_matched_contact_downstream_compensation import (
     BETA_VALUES,
     L_UM,
@@ -54,18 +61,45 @@ from hgcdte_matched_contact_recombination_boundary import (
     LAMBDA_GRID,
     MU_REF_CM2_VS,
     N_TRANSPORT,
-    collected_spectrum,
 )
 
 T_K = 300.0
 THETA_EINSTEIN_V = K_B_EV_K * T_K
 COMMON_FIELDS_V_CM = (0.0, 100.0, 300.0)
 SEARCH_THETA_V = (0.5e-3, 50.0e-3)
+N_SCAN = 55
 
 
 def interpolate_profile(z_um: np.ndarray, values: np.ndarray):
     z_new = np.linspace(0.0, L_UM, N_TRANSPORT)
     return z_new, np.interp(z_new, z_um, values)
+
+
+def trapezoid_weights(z_cm: np.ndarray) -> np.ndarray:
+    weights = np.empty_like(z_cm)
+    weights[0] = 0.5 * (z_cm[1] - z_cm[0])
+    weights[-1] = 0.5 * (z_cm[-1] - z_cm[-2])
+    weights[1:-1] = 0.5 * (z_cm[2:] - z_cm[:-2])
+    return weights
+
+
+def generation_weight_matrix(z_um: np.ndarray, x: np.ndarray) -> np.ndarray:
+    """Rows integrate conditional generation density against any T(z)."""
+    z_cm = z_um * 1.0e-4
+    quadrature = trapezoid_weights(z_cm)
+    rows = []
+
+    for wavelength in LAMBDA_GRID:
+        alpha = alpha_moazzami(HC_EV_UM / wavelength, x, T_K)
+        tau = np.concatenate(([0.0], cumulative_trapezoid(alpha, z_cm)))
+        p_abs = float(1.0 - np.exp(-tau[-1]))
+        if p_abs <= 1.0e-14:
+            raise RuntimeError("Zero modeled absorption in crossover wavelength band")
+        density = alpha * np.exp(-tau) / p_abs
+        density /= np.sum(density * quadrature)
+        rows.append(density * quadrature)
+
+    return np.asarray(rows)
 
 
 def solve_mean_time(
@@ -90,7 +124,6 @@ def solve_mean_time(
         matrix[i, i] = -2.0 * diffusion / dz**2
         matrix[i, i + 1] = diffusion / dz**2 - drift[i] / (2.0 * dz)
 
-    # Reflecting back boundary T'(L)=0.
     matrix[-1, -1] = 3.0
     matrix[-1, -2] = -4.0
     matrix[-1, -3] = 1.0
@@ -100,57 +133,81 @@ def solve_mean_time(
     return splu(csc_matrix(matrix)).solve(rhs)
 
 
-def transport_observables(
-    beta: float,
-    theta_v: float,
-    common_field_v_cm: float,
-):
+def build_context(beta: float):
     z0_fine, _, _, field0_fine = control_profile()
     _, x1_fine, _, field1_fine, _, _ = contrast_profile(beta)
 
     z, field0 = interpolate_profile(z0_fine, field0_fine)
     x1 = np.interp(z, z0_fine, x1_fine)
     field1 = np.interp(z, z0_fine, field1_fine)
-
-    T0 = solve_mean_time(z, field0, theta_v, common_field_v_cm)
-    T1 = solve_mean_time(z, field1, theta_v, common_field_v_cm)
-
-    # No killing -> h=1.  collected_spectrum expects h and m, and m=T here.
-    h = np.ones_like(z)
-    t0, _ = collected_spectrum(z, x1, h, T0)
-    t1, _ = collected_spectrum(z, x1, h, T1)
-    delta_ps = (t1 - t0) * 1.0e12
+    generation_weights = generation_weight_matrix(z, x1)
 
     return {
-        "mean_ps": float(np.mean(delta_ps)),
-        "endpoint_ps": float(delta_ps[-1] - delta_ps[0]),
-        "peak_to_peak_ps": float(np.ptp(delta_ps)),
+        "z": z,
+        "field0": field0,
+        "field1": field1,
+        "generation_weights": generation_weights,
     }
 
 
-def find_roots(beta: float, common_field: float, key: str):
-    low, high = SEARCH_THETA_V
-    grid = np.linspace(low, high, 90)
-    values = np.asarray(
-        [transport_observables(beta, theta, common_field)[key] for theta in grid]
-    )
+def make_observer(context: dict, common_field_v_cm: float):
+    """Return cached transport observables as a function of Theta."""
 
+    @lru_cache(maxsize=256)
+    def observe(theta_key: float):
+        theta_v = float(theta_key)
+        T0 = solve_mean_time(
+            context["z"], context["field0"], theta_v, common_field_v_cm
+        )
+        T1 = solve_mean_time(
+            context["z"], context["field1"], theta_v, common_field_v_cm
+        )
+
+        spectrum0 = context["generation_weights"] @ T0
+        spectrum1 = context["generation_weights"] @ T1
+        delta_ps = (spectrum1 - spectrum0) * 1.0e12
+
+        return (
+            float(np.mean(delta_ps)),
+            float(delta_ps[-1] - delta_ps[0]),
+            float(np.ptp(delta_ps)),
+        )
+
+    return observe
+
+
+def bracket_roots(grid: np.ndarray, values: np.ndarray, function):
     roots = []
     for left, right, f_left, f_right in zip(
         grid[:-1], grid[1:], values[:-1], values[1:]
     ):
         if f_left * f_right < 0.0:
-            roots.append(
-                brentq(
-                    lambda theta: transport_observables(
-                        beta, theta, common_field
-                    )[key],
-                    left,
-                    right,
-                    xtol=2.0e-9,
-                )
-            )
+            roots.append(brentq(function, left, right, xtol=2.0e-9))
     return roots
+
+
+def scan_context(context: dict, common_field_v_cm: float):
+    observe = make_observer(context, common_field_v_cm)
+    grid = np.linspace(SEARCH_THETA_V[0], SEARCH_THETA_V[1], N_SCAN)
+    values = np.asarray([observe(float(theta)) for theta in grid])
+
+    mean_roots = bracket_roots(
+        grid,
+        values[:, 0],
+        lambda theta: observe(float(theta))[0],
+    )
+    endpoint_roots = bracket_roots(
+        grid,
+        values[:, 1],
+        lambda theta: observe(float(theta))[1],
+    )
+    at_einstein = observe(float(THETA_EINSTEIN_V))
+
+    return mean_roots, endpoint_roots, {
+        "mean_ps": at_einstein[0],
+        "endpoint_ps": at_einstein[1],
+        "peak_to_peak_ps": at_einstein[2],
+    }
 
 
 def main() -> None:
@@ -164,13 +221,12 @@ def main() -> None:
 
     results = {}
     for beta in BETA_VALUES:
+        context = build_context(beta)
         print(f"beta={beta:.0f}")
-        for common_field in COMMON_FIELDS_V_CM:
-            mean_roots = find_roots(beta, common_field, "mean_ps")
-            endpoint_roots = find_roots(beta, common_field, "endpoint_ps")
 
-            at_einstein = transport_observables(
-                beta, THETA_EINSTEIN_V, common_field
+        for common_field in COMMON_FIELDS_V_CM:
+            mean_roots, endpoint_roots, at_einstein = scan_context(
+                context, common_field
             )
             results[(beta, common_field)] = (
                 mean_roots,
@@ -199,7 +255,6 @@ def main() -> None:
             )
         print()
 
-    # Key regression anchors.
     r10 = results[(1.0, 0.0)]
     r20 = results[(2.0, 0.0)]
     r30 = results[(3.0, 0.0)]
@@ -213,19 +268,15 @@ def main() -> None:
     assert 8.91e-3 < r30[0][0] < 8.95e-3
     assert 15.82e-3 < r30[1][0] < 15.86e-3
 
-    # The largest endpoint crossover among the tested common fields stays below
-    # the classical 300 K Einstein reference.
     endpoint_roots_all = [
         root
-        for mean_roots, endpoint_roots, _ in results.values()
+        for _, endpoint_roots, _ in results.values()
         for root in endpoint_roots
     ]
     maximum_endpoint_root = max(endpoint_roots_all)
     assert 21.37e-3 < maximum_endpoint_root < 21.43e-3
     assert maximum_endpoint_root < THETA_EINSTEIN_V
 
-    # At the nondegenerate Einstein reference, every tested beta/common-field
-    # endpoint differential is on the negative/speedup side of its crossover.
     for _, _, at_einstein in results.values():
         assert at_einstein["endpoint_ps"] < 0.0
         assert at_einstein["mean_ps"] < 0.0
