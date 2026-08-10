@@ -1,17 +1,17 @@
 # Claim Ledger — Experiment 01
 
-**Updated:** 2026-08-09  
-**Status:** exploratory; active frontier is **few-mode differential wavelength × RF transport metrology** in graded HgCdTe, with a mid/deep calibration-temperature branch and a short-wave sample-A nonlinear-region contrast branch; no novelty claim
+**Updated:** 2026-08-10  
+**Status:** exploratory; strongest active path is **matched translated-gradient wavelength × RF transport validation in graded HgCdTe**; no novelty claim
 
-This file is the epistemic boundary. `CURRENT_STATE.md` is the operational front door; `RESEARCH_LOG.md` preserves chronology; specialized files preserve detailed derivations and numerical regressions.
+This file is the epistemic boundary. `CURRENT_STATE.md` is the operational front door; `RESEARCH_LOG.md` preserves chronology; specialized files preserve derivations and numerical regressions.
 
 ## Status vocabulary
 
 - **KNOWN** — established external result used as input.
-- **DERIVED** — exact consequence of stated repository assumptions.
+- **DERIVED** — exact consequence of stated assumptions.
 - **CHECKED** — independently or numerically verified.
-- **CONDITIONAL** — valid only inside stated assumptions/model.
-- **CANDIDATE DISTINCT — PRIORITY UNPROVEN** — potentially unusual formulation; literature boundary incomplete.
+- **CONDITIONAL** — valid only inside stated model/parameter envelope.
+- **CANDIDATE DISTINCT — PRIORITY UNPROVEN** — potentially unusual combination; literature boundary incomplete.
 - **INVALIDATED** — counterexample/correction found.
 - **SUPERSEDED** — replaced by a stronger/corrected statement.
 - **OPEN** — unresolved.
@@ -79,7 +79,7 @@ Above-gap excitation gives nonzero initial excess energy.
 ### H12 — entrance-gap timing maximum is transport independent
 **Status:** INVALIDATED / SUPERSEDED
 
-Directed ballistic memory can give a peak, strong momentum randomization can give a plateau, and other momentum distributions can give other behavior.
+Directed ballistic memory can give a peak; strong momentum randomization can give a plateau; other momentum distributions give other behavior.
 
 ### H13 — common mean delay can always be fitted independently of arbitrary internal `q_1`
 **Status:** INVALIDATED GENERALIZATION
@@ -89,110 +89,79 @@ Boundary-localized internal delay is degenerate with wavelength-independent comm
 ### H14 — common timing broadening can always be fitted independently of arbitrary `q_2`
 **Status:** INVALIDATED GENERALIZATION
 
-The same boundary/common-mode ambiguity applies to the second timing cumulant.
+The same boundary/common ambiguity applies to the second timing cumulant.
 
 ### H15 — equal phase precision across wavelength is a realistic fixed-power default
 **Status:** INVALIDATED AS DEFAULT
 
-Absorbed signal varies strongly across the sample-B mid/deep scan.
+Absorbed signal varies strongly with wavelength.
 
 ### H16 — front/back illumination is an obviously useful rank booster
 **Status:** REJECTED FOR CURRENT SAMPLE-B ENVELOPE
 
-The rank benefit is modest while sapphire/epoxy/passivation optical complexity increases.
+Rank gain is modest relative to the extra optical/systematic complexity.
 
 ### H17 — paired source cancellation and independent device iso-kernel schedules combine automatically
 **Status:** INVALIDATED GENERALIZATION
 
-Direct common-source cancellation requires the same wavelength at A and B; exact one-device iso-kernel wavelengths are generally device specific.
+Direct common-source cancellation requires the same wavelength at both devices.
+
+### H18 — denser/sparser wavelength selection alone can remove the published-A smooth-mode calibration floor
+**Status:** INVALIDATED IN CURRENT MODEL
+
+Global fixed-time optimization of the `2.0-2.8 um` short-wave scan collapses toward two wavelength bands, but a several-millidegree smooth-mode prior remains necessary.
+
+### H19 — mid/deep A data can self-calibrate the short-wave A baseline cheaply
+**Status:** INVALIDATED IN CURRENT MODEL
+
+The leading short-wave A mode is weakly visible in the mid/deep scan; broad no-prior self-calibration remains severely ill-conditioned.
+
+### H20 — finite RF diversity alone cures the published-A mechanism degeneracy
+**Status:** INVALIDATED IN CURRENT MODEL
+
+`0.25-3 GHz` complex data rotate the spatial sensitivity operator but leave the near-junction target very close to smooth/contact nuisance space.
+
+### H21 — a published sample-A timing difference can be uniquely attributed to the nonlinear composition-gradient region
+**Status:** INVALIDATED GENERALIZATION
+
+Generic near-junction/contact transport plus smooth bulk changes can closely mimic that fingerprint.
+
+### H22 — short-wave temperature difference-in-differences is an optically clean near-junction causal control
+**Status:** INVALIDATED IN CURRENT OPTICAL MODEL
+
+Short-wave full kernels do not remain sufficiently invariant under temperature retuning; static baseline leakage re-enters the difference.
+
+### H23 — optical-load timing/curvature is a candidate novelty
+**Status:** INVALIDATED AS NOVELTY ROUTE
+
+HgCdTe transient response versus steady optical load is prior art. Load differencing can be a control technique but not the central claim.
+
+### H24 — `2.6 -> 3.2 um` is the purpose-built global feature-depth optimum
+**Status:** SUPERSEDED
+
+That result came from an inherited feature-position grid ending at `3.2 um`. Once depth, both interfaces, spectral band, absorbed-signal noise, and fixed total time are treated jointly, the preferred feature pair moves deeper.
+
+### H25 — the largest principal angle is automatically the best experiment
+**Status:** INVALIDATED DESIGN SHORTCUT
+
+A geometry with a larger angle can have smaller absolute nuisance-orthogonal signal. The design objective must include signal norm and covariance.
+
+### H26 — an ultrasharp `<50 nm` programmed gradient edge is required
+**Status:** INVALIDATED BY SPATIAL CONVERGENCE
+
+At 320 transport cells, `25-100 nm` edge ramps form an approximately `1%` information plateau; a `~0.1 um` transition is already near the resolved optimum.
 
 ---
 
-# 2. Supporting provenance results
-
-These remain valid inside their stated assumptions but are not the active publication claim.
-
-### P1 — passive harmonic transfer-area bound
-**Status:** DERIVED / CHECKED
-
-```math
-\boxed{
-\mathcal I_{L\to R}
-\le
-\frac{2LR}{L+R},
-\qquad
-L=\operatorname{Tr}\Gamma_L,
-\quad
-R=\operatorname{Tr}\Gamma_R.
-}
-```
-
-### G1 — linear graded-Kane WKB action
-**Status:** DERIVED / CHECKED / CONDITIONAL
-
-```math
-\boxed{
-\mathcal S(E)
-=\frac{\pi\sqrt{S_cS_v}}
-{4\hbar v_K}(x_c-x_v)^2.
-}
-```
-
-### G2 — band-edge geometry identity
-**Status:** DERIVED
-
-```math
-\boxed{S_v=S_c-G,}
-\qquad
-G=-dE_g/dx.
-```
-
-### Q1 — quasi-neutral p-type majority-band pinning
-**Status:** DERIVED / CONDITIONAL
-
-```math
-\boxed{
-\frac{dE_v}{dx}
-\simeq
-k_BT\frac{d}{dx}\ln(N_A/N_v).
-}
-```
-
-### N1 — nonlocal mean carrier-energy state
-**Status:** DERIVED / CONDITIONAL
-
-```math
-\boxed{
-\frac{d\varepsilon}{dx}
-=S_c(x)-\frac{\varepsilon}{\ell_E(x)}.
-}
-```
-
-### N2 — linear graded mean-impact-ionization phase boundary
-**Status:** DERIVED / CHECKED / CONDITIONAL
-
-```math
-\boxed{
-\zeta_{\rm II}(r,\chi)
-=
-\frac{\chi}
-{\chi+(1-e^{-r})/r}.
-}
-```
-
----
-
-# 3. Active inverse operator
+# 2. Core inverse claims
 
 ### I1 — downstream collection uses a CDF kernel
 **Status:** DERIVED
 
 ```math
 \boxed{
-\bar T_i
-=\int_0^L F_i(s)q_1(s)ds,
-\qquad
-F_i(s)=P(X_g\le s).
+\bar T_i=\int_0^L F_i(s)q_1(s)ds,
+\qquad F_i(s)=P(X_g\le s).
 }
 ```
 
@@ -201,14 +170,12 @@ F_i(s)=P(X_g\le s).
 
 ```math
 \boxed{
-\bar T_i
-=\int_0^L S_i(s)q_1(s)ds,
-\qquad
-S_i(s)=P(X_g\ge s).
+\bar T_i=\int_0^L S_i(s)q_1(s)ds,
+\qquad S_i(s)=P(X_g\ge s).
 }
 ```
 
-The published 2023 A/B geometry uses front collection.
+Published A/B and the current purpose-built front-collection geometry use the survival form.
 
 ### I3 — cell-integrated discrete operator
 **Status:** DERIVED
@@ -221,214 +188,91 @@ A_{ij}=\int_{\mathrm{cell}\ j}K_i(s)ds,
 }
 ```
 
-Only under a local path-additive interpretation:
+Only under a local path-additive interpretation may one write `q_1=1/v_eff`.
 
-```math
-q_1=1/v_{\rm eff}.
-```
-
-### I4 — common-delay boundary gauge
+### I4 — front-boundary common-delay gauge
 **Status:** DERIVED IDENTIFIABILITY LIMIT
 
-For front collection,
-
 ```math
-S_i(0)=1.
+\boxed{S_i(0)=1}
 ```
 
-Near-junction transport is therefore nearly wavelength independent and cannot generically be separated from arbitrary common delay without additional information.
+for every wavelength. Sufficiently near-junction transport is therefore almost wavelength independent and generically confounded with common delay.
 
-### I5 — second timing moment
-**Status:** DERIVED / CONDITIONAL ON ADDITIVE CONDITIONAL CUMULANTS
-
-```math
-\boxed{
-\sigma_i^2
-=\int K_i(s)q_2(s)ds
-+\operatorname{Var}_{p_i}[m(X)].
-}
-```
-
-The same common/boundary ambiguity applies to `q_2`.
-
-### I6 — local drift-diffusion interpretation
-**Status:** CONDITIONAL
-
-```math
-\boxed{q_1=1/v,}
-```
-
-```math
-\boxed{q_2\simeq2D/v^3.}
-```
-
-### I7 — complex-response cumulants
+### I5 — complex-response low-frequency cumulants
 **Status:** KNOWN TRANSFORM CONSEQUENCE / DERIVED APPLICATION
 
 ```math
-\boxed{
-\arg H_i(\Omega)
-=-\Omega\mu_i+O(\Omega^3),
-}
+\arg H_i=-\Omega\mu_i+O(\Omega^3),
 ```
 
 ```math
-\boxed{
-\ln|H_i(\Omega)|
-=-\frac{\Omega^2}{2}\sigma_i^2+O(\Omega^4).
-}
+\ln|H_i|=-\frac{\Omega^2}{2}\sigma_i^2+O(\Omega^4).
 ```
 
-At higher normalized RF frequency, fit the full complex transfer.
+At higher normalized RF frequency the full complex transfer must be fitted.
 
 ---
 
-# 4. Sample-B calibration claims
+# 3. Published-sample benchmark claims
 
-### B1 — literature-constrained sample-B geometry
-**Status:** CONDITIONAL ON CURRENT PROFILE ENVELOPE
-
-```text
-processed W ~3.7 um
-nominal x ~0.316
-nonlinear interdiffusion region removed
-junction at high-Cd end
-linear-gradient field ~100-200 V/cm.
-```
-
-### B2 — real above-gap sample-B optical leverage
+### B1 — sample B provides real few-mode spectral leverage
 **Status:** CHECKED NUMERICALLY / CONDITIONAL
 
-Central `150 V/cm` envelope:
+For the central `3.7 um`, `150 V/cm` profile envelope, mean generation depth shifts by about `2.85 um` between the useful short and long ends of the mid/deep scan.
+
+Relative singular-mode counts above `[1e-1,1e-2,1e-3,1e-4]` are approximately
 
 ```text
-2.80 um -> Pabs ~0.998, mean depth ~0.677 um
-3.88 um -> Pabs ~0.070, mean depth ~3.523 um.
+[2,5,10,21].
 ```
 
-Hence
+Interpretation: **few-mode band-limited tomography**, not pointwise imaging.
 
-```math
-\boxed{\Delta\langle z\rangle\approx2.85\ {\rm um}.}
-```
-
-### B3 — illustrative phase scale
-**Status:** CONDITIONAL SCALE, NOT DEVICE PREDICTION
-
-At illustrative `v_eff=1e5 m/s`:
-
-```text
-Delta T ~28.5 ps
-Delta phi ~10.25 deg at 1 GHz.
-```
-
-### B4 — sample-B few-mode rank
-**Status:** CHECKED NUMERICALLY / CONDITIONING DIAGNOSTIC
-
-For 80 cells and current retained wavelength scan:
-
-```text
-100 V/cm -> [2,5,10,20]
-150 V/cm -> [2,5,10,21]
-200 V/cm -> [2,5,11,23]
-```
-
-above relative singular thresholds `[1e-1,1e-2,1e-3,1e-4]`.
-
-Interpretation: **few-mode band-limited tomography**.
-
-### B5 — heteroscedastic mid/deep phase noise matters
-**Status:** CHECKED NUMERICALLY / CONDITIONAL SCALING MODELS
-
-```math
-P_{\rm abs}(2.80)/P_{\rm abs}(3.89)\approx17.6.
-```
-
-At fixed incident power, optical rank is not experimental rank.
-
-### B6 — reduced D-optimal sample-B design
+### B2 — sample-B mid/deep phase covariance is heteroscedastic
 **Status:** CHECKED NUMERICALLY / CONDITIONAL
 
-For three smooth B modes plus one common-phase nuisance:
+Absorbed signal changes by about `17.6x` across the retained scan, so the noise-whitened inverse is the experimentally relevant object.
 
-```text
-statistics-like support ~2.800, 3.410, 3.632, 3.840 um
-additive-like support ~2.800, 3.400, 3.596, 3.780 um.
-```
-
-### B7 — optical-only RF validity
+### B3 — sample-B mid/deep D-optimal supports
 **Status:** CHECKED NUMERICALLY / CONDITIONAL
 
-For deterministic `T=z/v` and `|H|>0.98`:
+For three smooth modes plus common phase, representative supports are
 
-```math
-\boxed{f_{\max}\approx0.13\,v/W.}
+```text
+statistics-like: 2.800, 3.410, 3.632, 3.840 um
+additive-like:   2.800, 3.400, 3.596, 3.780 um.
 ```
 
-Additional carrier/electrical broadening can tighten this.
+### B4 — mid/deep temperature iso-kernel control is robust
+**Status:** CHECKED NUMERICALLY / CONDITIONAL
+
+A useful joint reference remains approximately
+
+```text
+300 K -> 3.632 um
+215 K -> ~3.793 um
+115 K -> ~4.005 um,
+```
+
+with small modeled A/B kernel mismatch across the current sample-A sensitivity family and thermo-optic stress.
+
+### B5 — published A/B smooth response modes overlap strongly
+**Status:** CHECKED NUMERICALLY / CONDITIONAL
+
+A symmetric arbitrary multi-mode A/B inversion is badly conditioned; paired data are better interpreted as calibrated contrast.
+
+### B6 — published A near-junction short-wave visibility is real but insufficient for attribution
+**Status:** CHECKED NUMERICALLY / CONDITIONAL
+
+`2.0-2.8 um` gives much larger raw phase leverage on the retained nonlinear region than the mid/deep scan, but that spectral fingerprint remains nearly contained in smooth/contact nuisance space.
 
 ---
 
-# 5. Paired A/B metrology claims
-
-### PAB1 — common source-phase cancellation
-**Status:** DERIVED
-
-```math
-\boxed{
-\Delta\phi_{AB}
-=-\Omega
-(\mathbf A_A\mathbf q_A-
- \mathbf A_B\mathbf q_B)
-+\Delta\phi_{\rm path}
-+\Delta\phi_{\rm elec}.
-}
-```
-
-Simultaneous same-source same-wavelength subtraction removes arbitrary common source phase.
-
-### PAB2 — reciprocal arm swap
-**Status:** DERIVED / CONDITIONAL ON STABILITY AND RECIPROCITY
-
-A reciprocal swap cancels stable arm asymmetry in the swapped average.
-
-### PAB3 — paired observable is transport contrast
-**Status:** DERIVED
-
-Paired data directly constrain A-minus-B transport contrast, not either absolute profile.
-
-### PAB4 — smooth A/B modes overlap strongly
-**Status:** CHECKED NUMERICALLY / CONDITIONAL ON CURRENT OPTICAL ENVELOPES
-
-For the first three smooth response subspaces across the 72 A-profile family:
-
-```text
-principal angle 1 = 0.210-0.875 deg
-principal angle 2 = 3.524-15.695 deg
-principal angle 3 = 33.546-65.356 deg.
-```
-
-For a symmetric `3+3` fit the weakest normalized singular ratio is
-
-```text
-0.001831-0.007633.
-```
-
-Therefore independent arbitrary multi-mode A and B reconstruction from paired data is not a credible first interpretation.
-
-### PAB5 — sample-B calibration is an identifiability requirement
-**Status:** DERIVED DESIGN CONSEQUENCE / CHECKED BY RESPONSE GEOMETRY
-
-The paired experiment should first constrain B and the smooth A baseline, then infer additional A-specific contrast.
-
----
-
-# 6. Phase-resource claims
+# 4. Metrology-resource claims
 
 ### M1 — white-noise phase variance
 **Status:** DERIVED / HIGH-SNR APPROXIMATION
-
-For coherent photocurrent amplitude `I1`, one-sided white current-noise PSD `S_I`, and integration time `t`:
 
 ```math
 \boxed{
@@ -436,380 +280,271 @@ For coherent photocurrent amplitude `I1`, one-sided white current-noise PSD `S_I
 }
 ```
 
-Defining
-
-```math
-\rho=I_1^2t/S_I,
-```
-
-```math
-\boxed{\sigma_\phi\simeq\rho^{-1/2}.}
-```
-
-### M2 — representative coherent SNR scales
-**Status:** DERIVED
+Representative scale:
 
 ```text
-0.10 deg single-phase precision -> ~55.2 dB coherent power-SNR
-0.10 deg differential precision with equal independent A/B channels -> ~58.2 dB/channel.
+0.10 deg single phase -> ~55.2 dB coherent power-SNR
+0.10 deg A-B difference with equal independent channels -> ~58.2 dB/channel.
 ```
 
-### M3 — correlated A/B phase requirement
+### M2 — same-source paired phase cancellation
 **Status:** DERIVED
 
-```math
-\boxed{
-\sigma_{AB}^2
-=\sigma_A^2+\sigma_B^2-2\rho_c\sigma_A\sigma_B.
-}
-```
+At the same wavelength/frequency, arbitrary common source phase cancels from the A-B difference.
 
-For equal channels and a `0.10 degree` differential target:
+### M3 — reciprocal arm swap cancels stable arm asymmetry only under reciprocity/stability
+**Status:** DERIVED / CONDITIONAL
 
-```text
-1 deg individual RMS -> rho_c >0.995
-5 deg -> >0.9998
-10 deg -> >0.99995.
-```
+It is not a free white-noise gain.
 
-### M4 — reciprocal-swap drift
+### M4 — wavelength-independent electrical transfer cancels from the relocation fingerprint
 **Status:** DERIVED
 
+If
+
 ```math
-\boxed{
-\delta\phi_{\rm swap}
-=[\psi(t_1)-\psi(t_2)]/2.
-}
+M_j(\lambda,f)=E_j(f)H_j(\lambda,f),
 ```
 
-A `0.10 degree` swap-only systematic budget therefore requires differential arm drift below about `0.20 degree` over the swap interval.
+then fitting/removing one arbitrary complex wavelength-independent intercept at each RF frequency eliminates `E_2(f)/E_1(f)` exactly.
+
+Wavelength-dependent or signal-state-dependent electrical effects remain dangerous.
 
 ---
 
-# 7. Temperature-control claims
+# 5. Matched-relocation claims
 
-### T1 — fixed wavelength is optically confounded across temperature
-**Status:** DERIVED MODEL CONSEQUENCE
+### R1 — relocation probes the derivative of spatial sensitivity
+**Status:** DERIVED
 
-Because
+For
 
 ```math
-\mathbf A=\mathbf A(T,\lambda),
+y(\lambda,f;z_0)=\int K_{\lambda,f}(z)q_f(z-z_0)dz,
 ```
 
-fixed wavelength does not hold the optical timing kernel fixed as temperature changes.
-
-### T2 — iso-kernel wavelength definition
-**Status:** DERIVED EXPERIMENTAL DESIGN
+a small translation gives
 
 ```math
 \boxed{
-\lambda_*(T)
-=\arg\min_\lambda
-\frac{\|\mathbf A(T,\lambda)-\mathbf A(T_0,\lambda_0)\|_2}
-{\|\mathbf A(T_0,\lambda_0)\|_2}.
+\Delta y\simeq\Delta z\int K'_{\lambda,f}(z)q_f(z-z_0)dz.
 }
 ```
 
-### T3 — sample-B mid/deep iso-kernel matches
+For a flat compact feature `[a,b]`,
+
+```math
+\boxed{
+\partial y/\partial z_0=A[K(b)-K(a)].
+}
+```
+
+Relocation therefore creates a signed **edge fingerprint**.
+
+### R2 — matched `C/G1/G2` geometry is a stronger causal control than published A/B
+**Status:** DERIVED DESIGN LOGIC / CHECKED NUMERICALLY
+
+```text
+C  -> smooth endpoint/contact-matched control
+G1 -> buried compact high-gradient feature at z1
+G2 -> same feature translated to z2.
+```
+
+`G2-G1` tests whether the fingerprint translates with the internal feature instead of staying attached to an interface.
+
+### R3 — endpoint-preserving programmed profiles are mathematically constructible
+**Status:** DERIVED
+
+A mean-preserving modulation of composition slope can translate a compact high-gradient region while keeping total composition change and both endpoint compositions fixed.
+
+### R4 — programmed feature reproduces the relevant field scale
 **Status:** CHECKED NUMERICALLY / CONDITIONAL
 
-For the current central envelope:
+A `~0.9-1.0 um` feature with `~0.1 um` transitions can maintain a background gradient of order a few `10^2 V/cm` and local maximum near `1.95-2.0 kV/cm` in the conceptual `7.6 um`, `x_front~0.55`, `x_back~0.32` absorber.
+
+The field is a design coordinate, not a transport prediction.
+
+### R5 — both interfaces must be treated as confounders
+**Status:** DERIVED DESIGN REQUIREMENT / CHECKED NUMERICALLY
+
+If only the front interface is penalized, the optimizer exploits the back boundary. Front and back interface nuisance modes plus explicit feature clearance are therefore required.
+
+### R6 — conservative interface-safe depth/spectral design
+**Status:** CHECKED NUMERICALLY / CONDITIONAL
+
+With the full feature kept roughly `1.5 um` from both interfaces, fixed total wavelength time, front/back interface nuisances, and either provisional absorbed-signal phase-noise scaling, the stable reference is approximately
 
 ```text
-300 K 3.632 um
--> 215 K 3.79272 um, mismatch ~0.44%
--> 115 K 4.00268 um, mismatch ~0.84%.
+feature centers ~4.1 and ~5.5-5.6 um
+spectral band ~2.00-2.40 um
+RF set 0.25, 0.5, 1, 2, 3 GHz.
 ```
 
-### T4 — joint A/B common-wavelength schedule
-**Status:** CHECKED NUMERICALLY / CONDITIONAL SENSITIVITY RESULT
+Exact tenth-micron coordinates are not universal.
 
-Across the 72 A-profile family, the common `3.632 um` 300 K reference gives approximately
+### R7 — fixed-time interior design improves on the inherited shallow pair
+**Status:** CHECKED NUMERICALLY / CONDITIONAL
+
+Under the same front/back nuisance and covariance rules, the interface-safe interior design gives roughly
 
 ```text
-215 K -> 3.793356-3.793566 um
-115 K -> 4.004157-4.004870 um
+~1.9x nuisance-orthogonal information amplitude
+~3.6x Fisher information
 ```
 
-with sub-percent to ~1% B mismatch and sub-percent A mismatch in Beer-Lambert optics.
+relative to the earlier restricted `2.6 -> 3.2 um` pair.
 
-### T5 — empirical thermo-optic interference preserves the mid/deep schedule
-**Status:** CHECKED NUMERICALLY / CONDITIONAL ONE-RETURN MODEL
+### R8 — edge-ramp information plateau
+**Status:** CHECKED NUMERICALLY WITH SPATIAL CONVERGENCE
 
-With composition-resolved empirical HgCdTe refractive index and a broad coherent returned-wave stress:
+At `320` transport cells, `25-100 nm` programmed edge transitions differ by only about `1%` in the current information metric.
+
+A `200 nm` transition costs roughly `30%` relative to `100 nm`.
+
+### R9 — useful total feature width is broad
+**Status:** CHECKED NUMERICALLY / CONDITIONAL
+
+At fixed peak gradient near `1.95 kV/cm`, the useful unblurred region is roughly
 
 ```text
-215 K -> 3.792986-3.794120 um
-115 K -> 4.002940-4.007453 um
+0.9-1.1 um
 ```
 
-with worst A kernel mismatch below about `0.74%` and `1.73%`, respectively.
+with `~1.0 um` best on the present grid.
 
-### T6 — schedule approximately follows a fixed local-gap composition
+### R10 — moderate interdiffusion degrades gradually
+**Status:** CHECKED NUMERICALLY / CONDITIONAL GAUSSIAN BLUR MODEL
+
+After reoptimization and conservative `3 sigma_d` boundary clearance, information-amplitude losses are approximately
+
+```text
+sigma_d=0.05 um -> ~8%
+sigma_d=0.10 um -> ~20%
+sigma_d=0.15 um -> ~33%.
+```
+
+The statistics-like and additive-like noise envelopes choose essentially the same geometries.
+
+### R11 — matching is an identifiability condition
 **Status:** DERIVED / CHECKED NUMERICALLY
 
-```text
-300 K, 3.6320 um -> x_edge 0.337580
-215 K, 3.7935 um -> 0.337746
-115 K, 4.0045 um -> 0.337837.
-```
-
----
-
-# 8. Sample-A short-wave contrast claims
-
-### SW1 — retained nonlinear region is near the collection boundary
-**Status:** CHECKED NUMERICALLY / CONDITIONAL SUPPORT MODEL
-
-Using the published gradient-field excess only as a spatial support template:
-
-```text
-support centroid ~0.46-1.43 um
-median ~0.88 um
-90% cumulative support depth ~1.03-2.65 um.
-```
-
-No transport law proportional to field is assumed.
-
-### SW2 — mid/deep scan is nearly blind to that support
-**Status:** CHECKED NUMERICALLY / CONDITIONAL
-
-For `2.8-3.83 um`, support-weighted normalized differential visibility is
-
-```text
-0.0025-0.0430
-median ~0.0089.
-```
-
-For the illustrative 25% support-shaped perturbation:
-
-```text
-0.0023-0.0469 deg peak-to-peak at 1 GHz
-median ~0.0173 deg.
-```
-
-### SW3 — `2.0-2.8 um` restores raw A-specific leverage
-**Status:** CHECKED NUMERICALLY / CONDITIONAL
-
-For the same illustrative perturbation:
-
-```text
-2.0-2.8 um -> 0.1081-0.3706 deg p-p
-median ~0.2110 deg.
-```
-
-Median leverage is about `12x` the mid/deep value.
-
-### SW4 — short-wave anomaly remains nearly inside the smooth A/B nuisance subspace
-**Status:** CHECKED NUMERICALLY / CONDITIONAL
-
-Principal angle to the six-mode smooth nuisance subspace:
+Writing
 
 ```math
-\boxed{0.0063^\circ-0.708^\circ}
+q_2=c+\delta/2,
+\qquad q_1=c-\delta/2,
 ```
 
-with median `0.029 degree`.
-
-Thus raw visibility does not by itself establish identifiability.
-
-### SW5 — dense short-wave detection depends strongly on smooth-mode prior precision
-**Status:** CHECKED NUMERICALLY / CONDITIONAL FISHER MODEL
-
-At `0.10 degree` independent per-wavelength phase noise:
-
-```text
-0.005 deg phase-equivalent smooth-mode prior
--> worst SNR ~2.39
--> 79.2% of profiles >=3 sigma
-
-0.010 deg prior
--> worst SNR ~1.75
--> 50% >=3 sigma
-
-0.030 deg prior
--> 0% >=3 sigma.
-```
-
-### SW6 — equal time is exactly optimal for a two-wavelength difference
-**Status:** DERIVED UNDER WHITE `1/t` VARIANCE
-
-For fixed `t1+t2=T`:
-
-```math
-\operatorname{Var}(\phi_1-\phi_2)
-=\sigma_0^2\left(\frac1{t_1}+\frac1{t_2}\right)
-```
-
-is minimized by
-
-```math
-\boxed{t_1=t_2=T/2.}
-```
-
-### SW7 — exhaustive robust two-band design
-**Status:** CHECKED NUMERICALLY / CONDITIONAL
-
-With total time equal to the dense 81-point reference scan:
-
-```text
-0.002 deg smooth prior:
-2.00 / 2.72 um -> worst SNR 4.237
-
-0.005 deg prior:
-2.00 / 2.69 um -> worst SNR 3.093
-all 72 profiles >=3 sigma
-
-0.010 deg prior:
-~2.04 / 2.69 um -> worst SNR 1.956.
-```
-
-At the `0.005 degree` prior, the dense uniform scan requires about `2.31x` the total integration time to match the optimized pair's worst-case significance.
-
-### SW8 — global arbitrary-support fixed-time design effectively collapses to two spectral clusters
-**Status:** CHECKED NUMERICALLY / CONDITIONAL CONVEX MAXIMIN DESIGN
-
-The full 81-weight Fisher allocation problem is convex.
-
-At `0.005 degree` prior:
-
-```text
-50% time at 2.00 um
-50% time in a narrow 2.68-2.69 um cluster
-weighted upper center ~2.688 um
-worst SNR ~3.09273.
-```
-
-The simple `2.00/2.69 um` pair is only about `0.0028%` worse.
-
-### SW9 — adding wavelengths cannot rescue a `0.010 degree` smooth-mode prior at fixed total time
-**Status:** CHECKED NUMERICALLY / CONDITIONAL GLOBAL DESIGN
-
-The globally optimized arbitrary-support allocation reaches only
-
-```math
-\boxed{1.959\sigma}
-```
-
-worst case.
-
-Thus inadequate smooth-mode calibration, not wavelength sampling density, is the limiting resource in that regime.
-
-### SW10 — global robust calibration threshold
-**Status:** CHECKED NUMERICALLY / CONDITIONAL
-
-For the current illustrative anomaly, total time, noise scale, profile family, and six-mode nuisance model:
+gives
 
 ```math
 \boxed{
-\sigma_{\rm prior,max}\approx0.00528^\circ
+J_2q_2-J_1q_1
+=(J_2-J_1)c+\frac{J_2+J_1}{2}\delta.
 }
 ```
 
-is the largest phase-equivalent smooth-mode prior width for which the globally optimized short-wave design guarantees `>=3 sigma` across all 72 profiles.
+Common nuisance variation can be fitted; differential mismatch can mimic the target. Allowing fully independent contact/bulk nuisance amplitudes collapses the separation.
 
-Do not interpret `0.00528 degree` as a universal detector or instrument constant.
+### R12 — earlier shallow programmed mismatch tolerances are provenance, not final specs
+**Status:** SUPERSEDED AS FINAL SPECIFICATION
+
+The few-millidegree and tenth-micron tolerance calculations around the `2.6/3.2 um` prototype remain useful demonstrations of method but must be recomputed for the final interface-safe process-specific profile.
 
 ---
 
-# 9. Current candidate contribution
+# 6. Materials feasibility claims
 
+### F1 — HgCdTe composition programming exists in MBE
+**Status:** KNOWN
+
+Published MBE work demonstrates deliberately composition-tailored HgCdTe heterostructures and in-situ composition/thickness metrology on scales far smaller than the current micron-scale relocation coordinates.
+
+This does not prove fabrication of the exact proposed profile.
+
+### F2 — HgCdTe graded heterostructures exist in MOCVD
+**Status:** KNOWN
+
+Published MOCVD work demonstrates designed graded sublayers with realized `x(z)` characterized by SIMS; interdiffusion must be included in the forward model.
+
+### F3 — LPE longitudinal gradient sign/magnitude is programmable
+**Status:** KNOWN
+
+Huo et al. 2024 experimentally controlled positive HgCdTe composition gradients using mercury-loss and cooling conditions and verified the longitudinal profile by thinning spectroscopy and SIMS.
+
+### F4 — exact matched translated internal feature has been demonstrated
+**Status:** OPEN / NON-CLAIM
+
+No recovered source yet establishes the exact `same boundaries + compact buried feature translated in depth` device pair proposed here.
+
+---
+
+# 7. Prior-art boundary
+
+### PA1 — graded-HgCdTe high-speed/RF response
+**Status:** KNOWN PRIOR ART
+
+Sang et al. 2022 report room-temperature graded-HgCdTe impulse/frequency response and explicit composition-gradient carrier-transport modeling, including `1550 nm` RF excitation over `50 MHz-1 GHz` and `2 um` switching tests.
+
+### PA2 — localized HgCdTe transit timing
+**Status:** KNOWN PRIOR ART
+
+Perrais et al. and related HgCdTe timing work block broad claims for localized transit measurement.
+
+### PA3 — 2024 laser-measurement close collision
+**Status:** OPEN
+
+Xu et al., *Journal of Applied Optics* 45 (2024) 549-556, DOI `10.5768/JAO202445.0310009`, is verified by metadata, but its full technical content has not been recovered.
+
+It remains a priority blocker.
+
+### PA4 — surviving candidate distinction
 **Status:** CANDIDATE DISTINCT — PRIORITY UNPROVEN
 
-The only candidate contribution worth pursuing is:
-
-> **Use a known graded-HgCdTe optical profile and wavelength-resolved complex response to reconstruct a finite set of differential internal timing modes, then validate those modes through calibrated A/B material-structure and temperature perturbations without physically scanning the generation position.**
-
-The current strongest experimental realization is not one universal wavelength scan:
+The potentially underexplored combination is
 
 ```text
-mid/deep branch
--> calibrate smooth transport / instrument / temperature controls
-
-short-wave branch
--> concentrate spectral leverage on sample A's retained nonlinear region
-
-paired A-B observable
--> calibrated transport contrast
-
-~0.005 deg phase-equivalent smooth-mode knowledge
--> current robust feasibility threshold for the illustrative short-wave test.
+known graded x(z) as a wavelength position encoder
++
+complex wavelength x RF inverse
++
+few-mode/differential interpretation
++
+matched buried-feature relocation
++
+causal test that the fingerprint moves with the feature.
 ```
 
-The value must come from demonstrated metrology and falsifiable validation, not from forward generation physics alone.
+Negative literature search is not novelty evidence.
 
 ---
 
-# 10. Established external ingredients — do not claim novelty
+# 8. Important nonclaims
 
-Prior literature already establishes
+Do **not** claim
 
-- wavelength-dependent generation depth and bandwidth;
-- graded-bandgap carrier acceleration;
-- graded-HgCdTe spectral response;
-- wavelength/depth-dependent generation in graded HgCdTe;
-- graded-HgCdTe forward transport/response-time modeling;
-- localized-position HgCdTe transit measurements;
-- microscopic HgCdTe transport / Monte Carlo methods.
-
-The 2024 close-collision paper remains incompletely inspected.
-
-Negative search is not novelty evidence.
-
----
-
-# 11. Current open questions
-
-### O1 — actual A/B composition profiles
-
-Need fitted/digitized `x_A(z)` and `x_B(z)` for calibrated inversion and final uncertainty propagation.
-
-### O2 — measured differential covariance
-
-Need wavelength × RF phase/magnitude covariance, residual differential phase PSD, Allan deviation, swap repeatability, and wavelength-repeatability error.
-
-### O3 — `~0.005 degree` smooth-mode calibration feasibility
-
-Need to determine whether the instrument plus sample-B/sample-A baseline calibration can actually constrain the relevant normalized smooth spectral phase modes to the required class.
-
-### O4 — full sample-A optical stack
-
-Need repeated-reflection/reflection/interface modeling if calibrated throughput or kernel shape requires more than the current one-return stress model.
-
-### O5 — independent transport validation
-
-Need localized-position timing or a validated microscopic transport model on the same/equivalent structure.
-
-### O6 — 2024 close prior art
-
-Need full technical inspection of `Potential application of HgCdTe detector with composition gradient in laser measurement`.
-
-### O7 — real complex-response data
-
-No experimental A/B wavelength × RF data have yet been inverted.
-
-### O8 — publication significance
-
-**OPEN. No manuscript yet.**
-
----
-
-# 12. Explicit non-claims
-
-The project does **not** presently claim
-
-- a universal photodetector sensitivity-speed theorem;
-- a universal active-volume bound;
-- a universal entrance-gap timing maximum;
-- pointwise high-resolution `v(z)` imaging;
-- absolute common-delay recovery from spectral data alone;
-- absolute common-broadening recovery from spectral data alone;
-- calibrated sample-A/B carrier velocity or diffusion;
-- actual internal defects in sample A or B;
-- that the illustrative 25% sample-A transport perturbation is real;
-- that `0.00528 degree` is a universal calibration requirement;
-- that the exact real-device optimum wavelengths are `2.00/2.69 um`;
-- that the current one-return interference model is a calibrated optical stack;
-- novelty or priority for the inverse method;
+- pointwise high-resolution internal velocity imaging;
+- absolute common timing from wavelength data alone;
+- transport proportional to composition-gradient field;
+- that the illustrative `25%` transport perturbation is a real-device prediction;
+- universal optimal wavelengths or feature depths;
+- that the programmed trapezoid is a fabrication recipe;
+- that MBE, MOCVD, or LPE has already demonstrated the exact matched relocation pair;
+- novelty/priority;
 - manuscript readiness.
+
+---
+
+# 9. Current decisive blockers
+
+1. recover full technical content of DOI `10.5768/JAO202445.0310009`;
+2. choose a growth route and replace generic blur with a process-specific reachable `x(z)` family;
+3. recompute final mismatch tolerances on that reachable family;
+4. obtain real wavelength × RF phase/magnitude covariance, drift, and wavelength-dependent electrical-state data;
+5. validate transport beyond the deterministic illustrative baseline;
+6. characterize realized `x(z)` independently;
+7. obtain matched-device data.
+
+Until then:
+
+> **candidate underexplored inverse-metrology / matched-relocation validation method; priority unproven; no manuscript.**
