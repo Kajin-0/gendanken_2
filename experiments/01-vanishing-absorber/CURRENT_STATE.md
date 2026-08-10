@@ -1,7 +1,7 @@
 # Current State — Experiment 01: The Vanishing Absorber
 
 **Date:** 2026-08-10  
-**Status:** exploratory; strongest current path is a **purpose-built matched translated-gradient HgCdTe validation experiment** using wavelength × RF complex response as an internal spatial encoder; the published A/B pair remains valuable prior/control physics but is no longer considered a clean causal validation geometry; no novelty claim
+**Status:** exploratory; strongest current path is a **purpose-built downstream translated-gradient HgCdTe validation experiment conditioned on independent minority-carrier transport calibration**; wavelength × RF complex response is the internal spatial encoder; no novelty claim
 
 There is still **no manuscript**.
 
@@ -9,15 +9,13 @@ There is still **no manuscript**.
 
 ## 1. Active question
 
-The original universal detector-bound program, the later ballistic timing-peak route, and the attempt to rescue the published near-junction sample-A geometry by increasingly precise static calibration have all been superseded as the main frontier.
+The original universal detector-bound program, the ballistic timing-peak route, and the attempt to rescue the published 2023 near-junction sample-A geometry by increasingly precise static inversion are all stopped/superseded as the main frontier.
 
 The active question is now:
 
-> **Can a known compositionally graded HgCdTe absorber use wavelength as an internal position encoder so complex wavelength × RF data resolve differential transport, and can that inference be validated causally by translating the same buried internal gradient feature between otherwise matched devices?**
+> **Can wavelength-dependent generation in a known graded-HgCdTe absorber act as an internal position encoder, and can a deliberately translated buried composition-gradient feature produce a complex RF transport fingerprint that follows its known depth after the generic HgCdTe transport law is calibrated independently?**
 
-The project must earn its value through a clean inverse measurement and a falsifiable control geometry.
-
-The forward facts that graded composition changes optical generation and carrier transport are already prior art.
+The contribution, if any, must come from the **inverse/causal validation protocol**, not from the already-known facts that grading changes HgCdTe absorption, carrier drift, or RF response.
 
 ---
 
@@ -25,26 +23,26 @@ The forward facts that graded composition changes optical generation and carrier
 
 After root `AGENTS.md`:
 
-1. `HGCDTE_TRANSLATED_GRADIENT_PRIOR_ART_BOUNDARY.md`
-2. `HGCDTE_PROGRAMMED_INTERFACE_SAFE_JOINT_DESIGN.md`
-3. `HGCDTE_RELOCATION_EDGE_ENCODING.md`
-4. `HGCDTE_PROGRAMMED_WIDTH_INTERDIFFUSION.md`
-5. `HGCDTE_PROGRAMMED_TRANSLATED_GRADIENT_FEASIBILITY.md`
-6. `HGCDTE_TRANSLATED_GRADIENT_MATCHING_TOLERANCES.md`
-7. `HGCDTE_CONTACT_INTERFACE_CONFOUNDING.md`
-8. `HGCDTE_SHORTWAVE_FINITE_RF_JACOBIAN.md`
-9. `HGCDTE_SAMPLE_A_CROSSBAND_SELF_CALIBRATION.md`
-10. `HGCDTE_SAMPLE_A_SHORTWAVE_GLOBAL_DESIGN.md`
-11. `HGCDTE_SAMPLE_A_SHORTWAVE_CALIBRATION_REQUIREMENT.md`
-12. `HGCDTE_PAIRED_AB_JOINT_IDENTIFIABILITY.md`
-13. `HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`
-14. `HGCDTE_PUBLISHED_SAMPLE_B_DIMENSIONAL_FORWARD_MATRIX.md`
-15. `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
-16. `CLAIM_LEDGER.md`
-17. `RESEARCH_LOG.md`
+1. `HGCDTE_DOWNSTREAM_DRIFT_DIFFUSION_RELOCATION.md`
+2. `HGCDTE_QUASINEUTRAL_EMPIRICAL_VELOCITY_RELOCATION.md`
+3. `HGCDTE_TRANSPORT_WITNESS_CALIBRATION_DESIGN.md`
+4. `HGCDTE_PHYSICAL_NUISANCE_RELOCATION_DESIGN.md`
+5. `HGCDTE_TRANSLATED_GRADIENT_PRIOR_ART_BOUNDARY.md`
+6. `HGCDTE_PROGRAMMED_TRANSLATED_GRADIENT_FEASIBILITY.md`
+7. `HGCDTE_PROGRAMMED_INTERFACE_SAFE_JOINT_DESIGN.md`
+8. `HGCDTE_PROGRAMMED_WIDTH_INTERDIFFUSION.md`
+9. `HGCDTE_LPE_TRANSLATED_GRADIENT_REACHABILITY.md`
+10. `HGCDTE_SHORTWAVE_MECHANISM_CONFOUNDING.md`
+11. `HGCDTE_SAMPLE_A_CROSSBAND_SELF_CALIBRATION.md`
+12. `HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`
+13. `HGCDTE_PUBLISHED_SAMPLE_B_DIMENSIONAL_FORWARD_MATRIX.md`
+14. `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
+15. `CLAIM_LEDGER.md`
+16. `RESEARCH_LOG.md`
+17. `RESEARCH_LOG_2026-08-10_CONTINUATION.md`
 18. `ARCHIVE_STATUS.md`
 
-The published-sample A/B and mid/deep temperature branches remain important provenance and controls, but they are no longer the strongest mechanism-validation design.
+The older randomization/replication calculations remain useful **experimental-design principles**, but their exact depth/order optima were computed with an earlier ad hoc timing operator and are not current fabrication prescriptions.
 
 ---
 
@@ -52,24 +50,27 @@ The published-sample A/B and mid/deep temperature branches remain important prov
 
 Do **not** claim novelty for
 
-- wavelength-dependent absorption / generation depth;
-- wavelength-dependent detector timing or bandwidth;
+- wavelength-dependent absorption or generation depth;
+- wavelength-dependent detector timing/bandwidth;
 - composition-gradient built-in fields in HgCdTe;
 - composition-gradient modification of HgCdTe carrier transport;
-- high-speed or RF response of graded HgCdTe;
+- faster RF/impulse response in strongly graded HgCdTe;
 - graded-HgCdTe spectral response;
 - wavelength/depth forward generation modeling;
 - localized-position HgCdTe transit measurements;
+- Shockley–Haynes measurement of HgCdTe minority-carrier transport;
 - optical-load-dependent HgCdTe transient response;
-- intentionally engineered positive composition gradients by LPE.
+- intentionally engineered positive HgCdTe composition gradients by LPE.
 
-Sang et al. 2022 already measured high-speed graded-HgCdTe response and explicitly modeled composition-gradient-induced carrier transport. Their experiments include `1550 nm` impulse/RF excitation, `50 MHz-1 GHz` frequency response, and additional `2 um` switching tests.
+Sang et al. 2022 already measured high-speed graded-HgCdTe response and modeled gradient-driven carrier transport.
+
+Rothman et al. 2010 already measured minority-electron drift velocity, diffusion coefficient, and lifetime versus field in p-type HgCdTe using Shockley–Haynes methods.
 
 Perrais et al. already used localized excitation to study HgCdTe transit timing.
 
-Huo et al. 2024 demonstrated programmable positive HgCdTe composition gradients by LPE through mercury-loss/cooling control.
+Huo et al. 2024 demonstrated control of broad HgCdTe longitudinal composition gradients through mercury-loss/cooling conditions.
 
-The 2024 same-group paper
+The 2024 paper
 
 `Potential application of HgCdTe detector with composition gradient in laser measurement`
 
@@ -79,526 +80,637 @@ remains an unresolved close collision because its full technical content has not
 
 Current candidate status:
 
-> **candidate underexplored inverse-metrology / matched-relocation validation method; priority unproven.**
+> **candidate inverse-metrology / translated-feature validation method; priority unproven.**
 
 ---
 
-## 4. Core inverse and boundary gauge
+## 4. Critical orientation correction
 
-For front collection at `0`, with known conditional generation density `p_i(x)` and path-additive mean-delay density `q_1(x)`, use
+The 2023 published sample-A geometry puts the junction at the **high-Cd end**. Its strong nonlinear gradient can repel p-region photoelectrons away from that junction.
+
+That is not the correct orientation for a purpose-built high-speed gradient-transport validation experiment.
+
+The active conceptual device is instead
+
+```text
+z = 0:
+high-Cd optical entrance
+
+x(z) decreases monotonically
+through the graded absorber
+
+z = L:
+low-Cd collecting junction.
+```
+
+This aligns the composition-gradient minority-electron drive with collection, consistent with the high-speed graded-HgCdTe transport orientation demonstrated in the 2022 work.
+
+Practical consequence:
+
+> **if the low-Cd junction is on the epitaxial top side, the clean experiment may require substrate/backside illumination.**
+
+That optical complexity is preferable to using the wrong carrier-force direction and can be incorporated into a calibrated optical kernel.
+
+---
+
+## 5. Exact low-frequency inverse remains useful but is no longer the mechanism model
+
+For downstream collection at `L`, with generation coordinate `X_g`, the path-additive mean-delay inverse uses
 
 ```math
 \boxed{
 \bar T_i
-=\int_0^L S_i(s)q_1(s)ds,
+=\int_0^L F_i(s)q_1(s)ds,
 \qquad
-S_i(s)=P(X_g\ge s).
+F_i(s)=P(X_g\le s).
 }
 ```
 
-Cell-integrated form:
+This is the correct downstream CDF operator.
+
+It remains useful for
+
+```text
+orientation
+low-frequency mode counting
+and experimental intuition.
+```
+
+But the active mechanism calculation no longer assigns an ad hoc local delay density or an illustrative `25%` velocity perturbation.
+
+The physical transport response is computed from a first-passage drift–diffusion model.
+
+---
+
+## 6. Physics-derived first-passage transport
+
+For a minority electron beginning at `z`, solve
 
 ```math
 \boxed{
-A_{ij}=\int_{\mathrm{cell}\ j}S_i(s)ds,
-\qquad
-\mathbf T=\mathbf A\mathbf q_1.
+D u''(z)
++v(z)u'(z)
+-\left(\frac{1}{\tau_{\rm rec}}+s\right)u(z)=0.
 }
 ```
 
-Only under a local path-additive interpretation may one identify
+Use
 
 ```math
-q_1=1/v_{\rm eff}.
+u(L,s)=1
 ```
 
-The crucial gauge is
+at the collecting junction and a reflecting/Robin-loss condition at the optical entrance.
+
+At RF angular frequency `Omega`, set
 
 ```math
-S_i(0)=1
+s=i\Omega.
 ```
 
-for every wavelength.
-
-Therefore sufficiently near the collecting boundary, transport is almost wavelength independent and becomes degenerate with common device/electronics delay.
-
-This is why the published sample-A near-junction high-gradient region turned out to be an intrinsically poor mechanism-localization geometry.
-
----
-
-## 5. Frequency-domain observable
-
-For timing transfer
-
-```math
-H_i(\Omega)=\langle e^{-i\Omega T_i}\rangle,
-```
-
-low-frequency cumulants give
-
-```math
-\arg H_i=-\Omega\mu_i+O(\Omega^3),
-```
-
-```math
-\ln|H_i|=-\frac{\Omega^2}{2}\sigma_i^2+O(\Omega^4).
-```
-
-At higher normalized frequency the full complex response must be used.
-
-Finite RF rotates the spatial sensitivity operator and adds real information, but the published A/B geometry remains strongly confounded even with `0.25-3 GHz` complex data.
-
-RF diversity is therefore useful but is **not** a substitute for a cleaner physical control.
-
----
-
-## 6. What the published A/B branch taught us
-
-The published 2023 devices remain scientifically useful.
-
-### Sample B
-
-```text
-processed thickness ~3.7 um
-nominal FTIR x ~0.316
-nonlinear interdiffusion region removed
-weak linear gradient ~100-200 V/cm
-junction at high-Cd end.
-```
-
-It remains a useful smooth calibration/control device.
-
-### Sample A
-
-```text
-processed thickness ~7.6 um
-nominal FTIR x ~0.320
-part of nonlinear interdiffusion region retained
-local gradient field near ~2 kV/cm
-nonlinear region close to the collecting junction.
-```
-
-Short wavelengths `2.0-2.8 um` increase raw sensitivity to that region by roughly an order of magnitude compared with the mid/deep scan.
-
-But the A-localized short-wave fingerprint is almost contained in ordinary smooth A/B transport response space.
-
-The static short-wave experiment therefore requires smooth-mode priors at approximately the few-millidegree level.
-
-A global fixed-time wavelength allocation cannot eliminate this calibration floor.
-
----
-
-## 7. Published A/B is not a clean mechanism-identification pair
-
-Two independent failures occur.
-
-### A/B smooth-mode overlap
-
-Several smooth A and B transport modes have strongly overlapping spectral response subspaces, so paired A-B data cannot reconstruct arbitrary smooth profiles in both devices independently.
-
-### Contact/interface confounding
-
-The sample-A nonlinear-region timing fingerprint can be reproduced extremely closely by a generic near-junction/contact transport contribution plus smooth bulk changes.
-
-Therefore
-
-> **observing an A-B timing difference would not by itself prove that the retained nonlinear composition-gradient region caused the difference.**
-
-This is a mechanism-identifiability failure, not merely a phase-noise problem.
-
----
-
-## 8. Strongest validation architecture — matched feature relocation
-
-Replace the uncontrolled A/B comparison with a purpose-built matched family.
-
-### `C` — smooth control
-
-```text
-same absorber endpoints
-same contact/cap/junction environment
-same thickness
-smooth internal grading.
-```
-
-### `G1`
-
-```text
-same boundaries and broad process state
-one buried compact high-gradient region at z1.
-```
-
-### `G2`
-
-```text
-same boundaries and feature shape
-same total composition change
-same high-gradient region translated to z2.
-```
-
-Then
-
-```text
-G - C
--> high-signal test that an additional internal transport component exists
-
-G2 - G1
--> causal relocation test: does the wavelength x RF fingerprint move with the
-   internal feature rather than staying attached to an interface/artifact?
-```
-
-The second comparison is the stronger mechanism test.
-
----
-
-## 9. Why relocation is a better spatial observable
-
-Let
-
-```math
-y(\lambda,f;z_0)
-=\int K_{\lambda,f}(z)q_f(z-z_0)dz.
-```
-
-For a small translation `Delta z`,
+The normalized collected RF transfer is
 
 ```math
 \boxed{
-\Delta y
+H(\lambda,\Omega)
+=
+\frac{
+\int p(z|\lambda)u(z,i\Omega)dz
+}{
+\int p(z|\lambda)u(z,0)dz
+}.
+}
+```
+
+This conditions on collected carriers and separates timing/transfer from simple loss in DC collection probability.
+
+---
+
+## 7. Quasi-neutral p-type band self-consistency removes the arbitrary field fraction
+
+The earlier reduced transport model used
+
+```math
+E_{\rm eff}=\chi_E|dE_g/dz|/q
+```
+
+with a free scalar `chi_E`.
+
+That is no longer the preferred central model.
+
+In a p-type quasi-neutral interior,
+
+```math
+E_v(z)
 \simeq
-\Delta z
-\int K'_{\lambda,f}(z)q_f(z-z_0)dz.
-}
+E_F+k_BT\ln\frac{N_A}{N_v}.
 ```
 
-For an ideal flat feature on `[a,b]`,
+Since
+
+```math
+E_c=E_v+E_g,
+```
 
 ```math
 \boxed{
-\frac{\partial y}{\partial z_0}
-=A[K(b)-K(a)].
+\frac{dE_c}{dz}
+\simeq
+\frac{dE_g}{dz}
++k_BT\frac{d}{dz}\ln\frac{N_A}{N_v}.
 }
 ```
 
-So feature relocation creates a **signed edge fingerprint** rather than another smooth amplitude perturbation.
+If `N_A/N_v` varies slowly, the total minority-electron conduction-band slope is therefore close to the **full gap gradient**.
 
-That is why it separates more strongly from low-order bulk and one-sided interface nuisance modes.
+This is consistent with the 2025 electron-affinity result that roughly two-thirds of a composition-driven gap change is intrinsic conduction-band offset: the equilibrium electrostatic potential supplies the additional tilt required to pin the majority-hole band.
 
-The identity is elementary and is not a novelty claim.
-
----
-
-## 10. Growth-programmable feature
-
-Use a monotonic endpoint-preserving composition profile with a compact high-gradient segment in the **composition-slope magnitude**.
-
-Current useful family:
-
-```text
-absorber thickness L ~7.6 um
-conceptual endpoints x_front ~0.55, x_back ~0.32
-feature total width ~0.9-1.0 um
-edge transition ~0.1 um
-background gradient field of order 2e2 V/cm
-local peak field ~1.95-2.0 kV/cm.
-```
-
-The exact trapezoid is not physically privileged.
-
-It is a process-programmable proxy that can later be replaced by the measured realized `x(z)`.
+The physically meaningful uncertainty is the doping/DOS profile and non-quasi-neutral boundary physics, not an arbitrary free interior field multiplier.
 
 ---
 
-## 11. Interface-safe joint depth/spectral design
+## 8. Conduction-DOS correction
 
-Once the artificial shallow depth limit is removed, a raw optimizer tries to exploit the back boundary.
+The 2025 HgCdTe current equation also contains the effective-mass/DOS drift term.
 
-Therefore front **and** back interface nuisance modes are included, and the entire programmed feature is required to remain away from both interfaces.
-
-With a conservative `1.5 um` feature-edge clearance, fixed total wavelength-time resource, and either
-
-```text
-statistics-like sigma_phi proportional to Pabs^(-1/2)
-```
-
-or
-
-```text
-additive-like sigma_phi proportional to Pabs^(-1),
-```
-
-the reference design is approximately
+Use
 
 ```math
 \boxed{
-z_1\sim4.1\ \mu m,
-\qquad
-z_2\sim5.5-5.6\ \mu m,
+v_e
+=-\frac{\mu}{q}\frac{dE_c}{dz}
++D\frac{d\ln N_c}{dz}.
 }
 ```
 
-with
+For nondegenerate electrons
+
+```math
+N_c\propto(m_e^*)^{3/2}.
+```
+
+Using the standard HgCdTe device-model approximation `m_e^* proportional to E_g`, the DOS correction is approximately
+
+```math
+\frac{d\ln N_c}{dz}
+\simeq
+\frac32\frac{d\ln E_g}{dz}.
+```
+
+Across the present `x~0.32-0.55` design range it is a modest correction to the gap-driven drift, not a free response direction of comparable scale.
+
+---
+
+## 9. Empirical velocity law replaces the arbitrary smooth saturation law
+
+Use the HgCdTe transport/APD-motivated form
 
 ```math
 \boxed{
-\lambda\sim2.00-2.40\ \mu m.
+v(F)
+=\frac{\mu F}
+{1+(|F|/d)^r}.
 }
 ```
 
-The exact tenth-micron center is not stable enough to treat as a fabrication target; the robust conclusion is the **interior, micron-scale relocation geometry**.
-
-For the nominal `~1 um` feature:
+Direct/published HgCdTe data provide useful scale information:
 
 ```text
-minimum modeled Pabs ~0.99
-minimum baseline |H| over 0.25-3 GHz ~0.98
-1-GHz differential phase span ~0.36-0.39 deg
-nuisance-orthogonal phase-vector norm of order 0.5 deg.
+Rothman et al. 2010:
+Shockley-Haynes v(E), D(E), tau(E) in p-type HgCdTe, 80-200 K
+saturation velocity ~2e6-6e6 cm/s
+MWIR low-field minority-electron mobility ~1.5e4-2.0e4 cm2/Vs at 80 K
+
+Guerra et al. 2026 APD fits:
+d ~4-11 kV/cm
+r ~1.9-2.8
+across x~0.3-0.4 examples at 80-160 K.
 ```
 
-Under the current idealized covariance model, this is a finite precision problem rather than the near-singular published-A attribution problem.
+The authors explicitly warn that the APD velocity formulation can be incomplete.
+
+Therefore these values are **broad scale constraints**, not a calibrated 300 K constitutive law for the proposed structure.
 
 ---
 
-## 12. Fixed measurement resource matters
+## 10. The purpose-built field scale is below the APD saturation-field scale
 
-The design score is not raw response or principal angle alone.
+For the present programmed profile:
 
-After covariance whitening and nuisance projection, use
+```text
+background quasi-neutral gap-gradient force ~0.2 kV/cm
+local compact feature force ~1.9 kV/cm.
+```
+
+At `E~1.9 kV/cm` and `r=2.2`, the empirical velocity reduction is only approximately
+
+```text
+d = 4 kV/cm  -> ~16%
+d = 8 kV/cm  -> ~4%
+d = 12 kV/cm -> ~2%.
+```
+
+Thus the validation feature is not operating deep inside the avalanche high-field regime.
+
+That sharply reduces how much freedom the unknown high-field velocity curve should physically have.
+
+---
+
+## 11. Physics-derived relocation signal is comfortably measurable in scale
+
+At one explicit central stress
+
+```text
+T = 300 K
+mu = 9000 cm2/Vs
+d = 8 kV/cm
+r = 2.2
+rho = ln[(N_A/N_v)(L)/(N_A/N_v)(0)] = 0
+tau = 1 ns
+entrance surface loss S = 1e5 cm/s,
+```
+
+the current first-passage model gives degree-scale wavelength-dependent relocation signals at `1 GHz`.
+
+Representative values:
+
+```text
+feature 4.1 -> 5.6 um:
+~9.1 deg peak-to-peak
+
+feature 2.8 -> 5.6 um:
+~14.3 deg peak-to-peak.
+```
+
+These are **not device predictions**.
+
+They establish only that signal amplitude is no longer the leading theoretical objection.
+
+---
+
+## 12. Mechanism identifiability must use branch-safe complex derivatives
+
+A previous high-RF Fisher calculation falsely suggested several-degree separation from transport nuisances because it finite-differenced the principal complex logarithm across phase branch cuts.
+
+That result is invalidated.
+
+Use
 
 ```math
 \boxed{
-S_{\rm design}
-=\frac{\|r_{\rm white}\|}{\sqrt{N_\lambda}}.
+\frac{\partial\ln H}{\partial p}
+=\frac{1}{H}\frac{\partial H}{\partial p}
 }
 ```
 
-The `1/sqrt(N_lambda)` factor prevents a dense wavelength scan from winning merely because it consumes more total averaging time.
+with `dH/dp` finite-differenced directly.
 
-Under the same front/back nuisance and fixed-time rules, the conservative interior design carries roughly
+Never use raw finite differences of the principal `log(H)` at high RF without phase-unwrapping/branch control.
 
-```text
-~1.9x information amplitude
-~3.6x Fisher information
-```
-
-relative to the earlier restricted `2.6 -> 3.2 um` pair.
+This correction is now a permanent numerical regression requirement.
 
 ---
 
-## 13. Edge sharpness is not the limiting fabrication resource
+## 13. Completely unbounded transport-law shape remains non-identifiable
 
-A spatial convergence test at
-
-```text
-80 cells  -> ~95 nm/cell
-160 cells -> ~47.5 nm/cell
-320 cells -> ~23.8 nm/cell
-```
-
-shows that edge ramps from roughly
-
-```text
-25-100 nm
-```
-
-lie on an approximately `1%` information plateau.
-
-Broadening a `100 nm` edge to about `200 nm` costs roughly `30%` in fixed-time information amplitude.
-
-Therefore
-
-> **there is no resolved numerical evidence that an ultrasharp internal interface is required; ~0.1 um is already near the information plateau.**
-
----
-
-## 14. Total width and interdiffusion are also tolerant
-
-At fixed peak gradient field near `1.95 kV/cm`, the useful unblurred width range is broad:
-
-```text
-~0.9-1.1 um
-```
-
-with about `1.0 um` best on the current grid.
-
-After Gaussian interdiffusion broadening, the optimum shifts only slightly toward `~0.9 um`.
-
-Current fixed-time information-amplitude losses relative to the unblurred optimum are approximately
-
-```text
-sigma_d = 0.05 um -> ~8%
-sigma_d = 0.10 um -> ~20%
-sigma_d = 0.15 um -> ~33%.
-```
-
-The statistics-like and additive-like absorbed-signal noise envelopes choose essentially the same geometries.
-
-A `320`-cell confirmation reproduces the trend.
-
----
-
-## 15. Matching is an identifiability condition
-
-For a nuisance mode write
+In the quasi-neutral empirical-velocity model, use the local mechanism coordinate
 
 ```math
-q_2=c+\delta/2,
-\qquad
-q_1=c-\delta/2.
+s_{\rm eff}(z;\eta)
+=s_0+\eta[s(z)-s_0]
 ```
 
-Then
-
-```math
-\boxed{
-J_2q_2-J_1q_1
-=(J_2-J_1)c
-+\frac{J_2+J_1}{2}\delta.
-}
-```
-
-Common matched variation `c` can be fitted.
-
-Differential mismatch `delta` creates the dangerous artifact.
-
-The purpose-built geometry becomes strongly degenerate again if the two devices are allowed arbitrary independent contact/bulk changes.
-
-Thus matched fabrication is not cosmetic; it is part of the identifiability proof.
-
-The exact mismatch tolerances should be recomputed for the final interface-safe/process-specific profile rather than inherited from the earlier shallow design.
-
----
-
-## 16. Wavelength-independent electrical response cancels exactly
-
-Suppose
-
-```math
-M_j(\lambda,f)=E_j(f)H_j(\lambda,f),
-```
-
-where `E_j(f)` is any wavelength-independent electrical/readout transfer.
-
-After taking the paired log response and removing an arbitrary complex wavelength-independent intercept at each RF frequency,
-
-```math
-\boxed{
-C_\lambda[\ln E_2(f)-\ln E_1(f)]=0.
-}
-```
-
-Therefore a pure wavelength-independent RC/readout mismatch is not the leading electrical problem in the relocation fingerprint.
-
-The dangerous electrical terms are those that vary with wavelength, signal level, or device optical state.
-
----
-
-## 17. Materials feasibility
-
-The required spatial scale is not obviously unrealistic.
-
-### MBE
-
-Strong direct precedent for programmed HgCdTe composition/thickness profiles and in-situ control. This remains the cleanest conceptual first route.
-
-### MOCVD
-
-Strong graded-heterostructure precedent; realized interdiffusion must be measured and inserted into the model.
-
-### LPE
-
-The 2024 Huo et al. work demonstrated control of HgCdTe longitudinal composition-gradient sign/magnitude through mercury-loss and cooling conditions and verified the profile by thinning spectroscopy and SIMS.
-
-Therefore LPE is also a real candidate for broad gradient programming.
-
-What none of the recovered literature yet establishes is the **specific matched translated internal feature** required here.
-
----
-
-## 18. Published sample B and temperature control are now secondary controls
-
-The earlier sample-B work remains valid and useful:
+and marginalize against free
 
 ```text
-smooth few-mode calibration
+ln(mu)
+ln(d)
+r
+rho
+ln(tau)
+ln(surface loss)
+```
+
+plus wavelength-independent complex channel offsets.
+
+For
+
+```text
+lambda = 2.00-2.40 um
+f = 0.5, 1, 2, 3 GHz
+provisional weighted component noise = 0.10 deg-equivalent,
+```
+
+a best current three-depth no-prior design is approximately
+
+```text
+2.6, 4.4, 5.6 um
+```
+
+but reaches only about
+
+```math
+\boxed{1.1\sigma}
+```
+
+if `d` and `r` are allowed unlimited local amplitudes.
+
+Therefore the relocation data cannot simultaneously learn an arbitrary velocity-field curve and uniquely attribute the response to the localized gradient.
+
+---
+
+## 14. Broad physical velocity constraints remove the artificial singularity
+
+The same linearized model changes dramatically once the empirical velocity curve is merely restricted to a physically plausible scale.
+
+Use deliberately broad priors
+
+```text
+sigma_ln(d) = 0.7
+~ factor 2 per sigma
+
+sigma_r = 0.5.
+```
+
+Leave
+
+```text
+mu
+tau
+surface loss
+and rho
+```
+
+unconstrained.
+
+Then the central linearized mechanism significance rises to about
+
+```math
+\boxed{12.8\sigma}
+```
+
+under the provisional `0.10 degree` component-noise convention.
+
+Even
+
+```text
+sigma_ln(d) = 1.0
+sigma_r = 0.7
+sigma_rho = 2.0
+```
+
+gives about
+
+```math
+\boxed{9.7\sigma}.
+```
+
+These are **conditional Fisher scales**, not expected laboratory significances.
+
+The important conclusion is narrower:
+
+> **the severe mechanism degeneracy appears only if the HgCdTe velocity curve is allowed to vary over a range much broader than existing transport measurements suggest.**
+
+---
+
+## 15. Decisive companion experiment — transport witnesses
+
+The strongest next experimental control is now explicit:
+
+> **measure minority-electron `v(E,x)`, `D(E,x)`, and `tau(E,x)` independently in companion p-type HgCdTe material over the actual field/composition range of the relocation structures.**
+
+The current translated high-gradient regions span approximately
+
+```text
+x ~0.344-0.517.
+```
+
+A minimal first witness set is
+
+```math
+\boxed{x\approx0.35,\ 0.43,\ 0.51.}
+```
+
+The middle point tests whether interpolation in composition is actually valid rather than assuming it from two endpoints.
+
+At 300 K their approximate Hansen-gap wavelengths are
+
+```text
+x=0.35 -> ~3.46 um
+x=0.43 -> ~2.66 um
+x=0.51 -> ~2.14 um.
+```
+
+---
+
+## 16. Transport-witness timing scale is practical
+
+A conceptual `100 um` Shockley-Haynes drift path converts
+
+```text
+0.1-3 kV/cm
+```
+
+to only
+
+```text
+1-30 V.
+```
+
+Across a deliberately broad
+
+```text
+mu = 4000-20000 cm2/Vs
+d = 4-12 kV/cm
+r = 2.2
+```
+
+envelope, expected 100-um transit times are approximately
+
+```text
+0.1 kV/cm -> 5-25 ns
+0.3 kV/cm -> 1.7-8.4 ns
+1.0 kV/cm -> 0.50-2.62 ns
+2.0 kV/cm -> 0.25-1.52 ns
+3.0 kV/cm -> 0.17-1.28 ns.
+```
+
+This is compatible with established HgCdTe transit/impulse metrology.
+
+Room-temperature HgCdTe APDs have already been characterized with multi-GHz impulse instrumentation.
+
+The exact witness geometry should follow the fabrication facility's proven implementation.
+
+---
+
+## 17. What the witness experiment must extract
+
+Use multiple drift distances if practical.
+
+From packet motion:
+
+```text
+arrival-time slope -> v(E,x)
+packet broadening -> D(E,x)
+amplitude/charge decay -> tau(E,x).
+```
+
+Do not force Einstein-equilibrium diffusion if the measurement disagrees; the 2010 p-type HgCdTe measurements found diffusion mobility systematically above drift mobility, consistent with hot-electron diffusion.
+
+Fit the empirical `mu,d,r` form only if supported by the data.
+
+A measured interpolation/spline is acceptable and may be preferable.
+
+---
+
+## 18. Fabrication architecture
+
+### Preferred material route
+
+```text
+MBE -> strongest first route for a compact translated internal feature
+MOCVD -> credible diffusion-aware alternative
+single-run slider LPE -> not supported for the current compact ~1 um / ~2 kV/cm feature
+multi-stage LPE -> possible but added interfaces reintroduce confounding.
+```
+
+The 2024 LPE control paper demonstrated broad linear gradients of order tens of `cm^-1`; the compact programmed feature is of order `10^3 cm^-1`.
+
+### Growth matching
+
+Measured realized `x(z)` should be inserted into each device's optical/transport forward model.
+
+The structures do **not** need to be geometrically identical at the nominal-recipe level if their realized profiles are accurately characterized.
+
+The dangerous residual is transport variation not explained by measured structure.
+
+---
+
+## 19. Randomization/replication principles remain valid, exact old schedules do not
+
+Earlier deterministic-timing calculations showed that
+
+```text
+nonmonotonic growth order
++
+replicated feature depths
+```
+
+can separate a feature-depth law from smooth chronological fabrication drift and estimate random run-to-run variance.
+
+Those principles remain strong.
+
+However, the exact previously optimized six/eight-run depth orders were derived with the superseded ad hoc timing operator.
+
+Do **not** use them as final growth prescriptions.
+
+After `v(E,x),D(E,x),tau(E,x)` are calibrated, rerun
+
+```text
+feature-depth selection
+growth order
+replicate-depth selection
+wavelength allocation
+and RF allocation
+```
+
+with the calibrated first-passage model.
+
+---
+
+## 20. Published sample B / temperature branch remains useful but secondary
+
+The earlier sample-B work remains valid as
+
+```text
+smooth few-mode optical calibration
 heteroscedastic phase-noise design
-mid/deep D-optimal wavelengths
-and robust ~3.632 -> 3.793 -> 4.005 um temperature iso-kernel schedule.
+mid/deep wavelength design
+and temperature iso-kernel control.
 ```
 
-But these are no longer the main mechanism-identification experiment.
-
-The published A/B pair should be treated as
+The robust mid/deep schedule around
 
 ```text
-literature-grounded phenomenology / benchmark
+300 K 3.632 um
+-> 215 K ~3.793 um
+-> 115 K ~4.005 um
 ```
 
-while the matched translated-gradient family supplies the cleaner causal test.
+remains a useful independent control branch.
+
+It is no longer the primary mechanism-localization experiment.
 
 ---
 
-## 19. Important nonclaims
+## 21. Current strongest experimental hierarchy
 
-Do not claim
+### Stage 1 — material transport calibration
 
-- pointwise high-resolution `v(z)` reconstruction;
-- absolute common delay/broadening from wavelength data alone;
-- transport proportionality to composition-gradient field;
-- that the illustrative `25%` feature-supported perturbation is a device prediction;
-- that `4.1` and `5.6 um` are universal optimal feature depths;
-- that the trapezoidal profile is a fabrication recipe;
-- that any particular growth method has demonstrated the exact matched translated pair;
-- novelty/priority;
-- manuscript readiness.
-
----
-
-## 20. Active numerical regressions
-
-Most important current files:
+Measure companion p-type HgCdTe
 
 ```text
-numerics/hgcdte_programmed_joint_depth_spectral_design.py
-numerics/hgcdte_programmed_width_interdiffusion.py
-numerics/hgcdte_relocation_edge_convergence.py
-numerics/hgcdte_programmed_gradient_tolerances.py
-numerics/hgcdte_matched_contact_translated_gradient_design.py
-numerics/hgcdte_shortwave_finite_rf_jacobian.py
-numerics/hgcdte_contact_confounding.py
-numerics/hgcdte_sample_a_crossband_self_calibration.py
+v(E,x)
+D(E,x)
+tau(E,x)
 ```
 
-Older sample-A/B scripts remain provenance and benchmark calculations.
+at approximately `x=0.35,0.43,0.51`, beginning at 300 K.
+
+### Stage 2 — optical/profile characterization
+
+For every translated-gradient structure measure the realized
+
+```text
+x(z)
+layer thickness
+optical transfer
+and relevant doping/profile variables.
+```
+
+### Stage 3 — instrument/electrical calibration
+
+Measure wavelength × RF complex covariance, channel offsets, drift, and electrical transfer independently.
+
+### Stage 4 — translated-feature complex-response experiment
+
+Use high-Cd-side illumination and low-Cd-side collection.
+
+Measure wavelength × RF complex response for several known feature depths.
+
+### Stage 5 — joint inference
+
+Condition the transport model on the witness posterior and each measured `x(z)`.
+
+Ask whether the **depth law** of the response requires the localized gradient feature.
+
+### Stage 6 — randomized/replicated fabrication validation
+
+Only after the calibrated forward model is stable, optimize the number/order of feature-depth growths and replicated anchors against measured process covariance.
 
 ---
 
-## 21. Current blockers
+## 22. Current blockers
 
-The remaining blockers are concrete:
-
-1. **full technical recovery of the 2024 Applied Optics close-collision paper**;
-2. a process-specific reachable `x(z)` model for MBE, MOCVD, or LPE rather than generic smoothing;
-3. a final matched-pair mismatch tolerance analysis on that process-specific profile;
-4. real wavelength × RF phase/magnitude covariance and drift data;
-5. wavelength-dependent electrical-state characterization;
-6. a validated transport model beyond the deterministic illustrative baseline;
-7. independent measurement of the realized depth profile;
-8. actual matched-device data.
+- direct 300 K `v(E,x),D(E,x),tau(E,x)` data for the intended p-type material campaign;
+- measured realized `x(z)` for a purpose-built translated-gradient structure;
+- high-Cd-side/backside optical transfer including substrate/reflection effects;
+- measured wavelength × RF complex-response covariance;
+- calibrated electrical/junction transfer;
+- explicit doping / non-quasi-neutral boundary model where quasi-neutral approximation fails;
+- full technical content of the unresolved 2024 laser-measurement prior-art paper;
+- actual fabricated translated-gradient control series.
 
 ---
 
-## 22. Next decisive work
+## 23. Next decisive work
 
-Do **not** add another generic inverse theorem or optimize another arbitrary geometric parameter.
+Do **not** add another generic inverse theorem or another arbitrary timing basis.
 
-The strongest next theoretical/material step is:
+The highest-value next theoretical/experimental design step is:
 
-> **Choose one realistic HgCdTe growth route and generate a reachable family of matched translated `x(z)` profiles from its actual process physics, then pass that family through the interface-safe fixed-resource wavelength × RF design.**
+> **turn the three-composition transport-witness concept into a facility-ready calibration specification and propagate a realistic `v(E,x),D(E,x),tau(E,x)` posterior through the translated-gradient first-passage model.**
 
-In parallel, the most important literature task remains recovery of DOI `10.5768/JAO202445.0310009`.
+In parallel, continue the focused prior-art search for the unresolved 2024 laser-measurement paper.
 
-The most important experimental input remains real differential wavelength × RF covariance.
-
-Only after those are resolved should manuscript readiness or novelty language be reconsidered.
+Only after the transport law and real covariance are independently constrained should the final translated-depth / wavelength / RF / growth-order design be frozen or manuscript readiness reassessed.
