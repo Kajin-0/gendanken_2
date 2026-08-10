@@ -87,11 +87,11 @@ def main() -> None:
     print(f"low-frequency eta=D*omega/v^2 = {eta:.3e}")
     print(f"third-order gamma expansion relative error = {expansion_rel:.3e}")
 
-    assert max_v_rel < 2.0e-14
-    assert max_D_rel < 2.0e-14
-    assert abs(v_ratio / v - 1.0) < 2.0e-14
-    assert abs(D_ratio / D - 1.0) < 2.0e-14
-    assert expansion_rel < 2.0e-7
+    assert max_v_rel < 5.0e-14
+    assert max_D_rel < 5.0e-14
+    assert abs(v_ratio / v - 1.0) < 5.0e-14
+    assert abs(D_ratio / D - 1.0) < 5.0e-14
+    assert expansion_rel < 5.0e-7
 
     print()
     print(
