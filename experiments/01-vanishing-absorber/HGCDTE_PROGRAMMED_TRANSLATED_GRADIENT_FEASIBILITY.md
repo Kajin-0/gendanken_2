@@ -1,383 +1,333 @@
-# Programmed Translated-Gradient HgCdTe — Materials Feasibility and Stronger Validation Geometry
+# Programmed Translated-Gradient HgCdTe — Materials Feasibility
 
 **Date:** 2026-08-10  
-**Status:** conditional materials/design synthesis using published HgCdTe epitaxial capabilities plus the repository finite-RF model; no fabrication demonstration and no novelty claim
+**Status:** conditional materials/design synthesis using published HgCdTe growth capabilities; no fabrication demonstration and no novelty claim
 
-## 1. Question
+## 1. Current materials question
 
-The Gaussian translated-gradient profile was useful mathematically, but the next question is physical:
+The purpose-built validation experiment no longer asks whether the published near-junction sample-A profile can be reconstructed perfectly.
 
-> **Can HgCdTe epitaxy plausibly place the same internal high-gradient region at two depths separated by roughly `0.6 um` while keeping the collection-side composition and overall endpoints matched?**
+It asks whether HgCdTe can be fabricated as a matched device family in which
 
-The literature answer is now strong enough to separate the growth methods.
+```text
+front/cap/contact conditions are held common
+front and back absorber compositions are held common
+and
+one internal ~micron-scale high-gradient region is deliberately translated in depth.
+```
+
+The current inverse design prefers a genuinely buried feature rather than a boundary-adjacent one.
+
+After front/back interface nuisance terms, fixed total wavelength time, and absorbed-signal-dependent phase precision are included, the conservative reference geometry is approximately
+
+```text
+feature centers ~4.1 and 5.6 um
+feature total width ~0.9-1.0 um
+edge transitions of order 0.1 um
+spectral band ~2.00-2.40 um
+peak local gradient field ~2 kV/cm.
+```
+
+See
+
+- `HGCDTE_PROGRAMMED_INTERFACE_SAFE_JOINT_DESIGN.md`
+- `HGCDTE_RELOCATION_EDGE_ENCODING.md`
+- `HGCDTE_PROGRAMMED_WIDTH_INTERDIFFUSION.md`.
+
+The earlier `2.6 / 3.2 um` result in this branch was produced by an artificially shallow feature-position grid and is **superseded as the preferred purpose-built geometry**.
 
 ---
 
-## 2. MBE makes sub-micron profile placement technologically plausible
+## 2. MBE is the cleanest direct implementation route
 
-HgCdTe molecular-beam epitaxy has long been used for compositionally tailored heterostructures with in-situ composition/thickness control.
+HgCdTe molecular-beam epitaxy has long supported deliberately composition-tailored heterostructures with in-situ composition/thickness control.
 
-A particularly useful scale comes from Mikhailov et al., *Photonics* 10, 430 (2023), DOI `10.3390/photonics10040430`.
-
-Their HgCdTe multiple-quantum-well structures were grown by MBE with in-situ ellipsometry, and the reported composition/thickness measurement accuracies were approximately
+Mikhailov et al., *Photonics* **10**, 430 (2023), DOI `10.3390/photonics10040430`, report HgCdTe multiple-quantum-well structures grown by MBE with in-situ ellipsometric composition/thickness determination at approximately
 
 ```text
-Delta x = 0.0005
-Delta d = 0.5 nm.
+Delta x ~0.0005
+Delta d ~0.5 nm.
 ```
 
-That does **not** mean a `0.5 nm` arbitrary HgCdTe gradient-placement tolerance can automatically be achieved in our structure.
+This is **not** a claim that an arbitrary translated HgCdTe gradient can be fabricated to `0.5 nm` accuracy.
 
-It does show that the relevant epitaxial control/metrology scale is far finer than
+It establishes that demonstrated epitaxial layer-control/metrology length scales are far smaller than the present design coordinates:
 
 ```text
-feature displacement ~0.6 um
-feature edge ramp ~0.1 um
-feature total width ~1.0 um.
+feature width ~1 um
+feature displacement ~1-2 um
+edge transition ~0.1 um.
 ```
 
-Earlier MBE work also explicitly demonstrated composition-controlled HgCdTe heterostructures using in-situ ellipsometry; see Varavin et al., *Journal of Crystal Growth* 159 (1996) 1161-1166, DOI `10.1016/0022-0248(95)00845-4`.
+Varavin et al., *Journal of Crystal Growth* **159** (1996) 1161-1166, DOI `10.1016/0022-0248(95)00845-4`, also demonstrated composition-controlled HgCdTe heterostructures using in-situ ellipsometry.
 
-Thus **MBE is the cleanest first fabrication route** for the translated-gradient control experiment.
+For a first purpose-built matched relocation experiment, **MBE remains the most direct route conceptually** because the internal composition program can be specified explicitly versus growth time.
 
 ---
 
-## 3. MOCVD is also a credible route, but interdiffusion must be treated as part of the design
+## 3. MOCVD is also a strong candidate
 
-Madejczyk et al., *Infrared Physics & Technology* 81 (2017) 276-281, DOI `10.1016/j.infrared.2017.01.020`, report HgCdTe MOCVD heterostructures with designed internal graded-gap sublayers and SIMS-measured composition profiles.
+Madejczyk et al., *Infrared Physics & Technology* **81** (2017) 276-281, DOI `10.1016/j.infrared.2017.01.020`, report HgCdTe MOCVD heterostructures containing deliberately designed internal graded-gap sublayers and compare the intended structure with SIMS-measured composition profiles.
 
-Their work is particularly relevant because the real interfaces are not perfectly abrupt: interdiffusion during growth broadens the programmed layer structure.
+Their results are useful here because they make interdiffusion part of the real device rather than an afterthought.
 
-That suggests a practical MOCVD workflow:
+A practical MOCVD workflow would be
 
 ```text
-program desired composition segments
+program the graded segment
 -> grow
 -> measure realized x(z) by SIMS / optical methods
--> update the timing forward model with the realized profile.
+-> insert realized x(z) into the wavelength x RF forward model.
 ```
 
-For this experiment, interface broadening is not automatically fatal because the target feature itself is intentionally broad, of order `1 um`.
+The present numerical interdiffusion stress is favorable to this approach:
 
-But the **realized** profile, not the nominal recipe, must enter the inverse model.
+```text
+Gaussian sigma_d ~0.05 um -> ~8% information-amplitude loss
+sigma_d ~0.10 um -> ~20% loss
+sigma_d ~0.15 um -> ~33% loss
+```
+
+when the peak gradient field is held near `1.95 kV/cm` and the feature is reoptimized while remaining away from both interfaces.
+
+Thus modest smoothing does not destroy the experiment.
 
 ---
 
-## 4. Ordinary single-run LPE/interdiffusion is less natural for this particular control
+## 4. Correction — LPE is more programmable than the earlier branch assumed
 
-LPE can certainly produce HgCdTe heterostructures and even buried/multijunction devices. Gawron and Rogalski, *Infrared Physics & Technology* 43 (2002) 157-163, DOI `10.1016/S1350-4495(02)00135-4`, demonstrated buried HgCdTe structures by LPE and discuss multiple epitaxy/selective-growth routes for more complex bandgap engineering.
+The earlier version of this file treated LPE mainly as an indirect or awkward route for the translated-gradient control.
 
-However, the longitudinal composition profile in conventional HgCdTe LPE is strongly tied to
+That boundary was too pessimistic.
 
-```text
-growth temperature history
-solidification from the melt
-substrate/layer interdiffusion
-and subsequent thermal processing.
-```
+Huo et al., “Improved liquid phase epitaxy method for in-situ growth of HgCdTe with positive composition gradient,” *Journal of Infrared and Millimeter Waves* **43** (2024) 307-315, DOI `10.11972/j.issn.1001-9014.2024.03.003`, established an HgCdTe LPE growth model and experimentally controlled the **sign and magnitude of the longitudinal composition gradient** through mercury-loss rate and cooling conditions.
 
-That makes the specific operation
+They grew positive-gradient HgCdTe by slider LPE and verified the longitudinal composition profile using
 
 ```text
-translate one internal high-gradient segment by 0.6 um
-while holding the same front/back compositions and contact-side cap
-```
-
-less direct than with time-programmable MBE/MOCVD.
-
-So the present ranking is
-
-```text
-MBE   -> strongest first route
-MOCVD -> credible, with diffusion-aware profile reconstruction
-LPE   -> possible only through a more elaborate multiple-growth/profile-engineering route;
-         not ruled out, but not the simplest implementation of this control.
-```
-
----
-
-## 5. Replace the Gaussian by a growth-programmable graded segment
-
-The Gaussian was not required by the physics.
-
-Use instead a compact unit feature `h(z)` in the **composition-slope magnitude**:
-
-```text
-total feature width = 1.00 um
-entrance slope ramp  = 0.10 um
-flat high-gradient   = 0.80 um
-exit slope ramp      = 0.10 um.
-```
-
-Let
-
-```math
-\boxed{
-s(z)=s_0[1+a(h(z)-\langle h\rangle)],
-\qquad a=4,
-}
-```
-
+etch-thinning spectroscopy
 and
+secondary-ion mass spectrometry (SIMS).
+```
+
+The reported positive-gradient material retained good crystal quality, with XRD double-crystal rocking-curve FWHM around `28.8 arcsec`.
+
+Therefore:
+
+> **LPE is a real composition-gradient programming route and should not be dismissed from the purpose-built experiment.**
+
+The remaining question is more specific.
+
+The 2024 work demonstrates controllable broad longitudinal gradient engineering; it does **not yet establish** the exact control operation required here:
+
+```text
+same collection-side cap/contact
+same absorber endpoints
+same total composition change
+compact ~1-um buried high-gradient segment
+translated by ~1-2 um between matched devices.
+```
+
+That localized translation is still more direct to specify in MBE/MOCVD, but it is now a **process-design question for LPE**, not an obvious impossibility.
+
+---
+
+## 5. Current process ranking
+
+The defensible ranking is therefore no longer
+
+```text
+MBE/MOCVD feasible; LPE only a fallback.
+```
+
+It is
+
+### MBE
+
+```text
+most direct route for time-programmed internal profile placement
+strong in-situ composition/thickness metrology precedent
+cleanest first candidate for matched translated segments.
+```
+
+### MOCVD
+
+```text
+strong heterostructure/graded-layer precedent
+realized profile must include precursor-switching and interdiffusion
+SIMS-based x(z) reconstruction fits the current inverse philosophy well.
+```
+
+### LPE
+
+```text
+experimentally demonstrated control of composition-gradient sign/magnitude
+through mercury-loss and cooling trajectory
+excellent relevance to the published A/B lineage
+but compact internal translation with fixed endpoints remains to be demonstrated.
+```
+
+No method has yet been shown, in the literature recovered here, to fabricate the **exact matched translated pair** proposed by this project.
+
+---
+
+## 6. Growth-programmable profile family
+
+The Gaussian slope modulation used earlier was only a mathematical prototype.
+
+The current design uses a compact programmed region in the composition-slope magnitude.
+
+Nominal scale:
+
+```text
+total width ~0.9-1.0 um
+edge transition ~0.1 um
+background gradient field of order a few 10^2 V/cm
+localized maximum ~2 kV/cm.
+```
+
+A mean-preserving slope construction keeps
 
 ```math
-x(z)=x(0)-\int_0^z s(u)du.
+\int_0^L \frac{dx}{dz}dz
 ```
 
-Use the same conceptual endpoints as the earlier translated-pair design:
+fixed, so both endpoint compositions remain fixed as the internal feature moves.
 
-```text
-L = 7.6 um
-x_front = 0.55
-x_back = 0.32.
-```
+The exact trapezoidal shape is not sacred.
 
-The mean subtraction keeps the integral of `s(z)` fixed, so translating the feature leaves both endpoints unchanged.
-
-This profile is continuous in composition, monotonic, and can be represented directly as a sequence of programmed composition ramps rather than as an abstract Gaussian tail.
+A process-specific reachable profile should replace it.
 
 ---
 
-## 6. The programmed profile reproduces the desired field contrast
+## 7. Edge sharpness is not a severe fabrication requirement
 
-For a feature centered at `2.6 um`, the composition-slope magnitude is approximately
-
-```text
-background dx/dz ~0.01593 /um
-high-gradient dx/dz ~0.13698 /um.
-```
-
-Using the Hansen gap derivative at 300 K, the resulting built-in-gradient field spans roughly
+A dedicated spatial-convergence calculation at `80`, `160`, and `320` transport cells found that programmed edge transitions from approximately
 
 ```text
-background ~214 V/cm
-feature maximum ~1.96 kV/cm.
+25 to 100 nm
 ```
 
-For the translated `3.2 um` device, the maximum is about `1.95 kV/cm`.
+lie on an essentially flat information plateau in the current model.
 
-Thus the piecewise-programmable version naturally reproduces the same
+A `100 nm` result is converged at the sub-percent level from `160` to `320` cells.
 
-```text
-~200 V/cm background
-vs
-~2 kV/cm localized gradient
-```
+Broadening to roughly `200 nm` costs about `30%` in fixed-time information amplitude.
 
-contrast that motivated the original published sample-A branch.
+Therefore there is no evidence that the experiment requires an atomically abrupt or ultrasharp internal interface.
 
----
-
-## 7. Concrete nominal composition coordinates
-
-For the `2.6 um` feature-center device, the programmed region spans roughly
-
-```text
-z = 2.1 to 3.1 um
-```
-
-with `0.1 um` transition ramps.
-
-Representative compositions are
-
-```text
-x(0.0) = 0.5500
-x(2.1) ~0.5166
-x(2.2) ~0.5089
-x(3.0) ~0.3993
-x(3.1) ~0.3917
-x(7.6) = 0.3200.
-```
-
-For the `3.2 um` translated device:
-
-```text
-x(0.0) = 0.5500
-x(2.7) ~0.5070
-x(2.8) ~0.4993
-x(3.6) ~0.3898
-x(3.7) ~0.3821
-x(7.6) = 0.3200.
-```
-
-These are **nominal design coordinates**, not required final growth targets.
-
-A real epitaxial design should be adjusted around process-specific composition limits, doping, cap/junction requirements, and measured interdiffusion.
-
----
-
-## 8. Strong numerical result — the fabrication-like profile improves identifiability
-
-Use the same finite-RF experiment:
-
-```text
-lambda = 2.00-2.80 um
-f = 0.25, 0.50, 1, 2, 3 GHz
-phase + ln|H|
-baseline v = 1e5 m/s
-illustrative 25% feature-supported transport perturbation
-common cubic bulk + four near-junction exponential nuisance shapes.
-```
-
-The maximum **absolute nuisance-orthogonal complex signal** on the tested feature-position grid remains
+A transition of order
 
 ```math
-\boxed{2.6\rightarrow3.2\ {\rm um}.}
+\boxed{0.1\ \mu{\rm m}}
 ```
 
-For this programmed profile:
-
-```text
-minimum Pabs >0.9967
-minimum |H| >0.987
-1-GHz differential phase p-p ~0.1843 deg
-
-matched-common-nuisance complex angle ~14.41 deg
-matched complex residual norm ~0.007871
-
-matched phase-only angle ~8.76 deg
-matched phase residual-vector norm ~0.2755 deg.
-```
-
-For comparison, the Gaussian profile at the same `2.6/3.2 um` centers gave
-
-```text
-complex angle ~5.48 deg
-complex residual ~0.002459
-phase residual ~0.0514 deg.
-```
-
-So the more fabrication-like segment is not merely acceptable.
-
-> **It substantially strengthens the mechanism-separation geometry in the current model.**
+is already near the resolved optimum.
 
 ---
 
-## 9. Angle-only optimum is again not the experimental optimum
+## 8. Total width is likewise tolerant
 
-The largest principal angle on the programmed-profile grid occurs around
-
-```text
-1.4 -> 1.8 um
-```
-
-with
+At fixed peak gradient field near `1.95 kV/cm`, the unblurred width scan gives a broad optimum around
 
 ```text
-complex angle ~22.0 deg
-complex residual ~0.00469.
+~0.9-1.1 um
 ```
 
-The `2.6 -> 3.2 um` pair has a smaller angle but a larger surviving signal:
+with approximately `1.0 um` best on the current numerical grid.
 
-```text
-angle ~14.41 deg
-residual ~0.00787.
-```
+After moderate interdiffusion the optimum shifts only slightly toward `~0.9 um`.
 
-Therefore the design objective remains
-
-```text
-maximize nuisance-orthogonal signal / expected covariance
-```
-
-rather than principal angle alone.
+This is favorable experimentally because the validation structure does not depend on one exact layer width.
 
 ---
 
-## 10. Measurement resource improves sharply
+## 9. The realized profile must be measured, not assumed
 
-Under the same provisional convention that phase and `ln|H|` components each have independent `0.10 degree`-equivalent noise, the programmed `2.6/3.2 um` pair gives
+The strongest recurring lesson from the inverse work is that **fabrication tolerance and profile-knowledge tolerance are not the same thing**.
 
-```math
-\boxed{{\rm SNR}_{\rm complex}\approx4.51.}
-```
+The device does not need to reproduce the nominal `x(z)` exactly if the realized profile can be characterized and propagated through the optical/RF model.
 
-The corresponding `3 sigma` equivalent component-noise ceiling is roughly
-
-```math
-\boxed{0.150^\circ.}
-```
-
-Thus the illustrative signal is already above `3 sigma` at the `0.10 degree` reference **if the nuisance amplitudes are genuinely common/matched**.
-
-Phase-only data are close:
+For the experiment, independent profile characterization is part of the measurement architecture:
 
 ```text
-SNR @0.10 deg ~2.75
-3-sigma phase-noise ceiling ~0.0918 deg
+SIMS where appropriate
+spectral/etch-thinning reconstruction
+XRD / ellipsometric growth metrology
+and process-specific calibration.
 ```
 
-which corresponds to only about `1.19x` the white-noise integration needed to move from `0.10` to `0.0918 degree`.
+The forward kernel should be calculated from the measured profile.
 
-This is a qualitative change from the published-A near-junction geometry.
-
----
-
-## 11. Matching remains essential
-
-Allow the same bulk/contact nuisance shapes to vary independently in the two devices.
-
-Then even the programmed pair drops to approximately
+What must be tightly matched physically is the part that cannot simply be corrected optically afterward, especially
 
 ```text
-complex principal angle ~0.235 deg
-phase-only principal angle ~0.053 deg.
+collection-side cap/contact/junction environment
+broad doping/process state
+and residual device-specific transport artifacts.
 ```
-
-So the stronger profile does **not** eliminate the need for a matched-control experiment.
-
-The key experimental claim remains:
-
-> **Move the internal gradient feature while holding the contact/cap/junction and broad process variables common.**
 
 ---
 
-## 12. Materials conclusion
+## 10. Current materials conclusion
 
-The current purpose-built experiment is no longer blocked by an obviously unphysical composition profile.
+The purpose-built experiment is **not blocked by an obviously unrealistic spatial scale**.
 
-The strongest route is now:
+The current physics asks for
 
 ```text
-MBE or diffusion-aware MOCVD
-+
-programmed ~1-um internal graded segment
-+
-~0.6-um controlled relocation
-+
-identical collection-side cap/contact design
-+
-post-growth x(z) characterization
-+
-wavelength x RF matched-pair measurement.
+micron-scale internal composition-gradient programming
+~0.1-um transition scale
+~1-2-um controlled relocation
+and matched boundary conditions.
 ```
 
-The `2.6 / 3.2 um` coordinates are still conditional numerical optima, not final layer specifications.
+All three major HgCdTe epitaxial families now have relevant composition-engineering precedent:
 
-But the relevant length scales are comfortably larger than demonstrated HgCdTe epitaxial layer-control scales.
+```text
+MBE   -> strongest direct placement precedent
+MOCVD -> strong graded-heterostructure precedent with explicit interdiffusion
+LPE   -> demonstrated programmable longitudinal gradient sign/magnitude.
+```
 
----
-
-## 13. What remains before calling the structure experimentally ready
-
-- choose a specific epitaxial platform and realistic growth temperature;
-- include expected interdiffusion/smoothing in the programmed profile;
-- specify doping and junction geometry while holding contact-side conditions matched;
-- propagate measured `x(z)` uncertainty through the optical/RF forward model;
-- recompute mismatch tolerances for the programmed profile rather than the Gaussian prototype;
-- audit prior art for deliberately **translated** internal graded-gap HgCdTe control pairs;
-- obtain real wavelength-dependent phase/magnitude covariance.
+What remains unproven is the **specific matched relocation structure**, not the general ability to engineer HgCdTe composition profiles.
 
 ---
 
-## 14. Primary materials references used for this feasibility boundary
+## 11. Next materials calculation
+
+The generic Gaussian interdiffusion model should now be replaced by a **process-specific reachable-profile model**.
+
+Three branches are meaningful:
+
+```text
+MBE:
+flux/shutter transient + Hg/Cd intermixing
+
+MOCVD:
+precursor switching + growth-temperature diffusion
+
+LPE:
+mercury-loss/cooling trajectory from the 2024 growth model.
+```
+
+For each branch, generate the reachable `x(z)` family and pass it directly through the interface-safe wavelength × RF design objective.
+
+That will tell us whether the idealized translated feature survives the actual growth physics.
+
+---
+
+## 12. Primary materials references
 
 1. N. N. Mikhailov et al., “Interband Electron Transitions Energy in Multiple HgCdTe Quantum Wells at Room Temperature,” *Photonics* **10**, 430 (2023), DOI `10.3390/photonics10040430`.
 2. V. S. Varavin et al., “Molecular beam epitaxy of high quality Hg1-xCdxTe films with control of the composition distribution,” *Journal of Crystal Growth* **159**, 1161-1166 (1996), DOI `10.1016/0022-0248(95)00845-4`.
 3. P. Madejczyk et al., “Engineering steps for optimizing high temperature LWIR HgCdTe photodiodes,” *Infrared Physics & Technology* **81**, 276-281 (2017), DOI `10.1016/j.infrared.2017.01.020`.
 4. W. Gawron and A. Rogalski, “HgCdTe buried multi-junction photodiodes fabricated by the liquid phase epitaxy,” *Infrared Physics & Technology* **43**, 157-163 (2002), DOI `10.1016/S1350-4495(02)00135-4`.
+5. Q. Huo et al., “Improved liquid phase epitaxy method for in-situ growth of HgCdTe with positive composition gradient,” *Journal of Infrared and Millimeter Waves* **43**, 307-315 (2024), DOI `10.11972/j.issn.1001-9014.2024.03.003`.
 
-Numerical implementation:
+Numerical design files:
 
-`numerics/hgcdte_programmed_translated_gradient_design.py`
+- `numerics/hgcdte_programmed_translated_gradient_design.py`
+- `numerics/hgcdte_programmed_joint_depth_spectral_design.py`
+- `numerics/hgcdte_relocation_edge_convergence.py`
+- `numerics/hgcdte_programmed_width_interdiffusion.py`
