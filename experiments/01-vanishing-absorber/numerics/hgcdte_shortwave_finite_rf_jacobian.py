@@ -70,7 +70,7 @@ def generation_probabilities(
     tau_edges = np.interp(edges, z_um, tau)
     p_abs = 1.0 - np.exp(-tau_edges[-1])
     if p_abs <= 1.0e-14:
-        raise RuntimeError("Zero modeled absorption in short-wave grid")
+        raise RuntimeError("Zero modeled absorption at requested wavelength")
 
     probability = (
         np.exp(-tau_edges[:-1]) - np.exp(-tau_edges[1:])
@@ -91,12 +91,19 @@ def path_overlap(centers_um: np.ndarray, edges_um: np.ndarray) -> np.ndarray:
     )
 
 
-def low_frequency_matrix(z_um: np.ndarray, x: np.ndarray) -> np.ndarray:
+def low_frequency_matrix(
+    z_um: np.ndarray,
+    x: np.ndarray,
+    wavelengths: np.ndarray | None = None,
+) -> np.ndarray:
     """Mean-delay spatial matrix from cell-binned generation probability."""
+    if wavelengths is None:
+        wavelengths = LAMBDA_GRID
+
     rows = []
-    for wavelength in LAMBDA_GRID:
+    for wavelength in wavelengths:
         probability, centers, edges = generation_probabilities(
-            z_um, x, wavelength
+            z_um, x, float(wavelength)
         )
         rows.append(probability @ path_overlap(centers, edges))
     return np.asarray(rows)
@@ -106,16 +113,28 @@ def finite_rf_jacobian(
     z_um: np.ndarray,
     x: np.ndarray,
     frequencies_ghz: tuple[float, ...],
+    wavelengths: np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Return d ln H / d q_j and baseline H for each f,lambda."""
+    """Return d ln H / d q_j and baseline H for each f,lambda.
+
+    If `wavelengths` is omitted, use the canonical 2.00-2.80 um short-wave
+    grid. An explicit grid is accepted so the same validated finite-RF operator
+    can be reused by later mid/deep or purpose-built device design studies.
+    """
+    if wavelengths is None:
+        wavelengths = LAMBDA_GRID
+    wavelengths = np.asarray(wavelengths, dtype=float)
+
     edges = np.linspace(0.0, float(z_um[-1]), N_CELL + 1)
     centers = 0.5 * (edges[:-1] + edges[1:])
     overlap = path_overlap(centers, edges)
     baseline_time_ps = Q0_PS_PER_UM * centers
 
     probability_by_lambda = []
-    for wavelength in LAMBDA_GRID:
-        probability, _, _ = generation_probabilities(z_um, x, wavelength)
+    for wavelength in wavelengths:
+        probability, _, _ = generation_probabilities(
+            z_um, x, float(wavelength)
+        )
         probability_by_lambda.append(probability)
     probability_by_lambda = np.asarray(probability_by_lambda)
 
@@ -288,7 +307,7 @@ def main() -> None:
         f"1-GHz phase-only = {improvement:.2f}x"
     )
 
-    # Stable regression anchors.
+    # Stable numerical regressions for the canonical short-wave grid.
     assert 0.997 < min_abs_h["1GHz"] < 0.999
     assert 0.981 < min_abs_h["multi"] < 0.983
 
