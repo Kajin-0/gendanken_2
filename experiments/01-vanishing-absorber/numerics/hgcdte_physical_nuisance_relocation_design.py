@@ -1,25 +1,31 @@
 """Physical-nuisance design for downstream graded-HgCdTe relocation metrology.
 
-This is the first design calculation built on the physics-derived downstream
-first-passage drift-diffusion operator rather than the earlier ad hoc 25% local
-delay perturbation.
+This file uses the physics-derived downstream first-passage drift-diffusion
+operator rather than the earlier ad hoc 25% local-delay perturbation.
 
-Target parameter
-----------------
-The realized optical composition profile x(z) is held fixed. In the transport
-field only, decompose the composition-slope magnitude as
+Important numerical correction
+------------------------------
+Do NOT finite-difference `np.log(H)` directly at high RF. The principal complex
+logarithm can cross a branch cut and create artificial 2*pi phase derivative
+spikes. All derivatives here use the branch-safe identity
 
-    s_eff(z; eta) = s0 + eta [s(z)-s0],
+    d ln H / dp = (1/H) dH/dp
 
-where s0=(x_front-x_back)/L and s(z) is the programmed profile slope.
+with dH/dp evaluated by centered finite differences.
 
-eta=1 -> full programmed local-gradient transport field;
-eta=0 -> smooth same-endpoint background field evaluated on the same optical
-         x(z) profile.
+A previous revision of this file used direct principal-log differences and
+therefore overstated high-RF mechanism separation. That result is superseded.
 
-`eta` is a statistical mechanism coordinate, not a physically switchable field.
-Its derivative asks whether wavelength x RF data require the localized excess
-field pattern beyond a smooth graded-transport background.
+Target coordinate
+-----------------
+The realized optical x(z) profile is fixed. For transport sensitivity only,
+
+    s_eff(z;eta)=s0 + eta [s(z)-s0].
+
+eta=1 gives the full programmed local-gradient transport field; eta=0 replaces
+its localized slope deviation by a smooth same-endpoint background while keeping
+the same optical x(z). `eta` is a statistical mechanism coordinate, not a
+physically switchable field.
 
 Central sensitivity point
 -------------------------
@@ -34,49 +40,43 @@ These are sensitivity coordinates, NOT a calibrated device parameter set.
 
 Physical nuisance parameters
 ----------------------------
-The eta derivative is marginalized against free common derivatives with respect
-to
+Marginalize the eta derivative against free common derivatives with respect to
 
     ln mu, ln chi_E, ln tau_rec, ln v_sat, ln S.
 
-An arbitrary wavelength-independent phase and log-magnitude offset is also
-allowed independently for every device and RF frequency.
+Also allow one arbitrary wavelength-independent phase and ln|H| offset for every
+device and RF frequency.
 
 Measurement weighting
 ---------------------
 A provisional statistics-like complex-log-response weight is
 
-    w(lambda,f) = |H| sqrt(Pabs * Cdc),
+    w(lambda,f)=|H| sqrt(Pabs*Cdc).
 
-where Cdc is the modeled DC collection probability. This captures the basic
-fact that high-RF points and weakly collected wavelengths carry less phase/
-log-magnitude information. It is NOT a replacement for measured covariance.
+This is only a design stress, not measured covariance.
 
-Design score
-------------
-After whitening and nuisance projection,
+Corrected result
+----------------
+After branch-safe differentiation, the central reduced model remains highly
+mechanism-degenerate. High RF gives a large measurable transport response, but
+letting the generic high-field transport law float freely removes almost all of
+the localized-gradient attribution information.
 
-    score = ||d_eta_perp|| / sqrt(N_device N_f N_lambda).
+For RF = 0.5,1,2,3 GHz and lambda=2.00-2.40 um, the best fixed-resource depth
+counts on the current 0.2-um grid are approximately
 
-This is proportional to a fixed-total-resource mechanism SNR under the stated
-noise convention. Absolute score is not an experimental sigma value.
+    2 depths: 5.2,5.6 um
+    3 depths: 2.4,5.2,5.6 um  <- best score
+    4 depths: 3.4,4.4,5.2,5.6 um
+    5 depths: 2.4,3.4,4.4,5.2,5.6 um.
 
-Main result
------------
-On the current feature-center grid 2.0-5.6 um in 0.2-um steps, using the dense
-2.00-2.40 um wavelength grid and RF support 1.5,2.0,2.5,3.0 GHz, the best
-four-depth design is approximately
+The best three-depth target lies only ~0.12 deg from the five-parameter physical
+nuisance span. Adding devices or high RF does not solve this structural
+attribution problem by itself.
 
-    2.4, 2.8, 5.2, 5.6 um.
-
-A fifth depth adds only about 0.5% fixed-time score. High RF is essential: for
-this four-depth set, 1.5/3.0 GHz already carries nearly the same information as
-four high-RF points, whereas 0.25/0.5/1.0 GHz is strongly degenerate with the
-physical transport nuisances.
-
-The exact wavelength support is deliberately NOT frozen here. A fine-grid
-sparse optimizer exploits sharp optical-threshold structure and must first be
-stressed against composition/absorption-model uncertainty.
+The next design resource is therefore INDEPENDENT calibration/constraint of the
+generic transport law, especially the high-field velocity relation, rather than
+more uncalibrated spectral/RF dimensions.
 
 No novelty claim.
 """
@@ -91,9 +91,6 @@ from hgcdte_downstream_drift_diffusion_relocation import (
     LAMBDA_GRID_UM,
     programmed_profile,
     generation_density,
-    effective_field_v_cm,
-    drift_velocity_cm_s,
-    KBT_OVER_Q_V,
     solve_backward_transform,
 )
 
@@ -108,10 +105,9 @@ CENTRAL = {
 
 POSITION_GRID_UM = np.arange(2.0, 5.6001, 0.2)
 POSITION_MIN_SPACING_UM = 0.4
-OPT_RF_GHZ = (1.5, 2.0, 2.5, 3.0)
-RF_CANDIDATE_GHZ = (0.25, 0.50, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0)
+DESIGN_RF_GHZ = (0.5, 1.0, 2.0, 3.0)
 NUISANCE_NAMES = ("mu", "chi", "tau", "vsat", "surface")
-FINITE_DIFFERENCE_LOG_STEP = 0.01
+FINITE_DIFFERENCE_STEP = 0.01
 
 
 def transfer_eta(
@@ -126,16 +122,10 @@ def transfer_eta(
     surface_recombination_cm_s: float = 1.0e5,
     n_grid: int = 201,
 ):
-    """Return normalized H, Pabs and DC collection for one feature depth."""
     z_um, x, _, slope = programmed_profile(z0_um, n_grid)
     smooth_slope = (0.55 - 0.32) / 7.6
     effective_slope = smooth_slope + eta * (slope - smooth_slope)
 
-    field = effective_field_v_cm(x, effective_slope, field_fraction)
-
-    # Reuse the canonical backward solver by providing an equivalent slope and
-    # field fraction. Since effective_field_v_cm is linear in slope, the direct
-    # solver call below is exact for the current reduced model.
     dc_transform, _, _, _ = solve_backward_transform(
         z_um,
         x,
@@ -156,11 +146,7 @@ def transfer_eta(
 
     dc_collection = np.asarray(
         [
-            float(
-                np.real(
-                    np.trapezoid(density * dc_transform, z_cm)
-                )
-            )
+            float(np.real(np.trapezoid(density * dc_transform, z_cm)))
             for density, _ in optical
         ]
     )
@@ -194,7 +180,7 @@ def raw_log_derivatives(
     frequencies_ghz: tuple[float, ...],
     n_grid: int = 201,
 ):
-    """Finite-difference mechanism/nuisance derivatives of complex ln H."""
+    """Branch-safe finite differences of d ln H / dp = (dH/dp)/H."""
     kwargs = dict(
         frequencies_ghz=frequencies_ghz,
         eta=CENTRAL["eta"],
@@ -206,18 +192,16 @@ def raw_log_derivatives(
         n_grid=n_grid,
     )
     h0, pabs, dc_collection = transfer_eta(z0_um, **kwargs)
-
+    step = FINITE_DIFFERENCE_STEP
     derivatives = {}
-    step = FINITE_DIFFERENCE_LOG_STEP
 
     plus = dict(kwargs)
     minus = dict(kwargs)
     plus["eta"] += step
     minus["eta"] -= step
-    derivatives["eta"] = (
-        np.log(transfer_eta(z0_um, **plus)[0])
-        - np.log(transfer_eta(z0_um, **minus)[0])
-    ) / (2.0 * step)
+    h_plus = transfer_eta(z0_um, **plus)[0]
+    h_minus = transfer_eta(z0_um, **minus)[0]
+    derivatives["eta"] = (h_plus - h_minus) / (2.0 * step * h0)
 
     mapping = {
         "mu": "mobility_cm2_vs",
@@ -231,10 +215,9 @@ def raw_log_derivatives(
         minus = dict(kwargs)
         plus[key] *= np.exp(step)
         minus[key] *= np.exp(-step)
-        derivatives[name] = (
-            np.log(transfer_eta(z0_um, **plus)[0])
-            - np.log(transfer_eta(z0_um, **minus)[0])
-        ) / (2.0 * step)
+        h_plus = transfer_eta(z0_um, **plus)[0]
+        h_minus = transfer_eta(z0_um, **minus)[0]
+        derivatives[name] = (h_plus - h_minus) / (2.0 * step * h0)
 
     return h0, pabs, dc_collection, derivatives
 
@@ -250,76 +233,56 @@ def qr_project_residual(target: np.ndarray, nuisance: np.ndarray) -> np.ndarray:
 
 def build_cache(frequencies_ghz: tuple[float, ...]):
     return {
-        round(float(z0), 6): raw_log_derivatives(
-            float(z0), frequencies_ghz
-        )
+        round(float(z0), 6): raw_log_derivatives(float(z0), frequencies_ghz)
         for z0 in POSITION_GRID_UM
     }
 
 
-def design_score(
-    depths_um: tuple[float, ...],
-    frequencies_ghz: tuple[float, ...],
-    cache,
-):
+def design_score(depths_um: tuple[float, ...], frequencies_ghz, cache):
     data = [cache[round(float(z), 6)] for z in depths_um]
     n_device = len(depths_um)
     n_frequency = len(frequencies_ghz)
     n_lambda = len(LAMBDA_GRID_UM)
 
-    weights = []
-    for h0, pabs, dc_collection, _ in data:
-        weights.append(
+    weights = np.asarray(
+        [
             np.sqrt(pabs * dc_collection)[None, :] * np.abs(h0)
-        )
-    weights = np.asarray(weights)
+            for h0, pabs, dc_collection, _ in data
+        ]
+    )
 
     def parameter_array(name: str):
         return np.stack([item[3][name] for item in data])
 
     def flatten_weighted(values: np.ndarray):
         return np.concatenate(
-            (
-                (values.imag * weights).ravel(),
-                (values.real * weights).ravel(),
-            )
+            ((values.imag * weights).ravel(), (values.real * weights).ravel())
         )
 
     target = flatten_weighted(parameter_array("eta"))
     nuisance_columns = [
-        flatten_weighted(parameter_array(name))
-        for name in NUISANCE_NAMES
+        flatten_weighted(parameter_array(name)) for name in NUISANCE_NAMES
     ]
 
-    # Free wavelength-independent phase and ln|H| offset for every device/RF.
+    # One free wavelength-independent phase and magnitude offset per device/RF.
     for device in range(n_device):
         for frequency in range(n_frequency):
-            phase_offset = np.zeros(
-                (n_device, n_frequency, n_lambda), dtype=complex
-            )
-            phase_offset[device, frequency, :] = 1j
-            nuisance_columns.append(flatten_weighted(phase_offset))
+            phase = np.zeros((n_device, n_frequency, n_lambda), dtype=complex)
+            phase[device, frequency, :] = 1j
+            nuisance_columns.append(flatten_weighted(phase))
 
-            magnitude_offset = np.zeros(
-                (n_device, n_frequency, n_lambda), dtype=complex
-            )
-            magnitude_offset[device, frequency, :] = 1.0
-            nuisance_columns.append(flatten_weighted(magnitude_offset))
+            magnitude = np.zeros((n_device, n_frequency, n_lambda), dtype=complex)
+            magnitude[device, frequency, :] = 1.0
+            nuisance_columns.append(flatten_weighted(magnitude))
 
-    nuisance = np.column_stack(nuisance_columns)
-    residual = qr_project_residual(target, nuisance)
-
+    residual = qr_project_residual(target, np.column_stack(nuisance_columns))
     residual_norm = float(np.linalg.norm(residual))
     target_norm = float(np.linalg.norm(target))
     angle = float(
-        np.degrees(
-            np.arcsin(np.clip(residual_norm / target_norm, 0.0, 1.0))
-        )
+        np.degrees(np.arcsin(np.clip(residual_norm / target_norm, 0.0, 1.0)))
     )
     score = residual_norm / np.sqrt(n_device * n_frequency * n_lambda)
-    minimum_h = float(
-        min(np.min(np.abs(item[0])) for item in data)
-    )
+    minimum_h = float(min(np.min(np.abs(item[0])) for item in data))
     return score, angle, residual_norm, target_norm, minimum_h
 
 
@@ -330,7 +293,7 @@ def optimize_depths(n_device: int, cache):
         if np.min(np.diff(depths)) < POSITION_MIN_SPACING_UM - 1.0e-12:
             continue
         depths = tuple(float(value) for value in depths)
-        result = design_score(depths, OPT_RF_GHZ, cache)
+        result = design_score(depths, DESIGN_RF_GHZ, cache)
         count += 1
         if best is None or result[0] > best[1][0]:
             best = (depths, result)
@@ -340,10 +303,9 @@ def optimize_depths(n_device: int, cache):
 
 
 def main() -> None:
-    cache = build_cache(OPT_RF_GHZ)
-
-    print("Physics-derived localized-gradient mechanism design")
-    print(f"RF support = {OPT_RF_GHZ} GHz")
+    cache = build_cache(DESIGN_RF_GHZ)
+    print("Branch-safe physical-nuisance relocation design")
+    print(f"RF support = {DESIGN_RF_GHZ} GHz")
     print(
         f"lambda = {LAMBDA_GRID_UM[0]:.2f}-{LAMBDA_GRID_UM[-1]:.2f} um, "
         f"N={len(LAMBDA_GRID_UM)}"
@@ -362,65 +324,61 @@ def main() -> None:
         )
         print()
 
-    four_depths = designs[4][0]
-
-    # RF ablation on the final four-depth geometry. Build separate caches so the
-    # per-RF free offsets are handled correctly.
+    best_three = designs[3][0]
     rf_tests = {
         "low": (0.25, 0.50, 1.0),
-        "sparse_high": (1.5, 3.0),
-        "high": OPT_RF_GHZ,
+        "mid_high": DESIGN_RF_GHZ,
+        "high_only": (1.5, 2.0, 2.5, 3.0),
     }
     rf_results = {}
     for label, frequencies in rf_tests.items():
         test_cache = {
             round(float(z), 6): raw_log_derivatives(float(z), frequencies)
-            for z in four_depths
+            for z in best_three
         }
-        value = design_score(four_depths, frequencies, test_cache)
+        value = design_score(best_three, frequencies, test_cache)
         rf_results[label] = value
         print(
             f"RF {label} {frequencies}: score={value[0]:.9f}; "
             f"angle={value[1]:.6f} deg; min |H|={value[4]:.6f}"
         )
 
-    # Regression anchors.
+    # Regression anchors from the corrected branch-safe calculation.
     assert designs[2][0] == (
-        2.8000000000000007,
+        5.200000000000003,
         5.600000000000003,
     )
     assert designs[3][0] == (
         2.4000000000000004,
-        2.8000000000000007,
-        5.600000000000003,
-    )
-    assert designs[4][0] == (
-        2.4000000000000004,
-        2.8000000000000007,
         5.200000000000003,
         5.600000000000003,
     )
-    assert 0.00513 < designs[4][1][0] < 0.00516
-    assert 4.49 < designs[4][1][1] < 4.52
-    assert 0.144 < designs[4][1][4] < 0.146
+    assert designs[4][0] == (
+        3.4000000000000012,
+        4.400000000000002,
+        5.200000000000003,
+        5.600000000000003,
+    )
+    assert 0.000158 < designs[3][1][0] < 0.000160
+    assert 0.121 < designs[3][1][1] < 0.123
+    assert designs[4][1][0] < designs[3][1][0]
+    assert designs[5][1][0] < designs[3][1][0]
 
-    assert 0.00516 < designs[5][1][0] < 0.00519
-    assert designs[5][1][0] / designs[4][1][0] < 1.01
-
-    assert rf_results["low"][0] < 1.4e-4
-    assert 0.00509 < rf_results["sparse_high"][0] < 0.00512
-    assert 0.00513 < rf_results["high"][0] < 0.00516
+    assert 0.000137 < rf_results["low"][0] < 0.000140
+    assert 0.000158 < rf_results["mid_high"][0] < 0.000160
+    assert 0.000145 < rf_results["high_only"][0] < 0.000148
 
     print()
     print(
-        "PASS: after replacing arbitrary delay nuisances with a physical central "
-        "transport parameterization, high-RF complex response becomes the main "
-        "mechanism-separation resource. On the current grid, four feature depths "
-        "2.4/2.8/5.2/5.6 um with 1.5-3 GHz data nearly saturate fixed-time "
-        "information; a fifth depth adds <1%. Low <=1-GHz data remain strongly "
-        "degenerate with mobility/lifetime/field/velocity-law changes. Exact "
-        "wavelength supports are not frozen until optical-profile uncertainty is "
-        "included."
+        "PASS: branch-safe differentiation removes the false high-RF Fisher "
+        "advance. The physics-derived transport response itself remains large, "
+        "but the localized-gradient mechanism derivative is still nearly inside "
+        "the span of generic mobility/field/lifetime/velocity/surface changes. "
+        "Three depths are enough to saturate the current no-prior design; adding "
+        "more uncalibrated devices or RF points does not resolve attribution. "
+        "Independent transport-law calibration or informative physical priors are "
+        "therefore mandatory before claiming the localized gradient caused a "
+        "measured timing change."
     )
 
 
