@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **open theoretical/experimental-method exploration; active frontier is few-mode differential wavelength × RF transport metrology in graded HgCdTe, with sample-B iso-kernel calibration and paired A/B validation; no novelty claim**
+**Current mode:** **open theoretical/experimental-method exploration; strongest frontier is a purpose-built matched translated-gradient HgCdTe wavelength × RF validation experiment; no novelty claim**
 
 Read this file first.
 
@@ -53,67 +53,87 @@ Do not use `first`, `new fundamental`, `universal`, etc. without a focused prima
 vanishing-absorber thought experiment
 -> universal active-volume route killed
 
-abstract optical/network/control branches
--> successive resource loopholes
+abstract optical/network/control resource branches
+-> successive loopholes and counterexamples
 
-HgCdTe transport / tunneling / grading
--> material-specific branch
+HgCdTe material branch
+-> graded composition + wavelength-dependent generation
 
-wavelength-resolved generation
--> spectral coordinate inside a monotonic gap
-
-ballistic timing peak
--> proposed then killed as universal by momentum-scattering models
+ballistic timing-peak idea
+-> killed as universal by momentum-scattering dependence
 
 inverse reformulation
--> known optical kernels + timing -> internal delay-density modes
+-> known optical kernels + timing response -> differential transport modes
 
 orientation correction
--> downstream collection uses CDF kernel
 -> front collection uses survival kernel
 
-identifiability correction
--> wavelength-independent boundary/common delay and broadening are gauge-like
+boundary-gauge correction
+-> near-junction transport becomes nearly wavelength independent
+-> common delay/broadening cannot be separated generically
 
 published 2023 sample B
--> W ~3.7 um
--> nonlinear region removed
--> weak 100-200 V/cm linear gradient
--> smooth calibration/control case
+-> smooth calibration/control
+-> few strongly conditioned spectral transport modes
 
-published sample B dimensional optics
--> mean generation depth shifts by ~2.85 um over useful MWIR sweep
--> only a few spatial modes are strongly conditioned
+published sample A
+-> retained near-junction nonlinear/high-field region
+-> short wavelengths restore raw visibility
 
-phase-noise audit
--> subtle internal structure produces sub-degree residual phase
--> wavelength-dependent absorbed signal makes covariance heteroscedastic
+paired A/B identifiability audit
+-> arbitrary smooth A and B profiles overlap strongly
+-> paired data are calibrated contrast, not two independent inverses
 
-optimal design
--> first 3 transport modes + common phase need ~4 information-rich wavelength bands
--> uniform dense sampling is inefficient
+short-wave calibration audit
+-> wavelength optimization alone cannot remove smooth-mode calibration floor
+-> mid/deep A data cannot cheaply self-calibrate that floor
 
-RF-frequency audit
--> usable first-moment phase band scales with transport speed
--> full complex fit required at higher normalized frequency
+finite-RF audit
+-> RF diversity rotates sensitivity kernels
+-> does not cure near-junction mechanism degeneracy
 
-paired A/B protocol
--> same-source A-B subtraction cancels arbitrary wavelength-dependent source phase
--> sample A supplies nonlinear/high-field contrast
+contact/interface confounding
+-> published sample-A fingerprint can be mimicked by boundary-localized transport
+-> published A/B is not a clean causal mechanism pair
 
-sample-B temperature iso-kernel design
--> mid/deep optical timing kernels can be held nearly invariant by retuning wavelength
--> fixed-wavelength temperature comparisons are optically confounded
+PURPOSE-BUILT PIVOT
+-> matched C/G1/G2 device family
+-> same boundary conditions, same endpoints
+-> internal compact gradient feature translated in depth
 
-compatibility correction
--> paired common-source cancellation and independent A/B iso-kernel wavelengths cannot be combined automatically
--> need one common JOINT iso-kernel wavelength schedule or explicit kernel modeling
+relocation identity
+-> translated feature probes spatial derivative of the sensitivity kernel
+-> flat feature gives signed edge fingerprint A[K(b)-K(a)]
+
+programmed composition profile
+-> endpoint-preserving ~1-um high-gradient segment
+-> ~0.1-um edge transitions
+-> local field scale ~2 kV/cm
+
+interface-safe joint design
+-> include front AND back boundary nuisances
+-> hold total wavelength-time resource fixed
+-> include Pabs-dependent phase precision
+-> stable interior design around feature centers ~4.1 and ~5.5-5.6 um
+-> wavelength band ~2.00-2.40 um
+
+shape convergence
+-> 25-100 nm edge ramps lie on an information plateau
+-> useful total width ~0.9-1.1 um
+-> moderate interdiffusion degrades information gradually
+
+materials feasibility
+-> MBE: strong direct composition-programming precedent
+-> MOCVD: graded-layer precedent with measurable interdiffusion
+-> LPE: 2024 work demonstrates controllable longitudinal gradient sign/magnitude
 
 CURRENT FRONTIER
--> recover sample A x(z)
--> build A_A(T,lambda) and A_B(T,lambda)
--> test whether a common joint iso-kernel schedule exists
--> then perform paired A/B transport-contrast validation.
+-> choose one actual growth route
+-> generate a process-reachable matched translated x(z) family
+-> run that family through the interface-safe fixed-resource wavelength x RF design
+-> recompute final mismatch tolerances
+-> recover the unresolved 2024 Applied Optics close-collision paper
+-> obtain real wavelength x RF covariance / drift.
 ```
 
 ---
@@ -124,20 +144,24 @@ CURRENT FRONTIER
 2. `README.md`
 3. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
 4. `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-5. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`
-6. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_SAMPLE_B_DIMENSIONAL_FORWARD_MATRIX.md`
-7. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_SAMPLE_B_HETEROSCEDASTIC_PHASE_NOISE.md`
-8. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_SAMPLE_B_OPTIMAL_MEASUREMENT_DESIGN.md`
-9. `experiments/01-vanishing-absorber/HGCDTE_SAMPLE_B_RF_FREQUENCY_VALIDITY.md`
-10. `experiments/01-vanishing-absorber/HGCDTE_TEMPERATURE_ISO_KERNEL_DESIGN.md`
-11. `experiments/01-vanishing-absorber/HGCDTE_PAIRED_SAMPLE_AB_DIFFERENTIAL_PHASE.md`
-12. `experiments/01-vanishing-absorber/HGCDTE_PAIRED_AB_TEMPERATURE_DESIGN.md`
-13. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
-14. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
-15. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-16. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+5. `experiments/01-vanishing-absorber/HGCDTE_TRANSLATED_GRADIENT_PRIOR_ART_BOUNDARY.md`
+6. `experiments/01-vanishing-absorber/HGCDTE_PROGRAMMED_INTERFACE_SAFE_JOINT_DESIGN.md`
+7. `experiments/01-vanishing-absorber/HGCDTE_RELOCATION_EDGE_ENCODING.md`
+8. `experiments/01-vanishing-absorber/HGCDTE_PROGRAMMED_WIDTH_INTERDIFFUSION.md`
+9. `experiments/01-vanishing-absorber/HGCDTE_PROGRAMMED_TRANSLATED_GRADIENT_FEASIBILITY.md`
+10. `experiments/01-vanishing-absorber/HGCDTE_TRANSLATED_GRADIENT_MATCHING_TOLERANCES.md`
+11. `experiments/01-vanishing-absorber/HGCDTE_CONTACT_INTERFACE_CONFOUNDING.md`
+12. `experiments/01-vanishing-absorber/HGCDTE_SHORTWAVE_FINITE_RF_JACOBIAN.md`
+13. `experiments/01-vanishing-absorber/HGCDTE_SAMPLE_A_CROSSBAND_SELF_CALIBRATION.md`
+14. `experiments/01-vanishing-absorber/HGCDTE_SAMPLE_A_SHORTWAVE_GLOBAL_DESIGN.md`
+15. `experiments/01-vanishing-absorber/HGCDTE_PAIRED_AB_JOINT_IDENTIFIABILITY.md`
+16. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_LINEAR_INVERSE.md`
+17. `experiments/01-vanishing-absorber/HGCDTE_PUBLISHED_SAMPLE_B_DIMENSIONAL_FORWARD_MATRIX.md`
+18. `experiments/01-vanishing-absorber/HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
+19. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
+20. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
 
-Older ballistic-peak, normalized-kernel, optical-resource, and active-volume branches are provenance/supporting work, not the active claim.
+Older universal-resource, ballistic-peak, and published-A rescue branches are provenance/supporting work, not the current mechanism-validation design.
 
 ---
 
@@ -146,17 +170,33 @@ Older ballistic-peak, normalized-kernel, optical-resource, and active-volume bra
 Do **not** claim novelty for
 
 - wavelength-dependent absorption / generation depth;
-- wavelength-dependent photodiode timing/bandwidth;
+- wavelength-dependent photodetector timing/bandwidth;
 - graded-bandgap carrier transport;
-- wavelength- and depth-dependent generation in graded HgCdTe;
-- graded-HgCdTe forward response-time modeling;
-- localized-position HgCdTe transit measurements.
+- composition-gradient built-in fields in HgCdTe;
+- high-speed / RF graded-HgCdTe response;
+- graded-HgCdTe spectral response;
+- wavelength/depth forward generation modeling;
+- localized-position HgCdTe transit measurements;
+- optical-load-dependent HgCdTe transient response;
+- programmable positive HgCdTe composition gradients by LPE.
 
-Sang et al. 2022 already combine wavelength/depth generation with graded-HgCdTe forward transport/response modeling.
+Sang et al. 2022 already measure high-speed graded-HgCdTe response and explicitly model composition-gradient-induced carrier transport. Their experiment includes `1550 nm` impulse/RF excitation, `50 MHz-1 GHz` frequency response, and `2 um` switching tests.
 
 Perrais et al. already use localized excitation to study HgCdTe transit timing.
 
-A 2024 same-group paper titled `Potential application of HgCdTe detector with composition gradient in laser measurement` remains an unresolved close collision. Its title/metadata are known; its technical content has not been recovered. Treat priority as unresolved until it is read.
+Huo et al. 2024 already demonstrate controlled positive longitudinal HgCdTe composition gradients by LPE.
+
+A 2024 same-group paper titled
+
+`Potential application of HgCdTe detector with composition gradient in laser measurement`
+
+DOI `10.5768/JAO202445.0310009`
+
+remains an unresolved close collision. Its metadata are verified; its technical content has not been recovered.
+
+Current allowed wording:
+
+> **candidate underexplored inverse-metrology / matched-relocation validation method; priority unproven.**
 
 ---
 
@@ -186,21 +226,15 @@ S_i(s)=P(X_g\ge s).
 }
 ```
 
-Use **cell-integrated kernels**:
+Use cell-integrated kernels:
 
 ```math
 \boxed{
 A_{ij}=\int_{\mathrm{cell }j}K_i(s)ds,
+\qquad
+\mathbf T=\mathbf A\mathbf q_1.
 }
 ```
-
-so
-
-```math
-\boxed{\mathbf T=\mathbf A\mathbf q_1.}
-```
-
-Published samples A/B are front-collection / survival-kernel geometries.
 
 Only under a local path-additive interpretation may one identify
 
@@ -210,52 +244,25 @@ q_1=1/v_{\rm eff}.
 
 ---
 
-## 7. Common-mode gauge
+## 7. Boundary/common-mode gauge
 
-Do not claim arbitrary wavelength-independent common delay or broadening is uniquely separable from arbitrary boundary-localized internal transport.
+For front collection,
 
-Use
-
-```text
-differential phase/timing
-independent common-chain calibration
-boundary priors
-or lower-dimensional physical models.
+```math
+S_i(0)=1
 ```
 
-Regularization selecting one split is not structural identifiability evidence.
+for every wavelength.
+
+Near-junction transport therefore becomes almost wavelength independent and is generically confounded with common delay/electrical phase.
+
+This gauge is one of the main reasons the published sample-A near-junction feature is no longer the strongest validation geometry.
+
+Regularization selecting one decomposition is not structural identifiability evidence.
 
 ---
 
-## 8. Two timing moments
-
-For the orientation-correct kernel `K_i`, additive conditional cumulants give
-
-```math
-\boxed{\mu_i=\int K_iq_1,}
-```
-
-```math
-\boxed{
-\sigma_i^2
-=\int K_iq_2
-+\operatorname{Var}_{p_i}[m(X)].
-}
-```
-
-Only under a local high-Peclet drift-diffusion approximation:
-
-```math
-q_1=1/v,
-\qquad
-q_2\simeq2D/v^3.
-```
-
-Do not call `q_2` microscopic diffusion without validation.
-
----
-
-## 9. Complex-response observable
+## 8. Full complex response
 
 ```math
 H_i(\Omega)=\langle e^{-i\Omega T_i}\rangle.
@@ -271,245 +278,224 @@ Low-frequency cumulants:
 \ln|H_i|=-\frac{\Omega^2}{2}\sigma_i^2+O(\Omega^4).
 ```
 
-At higher normalized frequency fit the full complex transfer.
+At higher normalized RF frequency, fit the full complex transfer.
+
+RF diversity is useful but cannot replace a clean physical control geometry.
 
 ---
 
-## 10. Published sample B — current calibration envelope
+## 9. Matched-relocation identity
 
-```text
-W ~3.7 um
-nominal x ~0.316
-nonlinear interdiffusion region removed
-junction at high-Cd end
-remaining linear-gradient field ~100-200 V/cm.
-```
-
-Current 300 K central envelope uses correct Hansen gap plus Moazzami above-gap absorption.
-
-Representative result:
-
-```text
-2.80 um -> Pabs~0.998, mean depth~0.677 um
-3.88 um -> Pabs~0.070, mean depth~3.523 um.
-```
-
-Thus
+For a localized feature `q_f(z-z0)`:
 
 ```math
-\Delta\langle z\rangle\approx2.85\ {\rm um}.
+y(\lambda,f;z_0)=\int K_{\lambda,f}(z)q_f(z-z_0)dz.
 ```
 
-At illustrative `v_eff=1e5 m/s`, this is about `28.5 ps` or `10.25 degrees` at `1 GHz`.
-
-Real optical matrix mode counts above relative thresholds `[1e-1,1e-2,1e-3,1e-4]`:
-
-```text
-100 V/cm -> [2,5,10,20]
-150 V/cm -> [2,5,10,21]
-200 V/cm -> [2,5,11,23].
-```
-
-Interpretation: **few-mode band-limited tomography**.
-
----
-
-## 11. Experimental covariance / optimal design
-
-Do not use equal phase noise as the default at fixed incident power.
-
-Current retained-end absorbed-signal ratio is about `17.6`.
-
-Illustrative fixed-power phase scalings:
-
-```text
-statistics-like: sigma_phi proportional to Pabs^(-1/2)
-additive-like: sigma_phi proportional to Pabs^(-1).
-```
-
-The experimentally relevant matrix is noise-whitened and common-mode projected.
-
-For a reduced target of 3 transport modes + 1 common-phase nuisance, D-optimal wavelength/time design uses about four support bands.
-
-Statistics-like:
-
-```text
-2.800, 3.410, 3.632, 3.840 um.
-```
-
-Additive-like:
-
-```text
-2.800, 3.400, 3.596, 3.780 um.
-```
-
-These are conditional design results, not universal wavelengths.
-
----
-
-## 12. RF-frequency rule
-
-For the current sample-B optical distributions and deterministic `T=z/v`, an illustrative `|H|>0.98` envelope is
-
-```math
-\boxed{f_{\max}\approx0.13\,v/W.}
-```
-
-This is optical-only and nonuniversal. Stochastic transport/electrical response may lower the usable band.
-
----
-
-## 13. Published A/B validation logic
-
-### Sample B
-
-Smooth calibration/control case. The 2023 authors infer its remaining `100-200 V/cm` linear-gradient field does not strongly alter carrier motion.
-
-### Sample A
-
-Nonlinear/high-field contrast case. It retains part of the nonlinear interdiffusion region and reaches local composition-gradient field near `2e3 V/cm`.
-
-The authors attribute the A/B photoelectric difference primarily to composition-gradient effects on minority-carrier motion.
-
----
-
-## 14. Paired A/B differential phase
-
-With the same coherent modulated source at the same wavelength/frequency,
+A small translation gives
 
 ```math
 \boxed{
-\Delta\phi_{AB}
-=-\Omega
-(\mathbf A_A\mathbf q_A-
- \mathbf A_B\mathbf q_B)
-+\Delta\phi_{\rm path}
-+\Delta\phi_{\rm elec}.
+\Delta y
+\simeq
+\Delta z\int K'_{\lambda,f}(z)q_f(z-z_0)dz.
 }
 ```
 
-Arbitrary common source phase cancels.
-
-A reciprocal device/arm swap can cancel stable arm asymmetry under its stated assumptions.
-
-The paired observable is a transport **contrast**, not an absolute profile.
-
----
-
-## 15. Temperature iso-kernel rule
-
-Fixed-wavelength temperature sweeps are optically confounded because
-
-```math
-\mathbf A=\mathbf A(T,\lambda).
-```
-
-For one device, define
+For a flat feature on `[a,b]`:
 
 ```math
 \boxed{
-\lambda_*(T)
-=\arg\min_\lambda
-\frac{
-\|\mathbf A(T,\lambda)-\mathbf A(T_0,\lambda_0)\|_2
-}{
-\|\mathbf A(T_0,\lambda_0)\|_2
-}.
+\partial y/\partial z_0=A[K(b)-K(a)].
 }
 ```
 
-Current sample-B results:
+The causal signal is therefore a signed **edge fingerprint**.
+
+This identity is elementary; do not present it as a novelty claim.
+
+---
+
+## 10. Current purpose-built reference design
+
+Treat this as a **design envelope**, not exact fabrication coordinates:
 
 ```text
-300 K 3.410 um
--> 215 K 3.52095 um (~2.45% mismatch)
--> 115 K 3.65954 um (~5.08%)
-
-300 K 3.632 um
--> 215 K 3.79272 um (~0.44%)
--> 115 K 4.00268 um (~0.84%)
-
-300 K 3.840 um
--> 215 K 4.04232 um (~0.043%)
--> 115 K 4.31011 um (~0.112%).
+absorber thickness ~7.6 um
+conceptual x_front ~0.55
+conceptual x_back ~0.32
+compact feature width ~0.9-1.0 um
+edge transitions ~0.1 um
+local gradient field ~1.95-2.0 kV/cm
+feature centers ~4.1 and ~5.5-5.6 um
+feature edge clearance ~1.5 um from both boundaries
+wavelength band ~2.00-2.40 um
+RF set 0.25, 0.5, 1, 2, 3 GHz.
 ```
 
-The shallow 2.800-um reference cannot be cleanly reproduced at 115 K inside the spectral range used to establish the current absorption fit; do not use its unconstrained ~1.15-um mathematical optimum as a validated prediction.
+The exact tenth-micron centers are conditional and should move when a process-specific `x(z)` model replaces the idealized profile.
 
 ---
 
-## 16. Paired-temperature compatibility correction
+## 11. Fixed-resource design rule
 
-Same-source A-B phase cancellation requires A and B to see the **same wavelength**.
+Do not optimize raw phase span or principal angle alone.
 
-Independent device iso-kernel wavelengths therefore cannot simply be combined.
-
-Need a common joint schedule:
+After covariance whitening and nuisance projection use a resource-aware score such as
 
 ```math
 \boxed{
-\lambda_*(T)
-=\arg\min_\lambda
-\left[
-w_A\epsilon_A^2(T,\lambda)
-+w_B\epsilon_B^2(T,\lambda)
-\right].
+S_{\rm design}=\|r_{\rm white}\|/\sqrt{N_\lambda}.
 }
 ```
 
-Whether a useful joint A/B iso-kernel schedule exists is OPEN until sample A's actual profile is recovered.
+This prevents dense wavelength sampling from winning simply by consuming more integration time.
 
-If it does not exist, retain same-wavelength paired measurement and model both temperature-dependent kernels explicitly.
+Include front and back interface nuisance modes.
 
----
+Include absorbed-signal-dependent phase precision.
 
-## 17. Rejected route
-
-Reverse/sapphire-side illumination was tested conceptually/numerically on the sample-B envelope. It added little strongly conditioned rank relative to the optical/systematic complexity.
-
-**Status:** reject for now.
+Include arbitrary wavelength-independent complex intercepts at each RF frequency.
 
 ---
 
-## 18. Important nonclaims
+## 12. Current shape robustness
+
+### Edge transition
+
+At 320 spatial cells, `25-100 nm` transitions form an approximately `1%` information plateau.
+
+A `200 nm` transition loses roughly `30%` relative to `100 nm`.
+
+### Total width
+
+At fixed peak gradient near `1.95 kV/cm`, useful unblurred width is roughly
+
+```text
+0.9-1.1 um.
+```
+
+### Generic interdiffusion stress
+
+After reoptimization:
+
+```text
+Gaussian sigma_d=0.05 um -> ~8% information-amplitude loss
+sigma_d=0.10 um -> ~20%
+sigma_d=0.15 um -> ~33%.
+```
+
+These results argue against over-optimizing one exact nominal profile.
+
+---
+
+## 13. Matching condition
+
+For nuisance coefficient amplitudes
+
+```math
+q_2=c+\delta/2,
+\qquad
+q_1=c-\delta/2,
+```
+
+```math
+\boxed{
+J_2q_2-J_1q_1
+=(J_2-J_1)c
++\frac{J_2+J_1}{2}\delta.
+}
+```
+
+Common matched variations can be fitted.
+
+Differential mismatch creates the dangerous confound.
+
+If G1 and G2 are allowed arbitrary independent contact/bulk changes, the mechanism separation collapses.
+
+Matched fabrication is therefore an **identifiability condition**, not an experimental convenience.
+
+---
+
+## 14. Electrical de-embedding rule
+
+If
+
+```math
+M_j(\lambda,f)=E_j(f)H_j(\lambda,f),
+```
+
+then one arbitrary wavelength-independent complex intercept per RF frequency removes `E_2(f)/E_1(f)` exactly from the relocation fingerprint.
+
+The remaining electrical risks are wavelength-dependent or signal-state-dependent detector/electronics effects.
+
+---
+
+## 15. Materials route
+
+Do not assume one growth method before modeling its process physics.
+
+Current evidence:
+
+```text
+MBE:
+strong direct composition/thickness-programming precedent
+
+MOCVD:
+designed graded sublayers; realized interdiffusion measurable by SIMS
+
+LPE:
+2024 primary work demonstrates controlled longitudinal gradient sign/magnitude
+through mercury-loss and cooling trajectory.
+```
+
+The exact matched translated feature has not been demonstrated in recovered literature for any route.
+
+---
+
+## 16. Important nonclaims
 
 Do not claim
 
-- pointwise high-resolution `v(z)` reconstruction;
-- absolute common delay/broadening from wavelength data alone;
-- calibrated sample-A/B velocity/diffusion;
-- actual internal defects;
-- existence of a useful joint A/B iso-kernel schedule;
+- pointwise high-resolution `v(z)` imaging;
+- absolute common timing from wavelength data alone;
+- transport proportionality to composition-gradient field;
+- that the illustrative `25%` perturbation is a device prediction;
+- universal optimal wavelengths or feature depths;
+- that the trapezoidal feature is a fabrication recipe;
+- that a particular growth method has already demonstrated the exact matched relocation pair;
 - novelty/priority;
 - manuscript readiness.
 
 ---
 
-## 19. Active numerical regressions
+## 17. Current blockers
 
-```text
-numerics/hgcdte_published_sample_b_forward_matrix.py
-numerics/hgcdte_published_sample_b_phase_noise.py
-numerics/hgcdte_published_sample_b_heteroscedastic_phase.py
-numerics/hgcdte_published_sample_b_optimal_design.py
-numerics/hgcdte_sample_b_frequency_validity.py
-numerics/hgcdte_sample_b_iso_kernel_temperature.py
-numerics/hgcdte_spectral_timing_two_moment_inverse.py
-```
+1. recover full technical content of DOI `10.5768/JAO202445.0310009`;
+2. select one growth route and build a process-specific reachable `x(z)` family;
+3. recompute final matching tolerances on that family;
+4. obtain real wavelength × RF covariance/drift;
+5. characterize wavelength-dependent detector/electrical state;
+6. validate transport beyond the illustrative deterministic baseline;
+7. measure realized `x(z)` independently;
+8. obtain matched-device data.
 
 ---
 
-## 20. Next decisive work
+## 18. Next decisive work
 
-Do **not** add another generic inverse theorem.
+Do **not** add another generic inverse theorem or continue geometric optimization without process physics.
 
-Priority:
+The next theoretical/material task is:
 
-1. recover/digitize sample A's `x(z)` profile;
-2. build `A_A(T,lambda)` and `A_B(T,lambda)`;
-3. test common joint iso-kernel temperature schedules;
-4. obtain realistic wavelength × RF-frequency covariance;
-5. validate sample B first, then paired A/B transport contrast;
-6. read the unresolved 2024 laser-measurement paper before any novelty language.
+> **Generate matched translated composition profiles from one actual HgCdTe growth model and run those reachable profiles through the interface-safe fixed-resource wavelength × RF design.**
 
-Only after real-data or independently validated inversion should manuscript readiness be reassessed.
+In parallel:
+
+```text
+recover the unresolved 2024 Applied Optics paper
+and
+measure real differential wavelength x RF covariance.
+```
+
+Only after those steps should novelty language or manuscript readiness be reconsidered.
