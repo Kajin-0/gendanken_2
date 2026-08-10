@@ -9,17 +9,11 @@ The preceding mechanism-confounding test found that the published sample-A near-
 
 That is not merely a phase-noise problem. It is a **mechanism-identifiability problem**.
 
-The most direct way to attack it is to design the material pair so the suspected internal mechanism moves while the contact does not.
-
-The validation question becomes
+The cleaner validation question is:
 
 > **If the internal nonlinear-gradient region is translated in depth while the collection-side composition/contact stack and total composition change remain fixed, does the wavelength × RF fingerprint translate in the way predicted by the spectral-position encoder?**
 
-That is a stronger causal test than
-
-```text
-sample A differs from sample B.
-```
+That is a stronger causal test than simply observing that sample A differs from sample B.
 
 ---
 
@@ -41,22 +35,18 @@ g(z;z_0,\sigma)
 =\exp\!\left[-\frac{(z-z_0)^2}{2\sigma^2}\right].
 ```
 
-Instead of adding composition directly, modulate the **composition-slope magnitude**:
+Modulate the **composition-slope magnitude** rather than adding composition directly:
 
 ```math
 \boxed{
 s(z)
-=s_0\left[1+a\left(g(z)-\langle g\rangle\right)\right]
+=s_0\left[1+a\left(g(z)-\langle g\rangle\right)\right],
+\qquad
+s_0=\frac{x(0)-x(L)}{L}.
 }
 ```
 
-with
-
-```math
-s_0=\frac{x(0)-x(L)}{L}.
-```
-
-Then define
+Then
 
 ```math
 \boxed{
@@ -70,16 +60,9 @@ Because
 \int_0^L[g(z)-\langle g\rangle]dz=0,
 ```
 
-the endpoint compositions remain identical for every translated feature:
+the endpoint compositions remain identical for every translated feature.
 
-```text
-same front composition
-same back composition
-same total composition change
-same nominal absorber thickness.
-```
-
-For the current first design use
+Current first design:
 
 ```text
 sigma = 0.35 um
@@ -90,7 +73,7 @@ The profile remains monotonic.
 
 ---
 
-## 3. The translated feature naturally reproduces the relevant field scale
+## 3. The translated feature reproduces the relevant field scale
 
 Using the Hansen gap gradient
 
@@ -106,16 +89,16 @@ surrounding/background gradient field ~220 V/cm
 local buried maximum ~1.9 kV/cm.
 ```
 
-For the eventual optimal pair on the tested grid:
+For the selected signal-optimal pair on the tested grid:
 
 ```text
 feature center 2.6 um -> max ~1907 V/cm
 feature center 3.2 um -> max ~1899 V/cm.
 ```
 
-Thus the design moves a field-enhancement scale comparable to the `~2 kV/cm` nonlinear-region scale that motivated the original sample-A branch while keeping the endpoints fixed.
+This is comparable to the `~2 kV/cm` nonlinear-region scale motivating the original sample-A branch while keeping the boundary compositions fixed.
 
-This is still a **conceptual composition design**, not a claim that a particular growth/anneal process can yet fabricate the profile with those exact tolerances.
+It remains a conceptual composition design, not a fabrication recipe.
 
 ---
 
@@ -132,46 +115,38 @@ baseline v0 = 1e5 m/s
 illustrative 25% support-shaped transport perturbation.
 ```
 
-The sign and `25%` magnitude are not device predictions.
-
-The purpose is to compare **mechanism geometry** under one fixed perturbation scale.
+The sign and `25%` magnitude are not device predictions. They provide one fixed scale for comparing mechanism geometry.
 
 At each RF frequency a wavelength-independent complex response is projected out.
 
 ---
 
-## 5. The short-wave optical encoder remains strong for the purpose-built pair
+## 5. The short-wave encoder remains strong
 
-For the selected `2.6 / 3.2 um` feature-center pair, the current Beer-Lambert model gives
+For the `2.6 / 3.2 um` pair, the current Beer-Lambert model gives
 
 ```text
 minimum Pabs over both devices and 2.00-2.80 um > 0.996
 minimum |H| over 0.25-3 GHz > 0.987.
 ```
 
-Representative mean generation depths are approximately
-
-### Feature centered at `2.6 um`
+Representative conditional mean generation depths are approximately
 
 ```text
+feature at 2.6 um:
 2.00 um -> 2.06 um
-2.80 um -> 4.11 um.
-```
+2.80 um -> 4.11 um
 
-### Feature centered at `3.2 um`
-
-```text
+feature at 3.2 um:
 2.00 um -> 2.15 um
 2.80 um -> 4.49 um.
 ```
 
-The wavelength scan therefore sweeps the conditional generation distribution across the buried feature locations while both devices remain strongly absorbing.
+Thus the spectral scan crosses the buried feature locations while both devices remain strongly absorbing.
 
 ---
 
 ## 6. Matched nuisance model
-
-The purpose-built comparison is valuable only if the two devices are genuinely matched outside the translated internal feature.
 
 Represent residual **common** matched bulk/contact transport changes by
 
@@ -194,9 +169,7 @@ plus effective near-junction shapes
 \exp(-z/1.00).
 ```
 
-The same nuisance amplitude acts in both devices.
-
-Because the optical kernels differ slightly, the differential nuisance response is not zero. It is
+The same nuisance amplitude acts in both devices. Because the optical kernels differ slightly, the differential nuisance response is
 
 ```math
 \boxed{
@@ -205,11 +178,11 @@ Because the optical kernels differ slightly, the differential nuisance response 
 }
 ```
 
-This is deliberately more conservative than assuming perfect cancellation.
+This is more conservative than assuming perfect cancellation.
 
 ---
 
-## 7. Grid search finds a strong translated pair
+## 7. Correct optimization criterion: maximize surviving signal, not angle alone
 
 Sweep feature centers
 
@@ -219,41 +192,59 @@ Sweep feature centers
 
 with separation at least `0.4 um`.
 
-On this explicit grid, the **same pair** maximizes both
+Two related objectives are not identical:
 
 ```text
-principal angle from the common matched-nuisance span
-and
-absolute nuisance-orthogonal complex-response norm.
+principal angle -> geometric distinctness from nuisance span
+residual norm    -> absolute nuisance-orthogonal signal available to measure.
 ```
 
-The optimum is
+A large angle can be experimentally inferior if the raw response is small.
+
+### Maximum absolute nuisance-orthogonal complex signal
+
+The strongest pair on the tested grid is
 
 ```math
-\boxed{
-2.6\ {\rm um}
-\rightarrow
-3.2\ {\rm um}.
-}
+\boxed{2.6\ {\rm um}\rightarrow3.2\ {\rm um}.}
 ```
 
-For the illustrative transport perturbation:
+It gives
 
 ```text
-1-GHz differential phase peak-to-peak ~0.145 deg.
+complex angle ~5.477 deg
+complex residual norm ~0.002459
+phase-only angle ~1.997 deg
+phase residual-vector norm ~0.05138 deg
+1-GHz differential phase p-p ~0.14515 deg.
 ```
 
-That is already above the current `~0.1 deg` phase scale before using the other RF frequencies or magnitude response.
+### Maximum principal angle only
+
+The largest complex angle occurs instead at
+
+```text
+2.8 -> 3.2 um
+```
+
+with
+
+```text
+angle ~7.164 deg
+residual norm ~0.002173.
+```
+
+Its geometry is more orthogonal, but its absolute surviving signal is about `12%` smaller.
+
+Therefore the current experimental design uses `2.6 / 3.2 um` because **nuisance-orthogonal signal**, not angle alone, is the relevant first detection resource.
 
 ---
 
-## 8. The key result — matched fabrication rotates the target away from contact/bulk nuisance
+## 8. Matched fabrication rotates the target away from contact/bulk nuisance
 
-For the `2.6 / 3.2 um` pair:
+For the signal-optimal `2.6 / 3.2 um` pair:
 
 ### Full complex wavelength × RF response
-
-Against the shared matched nuisance span,
 
 ```math
 \boxed{
@@ -277,50 +268,40 @@ with nuisance-orthogonal complex-response norm
 }
 ```
 
-with residual phase-vector norm
+and residual phase-vector norm
 
 ```math
 \boxed{0.0514^\circ.}
 ```
 
-These are far larger mechanism-separation angles than the near-junction published-A branch produced under flexible contact/bulk confounding.
+These are far larger mechanism-separation scales than the published near-junction sample-A branch produced under flexible contact/bulk confounding.
 
-The important change is not merely moving the feature deeper.
-
-It is **moving the same internal feature while keeping the boundary conditions matched**.
+The important change is not merely moving the feature deeper. It is **moving the same internal feature while keeping the boundary conditions matched**.
 
 ---
 
 ## 9. Matching is an identifiability condition
 
-Now perform an adversarial stress in which the smooth/contact nuisance amplitudes are allowed to vary independently in the two devices.
-
-Then the same `2.6 / 3.2 um` target falls to
+If the smooth/contact nuisance amplitudes are allowed to vary independently in the two devices, the same target falls to approximately
 
 ```text
 complex principal angle ~0.0656 deg
 phase-only principal angle ~0.0273 deg.
 ```
 
-Thus the gain disappears if the two devices are treated as unrelated samples.
-
-This gives a very strong design rule:
+Thus the gain collapses when the samples are treated as unrelated devices.
 
 > **The experiment is not merely “make two graded devices.” It is “make a matched pair in which the internal gradient feature is intentionally translated while the contact/cap/junction and broad process variables are held common.”**
-
-Without that matching, the inverse again becomes nearly non-identifiable.
 
 ---
 
 ## 10. Provisional phase/noise resource
 
-Under the explicitly optimistic convention that phase and `ln|H|` components each have equal independent noise corresponding to `0.10 deg` in radians, the matched-pair complex residual gives
+Under the explicitly optimistic convention that phase and `ln|H|` components each have equal independent noise corresponding to `0.10 deg` in radians, the matched-pair complex residual gives roughly
 
 ```text
-SNR ~1.41
+SNR ~1.41.
 ```
-
-for the current dense wavelength × RF data set.
 
 A `3 sigma` no-prior detection would require an equivalent per-component noise of approximately
 
@@ -328,43 +309,25 @@ A `3 sigma` no-prior detection would require an equivalent per-component noise o
 \boxed{0.047^\circ}
 ```
 
-or about
-
-```text
-~4.5x
-```
-
-more white-noise integration resource than the `0.10 deg` reference.
+or about `4.5x` more white-noise integration than the `0.10 deg` reference.
 
 Using phase only gives a stricter provisional requirement:
 
 ```math
-\boxed{
-\sigma_\phi\lesssim0.017^\circ
-}
+\boxed{\sigma_\phi\lesssim0.017^\circ}
 ```
 
-or about
+or about `34x` more white-noise integration.
 
-```text
-~34x
-```
-
-more white-noise integration.
-
-These are not yet instrument specifications because the real phase/magnitude covariance is still unmeasured.
-
-The important point is qualitative but quantitative enough to guide the next step:
-
-> **with matched nuisances, the translated-gradient design moves the problem from an essentially structural degeneracy into a demanding but finite measurement-precision problem.**
+These are not instrument specifications because real phase/magnitude covariance is still unmeasured.
 
 ---
 
 ## 11. Strongest current validation architecture
 
-A useful physical program is now a matched **three-device family** rather than relying solely on the published A/B pair.
+A useful physical program is a matched **three-device family**:
 
-### `C` — smooth/end-point-matched control
+### `C` — smooth endpoint-matched control
 
 ```text
 same front composition/cap/contact
@@ -388,24 +351,24 @@ same feature width/amplitude
 feature translated to z2.
 ```
 
-Then use two distinct observables:
+Then
 
 ```text
 G - C
--> high-signal detection that an additional internal transport component exists
+-> high-signal test that an additional internal transport component exists
 
 G2 - G1
 -> causal relocation test: does the spectral/RF fingerprint move with the
    internal feature rather than remaining attached to the contact/interface?
 ```
 
-The second observable is the stronger mechanism test.
+The relocation observable is the stronger mechanism test.
 
 ---
 
 ## 12. Why this is stronger than simply improving sample-A phase precision
 
-The original published-A branch had three linked problems:
+The published-A branch has three linked problems:
 
 ```text
 feature close to collecting boundary
@@ -413,7 +376,7 @@ common-delay gauge
 contact/interface mechanism confounding.
 ```
 
-The translated-gradient pair attacks all three by experimental design:
+The translated-gradient pair attacks all three by design:
 
 ```text
 bury the feature in a spectrally addressable region
@@ -421,9 +384,7 @@ hold the collection boundary fixed
 translate the suspected mechanism itself.
 ```
 
-This does not prove that the composition-gradient field will produce a measurable transport change in a real device.
-
-It creates a substantially cleaner experiment **if** such a change exists.
+This does not prove that the composition-gradient field will produce a measurable transport change in a real device. It creates a substantially cleaner experiment **if** such a change exists.
 
 ---
 
@@ -441,7 +402,7 @@ or that
 a=4, sigma=0.35 um is a realizable growth profile.
 ```
 
-The current result is conditional on
+The result is conditional on
 
 ```text
 Hansen gap
@@ -450,24 +411,16 @@ chosen endpoint compositions
 finite-RF deterministic baseline transport
 illustrative 25% transport perturbation
 chosen nuisance family
-and idealized matched nuisance amplitudes.
+idealized matched nuisance amplitudes.
 ```
 
-The `2.6 / 3.2 um` result is the optimum **on the stated numerical grid**, not a universal optimum.
+`2.6 / 3.2 um` is the **maximum-residual pair on the stated grid**, not a universal optimum.
 
 ---
 
 ## 14. Next decisive work
 
-The next calculation should not be another generic wavelength search.
-
-It should quantify **how well the two translated-gradient devices must actually be matched**.
-
-Specifically:
-
-> **Introduce differential fabrication mismatch in front composition, contact time constant, feature position/width, and smooth background gradient, then determine the tolerances required for the `~5.5 degree` matched-nuisance separation to survive.**
-
-After that, the purpose-built profile needs a materials-growth/anneal feasibility audit and a focused prior-art search for translated or position-controlled composition-gradient HgCdTe validation structures.
+The next calculation should quantify how accurately the two translated-gradient devices must actually be matched and whether a realistic HgCdTe epitaxial process can produce the required internal profile.
 
 Numerical implementation:
 
