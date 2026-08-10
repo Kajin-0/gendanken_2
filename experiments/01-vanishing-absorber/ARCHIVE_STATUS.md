@@ -23,9 +23,12 @@ Read first:
 8. `HGCDTE_TEMPERATURE_ISO_KERNEL_DESIGN.md`
 9. `HGCDTE_PAIRED_SAMPLE_AB_DIFFERENTIAL_PHASE.md`
 10. `HGCDTE_PAIRED_AB_TEMPERATURE_DESIGN.md`
-11. `HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
-12. `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
-13. `RESEARCH_LOG.md`
+11. `HGCDTE_PHASE_PRECISION_SNR_REQUIREMENT.md`
+12. `HGCDTE_PAIRED_PHASE_COMMON_MODE_REQUIREMENTS.md`
+13. `HGCDTE_SAMPLE_A_CONSTRAINT_FAMILY_JOINT_ISO_KERNEL.md`
+14. `HGCDTE_SPECTRAL_TIMING_TWO_MOMENT_INVERSE.md`
+15. `HGCDTE_SPECTRAL_TIMING_TOMOGRAPHY_PRIOR_ART_AUDIT.md`
+16. `RESEARCH_LOG.md`
 
 ### Active candidate
 
@@ -160,11 +163,11 @@ The shallow `2.80 um` 300 K kernel cannot be cleanly reproduced at 115 K inside 
 
 ### `HGCDTE_PAIRED_AB_TEMPERATURE_DESIGN.md`
 
-**Status:** active compatibility correction / OPEN feasibility.
+**Status:** active compatibility correction.
 
 Simultaneous A-B source-phase cancellation requires a **common wavelength**, while independent iso-kernel matching generally gives device-specific wavelengths.
 
-Need a joint common-wavelength schedule
+The correct joint objective is
 
 ```math
 \lambda_*(T)
@@ -172,11 +175,41 @@ Need a joint common-wavelength schedule
 [w_A\epsilon_A^2+w_B\epsilon_B^2].
 ```
 
-Feasibility is OPEN until sample A's actual optical/composition profile is recovered.
+Independent one-device schedules therefore cannot simply be combined.
+
+### `HGCDTE_SAMPLE_A_CONSTRAINT_FAMILY_JOINT_ISO_KERNEL.md`
+
+**Status:** active conditional sensitivity result; not a digitization of sample A.
+
+The primary 2023 full text exposes the sample-A fit law and several textual constraints while the exact fitted parameter tuple remains graphical. An explicit 72-profile sensitivity family spanning reported structural/field scales and both mathematical surface-field roots was therefore used to test joint feasibility without inventing one profile.
+
+For the `3.632 um` 300 K common reference:
+
+```text
+215 K:
+common lambda = 3.793356-3.793566 um
+A mismatch = 0.215-0.229%
+B mismatch = 0.447-0.453%
+A Pabs = 0.290-0.410
+B Pabs ~0.474
+
+115 K:
+common lambda = 4.004157-4.004870 um
+A mismatch = 0.400-0.445%
+B mismatch = 0.857-0.873%
+A Pabs = 0.213-0.309
+B Pabs = 0.357-0.358.
+```
+
+Thus a useful **mid/deep common-wavelength schedule is conditionally supported** within current Hansen/Moazzami Beer-Lambert optics and is weakly sensitive to the unresolved A-profile parameters.
+
+The deeper `3.840 um` reference is more exactly matched but gives only `Pabs,A ~0.017-0.027` at 115 K and lies in the region where the primary paper reports sample-A interference. Do not use it as the preferred first paired-temperature band.
+
+The exact real-device joint schedule remains OPEN because interference/reflection and the actual fitted profile are not yet propagated.
 
 ---
 
-## E. Paired A/B validation branch — ACTIVE
+## E. Paired A/B validation / phase-metrology branch — ACTIVE
 
 ### `HGCDTE_PAIRED_SAMPLE_AB_DIFFERENTIAL_PHASE.md`
 
@@ -187,6 +220,30 @@ Same-source simultaneous A-B subtraction cancels arbitrary wavelength-dependent 
 A reciprocal device/arm swap can cancel stable arm/channel asymmetry under the stated reciprocity assumptions.
 
 The paired observable measures **transport contrast**, not either absolute profile.
+
+### `HGCDTE_PHASE_PRECISION_SNR_REQUIREMENT.md`
+
+**Status:** active white-noise resource calculation.
+
+```text
+0.10 degree single phase -> ~55.2 dB coherent power-SNR
+0.10 degree A-B differential target with equal independent channels -> ~58.2 dB/channel.
+```
+
+### `HGCDTE_PAIRED_PHASE_COMMON_MODE_REQUIREMENTS.md`
+
+**Status:** active covariance/systematic requirement.
+
+For a `0.10 degree` differential target:
+
+```text
+1 degree individual RMS -> rho >0.995
+5 degree -> rho >0.9998
+10 degree -> rho >0.99995
+reciprocal-swap differential drift -> <~0.20 degree RMS if it alone uses the budget.
+```
+
+The reciprocal swap rejects stable bias; it is not a free random-noise SNR gain.
 
 ### Published physical roles
 
@@ -215,6 +272,7 @@ numerics/hgcdte_published_sample_b_heteroscedastic_phase.py
 numerics/hgcdte_published_sample_b_optimal_design.py
 numerics/hgcdte_sample_b_frequency_validity.py
 numerics/hgcdte_sample_b_iso_kernel_temperature.py
+numerics/hgcdte_sample_a_constraint_family_joint_iso_kernel.py
 numerics/hgcdte_spectral_timing_two_moment_inverse.py
 ```
 
@@ -301,6 +359,14 @@ It changes optical kernels but adds little to the strongly conditioned sample-B 
 
 Preferred route remains front illumination + optimized wavelengths + paired A/B differential phase.
 
+### Deepest nominal temperature kernel as first paired band
+
+**Status:** REJECTED FOR NOW.
+
+The `3.840 um` 300 K reference is nearly perfectly joint-matched in the current Beer-Lambert sensitivity model but becomes signal starved in sample A and overlaps the experimentally observed interference region.
+
+Preferred provisional temperature band is the `3.632 um` reference.
+
 ---
 
 ## L. Hard prior-art boundary
@@ -333,10 +399,10 @@ Do **not** add more generic inverse mathematics.
 
 Priority:
 
-1. recover/digitize sample A's `x(z)` profile;
-2. build `A_A(T,lambda)` and `A_B(T,lambda)`;
-3. test whether useful common joint iso-kernel temperature schedules exist;
-4. obtain realistic wavelength × RF-frequency covariance;
+1. build an **interference/reflection-aware sample-A optical model** and test the provisional `3.632 -> 3.7935 -> 4.0045 um` common schedule;
+2. recover/digitize the actual sample-A and sample-B `x(z)` fits when a usable primary figure becomes available;
+3. measure/obtain realistic wavelength × RF-frequency differential covariance, including drift and swap repeatability;
+4. replace sensitivity envelopes with the actual A/B kernel matrices and compute joint transport-mode identifiability;
 5. validate sample B first, then paired A/B transport contrast;
 6. read the unresolved 2024 laser-measurement paper before any novelty language;
 7. reassess manuscript readiness only after real-data or independently validated inversion.
