@@ -1,0 +1,97 @@
+name: Update AGENTS Rev5 pointer once
+
+on:
+  push:
+    paths:
+      - '.github/workflows/rev5-agents-pointer-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply narrow Rev5 recovery-pointer edits
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('AGENTS.md')
+          t = p.read_text()
+          replacements = [
+              (
+                  '**Current mode:** **anonymous Rev. 4 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading conditional worked example; priority remains unproven**',
+                  '**Current mode:** **anonymous Rev. 5 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading conditional worked example; priority remains unproven**',
+              ),
+              (
+                  '**A working manuscript exists. The canonical manuscript is the anonymous 19-page Rev. 4, validated against the previous Rev. 3 baseline before canonicalization. It is not yet submission-ready.**',
+                  '**A working manuscript exists. The canonical manuscript is the anonymous 21-page Rev. 5, validated against the previous Rev. 4 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**',
+              ),
+              (
+                  '6. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;\n7. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.',
+                  '6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;\n7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;\n8. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.',
+              ),
+              (
+                  'The immutable Rev. 4 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`.',
+                  'The immutable Rev. 5 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`.',
+              ),
+              (
+                  '- `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n- `experiments/01-vanishing-absorber/MANUSCRIPT_REV4_PRESERVATION_REPORT_2026-08-11.md`',
+                  '- `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n- `experiments/01-vanishing-absorber/MANUSCRIPT_REV5_PRESERVATION_REPORT_2026-08-11.md`\n- `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n- `experiments/01-vanishing-absorber/MANUSCRIPT_REV4_PRESERVATION_REPORT_2026-08-11.md`',
+              ),
+              (
+                  '6. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n7. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`',
+                  '6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`',
+              ),
+              (
+                  '**Important Rev. 4 qualification:** this four-color null is a statement in `q`-space and is branch-independent.',
+                  '**Important branch qualification, retained in Rev. 5:** this four-color null is a statement in `q`-space and is branch-independent.',
+              ),
+              (
+                  '## 6. Rev. 4 mathematical boundary conditions — never regress',
+                  '## 6. Rev. 4/5 mathematical boundary conditions — never regress',
+              ),
+              (
+                  'Rev. 4 now states the exact conditional transport law used to generate these numbers: linear composition, Hansen gap and derivative, Einstein diffusion, empirical saturation sensitivity law, reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match.',
+                  'Rev. 5 retains the exact conditional transport law used to generate these numbers: linear composition, Hansen gap and derivative, Einstein diffusion, the inherited empirical **field-rolloff sensitivity law** (not an asymptotic saturation law), reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match.  At the sampled grading fields the rolloff changes the low-field velocity by only about 0.15--0.18%, so the reported closure values are unchanged.',
+              ),
+              (
+                  'Rev. 4 also quantifies deliberately independent residual-error stresses:',
+                  'Rev. 5 retains the deliberately independent residual-error stresses, but they are **derived design requirements rather than demonstrated calibration performance**:',
+              ),
+          ]
+          for old, new in replacements:
+              if old not in t:
+                  raise SystemExit(f'missing expected AGENTS text: {old[:90]!r}')
+              t = t.replace(old, new, 1)
+
+          anchor = '### Known arbitrary spacing\n\n**CORRECTED IN REV. 4.** The first three positions constrain one or more candidate roots of the unequal-spacing equation; they do not generically guarantee uniqueness. The fourth position filters candidates. Claim unique physical inversion only when one admissible candidate remains after all constraints.\n'
+          addition = '''\n### Rank-two branch/permutation discipline and low-RF observation-mode boundary\n\n**ADDED IN REV. 5.** For a homogeneous finite-boundary scalar rank-two model, test the branch-free multiplier product first:\n\n```math\nq_+q_-=e^{(r_++r_-)h}=e^{-wh/D}\\in\\mathbb R_{>0},\n```\n\nand require it to be RF-independent. Only after this check should the two logarithmic root branches be unwrapped. Branch integers and root pairing/permutation across frequency must be fixed by independent physical bounds, multiple spacings when available, and continuity; never choose them merely to make a mechanism law pass.\n\nAlso retain the Rev. 5 low-RF resolution boundary: a linear weighting-field mode has `q_weight=1` while `q_transport -> 1` as RF tends to zero. The rank-two witness therefore collapses quadratically. On the manuscript scale the optimistic equal-mode 3-sigma separation requirement is about `116.2 / 88.4 / 76.7 dB` at `100 / 500 / 1000 MHz`; the complementary five-color annihilation cost is about `46.3 / 32.3 / 26.4 dB`. Neither defense is free at low RF.\n'''
+          if anchor not in t:
+              raise SystemExit('missing AGENTS insertion anchor')
+          t = t.replace(anchor, anchor + addition, 1)
+
+          priority_anchor = 'A negative literature search is not novelty evidence.\n'
+          priority_addition = '\n**REV. 5 submission blocker:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.\n'
+          if priority_anchor not in t:
+              raise SystemExit('missing priority anchor')
+          t = t.replace(priority_anchor, priority_anchor + priority_addition, 1)
+
+          p.write_text(t)
+          PY
+          git diff --check
+          git diff -- AGENTS.md
+      - name: Commit pointer update
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add AGENTS.md
+          git commit -m 'Update AGENTS recovery protocol for Rev5'
+          git push
