@@ -6,19 +6,12 @@ Do **not** use `MANUSCRIPT_DRAFT.tex` as the current source merely because it is
 
 ## Exact source
 
-Repository snapshot:
+The exact source is preserved in six repository text parts:
 
 ```text
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz
-```
-
-After decompression, verify:
-
-```text
-SHA-256 = 76a3c5c0d26734773a5c60151e005f9b11225fa337520cb18eb358064fb48ad4
-lines = 696
-pages in matching compiled PDF = 16
-author = Terence Fisher
+manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part01
+...
+manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part06
 ```
 
 Use:
@@ -27,9 +20,23 @@ Use:
 python tools/extract_manuscript_baseline.py
 ```
 
-to recover a working copy at `experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.tex`.
+The extractor will refuse to write a working source unless both hashes and the line count match the audited baseline. The recovered source must verify as:
 
-`MANUSCRIPT_CURRENT.tex` is intentionally not pre-created in this recovery commit: the immutable compressed source is the preservation anchor, and a future manuscript integration must begin by extracting that exact anchor rather than reconstructing it from repository notes.
+```text
+source SHA-256 = 76a3c5c0d26734773a5c60151e005f9b11225fa337520cb18eb358064fb48ad4
+gzip SHA-256   = 2732f2b64887c8694baddec54621795464ca4492f5b6f6d31de21ae738e6b29d
+lines = 696
+pages in matching compiled PDF = 16
+author = Terence Fisher
+```
+
+The verified working copy is written to:
+
+```text
+experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.tex
+```
+
+Do not reconstruct this file from notes or copy an older `MANUSCRIPT_DRAFT.tex` over it.
 
 ## Newer geometry result
 
