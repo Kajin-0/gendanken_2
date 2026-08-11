@@ -6,9 +6,13 @@ on:
       - 'experiments/01-vanishing-absorber/MANUSCRIPT*.tex'
       - 'experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.json'
       - 'experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.md'
       - 'experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md'
       - 'experiments/01-vanishing-absorber/MANUSCRIPT_DESTRUCTIVE_EDIT_JUSTIFICATION.md'
+      - 'experiments/01-vanishing-absorber/manuscript_history/**'
       - 'tools/check_manuscript_preservation.py'
+      - 'tools/extract_manuscript_baseline.py'
+      - 'tools/test_manuscript_preservation_guard.py'
       - '.github/workflows/manuscript-preservation.yml'
   workflow_dispatch:
 
@@ -29,7 +33,10 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Verify manuscript changes are preservation-safe
+      - name: Verify canonical snapshot and guard behavior
+        run: python tools/test_manuscript_preservation_guard.py
+
+      - name: Verify changed manuscript source is preservation-safe
         shell: bash
         env:
           BASE_REF: ${{ github.base_ref }}
@@ -48,7 +55,6 @@ jobs:
             git fetch --no-tags origin "$BASE_REF"
             base="origin/$BASE_REF"
           else
-            # workflow_dispatch: compare only to the machine baseline.
             base=''
           fi
 
@@ -63,8 +69,10 @@ jobs:
             )
           fi
 
+          # MANUSCRIPT_CURRENT.tex is generated during the snapshot self-test. It is
+          # not considered a branch change unless git reports it above.
           if [[ ${#changed[@]} -eq 0 ]]; then
-            echo 'No main manuscript TeX file changed; preservation guard has nothing to compare.'
+            echo 'No committed main manuscript TeX file changed; canonical snapshot/self-test already passed.'
             exit 0
           fi
 
