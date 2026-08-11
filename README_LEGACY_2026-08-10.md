@@ -7,6 +7,6 @@ commit c034984b2ccf3ccc0a71638b0b197f7fa4c98645
 path   README.md
 ```
 
-That historical README described the earlier tomography / sample-A/B / iso-kernel research branch and incorrectly stated that no manuscript existed. It is intentionally not duplicated as current documentation because doing so would create another stale file that a future agent could mistake for live state.
+That historical README described the earlier tomography / sample-A/B / iso-kernel research branch and incorrectly stated that no manuscript existed. It was replaced at the repository entrance because leaving a false `no manuscript` statement in `README.md` was itself a context-recovery hazard.
 
-For current state use root `README.md`, `AGENTS.md`, and `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`.
+The historical text is not deleted: the exact blob remains immutable in the commit above. For current state use root `README.md`, `AGENTS.md`, and `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`.
