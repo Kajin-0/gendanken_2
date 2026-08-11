@@ -15,12 +15,65 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Apply verified Rev6 AGENTS patch
+      - name: Apply narrow Rev6 AGENTS edits
         shell: bash
         run: |
           set -euo pipefail
-          echo 'CmZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aApwID0gUGF0aCgiQUdFTlRTLm1kIikKdCA9IHAucmVhZF90ZXh0KCkKCnJlcGxzID0gWwooIioqQ3VycmVudCBtb2RlOioqICoqYW5vbnltb3VzIFJldi4gNSB3b3JraW5nIHRoZW9yeSBtYW51c2NyaXB0ICsgYWR2ZXJzYXJpYWwgcmV2aXNpb247IHN0cm9uZ2VzdCByZXN1bHQgaXMgYSBTaG9ja2xleS1SYW1vLWF3YXJlIHNwZWN0cmFsLWRlcHRoIGNsb3N1cmUgaGllcmFyY2h5IGZvciBmYWxzaWZ5aW5nIHBob3RvY2FycmllciB0cmFuc3BvcnQgbW9kZWxzOyBIZ0NkVGUgaXMgdGhlIGxlYWRpbmcgY29uZGl0aW9uYWwgd29ya2VkIGV4YW1wbGU7IHByaW9yaXR5IHJlbWFpbnMgdW5wcm92ZW4qKiIsCiAiKipDdXJyZW50IG1vZGU6KiogKiphbm9ueW1vdXMgUmV2LiA2IHdvcmtpbmcgdGhlb3J5IG1hbnVzY3JpcHQgKyBhZHZlcnNhcmlhbCByZXZpc2lvbjsgc3Ryb25nZXN0IHJlc3VsdCBpcyBhIFNob2NrbGV5LVJhbW8tYXdhcmUgc3BlY3RyYWwtZGVwdGggY2xvc3VyZSBoaWVyYXJjaHkgZm9yIGZhbHNpZnlpbmcgcGhvdG9jYXJyaWVyIHRyYW5zcG9ydCBtb2RlbHM7IEhnQ2RUZSBpcyBhIGNvbmRpdGlvbmFsIHNjYWxpbmcvc3RyZXNzIGV4YW1wbGU7IHByaW9yaXR5IHJlbWFpbnMgdW5wcm92ZW4qKiIpLAooIioqQSB3b3JraW5nIG1hbnVzY3JpcHQgZXhpc3RzLiBUaGUgY2Fub25pY2FsIG1hbnVzY3JpcHQgaXMgdGhlIGFub255bW91cyAyMS1wYWdlIFJldi4gNSwgdmFsaWRhdGVkIGFnYWluc3QgdGhlIHByZXZpb3VzIFJldi4gNCBiYXNlbGluZSBiZWZvcmUgY2Fub25pY2FsaXphdGlvbi4gSXQgaXMgbm90IHlldCBzdWJtaXNzaW9uLXJlYWR5OyB0aGUgZXhhY3QgY2xvc2VzdC1zb3VyY2UgcHJpb3JpdHkgYXVkaXQgYW5kIGV4cGVyaW1lbnRhbC1mZWFzaWJpbGl0eSBhdHRhY2sgcmVtYWluIG9wZW4uKioiLAogIioqQSB3b3JraW5nIG1hbnVzY3JpcHQgZXhpc3RzLiBUaGUgY2Fub25pY2FsIG1hbnVzY3JpcHQgaXMgdGhlIGFub255bW91cyAyMi1wYWdlIFJldi4gNiwgdmFsaWRhdGVkIGFnYWluc3QgdGhlIHByZXZpb3VzIFJldi4gNSBiYXNlbGluZSBiZWZvcmUgY2Fub25pY2FsaXphdGlvbi4gSXQgaXMgbm90IHlldCBzdWJtaXNzaW9uLXJlYWR5OyB0aGUgY29tYmluZWQtcGh5c2ljcyBibGluZCBkZXRlY3RvciBjaGFsbGVuZ2UsIGNhbGlicmF0aW9uIGZlYXNpYmlsaXR5LCBhbmQgZXhhY3QgY2xvc2VzdC1zb3VyY2UgcHJpb3JpdHkgYXVkaXQgcmVtYWluIG9wZW4uKioiKSwKKCI2LiBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL1JFVjVfQURWRVJTQVJJQUxfQ09SUkVDVElPTlNfMjAyNi0wOC0xMS5tZGA7XG43LiBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL1JFVjRfQURWRVJTQVJJQUxfQ09SUkVDVElPTlNfMjAyNi0wOC0xMS5tZGAgYXMgcHJlZGVjZXNzb3IgY29udGV4dDtcbjguIHRoZSBleGFjdCB2ZXJpZmllZCBtYW51c2NyaXB0IHNvdXJjZSByZWNvdmVyZWQgd2l0aCBgcHl0aG9uIHRvb2xzL2V4dHJhY3RfbWFudXNjcmlwdF9iYXNlbGluZS5weWAgd2hlbiBtYW51c2NyaXB0IHdvcmsgaXMgcmVxdWlyZWQuIiwKICI2LiBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL1JFVjZfQURWRVJTQVJJQUxfQ09SUkVDVElPTlNfMjAyNi0wOC0xMS5tZGA7XG43LiBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL1JFVjVfQURWRVJTQVJJQUxfQ09SUkVDVElPTlNfMjAyNi0wOC0xMS5tZGAgYXMgcHJlZGVjZXNzb3IgY29udGV4dDtcbjguIGBleHBlcmltZW50cy8wMS12YW5pc2hpbmctYWJzb3JiZXIvUkVWN19BRFZFUlNBUklBTF9DT1JSRUNUSU9OU18yMDI2LTA4LTExLm1kYCBhcyBlYXJsaWVyIHByZWRlY2Vzc29yIGNvbnRleHQ7XG45LiB0aGUgZXhhY3QgdmVyaWZpZWQgbWFudXNjcmlwdCBzb3VyY2UgcmVjb3ZlcmVkIHdpdGggYHB5dGhvbiB0b29scy9leHRyYWN0X21hbnVzY3JpcHRfYmFzZWxpbmUucHlgIHdoZW4gbWFudXNjcmlwdCB3b3JrIGlzIHJlcXVpcmVkLiIpLAooIlRoZSBpbW11dGFibGUgUmV2LiA1IHNvdXJjZSBpcyBzdG9yZWQgaW5zaWRlIHRoZSByZXBvc2l0b3J5IGFzIGhhc2gtdmVyaWZpZWQgc3BsaXQgc25hcHNob3QgcGFydHMgdW5kZXIgYGV4cGVyaW1lbnRzLzAxLXZhbmlzaGluZy1hYnNvcmJlci9tYW51c2NyaXB0X2hpc3RvcnkvYC4iLAogIlRoZSBpbW11dGFibGUgUmV2LiA2IHNvdXJjZSBpcyBzdG9yZWQgaW5zaWRlIHRoZSByZXBvc2l0b3J5IGFzIGhhc2gtdmVyaWZpZWQgc3BsaXQgc25hcHNob3QgcGFydHMgdW5kZXIgYGV4cGVyaW1lbnRzLzAxLXZhbmlzaGluZy1hYnNvcmJlci9tYW51c2NyaXB0X2hpc3RvcnkvYC4iKSwKKCItIGBleHBlcmltZW50cy8wMS12YW5pc2hpbmctYWJzb3JiZXIvUkVWNV9BRFZFUlNBUklBTF9DT1JSRUNUSU9OU18yMDI2LTA4LTExLm1kYFxuLSBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL01BTlVTQ1JJUFRfUkVWNV9QUkVTRVJWQVRJT05fUkVQT1JUXzIwMjYtMDgtMTEubWRgIiwKICItIGBleHBlcmltZW50cy8wMS12YW5pc2hpbmctYWJzb3JiZXIvUkVWNl9BRFZFUlNBUklBTF9DT1JSRUNUSU9OU18yMDI2LTA4LTExLm1kYFxuLSBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL01BTlVTQ1JJUFRfUkVWNl9QUkVTRVJWQVRJT05fUkVQT1JUXzIwMjYtMDgtMTEubWRgXG4tIGBleHBlcmltZW50cy8wMS12YW5pc2hpbmctYWJzb3JiZXIvUkVWNV9BRFZFUlNBUklBTF9DT1JSRUNUSU9OU18yMDI2LTA4LTExLm1kYFxuLSBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL01BTlVTQ1JJUFRfUkVWNV9QUkVTRVJWQVRJT05fUkVQT1JUXzIwMjYtMDgtMTEubWRgIiksCigiKipSRVYuIDUgc3VibWlzc2lvbiBibG9ja2VyOioqIHRoZSBjbG9zZXN0LWxvb2tpbmcgMjAyNCBncmFkZWQtSGdDZFRlIHBhcGVyIGhhcyB2ZXJpZmllZCBiaWJsaW9ncmFwaGljIG1ldGFkYXRhIGJ1dCBpdHMgZXhhY3QgZnVsbCB0ZXh0IGhhcyBub3QgeWV0IGJlZW4gbGF3ZnVsbHkgcmVjb3ZlcmVkIGFuZCBhdWRpdGVkLiBUaGF0IGV4YWN0LXNvdXJjZSBhdWRpdCByZW1haW5zIE9QRU4gYW5kIGJsb2NrcyBzdWJtaXNzaW9uLWxldmVsIHByaW9yaXR5L25vdmVsdHkgY2xhaW1zLiBSZWxhdGVkLXBhcGVyIHNlYXJjaGVzIGRvIG5vdCBzdWJzdGl0dXRlIGZvciByZWFkaW5nIGl0LiIsCiAiKipSRVYuIDYgc3VibWlzc2lvbiBibG9ja2VyczoqKiB0aGUgY2xvc2VzdC1sb29raW5nIDIwMjQgZ3JhZGVkLUhnQ2RUZSBwYXBlciBzdGlsbCByZXF1aXJlcyBhbiBleGFjdCBmdWxsLXRleHQgYXVkaXQgYmVmb3JlIHN1Ym1pc3Npb24tbGV2ZWwgcHJpb3JpdHkvbm92ZWx0eSBjbGFpbXM7IGV4cGVyaW1lbnRhbCBjYWxpYnJhdGlvbiBmZWFzaWJpbGl0eSByZW1haW5zIHVucHJvdmVuOyBhbmQgdGhlIG5leHQgZGVjaXNpdmUgZGV2aWNlLXBoeXNpY3MgdmFsaWRhdGlvbiBpcyBhIGNvbWJpbmVkLXBoeXNpY3Mgc3ludGhldGljIGRldGVjdG9yIGFuYWx5emVkIGJsaW5kbHkgdGhyb3VnaCB0aGUgaGllcmFyY2h5LiBUaGUgYnJvYWRlciBPRUQgYm91bmRhcnkgaXMgYmV0dGVyIGRvY3VtZW50ZWQsIGJ1dCByZWxhdGVkLXBhcGVyIHNlYXJjaGVzIGRvIG5vdCBzdWJzdGl0dXRlIGZvciB0aGUgZXhhY3QgY2xvc2VzdC1zb3VyY2UgYXVkaXQuIiksCigiNi4gYGV4cGVyaW1lbnRzLzAxLXZhbmlzaGluZy1hYnNvcmJlci9SRVY1X0FEVkVSU0FSSUFMX0NPUlJFQ1RJT05TXzIwMjYtMDgtMTEubWRgXG43LiBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL1JFVjRfQURWRVJTQVJJQUxfQ09SUkVDVElPTlNfMjAyNi0wOC0xMS5tZFxuOC4gYGV4cGVyaW1lbnRzLzAxLXZhbmlzaGluZy1hYnNvcmJlci9QQVBFUl9DTEFJTV9MRURHRVIubWRgIiwKICI2LiBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL1JFVjZfQURWRVJTQVJJQUxfQ09SUkVDVElPTlNfMjAyNi0wOC0xMS5tZFxuNy4gYGV4cGVyaW1lbnRzLzAxLXZhbmlzaGluZy1hYnNvcmJlci9SRVY1X0FEVkVSU0FSSUFMX0NPUlJFQ1RJT05TXzIwMjYtMDgtMTEubWRgXG44LiBgZXhwZXJpbWVudHMvMDEtdmFuaXNoaW5nLWFic29yYmVyL1JFVjRfQURWRVJTQVJJQUxfQ09SUkVDVElPTlNfMjAyNi0wOC0xMS5tZFxuOS4gYGV4cGVyaW1lbnRzLzAxLXZhbmlzaGluZy1hYnNvcmJlci9QQVBFUl9DTEFJTV9MRURHRVIubWRgIiksCigiKipJbXBvcnRhbnQgYnJhbmNoIHF1YWxpZmljYXRpb24sIHJldGFpbmVkIGluIFJldi4gNToqKiB0aGlzIGZvdXItY29sb3IgbnVsbCBpcyBhIHN0YXRlbWVudCBpbiBgcWAtc3BhY2UgYW5kIGlzIGJyYW5jaC1pbmRlcGVuZGVudC4iLAogIioqSW1wb3J0YW50IGJyYW5jaCBxdWFsaWZpY2F0aW9uLCByZXRhaW5lZCBpbiBSZXYuIDY6KiogdGhpcyBmb3VyLWNvbG9yIG51bGwgaXMgYSBzdGF0ZW1lbnQgaW4gYHFgLXNwYWNlIGFuZCBpcyBicmFuY2gtaW5kZXBlbmRlbnQuIiksCigicmFuayAxIC8gZm91ciBjb2xvcnNcbgotPiByYW5rIDIgLyBzaXggY29sb3JzIGlmIHJlc29sdmVkXG4tPiBoaWdoZXIgb3JkaW5hcnkgZmluaXRlIHJhbmsgaWYgbmVlZGVkXG4tPiBSRiByb290LWxhdyBjb25zdHJhaW50c1xuLT4gb25seSB0aGVuIG1lY2hhbmlzbS1zcGVjaWZpYyBvciByaWNoZXIvbm9ubG9jYWwgaW50ZXJwcmV0YXRpb24iLAogInJhbmsgMSAvIGZvdXIgY29sb3JzXG4tPiByYW5rIDIgLyBzaXggY29sb3JzIGlmIGRldGVjdGVkXG4tPiByYW5rLXR3byBwYXJhbWV0ZXItcmVzb2x1dGlvbiBjaGVja1xuLT4gaGlnaGVyIG9yZGluYXJ5IGZpbml0ZSByYW5rIGlmIG5lZWRlZFxuLT4gUkYgcm9vdC1sYXcgY29uc3RyYWludHNcbi0+IG9ubHkgdGhlbiBtZWNoYW5pc20tc3BlY2lmaWMgb3IgcmljaGVyL25vbmxvY2FsIGludGVycHJldGF0aW9uIiksCigiIyMgNi4gUmV2LiA0LzUgbWF0aGVtYXRpY2FsIGJvdW5kYXJ5IGNvbmRpdGlvbnMg4oCUIE5ldmVyIHJlZ3Jlc3MiLAogIiMjIDYuIFJldi4gNC81LzYgbWF0aGVtYXRpY2FsIGJvdW5kYXJ5IGNvbmRpdGlvbnMg4oCUIE5ldmVyIHJlZ3Jlc3MiKSwKCi8qIHJlbW92ZWQgaW52YWxpZCBjb250ZW50ICovCg==' | base64 -d > /tmp/rev6_agents_patch.py
-          python /tmp/rev6_agents_patch.py
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('AGENTS.md')
+          t = p.read_text()
+
+          edits = [
+              ('anonymous Rev. 5 working theory manuscript', 'anonymous Rev. 6 working theory manuscript'),
+              ('HgCdTe is the leading conditional worked example', 'HgCdTe is a conditional scaling/stress example'),
+              ('the anonymous 21-page Rev. 5, validated against the previous Rev. 4 baseline', 'the anonymous 22-page Rev. 6, validated against the previous Rev. 5 baseline'),
+              ('The immutable Rev. 5 source is stored inside the repository', 'The immutable Rev. 6 source is stored inside the repository'),
+              ('**REV. 5 submission blocker:**', '**REV. 6 submission blockers:**'),
+              ('retained in Rev. 5:** this four-color null', 'retained in Rev. 6:** this four-color null'),
+              ('## 6. Rev. 4/5 mathematical boundary conditions', '## 6. Rev. 4/5/6 mathematical boundary conditions'),
+              ('Rev. 5 retains the exact conditional transport law', 'Rev. 6 retains the exact conditional transport law'),
+              ('Rev. 5 retains the deliberately independent residual-error stresses', 'Rev. 6 retains the deliberately independent residual-error stresses'),
+              ('preserve the exact anonymous 19-page Rev. 4 source', 'preserve the exact anonymous 22-page Rev. 6 source'),
+          ]
+          for old, new in edits:
+              if old not in t:
+                  raise SystemExit('missing AGENTS text: ' + old)
+              t = t.replace(old, new, 1)
+
+          marker = '- `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`\n'
+          addition = '- `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n- `experiments/01-vanishing-absorber/MANUSCRIPT_REV6_PRESERVATION_REPORT_2026-08-11.md`\n'
+          if addition not in t:
+              if marker not in t: raise SystemExit('missing current-state list marker')
+              t = t.replace(marker, marker + addition, 1)
+
+          read_marker = '5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`\n'
+          read_add = '6. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n'
+          if read_add not in t:
+              if read_marker not in t: raise SystemExit('missing reading-order marker')
+              t = t.replace(read_marker, read_marker + read_add, 1)
+
+          rank_line = 'A second mode must be statistically resolved before roots are interpreted.'
+          rank_add = ('A second mode must be statistically resolved before roots are interpreted.\n\n'
+                      '**REV. 6 qualification:** rank detection is only the first threshold. A resolved second mode must also have sufficiently precise recurrence parameters before physical root-law discrimination. For `P=W_1/W_0=q_1q_2`, the optimistic independent equal-significance limit gives `sigma_P/|P| ~ sqrt(2)/Z`, so `Z=3` still implies about 47.1% relative product uncertainty. Operational order: **rank detection -> parameter resolution -> physical-law discrimination**. Algebraic branch immunity is not statistical robustness.')
+          if '**REV. 6 qualification:** rank detection' not in t:
+              if rank_line not in t: raise SystemExit('missing rank marker')
+              t = t.replace(rank_line, rank_add, 1)
+
+          weight_line = 'A linear field therefore requires **third differences / six colors** for exact polynomial annihilation at the singular DC/no-recombination point. Do not apply the five-color theorem there.'
+          weight_add = weight_line + '\n\n**REV. 6 interpretation lock:** prescribed one-dimensional `E_w(z)` is an effective observation-operator surrogate, not a generic self-consistent finite-pixel electrostatic geometry. Real finite-electrode nonuniformity generally requires multidimensional electrostatics and lateral trajectories.'
+          if '**REV. 6 interpretation lock:**' not in t:
+              if weight_line not in t: raise SystemExit('missing weighting marker')
+              t = t.replace(weight_line, weight_add, 1)
+
+          hg_line = 'These are conditional theory predictions, not calibrated forecasts for an existing detector.'
+          hg_add = hg_line + '\n\n**REV. 6 HgCdTe normalization:** the previously reported finite-width target and resource budget are the conditional `xi=1` baseline of the force-partition sensitivity stress, not generic HgCdTe material specifications. The manuscript now varies `xi` explicitly.'
+          if '**REV. 6 HgCdTe normalization:**' not in t:
+              if hg_line not in t: raise SystemExit('missing HgCdTe marker')
+              t = t.replace(hg_line, hg_add, 1)
+
+          p.write_text(t)
+          PY
           git diff --check
           git diff -- AGENTS.md
       - name: Commit AGENTS update
