@@ -1,0 +1,126 @@
+name: Update AGENTS Rev6 pointer once
+
+on:
+  push:
+    paths:
+      - '.github/workflows/rev6-agents-pointer-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply narrow Rev6 recovery-pointer edits
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('AGENTS.md')
+          t = p.read_text()
+
+          replacements = [
+              (
+                  '**Current mode:** **anonymous Rev. 5 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading conditional worked example; priority remains unproven**',
+                  '**Current mode:** **anonymous Rev. 6 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is a conditional scaling/stress example; priority remains unproven**',
+              ),
+              (
+                  '**A working manuscript exists. The canonical manuscript is the anonymous 21-page Rev. 5, validated against the previous Rev. 4 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**',
+                  '**A working manuscript exists. The canonical manuscript is the anonymous 22-page Rev. 6, validated against the previous Rev. 5 baseline before canonicalization. It is not yet submission-ready; the combined-physics blind detector challenge, calibration feasibility, and exact closest-source priority audit remain open.**',
+              ),
+              (
+                  '6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;\n7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;\n8. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.',
+                  '6. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;\n7. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;\n8. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as earlier predecessor context;\n9. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.',
+              ),
+              (
+                  'The immutable Rev. 5 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`.',
+                  'The immutable Rev. 6 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`.',
+              ),
+              (
+                  '- `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n- `experiments/01-vanishing-absorber/MANUSCRIPT_REV5_PRESERVATION_REPORT_2026-08-11.md`',
+                  '- `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n- `experiments/01-vanishing-absorber/MANUSCRIPT_REV6_PRESERVATION_REPORT_2026-08-11.md`\n- `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n- `experiments/01-vanishing-absorber/MANUSCRIPT_REV5_PRESERVATION_REPORT_2026-08-11.md`',
+              ),
+              (
+                  '**REV. 5 submission blocker:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.',
+                  '**REV. 6 submission blockers:** the closest-looking 2024 graded-HgCdTe paper still requires an exact full-text audit before submission-level priority/novelty claims; experimental calibration feasibility remains unproven; and the next decisive device-physics validation is a combined-physics synthetic detector analyzed blindly through the hierarchy. The broader OED boundary is better documented, but related-paper searches do not substitute for the exact closest-source audit.',
+              ),
+              (
+                  '6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`',
+                  '6. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n7. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n8. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`\n9. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`',
+              ),
+              (
+                  '**Important branch qualification, retained in Rev. 5:** this four-color null is a statement in `q`-space and is branch-independent.',
+                  '**Important branch qualification, retained in Rev. 6:** this four-color null is a statement in `q`-space and is branch-independent.',
+              ),
+              (
+                  'rank 1 / four colors\n-> rank 2 / six colors if resolved\n-> higher ordinary finite rank if needed\n-> RF root-law constraints\n-> only then mechanism-specific or richer/nonlocal interpretation',
+                  'rank 1 / four colors\n-> rank 2 / six colors if detected\n-> rank-two parameter-resolution check\n-> higher ordinary finite rank if needed\n-> RF root-law constraints\n-> only then mechanism-specific or richer/nonlocal interpretation',
+              ),
+              (
+                  '## 6. Rev. 4/5 mathematical boundary conditions — never regress',
+                  '## 6. Rev. 4/5/6 mathematical boundary conditions — never regress',
+              ),
+              (
+                  'Rev. 5 retains the exact conditional transport law used to generate these numbers: linear composition, Hansen gap and derivative, Einstein diffusion, the inherited empirical **field-rolloff sensitivity law** (not an asymptotic saturation law), reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match.  At the sampled grading fields the rolloff changes the low-field velocity by only about 0.15--0.18%, so the reported closure values are unchanged.',
+                  'Rev. 6 retains the exact conditional transport law used to generate the baseline numbers: linear composition, Hansen gap and derivative, Einstein diffusion, the inherited empirical **field-rolloff sensitivity law** (not an asymptotic saturation law), reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match. At the sampled grading fields the rolloff changes the low-field velocity by only about 0.15--0.18%. Rev. 6 further introduces the force-partition sensitivity coordinate `xi`, with the previously reported finite-width closure/resource values explicitly the conditional `xi=1` baseline rather than generic HgCdTe material predictions.',
+              ),
+              (
+                  'Rev. 5 retains the deliberately independent residual-error stresses, but they are **derived design requirements rather than demonstrated calibration performance**:',
+                  'Rev. 6 retains the deliberately independent residual-error stresses, but they are **derived design requirements for the conditional `xi=1` normalization stress rather than demonstrated calibration performance**:',
+              ),
+              (
+                  '1. preserve the exact anonymous 19-page Rev. 4 source and keep both manuscript-preservation and privacy guards passing;\n2. keep the realistic 2-D geometry result as a separate auditable hardening result rather than treating it as a calibrated detector prediction;\n3. continue the narrow primary-source priority audit for the exact spectral-depth closure construction;\n4. advance the geometry attack to one plausible self-consistent 2-D semiconductor Poisson/drift-diffusion structure with diffusion and analyze the synthetic spectral/RF data blindly using the same hierarchy;\n5. convert independent numerical checks into reproducibility tables / supplement material;\n6. only after these pass, choose a target journal and adapt formatting.',
+                  '1. preserve the exact anonymous 22-page Rev. 6 source and keep both manuscript-preservation and privacy guards passing;\n2. perform one self-consistent **combined-physics synthetic detector challenge** and analyze its spectral/RF currents blindly through the same hierarchy, explicitly testing whether rank detection, parameter resolution, and physical-law discrimination remain useful when several ordinary departures coexist;\n3. develop a credible calibration architecture for the extreme residual phase/depth and modeled-baseline covariance requirements rather than merely quoting them;\n4. obtain and fully audit the exact closest 2024 graded-HgCdTe source, while continuing only the narrow adjacent OED/spectral-depth priority audit;\n5. keep the realistic 2-D geometry result separately auditable and use it as a confound, not a calibrated detector prediction;\n6. only after these pass, choose a target journal and adapt formatting.',
+              ),
+          ]
+
+          for old, new in replacements:
+              if old not in t:
+                  raise SystemExit(f'missing expected AGENTS text: {old[:120]!r}')
+              t = t.replace(old, new, 1)
+
+          anchor = '''Also retain the Rev. 5 low-RF resolution boundary: a linear weighting-field mode has `q_weight=1` while `q_transport -> 1` as RF tends to zero. The rank-two witness therefore collapses quadratically. On the manuscript scale the optimistic equal-mode 3-sigma separation requirement is about `116.2 / 88.4 / 76.7 dB` at `100 / 500 / 1000 MHz`; the complementary five-color annihilation cost is about `46.3 / 32.3 / 26.4 dB`. Neither defense is free at low RF.\n'''
+          addition = '''\n### Post-detection rank-two conditioning\n\n**ADDED IN REV. 6.** A statistically significant second-mode Hankel witness establishes model order only; it does not guarantee that the recurrence parameters or individual roots are precise enough for a physical-law test. For\n\n```math\nP=q_1q_2=W_1/W_0,\n```\n\npropagate the full covariance of `W_0,W_1`, including their shared-data covariance. In the deliberately optimistic independent equal-significance limit,\n\n```math\n\sigma_P/|P|\simeq\sqrt{2}/Z.\n```\n\nThus `Z=3` on each minor still corresponds to about `47.1%` relative product uncertainty; about `Z=14.1` per minor is needed for `10%` product precision in that simplified limit. The recurrence sum and individual roots inherit further ill-conditioning as the roots coalesce.\n\nThe mandatory hierarchy is therefore:\n\n```text\nrank-two detection\n-> rank-two parameter resolution\n-> physical root-law discrimination\n```\n\n**Algebraic branch immunity is not statistical robustness.**\n'''
+          if anchor not in t:
+              raise SystemExit('missing Rev5 low-RF anchor')
+          t = t.replace(anchor, anchor + addition, 1)
+
+          weight_anchor = '''A linear field therefore requires **third differences / six colors** for exact polynomial annihilation at the singular DC/no-recombination point. Do not apply the five-color theorem there.\n'''
+          weight_addition = '''\n**REV. 6 interpretation lock:** prescribed one-dimensional `E_w(z)` is an **effective observation-operator surrogate**. For a homogeneous dielectric between ideal infinite planar electrodes the source-free weighting potential is linear and `E_w` is constant; realistic finite-electrode nonuniformity generally requires multidimensional electrostatics, fringing fields, and lateral trajectories. Do not present the one-dimensional polynomial theorem as a generic finite-pixel geometry solution.\n'''
+          if weight_anchor not in t:
+              raise SystemExit('missing weighting anchor')
+          t = t.replace(weight_anchor, weight_anchor + weight_addition, 1)
+
+          hg_anchor = 'These are conditional theory predictions, not calibrated forecasts for an existing detector.\n'
+          hg_addition = '''\nRev. 6 exposes the carrier-force normalization with\n\n```math\nE_{drive}^{grad}(z;\xi)=\xi\left|\frac{dE_g}{dx}\frac{dx}{dz}\right|,\qquad 0<\xi\le1.\n```\n\n`xi` is a **sensitivity coordinate**, not a claimed known HgCdTe band-offset fraction. The published finite-width target/resource values are the conditional `xi=1` baseline. A 100-MHz point-source finite-diffusion sweep gives approximately `-0.00741`, `-0.01822`, and `-0.01246 degree` for `xi=0.3,0.6,1.0`, respectively; the nonmonotonicity reflects competition with the fixed density-of-states term and finite-frequency response. Do not turn the `xi=1` target into a generic HgCdTe material specification.\n'''
+          if hg_anchor not in t:
+              raise SystemExit('missing HgCdTe anchor')
+          t = t.replace(hg_anchor, hg_anchor + hg_addition, 1)
+
+          prior_anchor = '**Status:** CANDIDATE DISTINCT APPLICATION — PRIORITY UNPROVEN.\n'
+          prior_addition = '''\nRev. 6 explicitly includes adjacent primary OED literature on commercial Ge PN photodiodes (2021) and bias-tunable Ge PIN photodiodes (2024). Those works use wavelength-dependent RF phase/amplitude as sensing observables; the present candidate distinction is narrower: calibrated spectral channels are treated as an internal spatial sequence and subjected to color-count model-order and cross-RF physical-law nulls. This distinction is a **prior-art boundary, not novelty evidence**.\n'''
+          if prior_anchor not in t:
+              raise SystemExit('missing prior-art anchor')
+          t = t.replace(prior_anchor, prior_anchor + prior_addition, 1)
+
+          p.write_text(t)
+          PY
+          git diff --check
+          git diff -- AGENTS.md
+
+      - name: Commit pointer update
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add AGENTS.md
+          git commit -m 'Update AGENTS recovery protocol for Rev6'
+          git push
