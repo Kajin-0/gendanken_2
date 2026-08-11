@@ -14,7 +14,7 @@ manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b6
 manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part06
 ```
 
-Use:
+For normal manuscript work, recover the exact editable source with:
 
 ```bash
 python tools/extract_manuscript_baseline.py
@@ -36,7 +36,7 @@ The verified working copy is written to:
 experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.tex
 ```
 
-Do not reconstruct this file from notes or copy an older `MANUSCRIPT_DRAFT.tex` over it.
+`MANUSCRIPT_CURRENT.tex` is a recovered working copy of the immutable baseline snapshot. Do not reconstruct it from notes or copy an older `MANUSCRIPT_DRAFT.tex` over it. When a new manuscript revision is approved, preserve a new immutable snapshot and update the baseline metadata before changing the canonical pointer.
 
 ## Newer geometry result
 
