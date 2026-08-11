@@ -1,57 +1,52 @@
 # Current Live State — Experiment 01
 
 **Date:** 2026-08-11  
-**Status:** anonymous Rev. 4 manuscript + adversarial hardening.  
+**Status:** anonymous Rev. 5 manuscript + adversarial hardening.  
 **Priority:** unresolved; no novelty claim.
 
-This is the current state pointer. The older `CURRENT_STATE.md` remains historical provenance and must not override this file.
+This is the current state pointer. Historical state files and older manuscript snapshots must not override it.
 
 ## 1. Canonical manuscript
 
-The current approved manuscript baseline is the anonymous **19-page Rev. 4**:
+The current approved manuscript baseline is the anonymous **21-page Rev. 5**:
 
 ```text
 Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current
 ```
 
-Rev. 4 was first checked against the established Rev. 3 preservation baseline in PR #4. Only after that guard and the privacy gate passed was Rev. 4 made canonical.
+Rev. 5 was first judged against the established Rev. 4 preservation baseline. Only after the manuscript-preservation and privacy gates passed was it made canonical.
 
-The exact source is repository-preserved and hash-verified through:
-
-```text
-MANUSCRIPT_REV4_ANON_2026-08-11.tex
-MANUSCRIPT_CURRENT.md
-MANUSCRIPT_BASELINE.md
-MANUSCRIPT_BASELINE.json
-MANUSCRIPT_PRESERVATION_PROTOCOL.md
-manuscript_history/MANUSCRIPT_REV4_ANON_2026-08-11.tex.gz.b64.part01 ... part03
-tools/extract_manuscript_baseline.py
-```
-
-Canonical source anchors:
+Exact source:
 
 ```text
-SHA-256 = 9da8c6094a58109873382b6b3c73c519b26f519e327f5ec8058009bc4896df00
-lines = 817
-compiled pages = 19
+MANUSCRIPT_REV5_ANON_2026-08-11.tex
+SHA-256 = 9d9c4686a152dcdbbfebae1db00a22f5cfd743b5948f825e79ba2acd75b812fb
+bytes = 59803
+lines = 863
+compiled pages = 21
+sections = 12
+subsections = 18
+bibliography items = 11
+equation environments = 92
 author/PDF metadata = Anonymous
 ```
 
-`MANUSCRIPT_DRAFT.*` and the anonymous Rev. 3 snapshot are historical provenance, not the current manuscript.
+Hash-verified recovery uses six snapshot parts under `manuscript_history/` and `python tools/extract_manuscript_baseline.py`.
 
-## 2. Current paper spine
+Rev. 4, Rev. 3, and `MANUSCRIPT_DRAFT.*` remain historical provenance only.
 
-The surviving framework is:
+## 2. Current paper hierarchy
 
 ```text
 spectral wavelength
 -> calibrated internal source coordinate
 -> Shockley-Ramo-aware spatial first differences
--> four-color one-mode closure in q-space
--> branch-controlled recovery of gamma
--> DC/RF transport-law inference and falsification
+-> four-color one-mode closure in multiplier q
+-> branch-controlled continuous exponent gamma
 -> six-color/higher finite-rank model-order tests when needed
--> RF root laws before mechanism assignment
+-> branch-free RF root invariants where available
+-> branch/permutation-controlled physical root laws
+-> mechanism assignment only after ordinary alternatives are excluded
 ```
 
 The central one-mode terminal-current null remains
@@ -60,149 +55,155 @@ The central one-mode terminal-current null remains
 (J_2-J_1)^2=(J_1-J_0)(J_3-J_2).
 ```
 
-The rank-two branch uses
+The rank-two witness remains
 
 ```math
 W_m=d_md_{m+2}-d_{m+1}^2
 =ab(q_1q_2)^m(q_1-q_2)^2.
 ```
 
-A second mode must be statistically resolved before roots are interpreted.
+The four-color multiplier null is branch-independent. Physical inversion is not: `q=e^{-gamma h}` admits spatial-log aliases and therefore requires independent branch control.
 
-## 3. Rev. 4 adversarial corrections — now canonical
+## 3. Rev. 5 adversarial corrections — canonical
 
-The hostile review found two genuine mathematical qualifications and several experimental/reproducibility gaps. Rev. 4 addresses them surgically without changing the central closure theorem.
+### Low-RF weighting/transport mode coalescence
 
-### Spatial-logarithm aliasing
-
-The four-color sequence identifies
+For the one-dimensional linear-weighting-field branch,
 
 ```math
-q=e^{-\gamma h}
+q_{weight}=1,
 ```
 
-but the continuous exponent has the branch family
+while the homogeneous transport multiplier approaches
 
 ```math
-\gamma_n=-\frac{\operatorname{Log}q+2\pi i n}{h}.
+q_{tr}=e^{-\gamma h}\to1
 ```
 
-Therefore the four-color multiplier null is branch-independent, while physical recovery of `D,w,kappa` is conditional on branch selection. A sufficient principal-branch condition is
+at low RF with small recombination. The existing rank-two witness then loses resolving power quadratically through `(q_1-q_2)^2`.
 
-```math
-|\operatorname{Im}\gamma|h<\pi.
-```
-
-The regression contains an explicit positive alternate inverse for the alias stress.
-
-### Known unequal spacing
-
-The first three known positions constrain one or more candidate spatial roots; they do not guarantee a unique exponent. The fourth position filters candidates. Physical inversion is unique only when the fourth-point constraint plus branch/physical restrictions leave one admissible root.
-
-### Singular weighting-field limit
-
-For
-
-```math
-DJ''+wJ'-(\kappa+s)J=-[wE_w+DE_w'],
-```
-
-a polynomial observation forcing of degree `p` gives a particular solution of the same degree when `kappa+s != 0`.
-
-At the singular point
+For the manuscript's illustrative `D=0.02327 m^2/s`, `w≈3.45e4 m/s`, `h=0.5 um` scale, the best-case equal-mode 3-sigma amplitude-SNR requirements are approximately:
 
 ```text
-s = 0
-kappa = 0
-w > 0
+100 MHz -> 116.2 dB
+500 MHz ->  88.4 dB
+1 GHz   ->  76.7 dB
 ```
 
-the particular degree generically increases by one. For a linear field,
+This is especially important at 100 MHz because the present gradient-specific measurement-resource estimate is about 96.1 dB: even equal-amplitude weighting and transport modes would be harder to resolve from one another than the target gradient effect is to detect.
+
+### Complementary five-color penalty
+
+Exact second-difference annihilation of the non-singular linear weighting-field contribution avoids explicit mode identification but carries the existing low-RF cost `cost_5/cost_4 ~ 1.87/|rh|`.
+
+For the same scale:
+
+```text
+100 MHz -> 46.3 dB amplitude-SNR penalty
+500 MHz -> 32.3 dB
+1 GHz   -> 26.4 dB
+```
+
+Thus low RF presents a genuine tradeoff:
+
+```text
+identify q_weight=1 -> transport/observation roots coalesce
+annihilate q_weight=1 -> severe low-RF noise penalty
+```
+
+Neither method is a free systematic-removal step.
+
+### Rank-two branch/permutation discipline
+
+For the homogeneous finite-boundary scalar model,
 
 ```math
-E_w(z)=E_0+E_1z,
+r_++r_-=-w/D.
 ```
 
-an exact particular solution is
+Therefore the product of measured spatial multipliers obeys the branch-free constraint
 
 ```math
-J_p(z)=-E_0z-\frac{E_1}{2}z^2.
+q_+q_-=e^{(r_++r_-)h}=e^{-wh/D}\in\mathbb R_{>0},
 ```
 
-Thus:
+and must be RF-independent.
+
+This should be tested before taking logarithms. Only afterward are individual roots unwrapped. Both logarithmic branch integers and root pairing/permutation across RF must be fixed using independent physical bounds, multiple spacings when available, and continuity. Branches must never be selected merely because they make the hypothesized root law fit.
+
+### Confluent DC limit and complex closure notation
+
+At `s=kappa=0`, the finite-`s` exponential representation is understood in its confluent `q->1` limit. The terminal-current sequence becomes affine in source depth, its first differences become constant, and the four-color closure remains exact.
+
+The complex closure statistic is now defined as one continuously tracked logarithm of the branch-free multiplicative ratio rather than as three separately branched logarithms.
+
+### HgCdTe field law
+
+The inherited formula
+
+```math
+v_field = mu E / [1 + (E/E_scale)^{r_s}]
+```
+
+with `r_s=2.2` is **not** asymptotically velocity-saturating; it is retained only as an empirical field-rolloff sensitivity law used by the existing numerical stress. The sampled grading fields are only roughly `4.1--4.5e4 V/m` versus an `8e5 V/m` scale, so the correction to low-field linear velocity is only about 0.15--0.18%. The reported closure values therefore remain unchanged.
+
+The HgCdTe example remains a conditional sensitivity/stress construction, not a calibrated device prediction.
+
+### Same-optics homogeneous baseline uncertainty
+
+The flagship gradient-sensitive quantity is a modeled subtraction,
+
+```math
+C_exc = C_meas - C_hom.
+```
+
+Rev. 5 explicitly carries the homogeneous-baseline uncertainty into the covariance:
+
+```math
+Sigma_exc = Sigma_meas + Sigma_hom - Sigma_cross - Sigma_cross^T.
+```
+
+The nominal same-optics homogeneous phase is approximately 20.5--22.4% of the quoted gradient-sensitive excess, so treating it as exact is not justified. The nuisance table now includes an explicit 10%-of-target allocation for this modeled baseline.
+
+### Calibration requirements
+
+The existing few-nanometer nonaffine source-coordinate and approximately `10^-4 degree` irregular-phase numbers are **derived design requirements under the stated independent-error stresses**. They are not demonstrations that an experiment has already achieved those calibrations.
+
+Detailed Rev. 5 records:
 
 ```text
-kappa+s != 0 -> linear particular -> second differences -> five colors
-s=kappa=0    -> quadratic particular -> third differences -> six colors
+REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md
+MANUSCRIPT_REV5_PRESERVATION_REPORT_2026-08-11.md
+numerics/rev5_review_regression.py
 ```
 
-The former blanket five-color wording must never be resurrected.
+## 4. Earlier Rev. 4 corrections remain mandatory
 
-### Calibration resources
-
-Under deliberately independent residual-error stresses, the current HgCdTe quartet requires approximately:
+Rev. 5 retains all Rev. 4 hardening, especially:
 
 ```text
-nonaffine source-coordinate RMS:
-100 MHz -> 3.828 nm
-500 MHz -> 3.780 nm
-1 GHz   -> 3.626 nm
-
-irregular channel-phase RMS:
-100 MHz -> 1.023e-4 deg
-500 MHz -> 5.017e-4 deg
-1 GHz   -> 9.431e-4 deg
+spatial-log aliasing / anti-alias bounds
+known-unequal-spacing candidate-root language
+singular s=kappa=0 weighting-field degree increase
+complex channel calibration
+nonaffine source-coordinate tolerance
+explicit HgCdTe transport and semi-infinite entrance prescription
+covariance-aware falsification language
+rank-at-most-two precision
 ```
 
-These are **not absolute depth or common-delay requirements**. Common/affine spectral errors cancel strongly; the numbers quantify the residual high-curvature/independent component under the stated stress.
-
-### HgCdTe reproducibility
-
-Rev. 4 now states the exact transport prescription used by the existing numerical code: linear `x(z)`, Hansen gap and derivative, Einstein diffusion, the conditional saturation law, the reduced density-of-states gradient correction, the stochastic backward equation, and the semi-infinite homogeneous entrance match.
-
-The `~10^-6 degree` solver agreement is explicitly numerical cross-verification of the same conditional model, **not physical validation at that precision**.
-
-Detailed records:
-
-```text
-REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md
-MANUSCRIPT_REV4_PRESERVATION_REPORT_2026-08-11.md
-numerics/rev4_critique_regression.py
-```
-
-## 4. Established material preserved in Rev. 4
-
-Rev. 4 still contains:
-
-- the full Shockley-Ramo observable correction and four-color theorem;
-- the no-recombination and recombining DC+RF inversion;
-- the conditioning result `D omega*/V*^2 = sqrt(3)` and illustrative ~14.1 GHz balance scale;
-- six-color rank-two/Hankel closure and mode-resolution significance;
-- finite-boundary and conventional two-carrier root tests;
-- hot-to-cold thermalization as an ordinary **rank-at-most-two** mechanism with quantitative stresses;
-- nonuniform weighting-field analysis, including the corrected singular limit;
-- controlled slowness-gradient theory;
-- source-shape, complex channel-calibration, arbitrary-spacing, coordinate-error, and excess-energy corrections;
-- independent-noise spacing optimization;
-- the corrected graded-HgCdTe conditional prediction, recombination stresses, independent shooting cross-check, nuisance budget, and measurement-resource table.
-
-Do not accidentally remove these when integrating later work.
+Do not regress to the earlier unrestricted claims.
 
 ## 5. Current HgCdTe conditional target
 
-For the illustrative 7.6 um / 300 K graded-HgCdTe stress, the four mean source depths are
+For the illustrative 7.6 um / 300 K graded-HgCdTe stress:
 
 ```text
-2.5, 3.0, 3.5, 4.0 um
+mean generation depths = 2.5, 3.0, 3.5, 4.0 um
+wavelengths ~ 2.134651, 2.215042, 2.301173, 2.393907 um
 ```
 
-with wavelengths approximately
-
-```text
-2.134651, 2.215042, 2.301173, 2.393907 um.
-```
-
-The conditional one-dimensional gradient-sensitive four-color phase remains approximately
+The conditional one-dimensional gradient-sensitive four-color phase remains:
 
 ```text
 100 MHz -> -0.011978 deg
@@ -210,11 +211,11 @@ The conditional one-dimensional gradient-sensitive four-color phase remains appr
 1 GHz   -> -0.110405 deg
 ```
 
-These are theory sensitivity predictions, not calibrated performance claims for a named detector. Rev. 4 did not change these values.
+No Rev. 5 correction changes these values.
 
 ## 6. Separate realistic-geometry hardening result
 
-The finite-electrode/depletion calculation remains recorded separately in:
+The finite-electrode/depletion calculation remains separately auditable in:
 
 ```text
 REALISTIC_GEOMETRY_CLOSURE_STRESS.md
@@ -222,62 +223,45 @@ numerics/realistic_geometry_closure_stress.py
 PAPER_CLAIM_LEDGER_REV3_GEOMETRY_ADDENDUM_2026-08-11.md
 ```
 
-A deterministic 2-D finite-electrode + depletion-like field stress shows that geometry can produce a four-color phase excess equal to an order-unity fraction of the current one-dimensional gradient target. For the representative 75%-contact + 3 um depletion stress:
+For the representative 75%-contact + 3 um depletion-like stress, the geometry/depletion excess over the planar same-optics baseline is approximately:
 
 ```text
-100 MHz -> -0.008841 deg = 0.738 x target
+100 MHz -> -0.008841 deg = 0.738 x current 1-D gradient target
 500 MHz -> -0.045827 deg = 0.780 x target
 1 GHz   -> -0.095513 deg = 0.865 x target
 ```
 
-Therefore:
+Therefore `four-color failure != transport-gradient identification`. The geometry result is **CHECKED / CONDITIONAL**, not a calibrated detector simulation or theorem for arbitrary geometry.
+
+## 7. Priority boundary — submission blocker
+
+The closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata, but its exact full text has not yet been lawfully recovered and audited. That task remains **OPEN** and blocks any submission-level novelty/priority claim.
+
+Accessible related sources establish composition-gradient built-in fields, wavelength-dependent response, strong-illumination behavior, and graded-HgCdTe high-speed response. None of the related texts examined establishes the exact full chain below, but this negative result is **not evidence of novelty**:
 
 ```text
-four-color failure != transport-gradient identification.
+spectral internal coordinate
+-> Ramo-aware differencing
+-> minimal-color model order
+-> cross-RF physical closure
 ```
 
-The same tested geometry tends to announce itself as additional spatial rank. At 100 MHz the nominal 3-sigma second-mode threshold is about `84.6 dB` current-step amplitude SNR, versus `96.1 dB` for the present gradient-specific inference. The fitted effective rank-two roots also fail the homogeneous finite-boundary real/RF-independent root-sum law.
+The exact closest source must still be read in full.
 
-This geometry result is **CHECKED / CONDITIONAL**, not a calibrated device simulation or theorem for arbitrary geometry. It was intentionally not integrated into Rev. 4 as a definitive detector prediction.
+## 8. Current limitation and next work
 
-## 7. Interpretation hierarchy
+The mathematical skeleton now survives repeated hostile review under its stated hypotheses. The largest remaining risks have shifted toward **experimental feasibility, modeled-systematic control, realistic-device transport, and priority**.
 
-The defensible order is now explicitly:
+Highest-value next work:
 
-```text
-rank 1 / four-color null
--> rank 2 if statistically resolved
--> higher ordinary finite-rank mechanisms if needed
--> RF root-law tests within the resolved order
--> only after ordinary alternatives fail, richer/nonlocal transport
-```
+1. obtain and fully audit the exact closest 2024 graded-HgCdTe paper;
+2. build one plausible self-consistent 2-D semiconductor Poisson/drift-diffusion detector calculation including diffusion and analyze its synthetic spectral/RF currents blindly with the same hierarchy;
+3. develop a credible calibration architecture for the extreme residual phase/depth requirements rather than merely quoting them;
+4. continue literature audit only around the exact claimed spectral-depth/Ramo/model-order/RF-closure combination.
 
-Failure of rank two alone does not imply nonlocal or exotic physics.
+Do not add broad new abstract theorems unless one of these attacks exposes a specific missing theorem.
 
-## 8. Current limitation and next scientific step
-
-The present 2-D geometry stress is deterministic high-Peclet transport. It does not yet include a fully self-consistent semiconductor Poisson/drift-diffusion solution with lateral diffusion, carrier coupling, trapping, or contact-transfer physics.
-
-The next high-value scientific attack remains a plausible self-consistent 2-D detector calculation whose synthetic spectral/RF currents are analyzed blindly with the same four-/six-color/higher-rank/RF-root hierarchy.
-
-Do not extend the abstract closure hierarchy merely to accumulate more theorems unless this realistic-device attack exposes a specific missing theorem.
-
-## 9. Priority boundary
-
-Established ingredients include Shockley-Ramo signal formation, wavelength-dependent photodiode timing/phase, photodetector Hankel/model identification, graded-HgCdTe high-speed response, and standard drift-diffusion inversion mathematics.
-
-The complete chain
-
-```text
-spectral internal position
--> Ramo-aware spatial differencing
--> color-count model order
--> RF root-law falsification
-```
-
-has not been found in the sources examined to date. That is a negative search result, **not evidence of novelty**.
-
-## 10. Mandatory recovery order
+## 9. Mandatory recovery order
 
 A new agent should read:
 
@@ -287,9 +271,10 @@ A new agent should read:
 4. `MANUSCRIPT_BASELINE.md`;
 5. `MANUSCRIPT_PRESERVATION_PROTOCOL.md`;
 6. this file;
-7. `REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
-8. `PAPER_CLAIM_LEDGER.md` and newer claim-ledger addenda;
-9. the exact extracted manuscript source when manuscript work is required.
+7. `REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
+8. `REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;
+9. `PAPER_CLAIM_LEDGER.md` and newer claim-ledger addenda;
+10. the exact extracted manuscript source when manuscript work is required.
 
 **Preserve first; integrate second; rewrite only when explicitly requested by the user.**
 
