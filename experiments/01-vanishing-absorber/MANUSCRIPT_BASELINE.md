@@ -1,6 +1,6 @@
 # Canonical Manuscript Baseline
 
-**Status:** **CANONICAL REV. 5 MANUSCRIPT BASELINE — PRESERVE**  
+**Status:** **CANONICAL REV. 6 MANUSCRIPT BASELINE — PRESERVE**  
 **Date canonicalized:** 2026-08-11  
 **Author metadata:** Anonymous  
 **Title:** `Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current`
@@ -22,20 +22,20 @@ Any different author identity requires explicit artifact-specific approval and r
 The authoritative source is:
 
 ```text
-MANUSCRIPT_REV5_ANON_2026-08-11.tex
+MANUSCRIPT_REV6_ANON_2026-08-11.tex
 ```
 
-Rev. 5 was first validated against the established Rev. 4 baseline in PR #6. Only after the preservation and privacy gates passed were these canonical pointers updated. The revision is surgical: only 19 of 817 established Rev. 4 lines were changed or removed (~2.33%); no section, subsection, reference, or unrelated derivation was deleted.
+Rev. 6 was first validated against the established Rev. 5 baseline in PR #8. Only after the preservation and privacy gates passed were canonical pointers updated. The revision is surgical: 21 of 863 established Rev. 5 lines were changed or removed (~2.43%); no section, subsection, reference, or unrelated derivation was deleted.
 
 The exact source is preserved as six deterministic base64 text parts containing a gzip-compressed snapshot:
 
 ```text
-manuscript_history/MANUSCRIPT_REV5_ANON_2026-08-11.tex.gz.b64.part01
-manuscript_history/MANUSCRIPT_REV5_ANON_2026-08-11.tex.gz.b64.part02
-manuscript_history/MANUSCRIPT_REV5_ANON_2026-08-11.tex.gz.b64.part03
-manuscript_history/MANUSCRIPT_REV5_ANON_2026-08-11.tex.gz.b64.part04
-manuscript_history/MANUSCRIPT_REV5_ANON_2026-08-11.tex.gz.b64.part05
-manuscript_history/MANUSCRIPT_REV5_ANON_2026-08-11.tex.gz.b64.part06
+manuscript_history/MANUSCRIPT_REV6_ANON_2026-08-11.tex.gz.b64.part01
+manuscript_history/MANUSCRIPT_REV6_ANON_2026-08-11.tex.gz.b64.part02
+manuscript_history/MANUSCRIPT_REV6_ANON_2026-08-11.tex.gz.b64.part03
+manuscript_history/MANUSCRIPT_REV6_ANON_2026-08-11.tex.gz.b64.part04
+manuscript_history/MANUSCRIPT_REV6_ANON_2026-08-11.tex.gz.b64.part05
+manuscript_history/MANUSCRIPT_REV6_ANON_2026-08-11.tex.gz.b64.part06
 ```
 
 Recover it only with:
@@ -47,14 +47,14 @@ python tools/extract_manuscript_baseline.py
 The recovered source MUST verify as:
 
 ```text
-SHA-256: 9d9c4686a152dcdbbfebae1db00a22f5cfd743b5948f825e79ba2acd75b812fb
-bytes: 59803
-lines: 863
-compiled pages: 21
+SHA-256: 2f8f6c22b64d89f7237a3053663fc500f97574c75a0c60489bb7f19925f112b4
+bytes: 67837
+lines: 924
+compiled pages: 22
 sections: 12
 subsections: 18
-bibliography items: 11
-\begin{equation} environments: 92
+bibliography items: 13
+\begin{equation} environments: 99
 author metadata: Anonymous
 PDF author metadata: Anonymous
 ```
@@ -62,39 +62,44 @@ PDF author metadata: Anonymous
 The deterministic gzip snapshot MUST verify as:
 
 ```text
-SHA-256: ef1a05707690753bd3affd24909e1bedf6ad0681e409f09f92e479d6c0d22a65
-bytes: 20758
+SHA-256: aa7ab9e3271599bf9cdaa5ef37618cb2b9757ee0e08c867303a83e06e61adb8e
+bytes: 23386
 parts: 6
 ```
 
 If recovery or either hash fails, **do not recreate or edit the manuscript from notes**. Work in a separate addendum until the exact source is restored.
 
-## Rev. 5 corrections now canonical
+## Rev. 6 corrections now canonical
 
-Rev. 5 preserves the central four-color and finite-rank constructions and adds the remaining post-Rev. 4 adversarial hardening:
+Rev. 6 preserves the central four-color theorem and the established branch/finite-rank hierarchy while adding the post-Rev. 5 adversarial hardening:
 
-- low-RF coalescence of the weighting-field multiplier `q_weight=1` with `q_transport -> 1`, including best-case rank-two resolution requirements of approximately 116.2, 88.4, and 76.7 dB at 100, 500, and 1000 MHz;
-- the complementary five-color annihilation penalty of approximately 46.3, 32.3, and 26.4 dB at those frequencies;
-- a branch-free homogeneous finite-boundary prerequisite `q_+ q_- in R_{>0}` that is RF-independent, followed by explicit two-root branch and permutation discipline;
-- accurate description of the inherited HgCdTe velocity expression as an empirical field-rolloff sensitivity law rather than an asymptotic saturation law;
-- explicit covariance for the modeled same-optics homogeneous subtraction, whose nominal phase is roughly 20.5--22.4% of the quoted gradient-sensitive excess;
-- the confluent `s=kappa=0`, `q->1` limit of the one-carrier current;
-- one-log complex closure-ratio notation and `u(z)=1/v(z)` for local slowness;
-- explicit language that the few-nanometer coordinate and `~10^-4 degree` phase numbers are derived design requirements, not demonstrated calibration performance.
+- a separate **post-detection conditioning rung**: rank-two detection is necessary but not sufficient for useful root-law inference;
+- for `P=q_1q_2=W_1/W_0`, full first-order covariance including the shared-minor covariance, with the deliberately optimistic independent equal-significance limit `sigma_P/|P| ~ sqrt(2)/Z`; thus a `3 sigma` minor detection can still imply about 47.1% relative product uncertainty and about `14.1 sigma` is needed for 10% product precision in that simplified limit;
+- the recurrence sum `S=q_1+q_2`, its first-order differential, and explicit ill-conditioning as `S^2-4P -> 0`;
+- explicit distinction between algebraic branch immunity and statistical robustness for the finite-boundary product test;
+- explicit interpretation of prescribed one-dimensional `E_w(z)` as an **effective observation-operator surrogate**, not a generic finite-electrode electrostatic solution;
+- a graded-HgCdTe force-partition sensitivity coordinate `xi`, with the existing finite-width benchmark and resource table explicitly normalized to the conditional `xi=1` stress;
+- a 100-MHz point-source finite-diffusion `xi` sweep showing that the benchmark magnitude is not a robust material constant;
+- two additional adjacent OED primary references (2021 Ge PN and 2024 Ge PIN) and a sharper prior-art boundary;
+- two-carrier labeling only after both modes are statistically resolved and continuously tracked;
+- covariance `chi^2` language explicitly treated as per-rung/conditional, with sequential model-order/root-law error control left to a full experimental implementation;
+- one self-consistent **combined-physics blind synthetic detector challenge** named as the decisive next device-physics validation rather than added as another large theory section.
 
 Detailed records:
 
 ```text
-REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md
-MANUSCRIPT_REV5_PRESERVATION_REPORT_2026-08-11.md
-numerics/rev5_review_regression.py
+REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md
+MANUSCRIPT_REV6_PRESERVATION_REPORT_2026-08-11.md
+numerics/rev6_review_regression.py
 ```
 
-No reported HgCdTe closure value was changed by Rev. 5.
+The previously reported finite-width HgCdTe closure values remain the `xi=1` baseline; Rev. 6 does not relabel them as generic material predictions.
 
-## Priority boundary
+## Priority and feasibility boundary
 
-The closest-looking 2024 graded-HgCdTe paper is bibliographically verified, but its full text has not yet been lawfully recovered and audited. That audit remains **OPEN** and blocks any priority/novelty claim at submission. Negative searches or related-paper audits are not novelty evidence.
+Priority remains **OPEN / UNPROVEN**. The exact closest 2024 graded-HgCdTe paper still requires a full-text audit before submission-level priority/novelty language. Negative searches or related-paper audits are not novelty evidence.
+
+The manuscript also does not claim demonstrated experimental feasibility. The derived few-nanometer nonaffine-coordinate, approximately `10^-4 degree` irregular-phase, and baseline-model covariance requirements remain design/resource scales that require an eventual calibration architecture.
 
 ## Required section spine
 
@@ -136,7 +141,7 @@ Measurement resource
 
 ## Historical baselines
 
-The anonymous Rev. 4 and Rev. 3 snapshots remain preserved under `manuscript_history/` as provenance. They are not current sources and must not override Rev. 5. `MANUSCRIPT_DRAFT.tex` and `MANUSCRIPT_DRAFT.md` are older historical sources only.
+Anonymous Rev. 5, Rev. 4, and Rev. 3 snapshots remain preserved under `manuscript_history/` as provenance. They are not current sources and must not override Rev. 6. `MANUSCRIPT_DRAFT.tex` and `MANUSCRIPT_DRAFT.md` are older historical sources only.
 
 A handoff summary is navigation, never manuscript source-of-truth.
 

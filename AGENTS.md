@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **anonymous Rev. 5 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading conditional worked example; priority remains unproven**
+**Current mode:** **anonymous Rev. 6 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is a conditional scaling/stress example; priority remains unproven**
 
 Read this file first.
 
@@ -18,7 +18,7 @@ If identity disclosure is explicitly requested, follow `PRIVACY_PROTOCOL.md` and
 
 The repository follows the physics rather than a predetermined paper. Failed conjectures, observable corrections, numerical corrections, counterexamples, and prior-art collisions are part of the result.
 
-**A working manuscript exists. The canonical manuscript is the anonymous 21-page Rev. 5, validated against the previous Rev. 4 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**
+**A working manuscript exists. The canonical manuscript is the anonymous 22-page Rev. 6, validated against the previous Rev. 5 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**
 
 ## CRITICAL: manuscript preservation lock
 
@@ -35,7 +35,7 @@ Before any manuscript edit, read these files in order:
 
 **Do not treat `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, the older `CURRENT_STATE.md`, the historical Rev. 3 snapshot, this file's summaries, or an agent handoff as a substitute for the exact current manuscript.**
 
-The immutable Rev. 5 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
+The immutable Rev. 6 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
 
 The mandatory default is:
 
@@ -53,6 +53,8 @@ Current manuscript/state sources:
 - `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 - `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
+- `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+- `experiments/01-vanishing-absorber/MANUSCRIPT_REV6_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_REV5_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
@@ -109,7 +111,7 @@ Use explicitly:
 
 A negative literature search is not novelty evidence.
 
-**REV. 5 submission blocker:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.
+**REV. 6 submission blockers:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.
 
 Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focused primary-source audit and claim-ledger update.
 
@@ -122,6 +124,7 @@ Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focu
 3. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 4. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
+6. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
@@ -149,7 +152,7 @@ Choose four wavelengths corresponding to four equally spaced internal source coo
 
 Three source coordinates identify one spatial multiplier `q`. The fourth is a parameter-free null measurement.
 
-**Important branch qualification, retained in Rev. 5:** this four-color null is a statement in `q`-space and is branch-independent. Converting
+**Important branch qualification, retained in Rev. 6:** this four-color null is a statement in `q`-space and is branch-independent. Converting
 
 ```math
 q=e^{-\gamma h}
@@ -198,7 +201,9 @@ d_m=a q_1^m+b q_2^m,
 =ab(q_1q_2)^m(q_1-q_2)^2.}
 ```
 
-A second mode must be statistically resolved before roots are interpreted. Degeneracies can reduce observable rank, so use **rank at most two** when referring to the general two-mode mechanism.
+A second mode must be statistically resolved before roots are interpreted.
+
+**REV. 6 qualification:** rank detection is only the first threshold. A resolved second mode must also have sufficiently precise recurrence parameters before physical root-law discrimination. For `P=W_1/W_0=q_1q_2`, the optimistic independent equal-significance limit gives `sigma_P/|P| ~ sqrt(2)/Z`, so `Z=3` still implies about 47.1% relative product uncertainty. Operational order: **rank detection -> parameter resolution -> physical-law discrimination**. Algebraic branch immunity is not statistical robustness. Degeneracies can reduce observable rank, so use **rank at most two** when referring to the general two-mode mechanism.
 
 Failure of rank two does **not** imply exotic transport. Continue through higher ordinary finite-rank mechanisms before richer/nonlocal interpretations.
 
@@ -246,7 +251,7 @@ Never import arrival-time identities into terminal current without deriving the 
 
 ---
 
-## 6. Rev. 4/5 mathematical boundary conditions — never regress
+## 6. Rev. 4/5/6 mathematical boundary conditions — never regress
 
 ### Spatial-log branch ambiguity
 
@@ -291,6 +296,8 @@ J_p=-E_0z-\frac{E_1}{2}z^2.
 ```
 
 A linear field therefore requires **third differences / six colors** for exact polynomial annihilation at the singular DC/no-recombination point. Do not apply the five-color theorem there.
+
+**REV. 6 interpretation lock:** prescribed one-dimensional `E_w(z)` is an effective observation-operator surrogate, not a generic self-consistent finite-pixel electrostatic geometry. Real finite-electrode nonuniformity generally requires multidimensional electrostatics and lateral trajectories.
 
 ---
 
@@ -359,13 +366,15 @@ For no recombination, the gradient-sensitive closure phase remains approximately
 
 The point-source low-RF slowness-gradient result gives approximately `-0.01254 deg` at 100 MHz.
 
-Rev. 5 retains the exact conditional transport law used to generate these numbers: linear composition, Hansen gap and derivative, Einstein diffusion, the inherited empirical **field-rolloff sensitivity law** (not an asymptotic saturation law), reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match.  At the sampled grading fields the rolloff changes the low-field velocity by only about 0.15--0.18%, so the reported closure values are unchanged.
+Rev. 6 retains the exact conditional transport law used to generate these numbers: linear composition, Hansen gap and derivative, Einstein diffusion, the inherited empirical **field-rolloff sensitivity law** (not an asymptotic saturation law), reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match.  At the sampled grading fields the rolloff changes the low-field velocity by only about 0.15--0.18%, so the reported closure values are unchanged.
 
 The stochastic finite-difference result was independently reproduced with an adaptive shooting construction to approximately `10^-6 degree` agreement or better at the reported RF points. This is **numerical cross-verification of the same specified conditional model**, not physical validation of HgCdTe at `10^-6 degree`.
 
 These are conditional theory predictions, not calibrated forecasts for an existing detector.
 
-Rev. 5 retains the deliberately independent residual-error stresses, but they are **derived design requirements rather than demonstrated calibration performance**:
+**REV. 6 HgCdTe normalization:** the previously reported finite-width target and resource budget are the conditional `xi=1` baseline of the force-partition sensitivity stress, not generic HgCdTe material specifications. The manuscript now varies `xi` explicitly.
+
+Rev. 6 retains the deliberately independent residual-error stresses, but they are **derived design requirements rather than demonstrated calibration performance**:
 
 ```text
 nonaffine source-coordinate RMS:
@@ -462,7 +471,7 @@ Do **not** reopen broad exploratory theory unless manuscript review or realistic
 
 Priority now:
 
-1. preserve the exact anonymous 19-page Rev. 4 source and keep both manuscript-preservation and privacy guards passing;
+1. preserve the exact anonymous 22-page Rev. 6 source and keep both manuscript-preservation and privacy guards passing;
 2. keep the realistic 2-D geometry result as a separate auditable hardening result rather than treating it as a calibrated detector prediction;
 3. continue the narrow primary-source priority audit for the exact spectral-depth closure construction;
 4. advance the geometry attack to one plausible self-consistent 2-D semiconductor Poisson/drift-diffusion structure with diffusion and analyze the synthetic spectral/RF data blindly using the same hierarchy;

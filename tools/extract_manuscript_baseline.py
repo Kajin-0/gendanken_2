@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract and verify the immutable anonymous Rev. 5 manuscript baseline."""
+"""Extract and verify the immutable anonymous Rev. 6 manuscript baseline."""
 from __future__ import annotations
 
 import base64
@@ -10,12 +10,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXP = ROOT / "experiments" / "01-vanishing-absorber"
 HISTORY = EXP / "manuscript_history"
-PART_GLOB = "MANUSCRIPT_REV5_ANON_2026-08-11.tex.gz.b64.part*"
+PART_GLOB = "MANUSCRIPT_REV6_ANON_2026-08-11.tex.gz.b64.part*"
 OUTPUT = EXP / "MANUSCRIPT_CURRENT.tex"
-EXPECTED_SOURCE_SHA256 = "9d9c4686a152dcdbbfebae1db00a22f5cfd743b5948f825e79ba2acd75b812fb"
-EXPECTED_GZIP_SHA256 = "ef1a05707690753bd3affd24909e1bedf6ad0681e409f09f92e479d6c0d22a65"
+EXPECTED_SOURCE_SHA256 = "2f8f6c22b64d89f7237a3053663fc500f97574c75a0c60489bb7f19925f112b4"
+EXPECTED_GZIP_SHA256 = "aa7ab9e3271599bf9cdaa5ef37618cb2b9757ee0e08c867303a83e06e61adb8e"
 EXPECTED_PARTS = 6
-EXPECTED_LINES = 863
+EXPECTED_LINES = 924
 
 
 def sha256(data: bytes) -> str:
