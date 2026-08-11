@@ -2,25 +2,36 @@
 
 **Status:** **CANONICAL PRE-GEOMETRY MANUSCRIPT BASELINE — PRESERVE**  
 **Date recovered/audited:** 2026-08-11  
-**Author:** Terence Fisher  
+**Author metadata:** Anonymous  
 **Title:** `Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current`
 
 This file exists to prevent a future agent from reconstructing the paper from summaries, addenda, or an older checked-in draft.
 
-## Canonical baseline
+## Privacy status
 
-The authoritative manuscript immediately before the realistic-geometry hardening study is the exact source previously generated as:
+The canonical manuscript baseline is intentionally pseudonymous. Author identity is **not** scientific source-of-truth content and must not be restored or inferred from prior files, account metadata, git history, or memory.
+
+Default manuscript and PDF author metadata is:
 
 ```text
-Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex
+Anonymous
 ```
 
-The exact source is preserved inside this repository as six deterministic base64 text parts containing a gzip-compressed snapshot:
+Changing author identity requires explicit user approval for that specific artifact and must follow root `PRIVACY_PROTOCOL.md`.
+
+## Canonical baseline
+
+The authoritative manuscript immediately before the realistic-geometry hardening study is the exact pseudonymous source:
 
 ```text
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part01
-...
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part06
+MANUSCRIPT_REV3_ANON_2026-08-11.tex
+```
+
+The exact source is preserved inside this repository as two deterministic base64 text parts containing a gzip-compressed snapshot:
+
+```text
+manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part01
+manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part02
 ```
 
 Recover it only with:
@@ -29,27 +40,29 @@ Recover it only with:
 python tools/extract_manuscript_baseline.py
 ```
 
-The extractor concatenates the six parts, verifies the compressed snapshot, decompresses it, verifies the exact source, and writes `MANUSCRIPT_CURRENT.tex`. Do not manually reconstruct the source from the parts.
+The extractor concatenates the two parts, verifies the compressed snapshot, decompresses it, verifies the exact source and anonymous author metadata, and writes `MANUSCRIPT_CURRENT.tex`. Do not manually reconstruct the source from the parts.
 
 The decompressed source MUST have:
 
 ```text
-SHA-256: 76a3c5c0d26734773a5c60151e005f9b11225fa337520cb18eb358064fb48ad4
-bytes: 43554
+SHA-256: 3ba57ed7c7bbe264038ffa4e6eabfc1ea90c1075d4989d4075d2589352cf6d8c
+bytes: 43544
 lines: 696
 compiled pages: 16
 sections: 12
 subsections: 18
 bibliography items: 11
 \begin{equation} environments: 75
+author metadata: Anonymous
+PDF author metadata: Anonymous
 ```
 
 The deterministic gzip snapshot MUST have:
 
 ```text
-SHA-256: 2732f2b64887c8694baddec54621795464ca4492f5b6f6d31de21ae738e6b29d
-bytes: 15362
-parts: 6
+SHA-256: e413c1be218f4f3d33611381b6407137169abafb6fc22a6087f33f77b3c2ae3e
+bytes: 15358
+parts: 2
 ```
 
 If the snapshot cannot be recovered and verified against these hashes, **do not edit or recreate the manuscript**. Work in a separate addendum until the exact source is restored.
@@ -106,4 +119,4 @@ New science should first be recorded in a theorem/result/addendum file. Manuscri
 
 A shorter or reorganized manuscript can be produced only when the user explicitly requests an editorial compression/rewrite. It must never occur incidentally while integrating a new calculation.
 
-See `MANUSCRIPT_PRESERVATION_PROTOCOL.md` and `tools/check_manuscript_preservation.py`.
+Scientific preservation does not authorize identity disclosure. See root `PRIVACY_PROTOCOL.md`, `MANUSCRIPT_PRESERVATION_PROTOCOL.md`, and `tools/check_manuscript_preservation.py`.

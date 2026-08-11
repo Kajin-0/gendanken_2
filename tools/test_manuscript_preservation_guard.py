@@ -70,7 +70,7 @@ def main() -> int:
         # missing established subsection, and severe truncation.
         bad = td / "bad.tex"
         destructive = baseline.replace(
-            "\\author{Terence Fisher}", "\\author{[Author]}"
+            "\\author{Anonymous}", "\\author{[Author]}"
         ).replace(
             "\\subsection{Two conventional carrier species}",
             "\\subsection{REMOVED BY ACCIDENT}",

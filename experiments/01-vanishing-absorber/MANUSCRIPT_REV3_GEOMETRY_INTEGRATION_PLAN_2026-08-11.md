@@ -9,7 +9,7 @@ The user-facing manuscript immediately preceding the two-dimensional geometry st
 
 ```text
 Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.pdf
-Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex
+MANUSCRIPT_REV3_ANON_2026-08-11.tex
 ```
 
 That source was generated during the previous review pass but was not committed to `main`. The checked-in `MANUSCRIPT_DRAFT.tex` is older and therefore must not be mistaken for the latest user-facing paper.
