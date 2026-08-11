@@ -2,7 +2,7 @@
 
 **Status:** **CANONICAL PRE-GEOMETRY MANUSCRIPT BASELINE — PRESERVE**  
 **Date recovered/audited:** 2026-08-11  
-**Author:** Terence Fisher  
+**Author:** Anonymous  
 **Title:** `Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current`
 
 This file exists to prevent a future agent from reconstructing the paper from summaries, addenda, or an older checked-in draft.
@@ -12,15 +12,15 @@ This file exists to prevent a future agent from reconstructing the paper from su
 The authoritative manuscript immediately before the realistic-geometry hardening study is the exact source previously generated as:
 
 ```text
-Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex
+MANUSCRIPT_REV3_ANON_2026-08-11.tex
 ```
 
 The exact source is preserved inside this repository as six deterministic base64 text parts containing a gzip-compressed snapshot:
 
 ```text
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part01
+manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part01
 ...
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part06
+manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part06
 ```
 
 Recover it only with:
@@ -34,7 +34,7 @@ The extractor concatenates the six parts, verifies the compressed snapshot, deco
 The decompressed source MUST have:
 
 ```text
-SHA-256: 76a3c5c0d26734773a5c60151e005f9b11225fa337520cb18eb358064fb48ad4
+SHA-256: 3ba57ed7c7bbe264038ffa4e6eabfc1ea90c1075d4989d4075d2589352cf6d8c
 bytes: 43554
 lines: 696
 compiled pages: 16
@@ -47,7 +47,7 @@ bibliography items: 11
 The deterministic gzip snapshot MUST have:
 
 ```text
-SHA-256: 2732f2b64887c8694baddec54621795464ca4492f5b6f6d31de21ae738e6b29d
+SHA-256: e413c1be218f4f3d33611381b6407137169abafb6fc22a6087f33f77b3c2ae3e
 bytes: 15362
 parts: 6
 ```

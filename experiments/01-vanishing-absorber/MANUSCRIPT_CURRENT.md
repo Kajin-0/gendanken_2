@@ -1,6 +1,6 @@
 # Current Manuscript Pointer
 
-**Canonical manuscript status:** the current approved manuscript baseline is the recovered **16-page Rev. 3** by Terence Fisher, immediately before the realistic 2-D geometry hardening result.
+**Canonical manuscript status:** the current approved manuscript baseline is the recovered **16-page Rev. 3** by Anonymous, immediately before the realistic 2-D geometry hardening result.
 
 Do **not** use `MANUSCRIPT_DRAFT.tex` as the current source merely because it is an older plain-text file already present in the repository.
 
@@ -9,9 +9,9 @@ Do **not** use `MANUSCRIPT_DRAFT.tex` as the current source merely because it is
 The exact source is preserved in six repository text parts:
 
 ```text
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part01
+manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part01
 ...
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part06
+manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part06
 ```
 
 For normal manuscript work, recover the exact editable source with:
@@ -23,11 +23,11 @@ python tools/extract_manuscript_baseline.py
 The extractor will refuse to write a working source unless both hashes and the line count match the audited baseline. The recovered source must verify as:
 
 ```text
-source SHA-256 = 76a3c5c0d26734773a5c60151e005f9b11225fa337520cb18eb358064fb48ad4
-gzip SHA-256   = 2732f2b64887c8694baddec54621795464ca4492f5b6f6d31de21ae738e6b29d
+source SHA-256 = 3ba57ed7c7bbe264038ffa4e6eabfc1ea90c1075d4989d4075d2589352cf6d8c
+gzip SHA-256   = e413c1be218f4f3d33611381b6407137169abafb6fc22a6087f33f77b3c2ae3e
 lines = 696
 pages in matching compiled PDF = 16
-author = Terence Fisher
+author = Anonymous
 ```
 
 The verified working copy is written to:

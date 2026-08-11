@@ -8,7 +8,7 @@ This is the current state pointer. The older `CURRENT_STATE.md` remains historic
 
 ## 1. Canonical manuscript
 
-The current approved manuscript baseline is the recovered **16-page Rev. 3** by Terence Fisher:
+The current approved manuscript baseline is the recovered **16-page Rev. 3** by Anonymous:
 
 ```text
 Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current
@@ -21,7 +21,7 @@ MANUSCRIPT_CURRENT.md
 MANUSCRIPT_BASELINE.md
 MANUSCRIPT_BASELINE.json
 MANUSCRIPT_PRESERVATION_PROTOCOL.md
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part01 ... part06
+manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part01 ... part06
 tools/extract_manuscript_baseline.py
 ```
 

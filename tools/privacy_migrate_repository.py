@@ -8,12 +8,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXP = ROOT / "experiments" / "01-vanishing-absorber"
-OLD_SOURCE = "Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex"
+OLD_SOURCE = "MANUSCRIPT_REV3_ANON_2026-08-11.tex"
 NEW_SOURCE = "MANUSCRIPT_REV3_ANON_2026-08-11.tex"
-OLD_NAME = "Terence Fisher"
-OLD_SOURCE_SHA = "76a3c5c0d26734773a5c60151e005f9b11225fa337520cb18eb358064fb48ad4"
+OLD_NAME = "Anonymous"
+OLD_SOURCE_SHA = "3ba57ed7c7bbe264038ffa4e6eabfc1ea90c1075d4989d4075d2589352cf6d8c"
 NEW_SOURCE_SHA = "3ba57ed7c7bbe264038ffa4e6eabfc1ea90c1075d4989d4075d2589352cf6d8c"
-OLD_GZIP_SHA = "2732f2b64887c8694baddec54621795464ca4492f5b6f6d31de21ae738e6b29d"
+OLD_GZIP_SHA = "e413c1be218f4f3d33611381b6407137169abafb6fc22a6087f33f77b3c2ae3e"
 NEW_GZIP_SHA = "e413c1be218f4f3d33611381b6407137169abafb6fc22a6087f33f77b3c2ae3e"
 
 PRIVACY_LOCK = """## CRITICAL: privacy / pseudonymity lock
@@ -80,9 +80,9 @@ def replace_text(path: Path) -> None:
     new = new.replace(OLD_SOURCE, NEW_SOURCE)
     new = new.replace(OLD_SOURCE_SHA, NEW_SOURCE_SHA)
     new = new.replace(OLD_GZIP_SHA, NEW_GZIP_SHA)
-    new = new.replace("source_bytes: 43554", "source_bytes: 43544")
-    new = new.replace('"source_bytes": 43554', '"source_bytes": 43544')
-    new = new.replace("gzip bytes: 15362", "gzip bytes: 15358")
+    new = new.replace("source_bytes: 43544", "source_bytes: 43544")
+    new = new.replace('"source_bytes": 43544', '"source_bytes": 43544')
+    new = new.replace("gzip bytes: 15358", "gzip bytes: 15358")
     if new != text:
         path.write_text(new, encoding="utf-8")
 
@@ -125,7 +125,7 @@ def main() -> int:
 
     # Remove identity-bearing snapshot filenames from the live tree.
     history = EXP / "manuscript_history"
-    for path in history.glob("Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part*"):
+    for path in history.glob("MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part*"):
         path.unlink()
 
     # The one-time workflow removes itself before the migration commit.

@@ -10,10 +10,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXP = ROOT / "experiments" / "01-vanishing-absorber"
 HISTORY = EXP / "manuscript_history"
-PART_GLOB = "Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part*"
+PART_GLOB = "MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part*"
 OUTPUT = EXP / "MANUSCRIPT_CURRENT.tex"
-EXPECTED_SOURCE_SHA256 = "76a3c5c0d26734773a5c60151e005f9b11225fa337520cb18eb358064fb48ad4"
-EXPECTED_GZIP_SHA256 = "2732f2b64887c8694baddec54621795464ca4492f5b6f6d31de21ae738e6b29d"
+EXPECTED_SOURCE_SHA256 = "3ba57ed7c7bbe264038ffa4e6eabfc1ea90c1075d4989d4075d2589352cf6d8c"
+EXPECTED_GZIP_SHA256 = "e413c1be218f4f3d33611381b6407137169abafb6fc22a6087f33f77b3c2ae3e"
 EXPECTED_PARTS = 6
 
 

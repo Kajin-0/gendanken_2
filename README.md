@@ -2,6 +2,8 @@
 
 First-principles thought experiments in photodetector physics. Failed conjectures, counterexamples, corrections, and prior-art collisions are retained because they define the actual result.
 
+**Privacy default:** pseudonymous/anonymous. Identifying information requires explicit user approval; see [`PRIVACY_PROTOCOL.md`](PRIVACY_PROTOCOL.md).
+
 The pre-remediation README remains recoverable from git at commit `c034984b2ccf3ccc0a71638b0b197f7fa4c98645`; see `README_LEGACY_2026-08-10.md`. It is historical and must not be used as current scientific state.
 
 ## Active experiment
@@ -14,7 +16,7 @@ The active result is a **Shockley-Ramo-aware spectral-depth closure hierarchy fo
 
 A working manuscript **does exist**.
 
-The current approved baseline is the recovered **16-page Rev. 3** by **Terence Fisher**:
+The current approved baseline is the recovered **16-page Rev. 3** by **Anonymous**:
 
 ```text
 Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current

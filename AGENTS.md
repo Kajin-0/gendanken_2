@@ -6,9 +6,19 @@
 
 Read this file first.
 
+## CRITICAL: privacy / pseudonymity lock
+
+**Pseudonymity is the default and identifying information is opt-in.** Never insert or restore a legal name, personal email, phone number, street address, precise personal location, employer/affiliation, signature, identifying account handle, or other identifying metadata into a manuscript, repository file, public artifact, PDF metadata, or release unless the user explicitly approves that specific disclosure.
+
+Do not infer disclosure permission from account/profile information, prior files, git history, memory, authorship conventions, or the fact that identifying information appeared previously. Previous disclosure is not continuing consent.
+
+For manuscripts and generated PDFs, the default author and PDF-author metadata are `Anonymous` unless the user explicitly chooses a pseudonym or author identity for that artifact. **A real identity must never become the canonical baseline by default.**
+
+If identity disclosure is explicitly requested, follow `PRIVACY_PROTOCOL.md` and record only the minimum approved disclosure. Scientific preservation and identity disclosure are separate decisions.
+
 The repository follows the physics rather than a predetermined paper. Failed conjectures, observable corrections, numerical corrections, counterexamples, and prior-art collisions are part of the result.
 
-**A working manuscript exists. The canonical pre-geometry manuscript is the recovered 16-page Rev. 3 by Terence Fisher. It is not submission-ready.**
+**A working manuscript exists. The canonical pre-geometry manuscript is the recovered 16-page Rev. 3 by Anonymous. It is not submission-ready.**
 
 ## CRITICAL: manuscript preservation lock
 
