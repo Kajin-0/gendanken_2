@@ -102,8 +102,6 @@ def main() -> None:
 
     # Integrated low-frequency coefficients obey occupation-time moment sum rules.
     assert abs(np.sum(mean_ell) - mean_T) < 1.0e-14
-    assert abs(np.sum(cov_T_ell) - np.var(T, ddof=0, where=np.ones_like(T,dtype=bool), mean=mean_T)) < 1e-12 if False else True
-    # Explicit weighted variance because np.var has no probability weights.
     var_T = float(np.sum(PROB * (T - mean_T) ** 2))
     assert abs(np.sum(cov_T_ell) - var_T) < 1.0e-14
 
