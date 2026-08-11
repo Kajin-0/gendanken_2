@@ -1,0 +1,48 @@
+name: Privacy policy
+
+on:
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - 'PRIVACY_PROTOCOL.md'
+      - 'README.md'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT*.tex'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.json'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.md'
+      - 'experiments/01-vanishing-absorber/IDENTITY_RELEASE.md'
+      - 'experiments/01-vanishing-absorber/manuscript_history/**'
+      - 'tools/extract_manuscript_baseline.py'
+      - 'tools/check_privacy_policy.py'
+      - '.github/workflows/privacy-policy.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'AGENTS.md'
+      - 'PRIVACY_PROTOCOL.md'
+      - 'README.md'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT*.tex'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.json'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.md'
+      - 'experiments/01-vanishing-absorber/IDENTITY_RELEASE.md'
+      - 'experiments/01-vanishing-absorber/manuscript_history/**'
+      - 'tools/extract_manuscript_baseline.py'
+      - 'tools/check_privacy_policy.py'
+      - '.github/workflows/privacy-policy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  privacy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Enforce anonymous canonical metadata unless explicitly released
+        run: python tools/check_privacy_policy.py
