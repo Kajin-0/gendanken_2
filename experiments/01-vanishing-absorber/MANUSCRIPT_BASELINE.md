@@ -15,11 +15,21 @@ The authoritative manuscript immediately before the realistic-geometry hardening
 Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex
 ```
 
-A repository-preserved gzip snapshot is stored at:
+The exact source is preserved inside this repository as six deterministic base64 text parts containing a gzip-compressed snapshot:
 
 ```text
-manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz
+manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part01
+...
+manuscript_history/Fisher_Spectral_Depth_Closure_Paper_REV3_2026-08-11.tex.gz.b64.part06
 ```
+
+Recover it only with:
+
+```bash
+python tools/extract_manuscript_baseline.py
+```
+
+The extractor concatenates the six parts, verifies the compressed snapshot, decompresses it, verifies the exact source, and writes `MANUSCRIPT_CURRENT.tex`. Do not manually reconstruct the source from the parts.
 
 The decompressed source MUST have:
 
@@ -34,11 +44,12 @@ bibliography items: 11
 \begin{equation} environments: 75
 ```
 
-The deterministic gzip snapshot itself has:
+The deterministic gzip snapshot MUST have:
 
 ```text
 SHA-256: 2732f2b64887c8694baddec54621795464ca4492f5b6f6d31de21ae738e6b29d
 bytes: 15362
+parts: 6
 ```
 
 If the snapshot cannot be recovered and verified against these hashes, **do not edit or recreate the manuscript**. Work in a separate addendum until the exact source is restored.
