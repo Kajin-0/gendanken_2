@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **anonymous Rev. 4 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading conditional worked example; priority remains unproven**
+**Current mode:** **anonymous Rev. 5 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading conditional worked example; priority remains unproven**
 
 Read this file first.
 
@@ -18,7 +18,7 @@ If identity disclosure is explicitly requested, follow `PRIVACY_PROTOCOL.md` and
 
 The repository follows the physics rather than a predetermined paper. Failed conjectures, observable corrections, numerical corrections, counterexamples, and prior-art collisions are part of the result.
 
-**A working manuscript exists. The canonical manuscript is the anonymous 19-page Rev. 4, validated against the previous Rev. 3 baseline before canonicalization. It is not yet submission-ready.**
+**A working manuscript exists. The canonical manuscript is the anonymous 21-page Rev. 5, validated against the previous Rev. 4 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**
 
 ## CRITICAL: manuscript preservation lock
 
@@ -29,12 +29,13 @@ Before any manuscript edit, read these files in order:
 3. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`;
 4. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`;
 5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`;
-6. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
-7. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.
+6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
+7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;
+8. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.
 
 **Do not treat `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, the older `CURRENT_STATE.md`, the historical Rev. 3 snapshot, this file's summaries, or an agent handoff as a substitute for the exact current manuscript.**
 
-The immutable Rev. 4 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
+The immutable Rev. 5 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
 
 The mandatory default is:
 
@@ -52,6 +53,8 @@ Current manuscript/state sources:
 - `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 - `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
+- `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+- `experiments/01-vanishing-absorber/MANUSCRIPT_REV5_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_REV4_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
@@ -106,6 +109,8 @@ Use explicitly:
 
 A negative literature search is not novelty evidence.
 
+**REV. 5 submission blocker:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.
+
 Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focused primary-source audit and claim-ledger update.
 
 ---
@@ -117,8 +122,9 @@ Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focu
 3. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 4. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
-6. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
-7. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
+6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
 8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER_REV3_GEOMETRY_ADDENDUM_2026-08-11.md` when present
 9. `experiments/01-vanishing-absorber/REALISTIC_GEOMETRY_CLOSURE_STRESS.md` when present
 10. `experiments/01-vanishing-absorber/MANUSCRIPT_BLUEPRINT_ADVERSARIAL.md`
@@ -143,7 +149,7 @@ Choose four wavelengths corresponding to four equally spaced internal source coo
 
 Three source coordinates identify one spatial multiplier `q`. The fourth is a parameter-free null measurement.
 
-**Important Rev. 4 qualification:** this four-color null is a statement in `q`-space and is branch-independent. Converting
+**Important branch qualification, retained in Rev. 5:** this four-color null is a statement in `q`-space and is branch-independent. Converting
 
 ```math
 q=e^{-\gamma h}
@@ -240,7 +246,7 @@ Never import arrival-time identities into terminal current without deriving the 
 
 ---
 
-## 6. Rev. 4 mathematical boundary conditions — never regress
+## 6. Rev. 4/5 mathematical boundary conditions — never regress
 
 ### Spatial-log branch ambiguity
 
@@ -249,6 +255,18 @@ Never import arrival-time identities into terminal current without deriving the 
 ### Known arbitrary spacing
 
 **CORRECTED IN REV. 4.** The first three positions constrain one or more candidate roots of the unequal-spacing equation; they do not generically guarantee uniqueness. The fourth position filters candidates. Claim unique physical inversion only when one admissible candidate remains after all constraints.
+
+### Rank-two branch/permutation discipline and low-RF observation-mode boundary
+
+**ADDED IN REV. 5.** For a homogeneous finite-boundary scalar rank-two model, test the branch-free multiplier product first:
+
+```math
+q_+q_-=e^{(r_++r_-)h}=e^{-wh/D}\in\mathbb R_{>0},
+```
+
+and require it to be RF-independent. Only after this check should the two logarithmic root branches be unwrapped. Branch integers and root pairing/permutation across frequency must be fixed by independent physical bounds, multiple spacings when available, and continuity; never choose them merely to make a mechanism law pass.
+
+Also retain the Rev. 5 low-RF resolution boundary: a linear weighting-field mode has `q_weight=1` while `q_transport -> 1` as RF tends to zero. The rank-two witness therefore collapses quadratically. On the manuscript scale the optimistic equal-mode 3-sigma separation requirement is about `116.2 / 88.4 / 76.7 dB` at `100 / 500 / 1000 MHz`; the complementary five-color annihilation cost is about `46.3 / 32.3 / 26.4 dB`. Neither defense is free at low RF.
 
 ### Linear weighting field and polynomial annihilation
 
@@ -341,13 +359,13 @@ For no recombination, the gradient-sensitive closure phase remains approximately
 
 The point-source low-RF slowness-gradient result gives approximately `-0.01254 deg` at 100 MHz.
 
-Rev. 4 now states the exact conditional transport law used to generate these numbers: linear composition, Hansen gap and derivative, Einstein diffusion, empirical saturation sensitivity law, reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match.
+Rev. 5 retains the exact conditional transport law used to generate these numbers: linear composition, Hansen gap and derivative, Einstein diffusion, the inherited empirical **field-rolloff sensitivity law** (not an asymptotic saturation law), reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match.  At the sampled grading fields the rolloff changes the low-field velocity by only about 0.15--0.18%, so the reported closure values are unchanged.
 
 The stochastic finite-difference result was independently reproduced with an adaptive shooting construction to approximately `10^-6 degree` agreement or better at the reported RF points. This is **numerical cross-verification of the same specified conditional model**, not physical validation of HgCdTe at `10^-6 degree`.
 
 These are conditional theory predictions, not calibrated forecasts for an existing detector.
 
-Rev. 4 also quantifies deliberately independent residual-error stresses:
+Rev. 5 retains the deliberately independent residual-error stresses, but they are **derived design requirements rather than demonstrated calibration performance**:
 
 ```text
 nonaffine source-coordinate RMS:
