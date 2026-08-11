@@ -2,11 +2,11 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **theory-first transport research; strongest frontier is an exact nested falsification framework using complex RF response plus wavelength as an internal spatial coordinate; HgCdTe is the leading worked example, not the source of the general theory; no novelty claim**
+**Current mode:** **theory-first adversarial consolidation; strongest frontier is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading worked example; no novelty claim**
 
 Read this file first.
 
-The repository follows the physics rather than a predetermined paper. Failed conjectures, numerical corrections, counterexamples, and prior-art collisions are part of the result.
+The repository follows the physics rather than a predetermined paper. Failed conjectures, observable corrections, numerical corrections, counterexamples, and prior-art collisions are part of the result.
 
 **There is still no manuscript.**
 
@@ -38,7 +38,7 @@ Use explicitly:
 - **DERIVED**
 - **CHECKED**
 - **CONDITIONAL**
-- **CANDIDATE DISTINCT — PRIORITY UNPROVEN**
+- **CANDIDATE DISTINCT APPLICATION — PRIORITY UNPROVEN**
 - **INVALIDATED**
 - **SUPERSEDED**
 - **OPEN**
@@ -53,396 +53,310 @@ Do not use `first`, `new fundamental`, `universal`, etc. without a focused prima
 ## 3. Canonical reading order
 
 1. `experiments/01-vanishing-absorber/CURRENT_STATE.md`
-2. `experiments/01-vanishing-absorber/THEORY_FALSIFICATION_LADDER.md`
-3. `experiments/01-vanishing-absorber/THEORY_CLAIM_LEDGER.md`
-4. `experiments/01-vanishing-absorber/MINIMAL_TWO_DEPTH_TWO_FREQUENCY_GEDANKEN.md`
-5. `experiments/01-vanishing-absorber/TRANSIT_TIME_CHARACTERISTIC_FUNCTION_NULL_TESTS.md`
-6. `experiments/01-vanishing-absorber/SPATIAL_FIRST_PASSAGE_SEMIGROUP_THEOREM.md`
-7. `experiments/01-vanishing-absorber/THREE_COLOR_SPECTRAL_CLOSURE_THEOREM.md`
-8. `experiments/01-vanishing-absorber/LOCAL_MARKOV_TRANSPORT_CLOSURE_THEOREM.md`
-9. `experiments/01-vanishing-absorber/MULTIFREQUENCY_CLOSURE_STATISTICAL_TEST.md`
-10. `experiments/01-vanishing-absorber/TRANSPORT_CLOSURE_FAILURE_SIGNATURES.md`
-11. `experiments/01-vanishing-absorber/STOCHASTIC_OCCUPATION_TIME_RESPONSE_THEOREM.md`
-12. `experiments/01-vanishing-absorber/OCCUPATION_TIME_CUMULANT_HIERARCHY.md`
-13. `experiments/01-vanishing-absorber/TRANSLATION_RESPONSE_THEOREM.md`
-14. `experiments/01-vanishing-absorber/SPATIAL_DERIVATIVE_NOISE_RESOLUTION.md`
-15. `experiments/01-vanishing-absorber/HGCDTE_DOWNSTREAM_DRIFT_DIFFUSION_RELOCATION.md`
-16. `experiments/01-vanishing-absorber/HGCDTE_TRANSLATED_GRADIENT_PRIOR_ART_BOUNDARY.md`
-17. legacy `experiments/01-vanishing-absorber/CLAIM_LEDGER.md`
-18. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
-19. `experiments/01-vanishing-absorber/RESEARCH_LOG_2026-08-10_CONTINUATION.md`
-20. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+2. `experiments/01-vanishing-absorber/PAPER_CORE_ADVERSARIAL_CONSOLIDATION.md`
+3. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
+4. `experiments/01-vanishing-absorber/SHOCKLEY_RAMO_OBSERVABLE_CORRECTION.md`
+5. `experiments/01-vanishing-absorber/SHOCKLEY_RAMO_SURVIVAL_THEOREM.md`
+6. `experiments/01-vanishing-absorber/RAMO_FOUR_COLOR_OPTICAL_ERROR_THEOREM.md`
+7. `experiments/01-vanishing-absorber/RAMO_FOUR_COLOR_SLOWNESS_GRADIENT_THEOREM.md`
+8. `experiments/01-vanishing-absorber/RAMO_FOUR_COLOR_SPACING_OPTIMUM.md`
+9. `experiments/01-vanishing-absorber/FIVE_COLOR_BOUNDARY_ROOT_PAIR_CLOSURE.md`
+10. `experiments/01-vanishing-absorber/HGCDTE_RAMO_FOUR_COLOR_GRADIENT_PREDICTION.md`
+11. supporting `experiments/01-vanishing-absorber/THEORY_FALSIFICATION_LADDER.md`
+12. supporting `experiments/01-vanishing-absorber/THEORY_CLAIM_LEDGER.md`
+13. supporting `experiments/01-vanishing-absorber/SPATIAL_FIRST_PASSAGE_SEMIGROUP_THEOREM.md`
+14. supporting `experiments/01-vanishing-absorber/LOCAL_MARKOV_TRANSPORT_CLOSURE_THEOREM.md`
+15. supporting `experiments/01-vanishing-absorber/TRANSLATION_RESPONSE_THEOREM.md`
+16. `experiments/01-vanishing-absorber/ARCHIVE_STATUS.md`
+17. `experiments/01-vanishing-absorber/RESEARCH_LOG.md`
+18. `experiments/01-vanishing-absorber/RESEARCH_LOG_2026-08-10_CONTINUATION.md`
 
-The many older HgCdTe fabrication/design files are supporting provenance. Do not restart fabrication optimization unless a theoretical prediction specifically requires a feasibility check.
+Older fabrication/design and published-sample rescue files are provenance/supporting context.  Do not restart those branches unless an active theoretical prediction specifically requires a feasibility check.
 
 ---
 
-## 4. Current research path
+## 4. Current scientific path
 
 ```text
 vanishing-absorber thought experiment
--> universal active-volume route killed
+-> universal detector-resource route repeatedly narrowed/killed
 
-abstract resource-bound branches
--> successive counterexamples
+HgCdTe wavelength-depth branch
+-> spectral generation coordinate
 
-HgCdTe grading branch
--> wavelength-dependent internal generation coordinate
+static spectral inverse
+-> few-mode conditioning/contact gauge limits
 
-ballistic timing peak
--> killed as universal by scattering dependence
+purpose-built translated-gradient design
+-> causal geometry improved
+-> but fabrication optimization is not the research goal
 
-spectral timing inverse
--> exact CDF/survival operators
--> few-mode conditioning limit
+THEORY-FIRST PIVOT
+-> exact first-passage / RF transport closures
 
-published HgCdTe A/B validation attempt
--> raw spectral leverage exists
--> smooth-mode/contact confounding prevents unique mechanism attribution
+first-passage three-color semigroup theorem
+-> mathematically valid for arrival/collection-flux observable
 
-purpose-built translated-gradient control
--> improves causal geometry
--> fabrication feasibility checked
+ADVERSARIAL OBSERVABLE CORRECTION
+-> generic terminal photodiode current is not first-passage flux
+-> Shockley-Ramo current is induced continuously
+-> old direct terminal-current three-color law INVALIDATED
 
-USER/PROJECT CORRECTION
--> fabrication is not the research goal
--> return to theory-first gedanken experiments and falsifiable predictions
+Shockley-Ramo survival theorem
+-> in minimal planar one-carrier homogeneous geometry:
+   J(d,s) proportional to [1-exp(-gamma d)]/s
 
-exact uniform drift-diffusion propagation
--> one complex spatial slope gives D and conditioned drift
+four-color first-difference closure
+-> first differences isolate one exponential spatial propagator
+-> three points identify, fourth falsifies
 
-recombination-conditioning theorem
--> DC-normalized RF measures successful-carrier conditioned dynamics
--> DC collection field is required to recover physical drift/recombination
+second RF frequency
+-> inferred real D,w must repeat
+-> one RF identifies; the next tries to kill drift-diffusion
 
-exact arbitrary-profile local closure
--> D(z),w(z) recoverable algebraically from local complex response derivatives
--> real multi-frequency frequency-independence is the actual falsification law
+ordinary counterexamples
+-> electron-hole pair breaks one-mode closure but has rank-two differences
+-> finite boundary also rank two
 
-complex determinant correction
--> 3x3 complex determinant is necessary but not sufficient
--> common complex coefficients are counterexample
+RF root geometry
+-> boundary: real constant root sum, imaginary linear root product
+-> deterministic e/h: imaginary linear root sum, real quadratic root product
 
-characteristic-function Level-0 test
--> timing interpretation itself must satisfy positive-definite RF constraints
+controlled nonuniform transport
+-> low-RF four-color phase closure measures slowness-gradient combination
 
-spatial first-passage semigroup
--> homogeneous scalar strong-Markov propagation is exponential in distance
--> three equally spaced spectral generation coordinates obey H2^2=H1 H3
+real optical source-shape evolution
+-> leading variance error enters only through third discrete difference
 
-optoelectronic-chromatic-dispersion prior-art collision
--> wavelength-dependent absorption depth and RF phase/amplitude are established
--> candidate contribution must be closure/falsification, not spectral dynamics alone
+statistics
+-> four-color noise stencil (1,-3,3,-1)
+-> sqrt(20) independent-noise amplification
+-> cube-root spacing optimum
 
-closure-failure hierarchy
--> trapping, relaxation, spatial nonlocality give distinct apparent-coefficient dispersion archetypes
-
-stochastic occupation-time theorem
--> arbitrary successful paths + local clock perturbation
--> exact spatial occupation response and global RF derivative sum rule
-
-occupation cumulant hierarchy
--> local mixed occupation/transit cumulants integrate to global timing cumulants of every order
-
-CURRENT FRONTIER
--> audit detector-specific closure laws against primary prior art
--> build one clean HgCdTe worked example
--> calculate exact expected null residuals under drift-diffusion and alternatives
--> assess paper readiness only after those collisions.
+corrected HgCdTe worked example
+-> mean depths 2.5/3.0/3.5/4.0 um
+-> raw-Ramo gradient-sensitive phase excess ~-0.0124 deg @100 MHz
+-> agrees with independent low-RF slowness-gradient theorem
 ```
 
 ---
 
-## 5. Hard prior-art boundary
+## 5. Observable discipline — mandatory
 
-Do **not** claim novelty for
+Always state which response is being modeled.
 
-- photodiode transit-time-limited frequency response;
-- wavelength-dependent absorption or generation depth;
-- wavelength-dependent RF phase/timing/bandwidth;
-- optoelectronic chromatic dispersion;
-- photodiode carrier dynamics used for wavelength sensing/computational spectroscopy;
-- multi-frequency photodiode RF characterization;
-- algebraic inversion of modulated convection-diffusion profiles;
-- characteristic-function positive-definiteness;
-- Doob `h`-transforms / conditioned diffusion;
-- occupation-time or Feynman-Kac mathematics;
-- graded-HgCdTe transport acceleration;
-- localized-position HgCdTe transit measurement.
+### Arrival / collection-flux observable
 
-Important current collisions:
+```math
+U(d,s)=E[e^{-sT_d}].
+```
+
+This is the natural object for
 
 ```text
-Glasser et al. 2021+:
-optoelectronic chromatic dispersion from wavelength-dependent absorption depth
-
-Kassa et al. 2026:
-multi-frequency DC/RF amplitude/RF phase single-photodiode computational spectroscopy
-
-Wang et al. 2014:
-three-wavelength optical-receiver/photodiode phase-response characterization
-
-Sattin / Escande et al.:
-local algebraic convection-diffusion inversion from modulated profiles
-
-2024 HgCdTe close collision:
-Potential application of HgCdTe detector with composition gradient in laser measurement
-DOI 10.5768/JAO202445.0310009
-full technical content still unresolved.
+first-passage semigroup
+characteristic-function timing nulls
+inverse-Gaussian first-passage cumulants
+regenerative/subordinator timing theory.
 ```
 
-The current candidate is the **integrated detector falsification ladder**, not any one known ingredient.
+### Raw planar terminal-current observable
+
+Under the minimal Shockley-Ramo model,
+
+```math
+J(d,s)=C(s)[1-U(d,s)].
+```
+
+This is the active paper observable for the four-color finite-difference closure.
+
+### DC-normalized terminal-current response
+
+This is generally **not** the same spatial functional form as either object above.
+
+Do not import arrival-time identities into a DC-normalized current transfer without deriving the signal-formation mapping explicitly.
 
 ---
 
-## 6. Level-0 timing null
+## 6. Active headline nulls
+
+### Four colors — one spatial terminal-current mode
+
+For four equally spaced internal source coordinates,
+
+```math
+\boxed{
+(J_2-J_1)^2
+=(J_1-J_0)(J_3-J_2).
+}
+```
+
+### One RF — infer the propagator
+
+```math
+q_s=(J_2-J_1)/(J_1-J_0),
+```
+
+```math
+\gamma=-\ln q_s/h.
+```
+
+### Uniform real drift-diffusion
 
 If
 
 ```math
-H(\omega)=E[e^{-i\omega T}],
+D\gamma^2+w\gamma=i\omega,
 ```
 
-then
-
-```math
-K_{jk}=H(\omega_j-\omega_k)\succeq0.
-```
-
-A simple two-harmonic consequence is
-
-```math
-\boxed{
-|H(2\omega)-H(\omega)^2|
-\le1-|H(\omega)|^2.
-}
-```
-
-Failure means the de-embedded observable is not any positive classical timing distribution. Fix that before transport inference.
-
----
-
-## 7. Level-1 spectral spatial-semigroup null
-
-For scalar homogeneous continuous-path strong-Markov first passage,
-
-```math
-U_s(a+b)=U_s(a)U_s(b)
-```
-
-and therefore
-
-```math
-U_s(d)=e^{-\gamma_s d}.
-```
-
-A rigidly translated finite-width generation kernel preserves exponential dependence on its center.
-
-Three wavelengths with equally spaced calibrated generation centers must obey
-
-```math
-\boxed{H_2^2=H_1H_3.}
-```
-
-This is currently the simplest detector-specific exact null prediction.
-
----
-
-## 8. Level-2 real local Markov drift-diffusion closure
-
-For
-
-```math
-D F''+wF'-i\omega F=0,
-```
-
-define
-
-```math
-r=\partial_z\ln F,
-\qquad
-A=r'+r^2.
-```
-
-At each nonsingular frequency,
-
-```math
-D_{app}
-=-\omega\Re r/
-(\Re A\Im r-\Im A\Re r),
-```
-
-```math
-w_{app}
-=\omega\Re A/
-(\Re A\Im r-\Im A\Re r).
-```
-
-The exact physical closure is
-
-```math
-\boxed{
-D_{app}(\omega)=\text{constant},
-\qquad
-w_{app}(\omega)=\text{constant}.
-}
-```
-
-For `N` RF frequencies this yields `2(N-1)` real null conditions.
-
----
-
-## 9. Minimal gedanken experiment
-
-Inside a uniform segment, two generation depths give one complex propagation constant
-
-```math
-\gamma=a+ib.
-```
-
-One RF frequency determines
+then one RF gives
 
 ```math
 D=\omega a/[b(a^2+b^2)],
 ```
 
 ```math
-w=\omega(b^2-a^2)/[b(a^2+b^2)].
+w=\omega(b^2-a^2)/[b(a^2+b^2)],
 ```
 
-Positive downstream transport requires
+for `gamma=a+ib`.
 
-```math
-0<a<b.
-```
-
-A second RF frequency adds no parameter and is therefore a pure model test.
-
-This is the preferred conceptual opening for any future manuscript.
-
----
-
-## 10. Conditioning rule
-
-For local Markov recombination with collection probability `h(z)`, DC normalization transforms the physical drift to
+### Second RF — no new parameter
 
 ```math
 \boxed{
-w_{cond}=v+2D\partial_z\ln h.}
-```
-
-Do not interpret normalized RF `w` as the physical drift without the DC field.
-
----
-
-## 11. Stochastic occupation/cumulant theorem
-
-For arbitrary successful paths,
-
-```math
-\ell(z)=\int_0^T\delta(X_t-z)dt.
-```
-
-A point-like ideal local clock perturbation gives
-
-```math
-S(z,\omega)
-=-i\omega A_h
-E[e^{-i\omega T}\ell(z)]/H(\omega).
-```
-
-Exact sum rule:
-
-```math
-\boxed{
-\int S dz
-=A_h\omega\partial_\omega\ln H.
+D(\omega_2)=D(\omega_1),
+\qquad
+w(\omega_2)=w(\omega_1).
 }
 ```
 
-The frequency expansion spatially decomposes every timing cumulant:
+### If one-mode closure fails
 
-```math
-\int dz\,
-\kappa(\ell(z),T,\ldots,T)
-=\kappa_{n+1}(T).
-```
-
-This is a major theory target. Do not assume a real composition/electric-field perturbation is automatically a pure clock perturbation.
+Use six source coordinates and test rank two in the **first differences** before adding exotic physics.
 
 ---
 
-## 12. Statistical discipline
+## 7. Major invalidations — never silently resurrect
 
-A closure failure must exceed propagated measurement/model covariance.
+### Generic terminal current equals first-passage characteristic function
 
-For `N` RF frequencies and apparent `(D,w)` pairs, generalized least-squares closure gives
+**INVALIDATED.**
 
-```math
-Q\sim\chi^2_{2N-2}
-```
+### Generic terminal-current three-color geometric-mean law
 
-under the linearized Gaussian Markov null.
+**INVALIDATED.**
 
-Use measured covariance when available; do not quote significance from raw parameter differences.
+### Direct inverse-Gaussian skewness/kurtosis null on arbitrary photocurrent waveform
+
+**INVALIDATED AS A GENERIC OBSERVABLE CLAIM.**  The first-passage theorem remains valid for the arrival propagator/recovered propagation exponent.
+
+### Earlier large HgCdTe three-color phase mainly measures the bulk gradient
+
+**INVALIDATED / SUPERSEDED.**  A reflecting entrance boundary generated nearly all of that curvature.
+
+### Rank two means a boundary
+
+**INVALIDATED GENERALIZATION.**  A conventional electron-hole pair is already rank two.
+
+### Three-frequency complex determinant alone proves one real DD generator
+
+**INVALIDATED.**  Real per-frequency `D_app,w_app` closure is required.
 
 ---
 
-## 13. Numerical integrity
+## 8. Hard prior-art boundary
 
-Every major exact/conditional theorem should have a deterministic numerical regression when feasible.
-
-Current active regressions include
+Do **not** claim novelty for
 
 ```text
-numerics/transit_time_characteristic_function_null_tests.py
-numerics/spatial_semigroup_three_color_test.py
-numerics/three_color_spectral_geometric_mean_law.py
-numerics/local_markov_real_closure_hierarchy.py
-numerics/minimal_two_depth_two_frequency_gedanken.py
-numerics/transport_closure_failure_archetypes.py
-numerics/multifrequency_closure_statistical_test.py
-numerics/spatial_derivative_bias_variance_resolution.py
-numerics/stochastic_occupation_time_response_theorem.py
-numerics/occupation_time_cumulant_hierarchy.py
-numerics/translation_response_theorem.py
+Shockley-Ramo induced-current theory
+photodiode impulse-response modeling
+wavelength-dependent absorption/generation depth
+wavelength-dependent photodiode RF phase/bandwidth
+optoelectronic chromatic dispersion
+multi-frequency photodiode characterization
+frequency-domain drift-diffusion modeling
+Prony/Hankel/system-identification mathematics
+first-passage semigroups / inverse-Gaussian theory
+algebraic convection-diffusion inversion
+Doob/Feynman-Kac/occupation-time mathematics
+graded-HgCdTe transport/high-speed response.
 ```
 
-If a numerical script exposes a contradiction, correct the theorem/docs immediately and preserve the failed statement as superseded/invalidated.
-
----
-
-## 14. HgCdTe role
-
-Use HgCdTe as the primary **worked physical example** because a graded composition/bandgap can supply a strong wavelength-to-depth coordinate and because carrier transport physics is rich enough to challenge simple drift-diffusion.
-
-Do not make the paper depend on a custom growth run or lab access.
-
-The theoretical deliverable should be predictions such as
+The current candidate is narrower:
 
 ```text
-three-color closure residual under a realistic x(z)
-frequency dispersion expected from ordinary drift-diffusion
-contrast with trapping/nonlocal models
-required phase/log-magnitude precision for falsification.
+calibrated spectral internal source coordinate
++
+Shockley-Ramo-aware spatial finite differences
++
+minimal color-count model-order closure
++
+RF root-algebra falsification of ordinary transport mechanisms.
 ```
 
-Existing fabrication studies are only evidence that the gedanken coordinates are not obviously impossible.
+**Status:** CANDIDATE DISTINCT APPLICATION — PRIORITY UNPROVEN.
+
+Targeted negative searches are not priority evidence.
 
 ---
 
-## 15. Immediate forward work
+## 9. Current HgCdTe worked example
 
-Do **not** return to generic inverse algebra or fabrication optimization.
+Use `HGCDTE_RAMO_FOUR_COLOR_GRADIENT_PREDICTION.md`, not the superseded boundary-confounded three-color prediction.
+
+Current explicit stress:
+
+```text
+L=7.6 um
+T=300 K
+linear x=0.55 -> 0.32
+mean generation depths = 2.5,3.0,3.5,4.0 um
+lambda ~2.134651,2.215042,2.301173,2.393907 um
+Pabs >0.9993
+```
+
+At `100 MHz`:
+
+```text
+variable raw-Ramo closure phase ~ -0.00993 deg
+homogeneous same-optics floor ~ +0.00246 deg
+gradient-sensitive excess ~ -0.01238 deg
+point-source slowness-gradient theorem ~ -0.01254 deg.
+```
+
+This is a consistency stress, not a calibrated device prediction.
+
+---
+
+## 10. What is demoted from the headline paper
+
+Keep, but do not let these dominate the current manuscript path:
+
+```text
+arbitrary-profile derivative inversion
+occupation-time/local-clock spectroscopy
+full Levy delay-spectrum reconstruction
+translated-gradient fabrication optimization
+published sample-A/B rescue calculations.
+```
+
+They can become appendices or follow-up papers if needed.
+
+---
+
+## 11. Next decisive work
+
+Do **not** add unrelated general mathematics.
 
 Priority:
 
-1. finish targeted primary-source prior-art audits of the detector-specific closure/null laws;
-2. derive realistic finite-kernel corrections to the three-color closure;
-3. select one credible HgCdTe graded profile as a worked example;
-4. predict the full null-test hierarchy under conventional drift-diffusion;
-5. predict controlled violations under trapping, relaxation, and nonlocal alternatives;
-6. calculate covariance/precision thresholds;
-7. only then reassess manuscript readiness.
+1. focused primary-source audit for exact equal-internal-depth four-/six-color finite-difference closure protocols;
+2. derive the stochastic Shockley-Ramo current closure beyond the minimal half-line/uniform model and identify which assumptions preserve finite spatial rank;
+3. propagate generated-carrier-amplitude calibration and wavelength-dependent external-chain errors;
+4. stress the HgCdTe quartet one ordinary effect at a time: finite diffusion, recombination, second carrier, finite boundary;
+5. quantify whether the model hierarchy remains separable at realistic covariance;
+6. only then produce a manuscript outline.
 
-The paper, if it emerges, should be built from **simple falsifiable gedanken experiments**, not from a long numerical device-design story.
+The objective is not to maximize the number of claims.  It is to end with the smallest set of exact predictions that a skeptical reviewer cannot dismiss as an observable mismatch, uncontrolled conventional effect, or rediscovery of known photodiode response physics.
