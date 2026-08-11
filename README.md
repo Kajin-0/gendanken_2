@@ -2,7 +2,7 @@
 
 First-principles thought experiments in photodetector physics. Failed conjectures, counterexamples, corrections, and prior-art collisions are retained because they define the actual result.
 
-The pre-remediation README remains recoverable from git at commit `c034984b2ccf3ccc0a71638b0b197f7fa4c98645`; see `README_LEGACY_POINTER.md`. It is historical and must not be used as current scientific state.
+The pre-remediation README remains recoverable from git at commit `c034984b2ccf3ccc0a71638b0b197f7fa4c98645`; see `README_LEGACY_2026-08-10.md`. It is historical and must not be used as current scientific state.
 
 ## Active experiment
 
