@@ -1,7 +1,7 @@
 # Canonical Manuscript Baseline
 
-**Status:** **CANONICAL PRE-GEOMETRY MANUSCRIPT BASELINE — PRESERVE**  
-**Date recovered/audited:** 2026-08-11  
+**Status:** **CANONICAL REV. 4 MANUSCRIPT BASELINE — PRESERVE**  
+**Date canonicalized:** 2026-08-11  
 **Author metadata:** Anonymous  
 **Title:** `Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current`
 
@@ -21,17 +21,20 @@ Changing author identity requires explicit user approval for that specific artif
 
 ## Canonical baseline
 
-The authoritative manuscript immediately before the realistic-geometry hardening study is the exact pseudonymous source:
+The authoritative manuscript is the exact anonymous Rev. 4 source:
 
 ```text
-MANUSCRIPT_REV3_ANON_2026-08-11.tex
+MANUSCRIPT_REV4_ANON_2026-08-11.tex
 ```
 
-The exact source is preserved inside this repository as two deterministic base64 text parts containing a gzip-compressed snapshot:
+Rev. 4 was first validated against the established Rev. 3 baseline in PR #4 before these canonical pointers were updated. It surgically incorporates the August 11 hostile-review corrections without deleting established sections, subsections, references, or unrelated derivations.
+
+The exact source is preserved inside this repository as three deterministic base64 text parts containing a gzip-compressed snapshot:
 
 ```text
-manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part01
-manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part02
+manuscript_history/MANUSCRIPT_REV4_ANON_2026-08-11.tex.gz.b64.part01
+manuscript_history/MANUSCRIPT_REV4_ANON_2026-08-11.tex.gz.b64.part02
+manuscript_history/MANUSCRIPT_REV4_ANON_2026-08-11.tex.gz.b64.part03
 ```
 
 Recover it only with:
@@ -40,19 +43,19 @@ Recover it only with:
 python tools/extract_manuscript_baseline.py
 ```
 
-The extractor concatenates the two parts, verifies the compressed snapshot, decompresses it, verifies the exact source and anonymous author metadata, and writes `MANUSCRIPT_CURRENT.tex`. Do not manually reconstruct the source from the parts.
+The extractor concatenates the three parts, verifies the compressed snapshot, decompresses it, verifies the exact source and anonymous author metadata, and writes `MANUSCRIPT_CURRENT.tex`. Do not manually reconstruct the source from the parts.
 
 The decompressed source MUST have:
 
 ```text
-SHA-256: 3ba57ed7c7bbe264038ffa4e6eabfc1ea90c1075d4989d4075d2589352cf6d8c
-bytes: 43544
-lines: 696
-compiled pages: 16
+SHA-256: 9da8c6094a58109873382b6b3c73c519b26f519e327f5ec8058009bc4896df00
+bytes: 53896
+lines: 817
+compiled pages: 19
 sections: 12
 subsections: 18
 bibliography items: 11
-\begin{equation} environments: 75
+\begin{equation} environments: 87
 author metadata: Anonymous
 PDF author metadata: Anonymous
 ```
@@ -60,12 +63,33 @@ PDF author metadata: Anonymous
 The deterministic gzip snapshot MUST have:
 
 ```text
-SHA-256: e413c1be218f4f3d33611381b6407137169abafb6fc22a6087f33f77b3c2ae3e
-bytes: 15358
-parts: 2
+SHA-256: fad3aeee778de42a7c9de278abec5676d6fb3d0effebd4994c7bbdb0950a3f68
+bytes: 18851
+parts: 3
 ```
 
 If the snapshot cannot be recovered and verified against these hashes, **do not edit or recreate the manuscript**. Work in a separate addendum until the exact source is restored.
+
+## Rev. 4 corrections now canonical
+
+Rev. 4 retains the central four-color theorem unchanged while adding or tightening:
+
+- spatial-logarithm branch/anti-alias conditions for `q -> gamma -> (D,w,kappa)` inversion;
+- candidate-root rather than automatic-uniqueness language for known unequal source spacing;
+- the singular `s=kappa=0` weighting-field limit, where a linear field has a quadratic particular solution and requires six colors/third differences for exact polynomial annihilation;
+- quantitative independent-error stresses for nonaffine source-coordinate error and irregular complex channel phase;
+- the explicit HgCdTe transport prescription and semi-infinite entrance match used by the existing numerical model;
+- covariance-aware complex falsification language, `rank at most two` precision, and one conceptual hierarchy figure.
+
+The detailed audit is in:
+
+```text
+REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md
+MANUSCRIPT_REV4_PRESERVATION_REPORT_2026-08-11.md
+numerics/rev4_critique_regression.py
+```
+
+No reported HgCdTe closure values were changed by these corrections.
 
 ## Required section spine
 
@@ -107,9 +131,11 @@ Prediction and numerical cross-check
 Measurement resource
 ```
 
-## Important distinction
+## Historical baselines
 
-`MANUSCRIPT_DRAFT.tex` and `MANUSCRIPT_DRAFT.md` are historical repository sources. They are **not** allowed to override this recovered 16-page Rev. 3 baseline merely because they are older files on `main`.
+The anonymous Rev. 3 snapshot remains preserved under `manuscript_history/` as provenance. It is no longer the canonical current source and must not override Rev. 4.
+
+`MANUSCRIPT_DRAFT.tex` and `MANUSCRIPT_DRAFT.md` are still older historical repository sources. They are not current manuscript sources.
 
 A handoff summary is navigation only. It is never a substitute for the canonical manuscript source.
 

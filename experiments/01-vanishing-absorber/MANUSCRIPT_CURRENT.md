@@ -1,21 +1,28 @@
 # Current Manuscript Pointer
 
-**Canonical manuscript status:** the current approved manuscript baseline is the recovered **16-page Rev. 3**, immediately before the realistic 2-D geometry hardening result.
+**Canonical manuscript status:** the current approved manuscript baseline is the anonymous **19-page Rev. 4**, validated against Rev. 3 before canonicalization.
 
 **Canonical author metadata:** `Anonymous`.
 
-Do **not** use `MANUSCRIPT_DRAFT.tex` as the current source merely because it is an older plain-text file already present in the repository. Do not restore a real author identity from historical files, git history, account/profile information, or memory.
+Do **not** use `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, or the historical Rev. 3 snapshot as the current source merely because they are older repository files. Do not restore a real author identity from historical files, git history, account/profile information, or memory.
 
 ## Exact source
 
-The exact pseudonymous source is preserved in two repository text parts:
+The exact canonical source is tracked as:
 
 ```text
-manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part01
-manuscript_history/MANUSCRIPT_REV3_ANON_2026-08-11.tex.gz.b64.part02
+MANUSCRIPT_REV4_ANON_2026-08-11.tex
 ```
 
-For normal manuscript work, recover the exact editable source with:
+and preserved in three repository snapshot parts:
+
+```text
+manuscript_history/MANUSCRIPT_REV4_ANON_2026-08-11.tex.gz.b64.part01
+manuscript_history/MANUSCRIPT_REV4_ANON_2026-08-11.tex.gz.b64.part02
+manuscript_history/MANUSCRIPT_REV4_ANON_2026-08-11.tex.gz.b64.part03
+```
+
+For normal manuscript work, recover the exact editable baseline with:
 
 ```bash
 python tools/extract_manuscript_baseline.py
@@ -24,10 +31,10 @@ python tools/extract_manuscript_baseline.py
 The extractor will refuse to write a working source unless both hashes, line count, and anonymous author metadata match the audited baseline. The recovered source must verify as:
 
 ```text
-source SHA-256 = 3ba57ed7c7bbe264038ffa4e6eabfc1ea90c1075d4989d4075d2589352cf6d8c
-gzip SHA-256   = e413c1be218f4f3d33611381b6407137169abafb6fc22a6087f33f77b3c2ae3e
-lines = 696
-pages in matching compiled PDF = 16
+source SHA-256 = 9da8c6094a58109873382b6b3c73c519b26f519e327f5ec8058009bc4896df00
+gzip SHA-256   = fad3aeee778de42a7c9de278abec5676d6fb3d0effebd4994c7bbdb0950a3f68
+lines = 817
+pages in matching compiled PDF = 19
 author = Anonymous
 PDF author metadata = Anonymous
 ```
@@ -38,7 +45,21 @@ The verified working copy is written to:
 experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.tex
 ```
 
-`MANUSCRIPT_CURRENT.tex` is a recovered working copy of the immutable baseline snapshot. Do not reconstruct it from notes or copy an older `MANUSCRIPT_DRAFT.tex` over it. When a new manuscript revision is approved, preserve a new immutable snapshot and update the baseline metadata before changing the canonical pointer.
+`MANUSCRIPT_CURRENT.tex` is a recovered working copy of the immutable canonical snapshot. Do not reconstruct it from notes or copy an older source over it.
+
+## Rev. 4 status
+
+Rev. 4 surgically addresses the latest hostile review while preserving the existing paper spine. The central four-color multiplier closure is unchanged. The revision adds branch control for physical inversion, fixes the singular DC/no-recombination weighting-field case, corrects arbitrary-spacing uniqueness language, quantifies non-common calibration stresses, makes the HgCdTe transport prescription explicit, adds covariance-aware falsification language, and includes one conceptual hierarchy figure.
+
+Detailed audit:
+
+```text
+REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md
+MANUSCRIPT_REV4_PRESERVATION_REPORT_2026-08-11.md
+numerics/rev4_critique_regression.py
+```
+
+Rev. 3 remains preserved as historical provenance but is not the current manuscript.
 
 ## Privacy rule
 
@@ -46,9 +67,9 @@ Pseudonymity is the default. Any author name, pseudonym, affiliation, email, loc
 
 See root `PRIVACY_PROTOCOL.md`.
 
-## Newer geometry result
+## Separate geometry result
 
-The realistic finite-electrode/depletion calculation is recorded separately in:
+The realistic finite-electrode/depletion calculation remains deliberately separate in:
 
 ```text
 REALISTIC_GEOMETRY_CLOSURE_STRESS.md
@@ -56,7 +77,7 @@ PAPER_CLAIM_LEDGER_REV3_GEOMETRY_ADDENDUM_2026-08-11.md
 MANUSCRIPT_REV3_GEOMETRY_INTEGRATION_PLAN_2026-08-11.md
 ```
 
-Those files extend/qualify the 16-page baseline. They do not authorize replacement or compression of unrelated manuscript content.
+Those files extend/qualify the manuscript but were **not** integrated into Rev. 4 as a calibrated device claim. They do not authorize replacement or compression of unrelated manuscript content.
 
 ## Mandatory rule
 
@@ -67,7 +88,8 @@ Before any manuscript edit, read:
 3. `MANUSCRIPT_BASELINE.md`;
 4. `MANUSCRIPT_PRESERVATION_PROTOCOL.md`;
 5. this file;
-6. the exact extracted current source.
+6. `CURRENT_STATE_LIVE.md`;
+7. the exact extracted current source.
 
 **Preserve first; integrate second; rewrite only when explicitly requested by the user.**
 
