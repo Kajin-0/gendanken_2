@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading worked example; priority remains unproven**
+**Current mode:** **anonymous Rev. 4 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is the leading conditional worked example; priority remains unproven**
 
 Read this file first.
 
@@ -18,21 +18,23 @@ If identity disclosure is explicitly requested, follow `PRIVACY_PROTOCOL.md` and
 
 The repository follows the physics rather than a predetermined paper. Failed conjectures, observable corrections, numerical corrections, counterexamples, and prior-art collisions are part of the result.
 
-**A working manuscript exists. The canonical pre-geometry manuscript is the recovered 16-page Rev. 3 by Anonymous. It is not submission-ready.**
+**A working manuscript exists. The canonical manuscript is the anonymous 19-page Rev. 4, validated against the previous Rev. 3 baseline before canonicalization. It is not yet submission-ready.**
 
 ## CRITICAL: manuscript preservation lock
 
 Before any manuscript edit, read these files in order:
 
-1. `experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.md`
-2. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
-3. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
-4. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
-5. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.
+1. root `PRIVACY_PROTOCOL.md`;
+2. `experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.md`;
+3. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`;
+4. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`;
+5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`;
+6. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
+7. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.
 
-**Do not treat `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, the older `CURRENT_STATE.md`, this file's historical summaries, or an agent handoff as a substitute for the exact current manuscript.**
+**Do not treat `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, the older `CURRENT_STATE.md`, the historical Rev. 3 snapshot, this file's summaries, or an agent handoff as a substitute for the exact current manuscript.**
 
-The immutable Rev. 3 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
+The immutable Rev. 4 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
 
 The mandatory default is:
 
@@ -50,17 +52,20 @@ Current manuscript/state sources:
 - `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 - `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
+- `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+- `experiments/01-vanishing-absorber/MANUSCRIPT_REV4_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
 - newer claim-ledger addenda and theorem/result files as dated.
 
 Historical manuscript sources retained for provenance:
 
-- `experiments/01-vanishing-absorber/MANUSCRIPT_DRAFT.md`
-- `experiments/01-vanishing-absorber/MANUSCRIPT_DRAFT.tex`
-- `experiments/01-vanishing-absorber/MANUSCRIPT_REFERENCES.bib`
-- `experiments/01-vanishing-absorber/SUPPLEMENTARY_MATERIAL.md`
+- anonymous Rev. 3 snapshot under `manuscript_history/`;
+- `experiments/01-vanishing-absorber/MANUSCRIPT_DRAFT.md`;
+- `experiments/01-vanishing-absorber/MANUSCRIPT_DRAFT.tex`;
+- `experiments/01-vanishing-absorber/MANUSCRIPT_REFERENCES.bib`;
+- `experiments/01-vanishing-absorber/SUPPLEMENTARY_MATERIAL.md`.
 
-The main task is now **adversarial manuscript revision, proof consolidation, numerical reproducibility, realistic-geometry/transport falsification, and narrow priority audit**, not broad new theorem generation.
+The main task is now **adversarial manuscript revision, proof consolidation, numerical reproducibility, realistic-device falsification, and narrow priority audit**, not broad new theorem generation.
 
 ---
 
@@ -77,7 +82,7 @@ Before every write:
 7. update canonical state when the scientific frontier changes;
 8. for manuscript work, recover/verify the exact current manuscript and run the preservation guard before merge.
 
-**Live `main` overrides snapshots and recovery notes except that an explicitly designated immutable manuscript baseline must be recovered through its recorded hash-verified repository snapshot rather than reconstructed from an older `main` draft.**
+**Live `main` overrides snapshots and recovery notes except that an explicitly designated immutable manuscript baseline must be recovered through its recorded hash-verified repository snapshot rather than reconstructed from an older draft.**
 
 Do not delete an old scientific result merely because it was superseded. Mark it explicitly and preserve why the direction changed.
 
@@ -107,32 +112,26 @@ Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focu
 
 ## 3. Canonical reading order
 
-1. `experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.md`
-2. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
-3. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
-4. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
-5. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
-6. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER_REV3_GEOMETRY_ADDENDUM_2026-08-11.md` when present
-7. `experiments/01-vanishing-absorber/REALISTIC_GEOMETRY_CLOSURE_STRESS.md` when present
-8. `experiments/01-vanishing-absorber/MANUSCRIPT_BLUEPRINT_ADVERSARIAL.md`
-9. `experiments/01-vanishing-absorber/SUPPLEMENTARY_MATERIAL.md`
-10. `experiments/01-vanishing-absorber/SHOCKLEY_RAMO_OBSERVABLE_CORRECTION.md`
-11. `experiments/01-vanishing-absorber/SHOCKLEY_RAMO_SURVIVAL_THEOREM.md`
-12. `experiments/01-vanishing-absorber/RAMO_FOUR_COLOR_OPTICAL_ERROR_THEOREM.md`
-13. `experiments/01-vanishing-absorber/RAMO_FOUR_COLOR_SLOWNESS_GRADIENT_THEOREM.md`
-14. `experiments/01-vanishing-absorber/RAMO_FOUR_COLOR_SPACING_OPTIMUM.md`
-15. `experiments/01-vanishing-absorber/HGCDTE_RAMO_FOUR_COLOR_GRADIENT_PREDICTION.md`
-16. supporting theory files only as needed.
+1. `PRIVACY_PROTOCOL.md`
+2. `experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.md`
+3. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
+4. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
+5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
+6. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+7. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
+8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER_REV3_GEOMETRY_ADDENDUM_2026-08-11.md` when present
+9. `experiments/01-vanishing-absorber/REALISTIC_GEOMETRY_CLOSURE_STRESS.md` when present
+10. `experiments/01-vanishing-absorber/MANUSCRIPT_BLUEPRINT_ADVERSARIAL.md`
+11. `experiments/01-vanishing-absorber/SUPPLEMENTARY_MATERIAL.md`
+12. supporting theorem files only as needed.
 
-When manuscript work is requested, recover the exact verified `MANUSCRIPT_CURRENT.tex` before editing it. The old `MANUSCRIPT_DRAFT.*` and `CURRENT_STATE.md` remain provenance only.
-
-Older fabrication/design and published-sample rescue files are provenance/supporting context. Do not restart those branches unless an active manuscript claim specifically requires a feasibility check.
+When manuscript work is requested, recover the exact verified `MANUSCRIPT_CURRENT.tex` before editing it. The old `MANUSCRIPT_DRAFT.*`, Rev. 3 snapshot, and `CURRENT_STATE.md` remain provenance only.
 
 ---
 
 ## 4. Current paper spine
 
-The paper should remain organized around three simple gedanken experiments.
+The paper remains organized around three simple gedanken experiments.
 
 ### Gedanken I — four colors
 
@@ -142,25 +141,45 @@ Choose four wavelengths corresponding to four equally spaced internal source coo
 \boxed{(J_2-J_1)^2=(J_1-J_0)(J_3-J_2).}
 ```
 
-Three source coordinates identify one spatial multiplier. The fourth is a parameter-free null measurement.
+Three source coordinates identify one spatial multiplier `q`. The fourth is a parameter-free null measurement.
+
+**Important Rev. 4 qualification:** this four-color null is a statement in `q`-space and is branch-independent. Converting
+
+```math
+q=e^{-\gamma h}
+```
+
+to a continuous exponent has the branch family
+
+```math
+\gamma_n=-\frac{\operatorname{Log}q+2\pi i n}{h}.
+```
+
+Physical inversion to `D,w,kappa` is therefore conditional on a uniquely selected spatial-logarithm branch. A sufficient principal-branch anti-alias condition is
+
+```math
+|\operatorname{Im}\gamma|h<\pi.
+```
+
+Do **not** resurrect the unrestricted statement that one measured `q` globally determines a unique `gamma`.
 
 ### Gedanken II — DC + RF
 
-Recover the spatial exponent `gamma` from the four-color sequence. Uniform real drift-diffusion-recombination obeys
+Uniform real drift-diffusion-recombination obeys
 
 ```math
 D\gamma^2+w\gamma=\kappa+s.
 ```
 
-DC plus one nonzero RF determine `D,w,kappa`. Every additional RF frequency is a falsification point because it introduces no new material parameter.
+Conditional on a uniquely selected spatial-log branch, DC plus one nonzero RF structurally determine `D,w,kappa`. Every additional RF frequency introduces no new material parameter and is therefore a falsification point.
 
-Conceptual statement:
+Conceptual statement, with the qualification kept explicit:
 
-> **DC + one RF identify the minimal model; the next RF tries to kill it.**
+> **After branch selection, DC + one RF identify the minimal model; the next RF tries to kill it.**
 
-### Gedanken III — six colors
+### Gedanken III — six colors and higher order
 
-If the one-mode closure fails, use six source coordinates and test whether exactly two first-difference spatial modes are resolved.
+If the one-mode closure fails, use six source coordinates and test whether two first-difference spatial modes are resolved.
 
 For
 
@@ -173,15 +192,18 @@ d_m=a q_1^m+b q_2^m,
 =ab(q_1q_2)^m(q_1-q_2)^2.}
 ```
 
-A second mode must be statistically resolved before roots are interpreted. Finite boundaries and conventional electron-hole transport then have different RF root constraints.
+A second mode must be statistically resolved before roots are interpreted. Degeneracies can reduce observable rank, so use **rank at most two** when referring to the general two-mode mechanism.
 
-The newer realistic-geometry stress reinforces the interpretation order:
+Failure of rank two does **not** imply exotic transport. Continue through higher ordinary finite-rank mechanisms before richer/nonlocal interpretations.
+
+The interpretation order is:
 
 ```text
-four colors -> detect one-mode failure
-six colors  -> determine whether another spatial mode is resolved
-RF roots    -> test ordinary mechanism laws
-only then   -> assign a mechanism-specific transport interpretation
+rank 1 / four colors
+-> rank 2 / six colors if resolved
+-> higher ordinary finite rank if needed
+-> RF root-law constraints
+-> only then mechanism-specific or richer/nonlocal interpretation
 ```
 
 ---
@@ -218,7 +240,43 @@ Never import arrival-time identities into terminal current without deriving the 
 
 ---
 
-## 6. Major invalidations — never silently resurrect
+## 6. Rev. 4 mathematical boundary conditions — never regress
+
+### Spatial-log branch ambiguity
+
+**CORRECTED IN REV. 4.** The multiplier `q` is measured; `gamma` is multi-valued modulo `2 pi i/h`. Positivity of fitted `D,w` alone does not guarantee the correct branch. Use anti-alias bounds, continuity, additional RF points, or spatial design to select a branch.
+
+### Known arbitrary spacing
+
+**CORRECTED IN REV. 4.** The first three positions constrain one or more candidate roots of the unequal-spacing equation; they do not generically guarantee uniqueness. The fourth position filters candidates. Claim unique physical inversion only when one admissible candidate remains after all constraints.
+
+### Linear weighting field and polynomial annihilation
+
+For
+
+```math
+DJ''+wJ'-(\kappa+s)J=-[wE_w+DE_w'],
+```
+
+when `kappa+s != 0`, a polynomial forcing of degree `p` has a particular solution of the same degree. For a linear weighting field this gives the ordinary `q_weight=1` observation mode and a five-color/second-difference exact annihilation construction.
+
+At the singular point
+
+```text
+s=0, kappa=0, w>0
+```
+
+the particular degree generically rises by one. For `E_w=E_0+E_1 z`,
+
+```math
+J_p=-E_0z-\frac{E_1}{2}z^2.
+```
+
+A linear field therefore requires **third differences / six colors** for exact polynomial annihilation at the singular DC/no-recombination point. Do not apply the five-color theorem there.
+
+---
+
+## 7. Major invalidations — never silently resurrect
 
 ### Generic terminal current equals first-passage characteristic function
 
@@ -246,19 +304,23 @@ Never import arrival-time identities into terminal current without deriving the 
 
 ### A four-color phase residual uniquely identifies a transport gradient
 
-**INVALIDATED GENERALIZATION.** The realistic finite-electrode/depletion stress can generate an order-unity fraction of the current one-dimensional gradient target. Model order and geometry must be controlled before mechanism assignment.
+**INVALIDATED GENERALIZATION.** Geometry, weighting field, source-state evolution, and other ordinary mechanisms can produce closure failure. Model order and observation geometry must be controlled before mechanism assignment.
 
 ### Five-color polynomial annihilation removes arbitrary detector geometry
 
-**INVALIDATED GENERALIZATION.** It remains exact for the stated one-dimensional polynomial observation forcing, not for an arbitrary curved multidimensional weighting potential with bent trajectories.
+**INVALIDATED GENERALIZATION.** It applies to the stated one-dimensional polynomial observation forcing under the corrected degree conditions, not arbitrary curved multidimensional geometry.
+
+### Five colors always annihilate a linear weighting field
+
+**INVALIDATED AT THE SINGULAR DC/NO-RECOMBINATION POINT.** Away from `kappa+s=0`, five colors remain exact for the stated one-dimensional linear forcing. At `s=kappa=0`, use six colors/third differences.
 
 ---
 
-## 7. Current HgCdTe worked example
+## 8. Current HgCdTe worked example
 
-Use the corrected raw-Ramo four-color stochastic calculation, not the superseded boundary-confounded three-color result.
+Use the corrected raw-Ramo four-color stochastic calculation.
 
-Explicit stress:
+Explicit optical stress:
 
 ```text
 L = 7.6 um
@@ -269,7 +331,7 @@ lambda ~ 2.134651, 2.215042, 2.301173, 2.393907 um
 Pabs > 0.9993
 ```
 
-For no recombination, gradient-sensitive closure phase is approximately
+For no recombination, the gradient-sensitive closure phase remains approximately
 
 ```text
 100 MHz -> -0.011978 deg
@@ -279,11 +341,35 @@ For no recombination, gradient-sensitive closure phase is approximately
 
 The point-source low-RF slowness-gradient result gives approximately `-0.01254 deg` at 100 MHz.
 
-The stochastic calculation has been independently reproduced with an adaptive shooting construction to approximately `10^-6 degree` agreement or better at the reported RF points.
+Rev. 4 now states the exact conditional transport law used to generate these numbers: linear composition, Hansen gap and derivative, Einstein diffusion, empirical saturation sensitivity law, reduced density-of-states gradient correction, stochastic backward equation, and bounded semi-infinite entrance match.
 
-These are **conditional theory predictions**, not calibrated forecasts for an existing detector.
+The stochastic finite-difference result was independently reproduced with an adaptive shooting construction to approximately `10^-6 degree` agreement or better at the reported RF points. This is **numerical cross-verification of the same specified conditional model**, not physical validation of HgCdTe at `10^-6 degree`.
 
-The realistic 2-D hardening calculation now supplies an additional ordinary-device confound. For the representative 75%-contact + 3 um depletion-like stress, the geometry/depletion excess over the planar same-optics baseline is approximately:
+These are conditional theory predictions, not calibrated forecasts for an existing detector.
+
+Rev. 4 also quantifies deliberately independent residual-error stresses:
+
+```text
+nonaffine source-coordinate RMS:
+100 MHz -> 3.828 nm
+500 MHz -> 3.780 nm
+1 GHz   -> 3.626 nm
+
+irregular channel-phase RMS:
+100 MHz -> 1.023e-4 deg
+500 MHz -> 5.017e-4 deg
+1 GHz   -> 9.431e-4 deg
+```
+
+These are not absolute depth or common-delay requirements; smooth common/affine components cancel strongly.
+
+---
+
+## 9. Separate geometry hardening result
+
+The realistic 2-D finite-electrode/depletion stress remains separate from the canonical manuscript.
+
+For the representative 75%-contact + 3 um depletion-like stress, the geometry/depletion excess over the planar same-optics baseline is approximately:
 
 ```text
 100 MHz -> -0.008841 deg = 0.738 x current 1-D gradient target
@@ -293,9 +379,11 @@ The realistic 2-D hardening calculation now supplies an additional ordinary-devi
 
 This geometry family is **CHECKED / CONDITIONAL**, not a calibrated device simulation and not a theorem for arbitrary geometry. At 100 MHz its second spatial mode becomes nominally detectable around `84.6 dB` current-step amplitude SNR, below the present `96.1 dB` gradient-specific requirement, and its fitted effective rank-two roots fail the homogeneous finite-boundary root-sum law.
 
+Do not promote this calculation into the headline manuscript as definitive geometry closure until the more realistic self-consistent 2-D transport attack is completed.
+
 ---
 
-## 8. Hard prior-art boundary
+## 10. Hard prior-art boundary
 
 Do **not** claim novelty for
 
@@ -321,7 +409,9 @@ calibrated spectral internal source coordinate
 +
 Shockley-Ramo-aware spatial first differences
 +
-minimal four-/six-color model-order closure
+minimal color-count model-order closure
++
+branch-controlled spatial root recovery
 +
 RF root-algebra falsification of ordinary photocarrier transport mechanisms.
 ```
@@ -332,7 +422,7 @@ Targeted negative searches are not priority evidence.
 
 ---
 
-## 9. What is demoted from the headline manuscript
+## 11. What is demoted from the headline manuscript
 
 Keep as supporting theory/provenance, but do not let these dominate the main paper:
 
@@ -348,17 +438,17 @@ They can become supplement material or follow-up papers only if they materially 
 
 ---
 
-## 10. Next decisive work
+## 12. Next decisive work
 
 Do **not** reopen broad exploratory theory unless manuscript review or realistic-device falsification exposes a genuine missing theorem.
 
 Priority now:
 
-1. preserve the exact 16-page Rev. 3 source and keep the manuscript-preservation guard passing;
-2. keep the realistic 2-D geometry result as a separate auditable hardening result until it is surgically integrated into the exact manuscript;
-3. continue the narrow primary-source priority audit for the exact spectral-depth four-/six-color closure construction;
+1. preserve the exact anonymous 19-page Rev. 4 source and keep both manuscript-preservation and privacy guards passing;
+2. keep the realistic 2-D geometry result as a separate auditable hardening result rather than treating it as a calibrated detector prediction;
+3. continue the narrow primary-source priority audit for the exact spectral-depth closure construction;
 4. advance the geometry attack to one plausible self-consistent 2-D semiconductor Poisson/drift-diffusion structure with diffusion and analyze the synthetic spectral/RF data blindly using the same hierarchy;
 5. convert independent numerical checks into reproducibility tables / supplement material;
 6. only after these pass, choose a target journal and adapt formatting.
 
-The objective is the smallest set of exact, falsifiable predictions that a skeptical reviewer cannot dismiss as an observable mismatch, an uncontrolled ordinary mechanism, a geometry artifact, or rediscovery of known photodiode response physics.
+The objective is the smallest set of exact, falsifiable predictions that a skeptical reviewer cannot dismiss as an observable mismatch, spatial alias, uncontrolled ordinary mechanism, geometry artifact, calibration artifact, or rediscovery of known photodiode response physics.
