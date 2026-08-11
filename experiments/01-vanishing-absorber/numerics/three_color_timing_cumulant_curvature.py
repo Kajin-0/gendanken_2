@@ -25,6 +25,7 @@ spatial-curvature expansion on synthetic smooth cumulant fields.
 
 from __future__ import annotations
 
+import math
 import numpy as np
 
 
@@ -74,7 +75,10 @@ def main() -> None:
 
     # Compare exact closure to fourth-order cumulant series at small omega.
     omega = 2.0e-3
-    series = sum(((-1j * omega) ** n) * C[n - 1] / np.math.factorial(n) for n in range(1, 5))
+    series = sum(
+        ((-1j * omega) ** n) * C[n - 1] / math.factorial(n)
+        for n in range(1, 5)
+    )
     exact = closure(omega)
     error = abs(exact - series)
     print(f"fourth-order series error at omega={omega:g} = {error:.3e}")
@@ -111,7 +115,7 @@ def main() -> None:
         "PASS: the complex three-color closure is exactly the generating "
         "function of discrete timing-cumulant curvature. At equally spaced "
         "internal coordinates, successive RF orders measure spatial curvature "
-        "of mean delay, timing variance, skewness, and higher cumulants."
+        "of mean delay, variance, skewness, and higher cumulants."
     )
 
 
