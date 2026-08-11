@@ -1,0 +1,86 @@
+name: Manuscript preservation
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT*.tex'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.json'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md'
+      - 'experiments/01-vanishing-absorber/MANUSCRIPT_DESTRUCTIVE_EDIT_JUSTIFICATION.md'
+      - 'tools/check_manuscript_preservation.py'
+      - '.github/workflows/manuscript-preservation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preservation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out candidate branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify manuscript changes are preservation-safe
+        shell: bash
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+
+          manifest='experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.json'
+          justification='experiments/01-vanishing-absorber/MANUSCRIPT_DESTRUCTIVE_EDIT_JUSTIFICATION.md'
+
+          if [[ ! -f "$manifest" ]]; then
+            echo 'Missing manuscript baseline manifest.' >&2
+            exit 1
+          fi
+
+          if [[ -n "${BASE_REF:-}" ]]; then
+            git fetch --no-tags origin "$BASE_REF"
+            base="origin/$BASE_REF"
+          else
+            # workflow_dispatch: compare only to the machine baseline.
+            base=''
+          fi
+
+          if [[ -n "$base" ]]; then
+            mapfile -t changed < <(
+              git diff --name-only "$base"...HEAD |
+              grep -E '^experiments/01-vanishing-absorber/MANUSCRIPT[^/]*\.tex$' || true
+            )
+          else
+            mapfile -t changed < <(
+              find experiments/01-vanishing-absorber -maxdepth 1 -type f -name 'MANUSCRIPT*.tex' -print
+            )
+          fi
+
+          if [[ ${#changed[@]} -eq 0 ]]; then
+            echo 'No main manuscript TeX file changed; preservation guard has nothing to compare.'
+            exit 0
+          fi
+
+          for candidate in "${changed[@]}"; do
+            echo "Checking $candidate"
+            args=(
+              --candidate "$candidate"
+              --manifest "$manifest"
+              --justification "$justification"
+            )
+
+            if [[ -n "$base" ]] && git cat-file -e "$base:$candidate" 2>/dev/null; then
+              tmp="$(mktemp --suffix=.tex)"
+              git show "$base:$candidate" > "$tmp"
+              args+=(--base "$tmp")
+            fi
+
+            python tools/check_manuscript_preservation.py "${args[@]}"
+          done
