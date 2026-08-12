@@ -1,0 +1,81 @@
+name: Build Rev8 candidate once
+
+on:
+  push:
+    branches:
+      - agent/rev8-adversarial-surgical
+    paths:
+      - '.github/workflows/rev8-build-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check -q numpy scipy
+      - name: Verify snapshot and reconstruct exact anonymous Rev8
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, gzip, hashlib
+          root=Path('experiments/01-vanishing-absorber')
+          hist=root/'manuscript_history'
+          parts=sorted(hist.glob('MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part*'))
+          expected=[
+            '09830ddc9bc63076393bdcee18d845fe351501d4f4efd0827969e49b73c90a04',
+            '114aa44e0b2c71997f5e0d11772be388d0a43486c3312998ba305c9f0a82d72b',
+            '66507ded348a55c6bf94d372e4c11923da99f2654b950f86a6add37dbe4b0414',
+            '56a68ec8bf92bfd955dd3f1375edc3cce67c8c1f41ea1924abac2df668ea59f4',
+            '3f6089cf49a6219348be9393fae2d8383ce95a0978486de480ac62d369659bd3',
+            '1fe1ef5308e3f76439a2236b5ca81ec8712ea50ae980f8f5cc98069012b5b4c8',
+            'f6810db73884c23f1a0343f70a1186bade9f697613913c834905878d9ced333a',
+          ]
+          if len(parts)!=7: raise SystemExit(f'expected 7 parts, found {len(parts)}')
+          chunks=[]
+          for i,(p,want) in enumerate(zip(parts,expected),1):
+              s=p.read_text(encoding='ascii').strip()
+              got=hashlib.sha256(s.encode('ascii')).hexdigest()
+              if got!=want: raise SystemExit(f'part {i} hash mismatch: {got} != {want}')
+              chunks.append(s)
+          encoded=''.join(chunks)
+          if len(encoded)!=37448: raise SystemExit(f'base64 length mismatch {len(encoded)}')
+          packed=base64.b64decode(encoded,validate=True)
+          ph=hashlib.sha256(packed).hexdigest()
+          if ph!='b9c87ffa2dce8870a5716b106280a62f177425c562c44af59f452c8d425d0c67':
+              raise SystemExit(f'gzip hash mismatch {ph}')
+          if len(packed)!=28085: raise SystemExit(f'gzip size mismatch {len(packed)}')
+          source=gzip.decompress(packed)
+          sh=hashlib.sha256(source).hexdigest()
+          if sh!='3f5307064b233f3976e037c541809557ee07fd712b1b5491734d9a3469035b97':
+              raise SystemExit(f'source hash mismatch {sh}')
+          if len(source)!=81816: raise SystemExit(f'source bytes mismatch {len(source)}')
+          text=source.decode('utf-8')
+          if len(text.splitlines())!=1023: raise SystemExit('source line-count mismatch')
+          if r'\author{Anonymous}' not in text or 'pdfauthor={Anonymous}' not in text:
+              raise SystemExit('anonymous metadata invariant failed')
+          out=root/'MANUSCRIPT_REV8_ANON_2026-08-11.tex'
+          out.write_bytes(source)
+          print('PASS: exact Rev8 snapshot reconstructed', sh)
+          PY
+      - name: Run Rev8 mathematical and numerical regression
+        run: python experiments/01-vanishing-absorber/numerics/rev8_review_regression.py
+      - name: Commit exact Rev8 manuscript source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add experiments/01-vanishing-absorber/MANUSCRIPT_REV8_ANON_2026-08-11.tex
+          git diff --cached --quiet && { echo 'No manuscript source change to commit'; exit 0; }
+          git commit -m 'Add exact anonymous Rev8 manuscript candidate'
+          git push
