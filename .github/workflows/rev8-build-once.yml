@@ -79,3 +79,5 @@ jobs:
           git diff --cached --quiet && { echo 'No manuscript source change to commit'; exit 0; }
           git commit -m 'Add exact anonymous Rev8 manuscript candidate'
           git push
+
+# retry after exact part02 repair
