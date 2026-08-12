@@ -1,0 +1,1023 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\emergencystretch=1em
+\hypersetup{pdftitle={Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current},pdfauthor={Anonymous}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Cfour}{\mathcal{C}_4}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dd}{\mathrm{d}}
+
+\title{Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current}
+\author{Anonymous}
+\date{Draft: August 11, 2026 -- Revision 8}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Photodetector frequency response is commonly interpreted by choosing a transport model and fitting material or circuit parameters to measured amplitude and phase. We ask a different question: can the detector be made to falsify simple transport hypotheses before a richer model is fitted? The required spatial coordinate can be supplied optically when wavelength moves the carrier-generation distribution through a monotonic absorber. Treating terminal-current formation explicitly with the Shockley--Ramo theorem, we show that a homogeneous one-carrier planar detector obeys an exact four-channel spatial closure,
+\begin{equation*}
+(J_2-J_1)^2=(J_1-J_0)(J_3-J_2),
+\end{equation*}
+for four equally spaced internal source coordinates. Spatial first differences isolate an internal propagation multiplier while rejecting wavelength-independent complex gain and additive offset. For uniform drift--diffusion with first-order recombination, four channels at DC plus the same four channels at one nonzero modulation frequency determine diffusion, drift, and recombination algebraically conditional on selection of the spatial-logarithm branch; every additional RF frequency introduces no new transport parameter and is therefore a null test. If the one-mode closure fails, six source coordinates test a two-mode model. The unconditional classical rank-at-most-two null is the $3\times3$ Hankel determinant; adjacent two-exponential minors
+\begin{equation*}
+W_m=d_m d_{m+2}-d_{m+1}^2
+=ab(q_1q_2)^m(q_1-q_2)^2
+\end{equation*}
+instead expose mode separation and parameter conditioning. Finite scalar boundaries and conventional electron--hole transport then obey different RF root constraints. We derive leading optical-source, amplitude-calibration, internal-coordinate, weighting-field, hot-state, and independent-noise corrections. The DC+RF inverse has an exact conditioning optimum at $D\omega/V_*^2=\sqrt{3}$. Away from the singular DC/no-recombination point, a linear nonuniform weighting field produces a distinctive RF-independent spatial multiplier $q=1$; at low RF this observation root coalesces with the transport multiplier as $q_{\rm tr}\to1$, creating a quantitative tradeoff between resolving and annihilating the nuisance mode. At $s=\kappa=0$ the observation particular solution gains one polynomial degree and the unit-root contribution becomes repeated. In a deterministic high-Peclet limit the low-frequency four-channel phase closure measures a local combination of derivatives of inverse carrier velocity. A conditional HgCdTe-scaled composition-band-edge transport stress, with its conduction-band force term anchored to the 300-K electron-affinity relation but without a self-consistent Poisson field, yields a gradient-sensitive closure phase of approximately \SI{-0.022}{\degree} at \SI{100}{MHz}, \SI{-0.106}{\degree} at \SI{500}{MHz}, and \SI{-0.194}{\degree} at \SI{1}{GHz}; an independent shooting implementation reproduces the stated numerical model. The construction does not claim wavelength-dependent photodiode timing, Shockley--Ramo signal formation, finite-exponential/Hankel model identification, or drift--diffusion inversion as new. Its purpose is to combine an internal spectral coordinate with observable-corrected spatial and RF closure relations into a deliberately falsification-driven transport measurement.
+\end{abstract}
+
+\section{Introduction}
+
+A photodetector impulse or frequency response contains contributions from carrier generation, transport, recombination, boundaries, contacts, weighting-field geometry, and the external readout chain. A detailed model can therefore fit measured amplitude and phase without proving that its microscopic interpretation is unique. The objective here is not to eliminate modeling, but to change its order: begin with deliberately restrictive null hypotheses, derive exact closure relations that those hypotheses overdetermine, and introduce additional physical degrees of freedom only after a lower-order model fails.
+
+Wavelength provides a natural internal coordinate in detectors where absorption depth changes strongly with photon energy. This physics is established. Optoelectronic chromatic dispersion uses wavelength-dependent absorption depth to create measurable photodiode RF phase shifts \cite{Glasser2021}; experimental Ge PN devices have used that phase sensitivity for wavelength monitoring and fiber-Bragg-grating interrogation \cite{Liokumovitch2021}, and Ge PIN devices have demonstrated bias-tunable magnitude and sign of the same effect \cite{Dutta2024}. Multi-frequency DC/RF feature extraction has also been used for single-photodiode computational spectroscopy \cite{Kassa2026}. These OED studies use spectral dependence of the detector response as an observable or sensing feature. Here the calibrated spectral channels are instead treated as an internal spatial sequence on which algebraic model-order and cross-RF transport-law nulls are imposed. Likewise, Hankel methods have been applied to time-sampled photodetector impulse responses for model identification \cite{Sun2025}. The finite-exponential identities used below also belong to the classical Prony lineage and its modern subspace and matrix-pencil descendants \cite{Prony1795,RoyKailath1989,HuaSarkar1990}; the geometric and Hankel identities themselves are not claimed as new. The narrower object studied here is the observable-corrected mapping from calibrated spectral depth to such a sequence and the subsequent RF physical-law constraints.
+
+The narrower question is whether spectral channels can be calibrated as an \emph{internal spatial sequence}, converted into a Shockley--Ramo-aware spatial propagation sequence, and then subjected to model-order and RF-frequency closure tests. Three gedanken experiments organize the analysis:
+\begin{enumerate}[label=(\roman*)]
+    \item four internal source coordinates at one RF frequency test whether one homogeneous first-difference propagation mode is sufficient;
+    \item the same coordinates at DC and another RF frequency test whether one real drift--diffusion--recombination generator survives a change in clock frequency;
+    \item if one spatial mode fails, six coordinates test whether exactly two ordinary modes are sufficient and whether their RF roots match a finite boundary or conventional two-carrier explanation.
+\end{enumerate}
+
+The hierarchy is intentionally conservative. A failed four-channel law is not labeled anomalous transport: an ordinary electron--hole pair or a finite boundary is already sufficient to break it. A rank-two fit is not interpreted merely because rank one is rejected: the six-color Hankel rank-two null must itself pass a noise-aware test, and the surviving two-mode parameters must then be statistically resolved. Only after these lower-order explanations are controlled do we interpret a residual in terms of spatially varying or richer transport. The hierarchy is a structural model-selection logic, not by itself a globally calibrated sequential hypothesis test: the per-rung significance levels below are conditional on the rung being tested, and an experiment that selects model order and then tests recovered roots on the same noisy data must control the resulting selection error.
+
+HgCdTe is used only as a worked example. Wavelength/depth generation, graded-bandgap transport, and high-speed graded-HgCdTe response are established in the literature \cite{Sang2022}. Direct Shockley--Haynes measurements have independently characterized HgCdTe minority-carrier drift velocity, diffusion coefficient, and lifetime \cite{Rothman2010}; recent electron-affinity work supplies a physically motivated conduction-band partition for a composition gradient \cite{RhigerMustafa2025}, and near-room-temperature low-injection lifetime measurements provide an Auger-limited recombination scale \cite{Kopytko2021}. A 2024 paper explicitly addresses a composition-graded HgCdTe detector for laser measurement \cite{Xu2024Laser}; because its exact full text has not been audited here, no priority inference is drawn from its title or metadata alone. The material calculation below is a conditional prediction under explicit assumptions, not a fitted forecast for a named detector. Throughout this paper, \emph{stress} means a deliberately specified sensitivity or test scenario, not mechanical or thermal stress.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners=1.5pt, align=center, text width=3.0cm, minimum height=0.95cm, font=\small},
+    arr/.style={-{Latex[length=2mm]}, line width=0.45pt}
+]
+\node[box] (lam) at (0,0) {$\lambda_0,\ldots,\lambda_3$\\spectral channels};
+\node[box] (depth) at (4.4,0) {calibrated generation\\kernels at $z_m$};
+\node[box] (cur) at (8.8,0) {$J_m(\omega)$\\terminal currents};
+\node[box] (diff) at (13.2,0) {$\Delta J_m$\\spatial differences};
+\node[box] (four) at (13.2,-2.0) {four-color\\one-mode closure};
+\node[box] (q) at (8.8,-2.0) {$q$\\spatial multiplier};
+\node[box] (gam) at (4.4,-2.0) {$\gamma(\omega)$\\after branch selection};
+\node[box] (phys) at (0,-2.0) {homogeneous root law\\$(D,w,\kappa)$};
+\node[box] (six) at (13.2,-4.0) {six colors\\rank-two test};
+\node[box] (roots) at (8.8,-4.0) {resolved roots\\and amplitudes};
+\node[box] (laws) at (4.4,-4.0) {ordinary RF root laws\\boundary / carriers / observation};
+\node[box] (mech) at (0,-4.0) {mechanism resolved,\\or remain unresolved};
+\draw[arr] (lam) -- (depth);
+\draw[arr] (depth) -- (cur);
+\draw[arr] (cur) -- (diff);
+\draw[arr] (diff) -- (four);
+\draw[arr] (four) -- node[above, font=\scriptsize]{passes} (q);
+\draw[arr] (q) -- (gam);
+\draw[arr] (gam) -- (phys);
+\draw[arr] (four) -- node[right, font=\scriptsize]{fails} (six);
+\draw[arr] (six) -- (roots);
+\draw[arr] (roots) -- (laws);
+\draw[arr] (laws) -- (mech);
+\end{tikzpicture}
+\caption{Falsification hierarchy. Wavelength supplies a calibrated internal source coordinate; spatial differencing tests model order before recovered roots are assigned a transport mechanism. The conversion $q\mapsto\gamma$ is explicitly branch-sensitive.}
+\label{fig:hierarchy}
+\end{figure}
+
+\section{Observable correction: first-passage flux versus terminal current}
+
+\subsection{First-passage propagation}
+
+Let one carrier begin a distance $d$ from a collecting boundary, and let $T_d$ be its successful first-passage time. Define
+\begin{equation}
+U(d,s)=\E[e^{-sT_d}].
+\label{eq:Udef}
+\end{equation}
+For a homogeneous scalar first-passage process, spatial translation and the strong-Markov property imply
+\begin{equation}
+U(d_1+d_2,s)=U(d_1,s)U(d_2,s).
+\end{equation}
+Continuity in $d$ gives the spatial semigroup
+\begin{equation}
+\boxed{U(d,s)=e^{-\gamma(s)d}.}
+\label{eq:semigroup}
+\end{equation}
+For uniform drift $w>0$, diffusion $D>0$, and uniform first-order killing/recombination rate $\kappa\ge 0$,
+\begin{equation}
+\boxed{D\gamma^2+w\gamma=\kappa+s.}
+\label{eq:dispersion}
+\end{equation}
+
+Equation~\eqref{eq:semigroup} describes an arrival/collection-flux observable. It is not, by itself, the measured terminal current.
+
+\subsection{Shockley--Ramo survival relation}
+
+Let $p(x,t)$ be the density of carriers still present in a homogeneous one-dimensional region terminating at an absorbing collector $x=L$. Without killing,
+\begin{equation}
+\partial_t p=-\partial_x j,
+\qquad
+j=wp-D\partial_xp.
+\label{eq:continuity}
+\end{equation}
+Define survival
+\begin{equation}
+S(t)=\int_{-\infty}^{L}p(x,t)\,\dd x.
+\end{equation}
+For a uniform planar weighting field $E_w$, Shockley--Ramo signal formation \cite{Shockley1938,Ramo1939,Dabrowski1989} gives
+\begin{equation}
+I(t)=qE_w\int_{-\infty}^{L}j(x,t)\,\dd x.
+\end{equation}
+If $p$ vanishes at the collector and remote upstream boundary, the diffusion boundary term cancels and
+\begin{equation}
+\boxed{I(t)=qE_w w S(t).}
+\label{eq:ramo_survival}
+\end{equation}
+Since $\widetilde S(s)=[1-U(d,s)]/s$, the raw terminal-current transform is
+\begin{equation}
+J(d,s)=qE_w w\frac{1-U(d,s)}{s}.
+\label{eq:Jnokill}
+\end{equation}
+Uniform Markov killing changes only the depth-independent prefactor. Using Eq.~\eqref{eq:semigroup},
+\begin{equation}
+\boxed{J(d,s)=C(s)\left[1-e^{-\gamma(s)d}\right].}
+\label{eq:Jaffine}
+\end{equation}
+
+The distinction is not semantic. In deterministic uniform drift, the arrival transfer is $e^{-i\omega d/w}$, whereas the planar induced current is a rectangular pulse whose Fourier transform is proportional to $[1-e^{-i\omega d/w}]/(i\omega)$. A direct three-position geometric-mean law therefore applies to the ideal arrival field, not to generic terminal current. The measurable-current construction requires one additional spatial difference.
+
+\section{Gedanken experiment I: four colors isolate one spatial mode}
+
+Let four optical channels generate carriers at calibrated internal coordinates
+\begin{equation}
+d_m=d_0+mh,
+\qquad m=0,1,2,3.
+\label{eq:fourcoords}
+\end{equation}
+Equation~\eqref{eq:Jaffine} can be written
+\begin{equation}
+J_m=A+Bq^m,
+\qquad q=e^{-\gamma h}.
+\label{eq:affineseq}
+\end{equation}
+Define first differences $\Delta J_m=J_{m+1}-J_m$. Then
+\begin{equation}
+\Delta J_m=B(q-1)q^m.
+\label{eq:firstdiff}
+\end{equation}
+
+\begin{theorem}[Four-color terminal-current closure]
+For four equally spaced internal source coordinates in the homogeneous one-carrier planar model,
+\begin{equation}
+\boxed{(J_2-J_1)^2=(J_1-J_0)(J_3-J_2).}
+\label{eq:fourclosure}
+\end{equation}
+\end{theorem}
+
+The geometric identity underlying Eq.~\eqref{eq:fourclosure} is elementary and belongs to the classical finite-exponential sequence structure; the theorem label records its exact consequence for the specified Shockley--Ramo terminal-current observable and four calibrated source coordinates, not a novelty claim for the algebraic identity itself.
+
+At the confluent point $s=\kappa=0$, Eq.~\eqref{eq:affineseq} is understood in its $q\to1$ limit. Although the finite-$s$ representation has a vanishing exponential increment and a compensating prefactor, the terminal current itself tends to an affine function of source depth, $J_m=A'+B'm$. Hence $\Delta J_m=B'$ and Eq.~\eqref{eq:fourclosure} remains exact.
+
+Three source coordinates estimate
+\begin{equation}
+\boxed{q=\frac{J_2-J_1}{J_1-J_0},}
+\label{eq:qrecover}
+\end{equation}
+while the fourth is a parameter-free falsification point. The spatial exponent follows from
+\begin{equation}
+\boxed{\gamma=-\frac{1}{h}\log q,}
+\label{eq:grecover}
+\end{equation}
+with the logarithm branch tracked continuously in RF frequency or source coordinate.
+
+The four-color experiment identifies the multiplier $q$ directly, but the map from $q$ to a continuous spatial exponent is not globally one-to-one.
+\begin{proposition}[Spatial-logarithm branch condition]
+For fixed spacing $h$, every exponent
+\begin{equation}
+\boxed{\gamma_n=-\frac{\operatorname{Log}q+2\pi i n}{h},\qquad n\in\mathbb Z}
+\label{eq:spatial_alias}
+\end{equation}
+produces the same measured multiplier $q$. Therefore physical parameter recovery from $\gamma$ is structurally identifiable only after a unique branch is selected. A sufficient principal-branch anti-alias condition is
+\begin{equation}
+\boxed{|\Im\gamma|h<\pi.}
+\label{eq:spatial_antialias}
+\end{equation}
+\end{proposition}
+Branch selection can be supplied by a prior bound on spatial phase advance, by continuity through an RF sweep, or by additional/noncommensurate source spacings. This ambiguity does \emph{not} alter Eq.~\eqref{eq:fourclosure}: the one-mode model-order null is formulated directly in $q$ and is branch-independent.
+
+\subsection{Exact nuisance invariances}
+
+At one RF frequency, let
+\begin{equation}
+J_m^{\mathrm{meas}}=G(\omega)J_m+C(\omega),
+\end{equation}
+where $G$ and $C$ are common to the four spectral channels. First differences remove $C$ and multiply every $\Delta J_m$ by the same $G$, so Eq.~\eqref{eq:fourclosure} is unchanged.
+
+Finite generation width is likewise not automatically a resolution failure. If each wavelength translates the same arbitrary generation shape $g$, averaging Eq.~\eqref{eq:Jaffine} changes only $B$; the sequence remains affine-exponential and Eq.~\eqref{eq:fourclosure} remains exact. The dangerous optical correction is wavelength-dependent \emph{shape evolution}, treated below.
+
+Finally, if the true internal coordinate is related to a calibrated spectral coordinate by any affine map $z=a+b\mu$, equal spacing is preserved exactly. Absolute depth origin and common scale are unnecessary for the model-order null, although the scale is required to convert $\gamma$ to physical transport coefficients.
+
+\section{Gedanken experiment II: DC plus one RF identifies; the next RF falsifies}
+
+\subsection{No-recombination limit}
+
+With $\kappa=0$, write $\gamma(i\omega)=a+ib$. Separating real and imaginary parts of Eq.~\eqref{eq:dispersion} yields
+\begin{equation}
+\boxed{D=\frac{\omega a}{b(a^2+b^2)},}
+\label{eq:Dsimple}
+\end{equation}
+\begin{equation}
+\boxed{w=\frac{\omega(b^2-a^2)}{b(a^2+b^2)}.}
+\label{eq:wsimple}
+\end{equation}
+For the positive downstream branch,
+\begin{equation}
+\boxed{0<a<b.}
+\end{equation}
+Conditional on a uniquely selected spatial-logarithm branch, one RF frequency therefore identifies $D$ and $w$ within the stated model; a second RF frequency introduces no new coefficient and must reproduce the same values.
+
+\subsection{Complete inversion with recombination}
+
+Use the four-channel sequence at DC to recover $g_0=\gamma(0)$ and at one RF to recover $g_\omega=\gamma(i\omega)$. The two dispersion equations are
+\begin{align}
+Dg_0^2+wg_0&=\kappa,\\
+Dg_\omega^2+wg_\omega&=\kappa+i\omega.
+\end{align}
+Define
+\begin{align}
+A&=g_\omega^2-g_0^2,\\
+B&=g_\omega-g_0,\\
+\Delta&=\Re A\,\Im B-\Im A\,\Re B.
+\end{align}
+For $\Delta\neq0$,
+\begin{equation}
+\boxed{D=-\frac{\omega\Re B}{\Delta},}
+\label{eq:Drecomb}
+\end{equation}
+\begin{equation}
+\boxed{w=\frac{\omega\Re A}{\Delta},}
+\label{eq:wrecomb}
+\end{equation}
+\begin{equation}
+\boxed{\kappa=Dg_0^2+wg_0.}
+\label{eq:krecomb}
+\end{equation}
+
+Thus, conditional on unique branch selection for the recovered spatial exponents, four spectral channels at DC plus the same channels at one nonzero RF frequency determine the complete homogeneous three-parameter Markov model. Every additional RF frequency is overdetermined. The experiment can therefore be phrased as: \emph{DC plus one RF identifies after spatial unwrapping; the next RF tries to kill the model.}
+
+\subsection{Conditioning of the DC+RF inversion}
+
+Structural identifiability does not guarantee useful parameter precision. Write the RF root displacement from DC as
+\begin{equation}
+\delta g=g_\omega-g_0=u+iv.
+\end{equation}
+The determinant in the preceding inversion simplifies exactly to
+\begin{equation}
+\boxed{\Delta=-v(u^2+v^2).}
+\label{eq:delta_geometry}
+\end{equation}
+Thus the singular limit is geometrically the limit in which the RF root fails to separate from the DC root.
+
+Define
+\begin{equation}
+V_*=\sqrt{w^2+4D\kappa}.
+\end{equation}
+The inverse can be factorized as
+\begin{align}
+D&=\boxed{\frac{\omega u}{v(u^2+v^2)}},\\
+V_*&=\boxed{\frac{\omega(v^2-u^2)}{v(u^2+v^2)}},\\
+w&=V_*-2Dg_0,\\
+\kappa&=V_*g_0-Dg_0^2.
+\end{align}
+For isotropic small uncertainty in the recovered complex root, let
+\begin{equation}
+\chi=\frac{u}{v}.
+\end{equation}
+The intrinsic relative condition numbers of the first stage are
+\begin{equation}
+\boxed{K_D=\frac{\sqrt{\chi^4+6\chi^2+1}}{\chi},}
+\end{equation}
+\begin{equation}
+\boxed{K_{V_*}=\frac{\sqrt{1+\chi^2}\sqrt{\chi^4+6\chi^2+1}}{1-\chi^2}.}
+\end{equation}
+At low normalized RF, $K_D\sim V_*^2/(D\omega)$ while $K_{V_*}\to1$: a low-frequency measurement can strongly constrain the drift/timing scale while remaining intrinsically poor for diffusion extraction. The minimax intrinsic-conditioning point is
+\begin{equation}
+\boxed{\chi_*=1/\sqrt3,\qquad \frac{D\omega_*}{V_*^2}=\sqrt3,}
+\label{eq:conditioning_optimum}
+\end{equation}
+where $K_D=K_{V_*}=\sqrt{28/3}\simeq3.06$. This is not a universal experimental optimum because parasitic phase and measurement noise are not included.
+
+For the electron-affinity-anchored HgCdTe scale used below, $D\simeq0.02327~\mathrm{m^2/s}$ and $V_*\simeq2.22\times10^4~\mathrm{m/s}$, Eq.~\eqref{eq:conditioning_optimum} lies near \SI{5.85}{GHz}. The intrinsic $D$ condition numbers at \SI{100}{MHz}, \SI{500}{MHz}, and \SI{1}{GHz} are approximately $34$, $7.6$, and $4.75$, respectively. Closure detectability and precise diffusion extraction are therefore distinct measurement requirements.
+
+\section{Gedanken experiment III: six colors when one mode fails}
+
+A failed four-color closure does not establish exotic transport. A finite boundary or an ordinary electron--hole pair can already generate two spatial modes.
+
+Let five first differences from six source coordinates satisfy
+\begin{equation}
+d_m=a q_1^m+b q_2^m,
+\qquad m=0,\ldots,4.
+\label{eq:twomode}
+\end{equation}
+The unconditional rank-at-most-two condition is the classical Hankel-rank null
+\begin{equation}
+\boxed{
+F_H\equiv
+\det
+\begin{pmatrix}
+d_0&d_1&d_2\\
+d_1&d_2&d_3\\
+d_2&d_3&d_4
+\end{pmatrix}=0.}
+\label{eq:rank2closure}
+\end{equation}
+If rank one has already been rejected, Eq.~\eqref{eq:rank2closure} is the exact six-color model-order test for a two-exponential sequence under the stated noiseless assumptions.
+
+Adjacent Hankel minors remain valuable conditioning observables:
+\begin{equation}
+W_m=d_md_{m+2}-d_{m+1}^2.
+\end{equation}
+Direct expansion gives
+\begin{equation}
+\boxed{W_m=ab(q_1q_2)^m(q_1-q_2)^2.}
+\label{eq:Widentity}
+\end{equation}
+The distinction between the determinant null and the minor identity is essential. Algebraically,
+\begin{equation}
+\boxed{W_1^2-W_0W_2=-d_2F_H.}
+\label{eq:minor_factorization}
+\end{equation}
+Thus $W_1^2=W_0W_2$ is not an unconditional rank-two null: it also vanishes on the spurious branch $d_2=0$, even when $F_H\neq0$. The full determinant in Eq.~\eqref{eq:rank2closure} removes that blind component.
+
+After the determinant null has passed and the required minors are nonzero,
+\begin{equation}
+\frac{W_{m+1}}{W_m}=q_1q_2,
+\end{equation}
+and the second-order recurrence yields $q_1+q_2$. Equations~\eqref{eq:rank2closure}--\eqref{eq:Widentity} are standard finite-exponential Hankel/Casoratian structure familiar from Prony-type, ESPRIT, and matrix-pencil estimation \cite{Prony1795,RoyKailath1989,HuaSarkar1990}. Their role here is not to introduce new exponential-fitting algebra, but to turn the Shockley--Ramo-corrected spectral-depth sequence into a model-order rung before physical RF constraints are imposed.
+
+Equation~\eqref{eq:Widentity} gives a separate structural resolution boundary: evidence for two distinct modes vanishes if either observable amplitude is zero and collapses quadratically as the two multipliers merge.
+
+\subsection{Noise significance before root fitting}
+
+For independent circular complex current noise with RMS $\sigma_J$,
+\begin{equation}
+\delta W_0
+=-d_2\epsilon_0+(d_2+2d_1)\epsilon_1
+-(d_0+2d_1)\epsilon_2+d_0\epsilon_3,
+\end{equation}
+so
+\begin{equation}
+\boxed{
+\sigma_{W_0}^2=\sigma_J^2\left[
+|d_2|^2+|d_2+2d_1|^2+|d_0+2d_1|^2+|d_0|^2
+\right].}
+\label{eq:Wnoise}
+\end{equation}
+Near equal current steps, $\sigma_{W_0}\simeq\sqrt{20}|d|\sigma_J$. For two comparable visible modes and $\eta=\sigma_J/|d|$,
+\begin{equation}
+Z_2\simeq\frac{|q_1-q_2|^2}{4\sqrt{20}\,\eta},
+\end{equation}
+so a $3\sigma$ design scale is
+\begin{equation}
+\boxed{|q_1-q_2|\gtrsim7.33\sqrt{\eta}.}
+\label{eq:twores}
+\end{equation}
+A significant minor therefore rejects rank one, but it does not establish that rank two is sufficient. The next rung must test Eq.~\eqref{eq:rank2closure} itself. Expanding
+\begin{equation}
+F_H=d_0d_2d_4-d_0d_3^2-d_1^2d_4+2d_1d_2d_3-d_2^3,
+\end{equation}
+its complex gradient with respect to $(d_0,\ldots,d_4)$ is
+\begin{equation}
+\mathbf g_H=
+\begin{pmatrix}
+d_2d_4-d_3^2\\
+2(d_2d_3-d_1d_4)\\
+d_0d_4+2d_1d_3-3d_2^2\\
+2(d_1d_2-d_0d_3)\\
+d_0d_2-d_1^2
+\end{pmatrix}.
+\label{eq:hankel_det_gradient}
+\end{equation}
+For proper complex first-difference covariance $\Sigma_d$, the leading variance is
+\begin{equation}
+\boxed{\sigma_{F_H}^2\simeq \mathbf g_H^{T}\Sigma_d\,\mathbf g_H^*.}
+\label{eq:hankel_det_variance}
+\end{equation}
+Because first differences share current samples, $\Sigma_d$ is generally correlated even when the raw current noise is independent. For a general improper or real--imaginary correlated measurement, the corresponding stacked real Jacobian should be used instead. A practical null statistic can be formed from $\mathbf f_H=(\Re F_H,\Im F_H)^T$ and its propagated covariance,
+\begin{equation}
+\boxed{T_H=\mathbf f_H^T\Sigma_{f_H}^{-1}\mathbf f_H.}
+\label{eq:hankel_det_stat}
+\end{equation}
+Its null distribution should be calibrated from the measured covariance when the linear approximation is inadequate. The smallest singular value of the Hankel matrix is an equivalent useful diagnostic, but its noisy distribution is not assumed universal here.
+
+Only after rank one is rejected, the rank-at-most-two null is statistically acceptable, and the two-mode parameters are sufficiently resolved should a two-root physical-law fit be interpreted.
+
+Resolution of a second mode is nevertheless only the first parameter-resolution threshold.  Conditional on the rank-at-most-two null and on $W_0\neq0$, the multiplier product used by the next physical-law rung is
+\begin{equation}
+P\equiv q_1q_2=\frac{W_1}{W_0}.
+\label{eq:rank2_product_estimator}
+\end{equation}
+Its first-order perturbation is
+\begin{equation}
+\boxed{\delta P=\frac{\delta W_1-P\,\delta W_0}{W_0},}
+\label{eq:rank2_product_delta}
+\end{equation}
+so for proper complex errors
+\begin{equation}
+\boxed{
+\sigma_P^2=\frac{\sigma_{W_1}^2+|P|^2\sigma_{W_0}^2-2\Re\!\left[P^*\operatorname{Cov}(W_1,W_0)\right]}{|W_0|^2}.}
+\label{eq:rank2_product_cov}
+\end{equation}
+The covariance term matters because adjacent minors share measured current differences.  In the deliberately optimistic limit of comparable independent minor errors with equal significance $Z=|W_m|/\sigma_{W_m}$,
+\begin{equation}
+\frac{\sigma_P}{|P|}\simeq\frac{\sqrt2}{Z}.
+\end{equation}
+Thus $3\sigma$ detection of both minors corresponds only to about $47\%$ relative precision on $P$ in this simplified limit; even a $10\%$ product measurement requires $Z\simeq14$.  Rejecting rank one, accepting rank at most two, resolving the rank-two parameters, and discriminating a physical root law are therefore distinct rungs.
+
+The sum can be obtained, for $d_1\neq0$, from the recurrence as
+\begin{equation}
+S\equiv q_1+q_2=\frac{d_2+P d_0}{d_1},
+\end{equation}
+with differential
+\begin{equation}
+\boxed{\delta S=\frac{\delta d_2+P\,\delta d_0+d_0\,\delta P-S\,\delta d_1}{d_1}.}
+\label{eq:rank2_sum_delta}
+\end{equation}
+A practical fit should propagate the joint real--imaginary covariance of $P,S$, and the shared $d_m$.  The individual multipliers
+\begin{equation}
+q_{1,2}=\frac{S\pm\sqrt{S^2-4P}}{2}
+\end{equation}
+are additionally ill-conditioned as the discriminant vanishes.  Algebraic model-order identifiability therefore does not imply statistically precise root recovery near mode coalescence.
+
+\subsection{Finite scalar boundary}
+
+For uniform scalar drift--diffusion--recombination with arbitrary linear finite-boundary conditions, the two homogeneous roots obey
+\begin{equation}
+D r^2+w r-(\kappa+i\omega)=0.
+\end{equation}
+Thus
+\begin{equation}
+\boxed{r_++r_-=-w/D,}
+\label{eq:rootsum}
+\end{equation}
+which is real and RF-independent, and
+\begin{equation}
+\boxed{r_+r_-=-(\kappa+i\omega)/D.}
+\label{eq:rootprod}
+\end{equation}
+The boundary amplitudes do not enter these constraints. Because the measured equal-spacing multipliers satisfy $q_\pm=e^{r_\pm h}$, the root-sum law also supplies the branch-free prerequisite
+\begin{equation}
+\boxed{q_+q_-=e^{(r_++r_-)h}=e^{-wh/D}\in\mathbb{R}_{>0},\qquad \partial_\omega(q_+q_-)=0.}
+\label{eq:multiplier_product_boundary}
+\end{equation}
+Thus a homogeneous finite-boundary scalar model can be rejected directly in multiplier space if the product has nonzero phase or changes with RF, before any spatial logarithm is taken. This removes logarithmic branch ambiguity but not statistical conditioning: when the relevant Hankel minors are small, Eq.~\eqref{eq:rank2_product_cov} can make the branch-free product too uncertain for a useful phase or RF-invariance test.
+
+If this branch-free test survives, physical root-law testing still requires an explicit unwrapping and pairing protocol. For each unordered recovered multiplier,
+\begin{equation}
+r_{j,n}=\frac{\operatorname{Log}q_j+2\pi i n}{h},\qquad n\in\mathbb Z,
+\end{equation}
+and both branch integers must be selected from independent phase-advance bounds, information from noncommensurate source spacings, or continuity through the RF sweep. The two roots must then be paired consistently across frequency, with both permutations retained through crossings or near-degeneracies. Branches or permutations must not be chosen by minimizing the residual of Eqs.~\eqref{eq:rootsum}--\eqref{eq:rootprod}; that would make the physical-law test circular.
+
+\subsection{Two conventional carrier species}
+
+For independent homogeneous electron and hole contributions,
+\begin{equation}
+J(z,s)=C_0(s)+C_e(s)e^{+\gamma_e(s)z}+C_h(s)e^{-\gamma_h(s)z},
+\end{equation}
+where each propagation magnitude satisfies
+\begin{equation}
+D_c\gamma_c^2+w_c\gamma_c=\kappa_c+s.
+\end{equation}
+At DC the signed roots can identify opposite collection directions in the generic case with appreciable recombination. In the nearly lossless electron--hole limit, however, the integrated Shockley--Ramo contributions of the two carriers can cancel the generation-depth dependence of the total terminal charge: $J(z,0)$ approaches a constant and the DC first-difference sequence becomes degenerate. In that limit the two DC roots are not usefully observable from the total terminal response, and two or more nonzero RF frequencies may be required for species-specific root tracking and inversion. Carrier labeling is meaningful only after both modes are statistically resolved and continuously tracked; a DC root sign cannot rescue an unresolved or vanishing-amplitude mode. When DC contrast is available, tracking each resolved root to one RF frequency and applying Eqs.~\eqref{eq:Drecomb}--\eqref{eq:krecomb} separately determines $(D_e,w_e,\kappa_e)$ and $(D_h,w_h,\kappa_h)$. Otherwise the same transport-law consistency must be supplied by additional nonzero RF points.
+
+The methodological point is that a failed one-mode model leads first to a model-order test, not immediately to a mechanism-specific fit.
+
+\subsection{Hot-to-cold thermalization as a conventional second mode}
+
+A finite carrier thermalization time is another ordinary rank-two mechanism. Let a cold carrier drift at $v_c$, while a hot carrier drifts at $v_h$ and relaxes irreversibly to the cold state at rate $\rho=1/\tau_h$. For distance $d$ to the collector,
+\begin{equation}
+J_c(d,s)=\frac{v_c}{s}\left(1-e^{-sd/v_c}\right),
+\end{equation}
+while the exact hot-state response has the form
+\begin{equation}
+\boxed{J_h(d,s)=A(s)+B_c(s)e^{-sd/v_c}+B_h(s)e^{-(s+\rho)d/v_h}.}
+\label{eq:hot_two_mode}
+\end{equation}
+The initial-state memory therefore decays over the spatial thermalization length
+\begin{equation}
+\boxed{\ell_h=v_h\tau_h.}
+\end{equation}
+If the same fraction of carriers is initialized hot at every wavelength, any hot/cold mixture remains a constant particular term plus two spatial exponentials. The six-color Hankel rank-at-most-two null therefore holds exactly, with observable rank at most two because degeneracies can collapse one amplitude or merge the multipliers. Finite thermalization is a finite-rank model-order increase, not an uncontrolled failure of the hierarchy.
+
+The distinct source-state systematic is wavelength-dependent initialization. If $f_m=f_0+\delta f_m$ is the hot fraction in channel $m$,
+\begin{equation}
+J_m=J_{f_0}(d_m)+\delta f_m\,[J_h(d_m)-J_c(d_m)],
+\end{equation}
+so channel-dependent amplitudes generically break fixed-coefficient rank two. This is why preservation of the generated excess-energy distribution is useful: it suppresses a direct route by which wavelength could alter the internal initial-state mixture.
+
+A deliberately strong stress with $v_c=3.45\times10^4~\mathrm{m/s}$, $v_h=2v_c$, and 50\% hot initialization gives a \SI{100}{MHz} one-mode phase failure of about $0.00087^\circ$, $0.00373^\circ$, and $0.00547^\circ$ for $\ell_h=1$, $2$, and \SI{5}{\micro\meter}, respectively, while remaining rank at most two. The same stress shows that a second mode can create a detectable four-color failure before its six-color Hankel minor is significant enough for reliable root recovery. Accordingly,
+\begin{equation*}
+\boxed{\text{four-color failure + unresolved second-mode witness}\Rightarrow\text{mechanism unresolved}.}
+\end{equation*}
+
+\section{Observation-operator stress: nonuniform weighting field}
+
+The uniform weighting field is not merely a geometric convenience; it is part of the observation model. The prescribed $E_w(z)$ in this section should be read as an effective one-dimensional observation-operator stress, not as a generic self-consistent finite-pixel electrostatic geometry. In a homogeneous dielectric between ideal infinite planar electrodes the source-free weighting potential is linear and $E_w$ is constant; finite or pixelated electrodes generally require multidimensional electrostatics and can produce weighting-potential variation both axially and laterally along carrier trajectories \cite{Eskin1999}. The locally linear $E_w(z)$ used here is therefore a low-order axial surrogate along a trajectory, not a generic finite-pixel solution. Within the stated one-dimensional surrogate, Shockley--Ramo current is
+\begin{equation}
+I(t)=q\int E_w(z)j(z,t)\,\dd z.
+\end{equation}
+With $j=wp-D\partial_zp$ and the same vanishing-density boundary assumptions used above, integration by parts gives
+\begin{equation}
+\boxed{I(t)=q\int\left[wE_w(z)+DE_w'(z)\right]p(z,t)\,\dd z.}
+\label{eq:weighting_operator}
+\end{equation}
+Thus weighting-field nonuniformity changes the observation forcing rather than the transport generator. The backward equation becomes
+\begin{equation}
+\boxed{DJ''+wJ'-(\kappa+s)J=-\left[wE_w(z)+DE_w'(z)\right].}
+\label{eq:weighting_bvp}
+\end{equation}
+
+Let $\lambda=\kappa+s$. For a locally linear weighting field and $\lambda\neq0$, the particular solution is linear in $z$ while the homogeneous transport contribution remains exponential. First differences therefore have the exact form
+\begin{equation}
+\boxed{\Delta J_m=C+Bq^m,}
+\label{eq:weighting_rank2}
+\end{equation}
+which has observable rank at most two with one multiplier fixed at
+\begin{equation}
+\boxed{q_{\mathrm{weight}}=1}
+\end{equation}
+independent of RF. This supplies a specific six-color signature for the simplest nonsingular weighting-field failure.
+
+Structural distinctness does not guarantee practical resolvability. For homogeneous no-recombination transport,
+\begin{equation}
+q_{\rm tr}=e^{-\gamma h},\qquad
+\gamma=\frac{\sqrt{w^2+4Di\omega}-w}{2D},
+\end{equation}
+so $q_{\rm tr}\to1=q_{\rm weight}$ as $\omega\to0$. Combining this coalescence with Eq.~\eqref{eq:twores} gives a direct low-RF observation-mode resolution boundary. Using the electron-affinity-anchored worked scale $D=0.02327~\mathrm{m^2/s}$, $w=2.22\times10^4~\mathrm{m/s}$, and $h=0.5~\si{\micro\meter}$ gives
+\begin{table}[H]
+\centering
+\caption{Low-RF tradeoff for a linear weighting-field nuisance. The rank-two SNR is the optimistic $3\sigma$ requirement for two equally visible modes; a weak weighting perturbation requires still more SNR. The last column is the asymptotic amplitude-SNR penalty of five-color annihilation relative to the four-color test.}
+\label{tab:weighting_coalescence}
+\begin{tabular}{rrrr}
+\toprule
+RF & $|1-q_{\rm tr}|$ & best-case rank-two SNR & five-color penalty \\
+\midrule
+\SI{100}{MHz} & $1.41\times10^{-2}$ & \SI{108.6}{dB} & \SI{42.4}{dB} \\
+\SI{500}{MHz} & $6.83\times10^{-2}$ & \SI{81.2}{dB} & \SI{28.7}{dB} \\
+\SI{1}{GHz} & $1.27\times10^{-1}$ & \SI{70.5}{dB} & \SI{23.2}{dB} \\
+\bottomrule
+\end{tabular}
+\end{table}
+At \SI{100}{MHz}, the electron-affinity-anchored modeled gradient target itself requires approximately \SI{90.9}{dB}, while even the equal-amplitude best case needs about \SI{109}{dB} to separate $q_{\rm weight}=1$ from the transport root. The two defenses therefore have complementary low-RF costs: explicit rank-two identification suffers root coalescence, whereas exact polynomial annihilation suffers the $1/|rh|$ noise penalty. This is a measurement-resolution limit, not a failure of the algebraic hierarchy.
+
+The point $s=\kappa=0$ is singular and must be treated separately. For
+\begin{equation}
+E_w(z)=E_0+E_1z,
+\end{equation}
+an exact particular solution of Eq.~\eqref{eq:weighting_bvp} is
+\begin{equation}
+\boxed{J_p(z)=-E_0z-\frac{E_1}{2}z^2,\qquad (s=\kappa=0).}
+\label{eq:weighting_dc_particular}
+\end{equation}
+Thus the DC/no-recombination current contains a quadratic polynomial plus the homogeneous exponential, and its first differences contain a linear polynomial plus that exponential. The unit-root observation contribution is therefore repeated rather than a single $q=1$ exponential mode.
+
+The exact nuisance-annihilation statement is most naturally written in terms of the \emph{degree of the particular solution}. If
+\begin{equation}
+J(z)=P_m(z)+Be^{rz},
+\end{equation}
+then the $(m+1)$-th spatial difference annihilates $P_m$ and leaves a geometric sequence. Thus $m+4$ equally spaced colors obey
+\begin{equation}
+\boxed{(\Delta^{m+1}J_1)^2=(\Delta^{m+1}J_0)(\Delta^{m+1}J_2).}
+\label{eq:poly_annihilation}
+\end{equation}
+For polynomial observation forcing of degree $p$, $m=p$ when $\kappa+s\neq0$. In the singular downstream DC limit $s=\kappa=0$ with $w>0$, the degree generically increases to $m=p+1$. Consequently a linear weighting field requires five colors and second differences away from the singular point, but six colors and third differences at DC with zero recombination. For the nonsingular five-color construction, the equal-filtered-step raw-current coefficient is $\sqrt{70}$ instead of $\sqrt{20}$, and at low RF the second difference is additionally smaller by approximately $|rh|$; the raw-current SNR cost therefore scales approximately as $1.87/|rh|$ relative to the four-color test.
+
+However, weighting-field curvature cannot be separated from transport inhomogeneity by RF order alone. For a small locally linear fractional field gradient $\beta=\partial_z\ln E_w$ in deterministic homogeneous transport,
+\begin{equation}
+\boxed{\mathcal C_{4,w}\simeq+i\omega h^2\beta/v}
+\label{eq:weighting_lowrf}
+\end{equation}
+at low RF. It is phase-like and linear in frequency, just like the leading slowness-gradient signal below.
+
+Using the same four finite-width HgCdTe optical kernels as the worked example and the Rev.~8 transport scale, a linear weighting-field variation of 1\% across the \SI{1.5}{\micro\meter} quartet produces approximately $0.00295^\circ$, $0.01214^\circ$, and $0.01001^\circ$ false phase closure at \SI{100}{MHz}, \SI{500}{MHz}, and \SI{1}{GHz}. For comparison, the low-RF asymptotic Eq.~\eqref{eq:weighting_lowrf} gives about $0.00270^\circ$ at \SI{100}{MHz}; the finite-kernel calculation is used for the quoted nuisance allocation. Keeping the exact finite-kernel contribution below 10\% of the corresponding gradient-sensitive signal permits approximately $0.757\%$, $0.881\%$, and $1.961\%$ variation at \SI{100}{MHz}, \SI{500}{MHz}, and \SI{1}{GHz}, respectively, unless the field is independently modeled. Equation~\eqref{eq:weighting_rank2} supplies a structural identification route, but Table~\ref{tab:weighting_coalescence} shows that resolving its $q=1$ mode can be substantially more demanding than detecting the primary four-color residual at low RF.
+
+\section{Controlled spatial inhomogeneity}
+
+Once the one-mode observable and optical-source hypotheses have been controlled, a small closure residual can be connected to spatially varying transport.
+
+Consider deterministic downstream transit with local slowness $u(z)=1/v(z)$ and uniform weighting field. A point-generated carrier has raw-current transform, up to a common factor,
+\begin{equation}
+J(z,s)=\int_z^L
+\exp\left[-s\int_z^x u(\zeta)\,\dd \zeta\right]\dd x.
+\label{eq:Jvarying}
+\end{equation}
+At low frequency,
+\begin{equation}
+J(z,s)=(L-z)-sA(z)+O(s^2),
+\end{equation}
+where $A(z)=\int_z^L(L-\zeta)u(\zeta)\,\dd \zeta$. For four equally spaced source depths with spacing $h$ and midpoint $z_c$, define the complex closure as one logarithm of the branch-free multiplicative ratio,
+\begin{equation}
+\boxed{
+\Cfour=\operatorname{Log}\!\left[\frac{(\Delta J_1)^2}{\Delta J_0\Delta J_2}\right],}
+\label{eq:C4_logratio}
+\end{equation}
+with the logarithm branch tracked continuously from the null value $\Cfour=0$. A centered expansion gives
+\begin{equation}
+\boxed{
+\Cfour=-s h^2\left[2u'(z_c)-(L-z_c)u''(z_c)\right]
++O(sh^4,s^2).}
+\label{eq:gradienttheorem}
+\end{equation}
+For locally linear slowness,
+\begin{equation}
+\boxed{
+\frac{\Im\Cfour}{\omega}=-2h^2u'(z_c)}
+\label{eq:linearq}
+\end{equation}
+for the $e^{-i\omega t}$ convention.
+
+Equation~\eqref{eq:linearq} is not an automatic interpretation of every nonzero closure residual. It is the positive prediction after lower-order source-shape, model-order, and high-Peclet assumptions have been controlled.
+
+\section{Optical and calibration corrections}
+
+\subsection{Source-shape evolution}
+
+Let channel $m$ have generation coordinate $D_m=\mu_m+U_m$ with $\E[U_m]=0$, equally spaced means $\mu_m=\mu_0+mh$, and centered variances $v_m=\sigma_m^2$. Expanding the homogeneous raw-current closure gives
+\begin{equation}
+\boxed{
+\mathcal{C}_{4,\mathrm{opt}}
+=\frac{\gamma}{2h}(v_3-3v_2+3v_1-v_0)+O(\gamma^2).}
+\label{eq:opticalerror}
+\end{equation}
+Constant, linear, or quadratic variance evolution across the quartet therefore produces no first-order width contamination. Higher moments and higher powers of $\gamma$ remain real corrections.
+
+\subsection{Relative amplitude calibration}
+
+At sufficiently low RF, the ideal raw current is locally affine in source coordinate. Let the small relative channel calibration error be complex, $\epsilon_m\in\mathbb C$, so that amplitude and phase mismatch are treated together. If $\widetilde J_m=(1+\epsilon_m)J_m$,
+\begin{equation}
+\boxed{
+\delta\Cfour=-\frac{\Delta^3(\epsilon_mJ_m)}{B},}
+\label{eq:ampcal}
+\end{equation}
+where $B$ is the affine current step. Common fractional gain/phase and linear fractional spectral drift cancel at first order; irregular or higher-curvature channel errors do not. For the worked quartet $z=(2.5,3.0,3.5,4.0)~\si{\micro\meter}$ in a $7.6~\si{\micro\meter}$ layer, the low-RF affine-current coefficient norm for independent channel phase errors is approximately $39$. Requiring this independent irregular phase contribution to remain below one third of the electron-affinity-anchored modeled gradient-sensitive phase gives RMS phase-error stresses of approximately $1.88\times10^{-4}$ degree at \SI{100}{MHz}, $9.15\times10^{-4}$ degree at \SI{500}{MHz}, and $1.71\times10^{-3}$ degree at \SI{1}{GHz}, corresponding to roughly $4.7$--$5.2~\si{fs}$ of differential timing. These are tolerances on the non-common high-curvature component of the spectral transfer, not on common delay or an absolute clock.
+
+\subsection{Known arbitrary source spacing and coordinate uncertainty}
+
+Equal spacing is convenient but not fundamental. For known source positions $z_0,\ldots,z_3$ and one spatial mode
+\begin{equation}
+J(z)=A+B e^{rz},
+\end{equation}
+let $\Delta_m=z_{m+1}-z_m$ and $d_m=J_{m+1}-J_m$. Then
+\begin{equation}
+\boxed{
+\frac{d_1}{d_0}
+=e^{r\Delta_0}
+\frac{e^{r\Delta_1}-1}{e^{r\Delta_0}-1}.}
+\label{eq:unequal_first}
+\end{equation}
+The first three positions constrain $r$ to one or more candidate roots of Eq.~\eqref{eq:unequal_first}; the fourth position filters those candidates by predicting
+\begin{equation}
+\boxed{
+\left(\frac{d_2}{d_1}\right)_{\mathrm{pred}}
+=e^{r\Delta_1}
+\frac{e^{r\Delta_2}-1}{e^{r\Delta_1}-1}.}
+\label{eq:unequal_second}
+\end{equation}
+The geometric four-color identity is the equal-spacing special case. Physical inversion is unique only when the fourth point together with branch/physical constraints leaves one admissible root; suitably chosen noncommensurate spacings can also aid spatial unwrapping. Consequently, a known nonlinear wavelength-to-depth calibration does not by itself create a false positive; the actual calibrated positions should be used in Eqs.~\eqref{eq:unequal_first}--\eqref{eq:unequal_second} and all surviving candidates retained until an additional constraint rejects them.
+
+Uncertainty in those positions does create bias. Around equal spacing, the leading closure perturbation is
+\begin{equation}
+\delta\Cfour
+=\frac{r}{q-1}\left[\epsilon_0-(q+2)\epsilon_1+(2q+1)\epsilon_2-q\epsilon_3\right],
+\end{equation}
+which approaches the third-difference stencil $(1,-3,3,-1)/h$ for small $|rh|$. Common and affine position errors therefore cancel at leading order; nonlinear spacing uncertainty is the relevant calibration quantity. Using the electron-affinity-anchored homogeneous HgCdTe scale below and treating the four residual position errors as independent and equal-RMS, requiring coordinate-induced phase closure noise to remain below one third of the modeled gradient-sensitive phase gives approximately $4.54~\si{nm}$ at \SI{100}{MHz}, $4.55~\si{nm}$ at \SI{500}{MHz}, and $4.51~\si{nm}$ at \SI{1}{GHz}. These are stresses on the nonaffine residual of the effective source coordinates, not requirements on absolute depth origin or common depth scale.
+
+\subsection{Initial excess-energy invariance in an ideal graded gap}
+
+Let $E_g(z)=E_{g0}-Gz$ and suppose local absorption depends only on photon excess energy $\nu=E_\gamma-E_g(z)$, so $\alpha=\alpha(\nu)$. Then the generation distribution expressed in $\nu$ is
+\begin{equation}
+\boxed{
+p_\nu(\nu)
+=\frac{\alpha(\nu)}{G}
+\exp\left[-\frac{1}{G}\int_0^\nu\alpha(u)\,\dd u\right].}
+\label{eq:energyinvariance}
+\end{equation}
+It is independent of photon energy in the untruncated ideal limit. Thus wavelength can translate generation depth while preserving the complete total excess-energy distribution. Any hot-state initialization probability depending only on this excess-energy variable is then wavelength-independent and therefore remains within the finite-rank thermalization model of Eq.~\eqref{eq:hot_two_mode}. Real bandstructure and absorption only approximately satisfy these assumptions; the material example below quantifies the resulting mismatch. Exact excess-energy invariance is a sufficient protection against source-state confounding, not a fundamental requirement of the spatial closure method.
+
+\section{Independent-noise cost and spacing}
+
+Linearizing the four-channel closure for independent circular complex errors gives
+\begin{equation}
+\delta\Cfour
+=\frac{\epsilon_0}{d_0}
+-\left(\frac1{d_0}+\frac2{d_1}\right)\epsilon_1
++\left(\frac2{d_1}+\frac1{d_2}\right)\epsilon_2
+-\frac{\epsilon_3}{d_2}.
+\end{equation}
+In the equal-step limit,
+\begin{equation}
+\boxed{
+\sigma_{\Cfour}\simeq\sqrt{20}\frac{\sigma_J}{|d|}.}
+\label{eq:fournoise}
+\end{equation}
+The stencil is $(1,-3,3,-1)$: the same high-order cancellation that rejects smooth systematics amplifies uncorrelated noise.
+
+If the dominant smooth systematic behaves as $Ah^2$ while statistical closure noise scales as $B/h$, the approximate mean-square error
+\begin{equation}
+\mathrm{MSE}(h)=A^2h^4+B^2/h^2
+\end{equation}
+has optimum
+\begin{equation}
+\boxed{h_*=\left(\frac{B}{\sqrt2A}\right)^{1/3}.}
+\label{eq:hopt}
+\end{equation}
+Under white averaging, $\sigma_J\propto t^{-1/2}$ and therefore $h_*\propto t^{-1/6}$.
+
+\section{Conditional graded-HgCdTe prediction}
+
+\subsection{Optical coordinate}
+
+As a worked example, consider a \SI{7.6}{\micro\meter} HgCdTe absorber at \SI{300}{K} with a linear composition profile from $x=0.55$ to $x=0.32$. The bandgap is evaluated with the Hansen--Schmit--Casselman relation \cite{Hansen1982}; above-gap absorption uses the Moazzami et al. model \cite{Moazzami2005}.
+
+Four wavelengths are selected so that the conditional mean generation depths are
+\begin{equation}
+2.5,\ 3.0,\ 3.5,\ 4.0\ \si{\micro\meter}.
+\end{equation}
+The corresponding modeled wavelengths are approximately
+\begin{equation}
+2.134651,\ 2.215042,\ 2.301173,\ 2.393907\ \si{\micro\meter},
+\end{equation}
+and all four modeled absorbed fractions exceed $0.9993$. The generation widths are approximately \SI{0.79}{\micro\meter}, so the calculation is not a point-source stress.
+
+The generation-weighted total photon excess energy above the local bandgap is also nearly matched. The four means are approximately $52.353$, $52.428$, $52.478$, and \SI{52.473}{meV}, a peak-to-peak variation of only \SI{0.125}{meV}; the standard deviation changes from approximately \SI{33.24}{meV} to \SI{32.69}{meV}. This is consistent with the invariance mechanism of Eq.~\eqref{eq:energyinvariance} while leaving electron--hole partition and thermalization memory as possible higher-order corrections. In the generic two-state stress above, wavelength-dependent hot-fraction changes of order $0.46$--$1.5$ percentage points across the quartet would produce a 100-MHz false closure equal to 10\% of the electron-affinity-anchored gradient target, so the residual initial-state dependence remains a quantitative material requirement rather than an assumption to ignore.
+
+\subsection{Transport stress}
+
+For reproducibility, the transport stress is specified explicitly. The composition profile is
+\begin{equation}
+x(z)=x_f+(x_b-x_f)\frac{z}{L},\qquad (x_f,x_b)=(0.55,0.32),
+\end{equation}
+and the Hansen gap used in the calculation is
+\begin{equation}
+\boxed{E_g(x,T)=-0.302+1.93x-0.81x^2+0.832x^3+5.35\times10^{-4}(1-2x)T}
+\label{eq:hansen_explicit}
+\end{equation}
+in eV. With $\mu=0.90~\mathrm{m^2/(V\,s)}$, the Einstein coefficient is
+\begin{equation}
+D=\mu k_BT/e\simeq0.02327~\mathrm{m^2/s}.
+\end{equation}
+A recent HgCdTe electron-affinity analysis gives, at 300 K,
+\begin{equation}
+\boxed{\chi(x)=5.32+0.45x-E_g(x,300~\mathrm K)\quad \mathrm{eV},}
+\label{eq:hg_affinity}
+\end{equation}
+and finds that very nearly two thirds of a graded bandgap change appears in the conduction band \cite{RhigerMustafa2025}. For the explicit Hansen relation used here, the electron-driving conduction-band gradient is therefore taken as
+\begin{equation}
+\boxed{E_{\mathrm{drive}}^{\mathrm{grad}}(z)=\left|\left(\frac{\dd E_g}{\dd x}-0.45\right)\frac{\dd x}{\dd z}\right|.}
+\label{eq:hg_xi_field}
+\end{equation}
+Equivalently, the local fraction of the total gap gradient assigned to the conduction band is
+\begin{equation}
+\xi_e(x)=1-\frac{0.45}{\dd E_g/\dd x},
+\end{equation}
+which spans approximately $0.666$--$0.695$ over the present $x=0.55\rightarrow0.32$ profile. The 2025 paper quotes an average 300-K fraction of $67.1\%$ over $0.15<x<0.45$ and the approximate graded rule $\dd E_c/\dd z\simeq(2/3)\dd E_g/\dd z$ \cite{RhigerMustafa2025}; Eq.~\eqref{eq:hg_xi_field} uses its explicit 300-K affinity relation over the full worked composition interval rather than treating the partition as a free normalization. This literature anchor fixes the composition-induced conduction-band/electron-affinity force term used in the stress; it does \emph{not} determine the total self-consistent carrier drift. The full electron current also depends on electrostatic field, carrier-density diffusion, and effective-mass/density-of-states terms. No Poisson solution is imposed here, so an electrostatic field comparable to the modeled composition field could reinforce or oppose the present drift.
+
+The inherited empirical field-rolloff sensitivity law used for the field-driven velocity is
+\begin{equation}
+v_{\mathrm{field}}(z)=\frac{\mu E_{\mathrm{drive}}^{\mathrm{grad}}(z)}{1+[E_{\mathrm{drive}}^{\mathrm{grad}}(z)/E_{\mathrm{sat}}]^{r_s}},
+\qquad E_{\mathrm{sat}}=8.0\times10^5~\mathrm{V/m},\quad r_s=2.2.
+\label{eq:hg_vfield}
+\end{equation}
+Despite the historical symbol $E_{\mathrm{sat}}$, Eq.~\eqref{eq:hg_vfield} is \emph{not} an asymptotically saturating velocity law when $r_s>1$; it is retained as a low-field sensitivity law rather than as a high-field transport claim. The density-of-states correction assumes $N_c\propto(m^*)^{3/2}$ and the deliberately reduced effective-mass approximation $m^*\propto E_g$, giving
+\begin{equation}
+\boxed{v_{\mathrm{DOS}}(z)=\frac{3D}{2}\frac{\dd}{\dd z}\ln E_g(z),\qquad v(z)=v_{\mathrm{field}}(z)+v_{\mathrm{DOS}}(z).}
+\label{eq:hg_velocity}
+\end{equation}
+This term is not quantitatively negligible in the worked stress: $|v_{\mathrm{DOS}}|/v_{\mathrm{field}}$ rises from approximately $8.8\%$ at $x=0.55$ to $18.3\%$ at $x=0.32$. The resulting downstream drift spans approximately $1.99\times10^4$ to $2.54\times10^4~\mathrm{m/s}$, with path-harmonic mean $2.22\times10^4~\mathrm{m/s}$. To expose the dependence on this reduced effective-mass prescription, write $v=v_{\mathrm{field}}+\alpha_{\mathrm{DOS}}v_{\mathrm{DOS}}$. The finite-width gradient-sensitive closure is
+\begin{table}[H]
+\centering
+\caption{Sensitivity to the reduced density-of-states velocity term. The $\alpha_{\mathrm{DOS}}=1$ row is the worked baseline; the other rows are sensitivity stresses, not alternate material claims.}
+\label{tab:hg_dos_sweep}
+\begin{tabular}{rrrr}
+\toprule
+$\alpha_{\mathrm{DOS}}$ & \SI{100}{MHz} & \SI{500}{MHz} & \SI{1}{GHz} \\
+\midrule
+0   & $-0.01861^\circ$ & $-0.09026^\circ$ & $-0.16513^\circ$ \\
+0.5 & $-0.02035^\circ$ & $-0.09852^\circ$ & $-0.17964^\circ$ \\
+1.0 & $-0.02202^\circ$ & $-0.10644^\circ$ & $-0.19423^\circ$ \\
+1.5 & $-0.02349^\circ$ & $-0.11360^\circ$ & $-0.20885^\circ$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+Removing the DOS term changes the headline closure by roughly $15\%$ on this scale, so the effective-mass assumption is a material model uncertainty rather than a cosmetic correction. The older free-$\xi$ sweep is retained only as a sensitivity bracket around this now literature-anchored band-edge baseline:
+\begin{table}[H]
+\centering
+\caption{Band-edge-force sensitivity of the \SI{100}{MHz} point-source finite-diffusion stress. The electron-affinity row is the Rev.~8 baseline; the constant-$\xi$ rows are deliberately nonphysical normalization stresses retained to show sensitivity.}
+\label{tab:hg_xi_sweep}
+\begin{tabular}{lrr}
+\toprule
+force model & $v(z_c)$ (m/s) & point-source $\arg\mathcal C_4$ \\
+\midrule
+electron affinity, Eq.~\eqref{eq:hg_xi_field} & $2.25\times10^4$ & $-0.02344^\circ$ \\
+$\xi=0.3$ sensitivity & $8.38\times10^3$ & $-0.00741^\circ$ \\
+$\xi=0.6$ sensitivity & $1.97\times10^4$ & $-0.01822^\circ$ \\
+$\xi=1.0$ sensitivity & $3.48\times10^4$ & $-0.01246^\circ$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+The nonmonotonic constant-$\xi$ sweep reflects competition between the field-driven and fixed density-of-states contributions plus finite-frequency response; it is not used to define the headline HgCdTe number.
+
+Finite diffusion is retained through the backward equation for the expected discounted raw induced current,
+\begin{equation}
+\boxed{
+D J''(z)+v(z)J'(z)-[\kappa(z)+s]J(z)=-v(z).}
+\label{eq:hgbvp}
+\end{equation}
+The homogeneous null model corresponds to constant $v$ and constant first-order differential recombination $\kappa$. For a small AC perturbation about a fixed operating point, a microscopic nonlinear recombination law can be linearized into a differential first-order rate; the material-specific concern is therefore whether that rate varies with $z$, not whether Auger recombination makes first-order small-signal analysis impossible. Near-room-temperature low-injection HgCdTe measurements report Auger-limited lifetimes of roughly $5$--$11~\si{\micro s}$ for about \SI{4}{\micro\meter} cutoff material \cite{Kopytko2021}. To stress spatial variation without claiming an exact microscopic Auger formula, we use the deliberately steep activated profile
+\begin{equation}
+\tau_{\rm gr}(z)=5~\si{\micro s}\,\exp\!\left[\frac{E_g(z)-E_g(x=0.325)}{k_BT}\right],\qquad \kappa(z)=\tau_{\rm gr}^{-1}(z).
+\label{eq:hg_graded_kappa}
+\end{equation}
+It spans approximately $3.9~\si{\micro s}$ to $0.89~\si{s}$ in this composition profile. With a transit-weighted homogeneous recombination baseline, it changes the no-recombination gradient-sensitive phase by approximately $3.78\times10^{-8}$, $1.85\times10^{-7}$, and $3.45\times10^{-7}$ degree at 0.1, 0.5, and \SI{1}{GHz}, respectively. These tiny differences are not inferred from the coarser absolute cross-implementation comparison below: a dedicated differential calculation, in which both the graded- and matched-homogeneous recombination cases are solved independently by finite differences and adaptive shooting before subtraction, reproduces the recombination-induced difference to within $3\times10^{-9}$ degree over the stated RF range. This sensitivity result says only that microsecond-scale low-injection recombination is too slow to compete with the present GHz-scale phase stress; high-injection, depletion-dependent, or device-specific recombination remains outside this conditional example.
+
+The collector condition is $J(L)=0$. To avoid the reflecting-boundary confound found in an earlier analysis, the entrance is matched mathematically to a bounded semi-infinite homogeneous continuation rather than modeled as a reflecting surface. Writing $v_0=v(0)$, $\kappa_0=\kappa(0)$, and $\lambda_0=\kappa_0+s$, the implemented Robin match is
+\begin{equation}
+\boxed{J'(0)=r_+[J(0)-J_p],\quad J_p=\frac{v_0}{\lambda_0},\quad r_+=\frac{-v_0+\sqrt{v_0^2+4D\lambda_0}}{2D}.}
+\label{eq:hg_robin}
+\end{equation}
+The reported RF calculations have $\lambda_0\neq0$; the boundary is an interior-transport isolation device rather than a physical front-surface model.
+
+A homogeneous reference uses the same four optical kernels and diffusion coefficient, but replaces the graded velocity by its path-harmonic mean; when the graded recombination stress of Eq.~\eqref{eq:hg_graded_kappa} is used, its homogeneous comparison uses the corresponding transit-weighted differential recombination rate. The difference between the graded and homogeneous four-channel closures is called the gradient-sensitive excess. Because this is a modeled subtraction, its uncertainty is part of the inference rather than an exact correction. If $\mathbf C_{\rm exc}=\mathbf C_{\rm meas}-\mathbf C_{\rm hom}$, then
+\begin{equation}
+\boxed{\Sigma_{\rm exc}=\Sigma_{\rm meas}+\Sigma_{\rm hom}-\Sigma_{\rm cross}-\Sigma_{\rm cross}^{T},}
+\label{eq:baseline_covariance}
+\end{equation}
+where $\Sigma_{\rm hom}$ is propagated from optical, composition, thickness, and related model parameters. Shared-calibration correlations are retained through
+\begin{equation}
+\Sigma_{\rm cross}=\operatorname{Cov}(\mathbf C_{\rm meas},\mathbf C_{\rm hom}).
+\end{equation}
+
+\subsection{Prediction and numerical cross-check}
+
+For $\kappa=0$ and the electron-affinity-anchored force of Eq.~\eqref{eq:hg_xi_field}, the stochastic finite-width calculation gives
+\begin{table}[H]
+\centering
+\caption{Conditional four-color HgCdTe closure prediction.}
+\begin{tabular}{rrrr}
+\toprule
+RF & graded phase & same-optics homogeneous phase & excess \\
+\midrule
+\SI{100}{MHz} & \SI{-0.01821}{\degree} & \SI{+0.00381}{\degree} & \textbf{\SI{-0.02202}{\degree}} \\
+\SI{500}{MHz} & \SI{-0.08735}{\degree} & \SI{+0.01909}{\degree} & \textbf{\SI{-0.10644}{\degree}} \\
+\SI{1}{GHz} & \SI{-0.15581}{\degree} & \SI{+0.03842}{\degree} & \textbf{\SI{-0.19423}{\degree}} \\
+\bottomrule
+\end{tabular}
+\label{tab:hgclosure}
+\end{table}
+
+The corresponding point-source finite-diffusion calculation gives approximately \SI{-0.02344}{\degree} at \SI{100}{MHz}; the finite-width optical kernels reduce the magnitude slightly. Uniform recombination stresses do not erase the effect in the tested range: an intentionally fast \SI{10}{ns} lifetime gives approximately \SI{-0.02221}{\degree} excess at \SI{100}{MHz}, while \SI{1}{ns} gives approximately \SI{-0.02411}{\degree}. The spatially graded microsecond stress of Eq.~\eqref{eq:hg_graded_kappa} is orders of magnitude smaller on this RF scale.
+
+The stochastic result was independently reproduced with an adaptive shooting construction using a forced solution plus homogeneous boundary sensitivity. The sparse finite-difference boundary-value implementation and the shooting implementation agree on the absolute gradient-sensitive excess to better than $10^{-5}$ degree at \SI{100}{MHz}, \SI{500}{MHz}, and \SI{1}{GHz}. Separately, the dedicated graded-recombination subtraction described above agrees between the two implementations to within $3\times10^{-9}$ degree for the \emph{difference} being tested. These are numerical cross-verifications that two implementations solve the same stated conditional model; the former is not a $10^{-5}$-degree validation of HgCdTe material physics, and the latter does not convert the conditional recombination profile into a validated microscopic material law.
+
+These values are consequences of the stated conditional model, not forecasts for an existing device.
+
+\subsection{Measurement resource}
+
+For independent equal complex current noise, the exact four-sample covariance gives the following approximate $3\sigma$ requirements, expressed as amplitude SNR of the mean spatial current step.
+\begin{table}[H]
+\centering
+\caption{Conditional $3\sigma$ measurement resource for the electron-affinity-anchored HgCdTe-scaled quartet.}
+\begin{tabular}{rrr}
+\toprule
+RF & $\sigma_J/\langle|\Delta J|\rangle$ & amplitude SNR \\
+\midrule
+\SI{100}{MHz} & $2.87\times10^{-5}$ & \SI{90.9}{dB} \\
+\SI{250}{MHz} & $7.12\times10^{-5}$ & \SI{82.9}{dB} \\
+\SI{500}{MHz} & $1.40\times10^{-4}$ & \SI{77.1}{dB} \\
+\SI{1}{GHz} & $2.69\times10^{-4}$ & \SI{71.4}{dB} \\
+\bottomrule
+\end{tabular}
+\end{table}
+The cleanest low-frequency asymptotic regime is therefore statistically demanding. Higher RF strengthens the closure signal in this explicit model, but also increases exposure to parasitic phase, additional spatial modes, and nonlocal dynamics. Conversely, the conditioning analysis above shows that the low-RF regime is intrinsically poor for estimating $D$ even when it is useful for falsifying the one-mode model.
+
+Table~\ref{tab:nuisance_budget} consolidates the leading independent-error or single-nuisance stresses developed above. The criteria are intentionally shown because the entries are not all the same statistical object.
+\begin{table}[H]
+\centering
+\caption{Conditional nuisance scales normalized to the electron-affinity-anchored worked quartet. Smooth/common components can cancel more strongly than these independent-error stresses.}
+\label{tab:nuisance_budget}
+\begin{tabular}{p{0.30\linewidth}p{0.22\linewidth}p{0.36\linewidth}}
+\toprule
+Nuisance & Scale & Criterion / interpretation \\
+\midrule
+Independent complex current noise & \SI{90.9}{dB} at \SI{100}{MHz} & Approximate scalar $3\sigma$ detection of the modeled phase target \\
+Linear weighting-field variation & $0.76$--$1.96\%$ across quartet & False phase below 10\% of target over 0.1--1 GHz \\
+Wavelength-dependent hot fraction & $0.46$--$1.5$ percentage points & 10\% false closure at \SI{100}{MHz} in the stated two-state stresses \\
+Nonaffine source-coordinate error & $\sim4.5~\si{nm}$ RMS at \SI{100}{MHz} & Independent residual phase noise below one third of target \\
+Irregular channel phase error & $\sim1.9\times10^{-4}$ degree RMS at \SI{100}{MHz} & Independent high-curvature spectral phase below one third of target \\
+Same-optics homogeneous baseline & $17.3$--$19.8\%$ of quoted excess & Propagate Eq.~\eqref{eq:baseline_covariance}; a 10\%-of-target allocation corresponds to $\sigma_{\rm hom}\lesssim0.00220^\circ$, $0.01064^\circ$, $0.01942^\circ$ at 0.1, 0.5, 1 GHz \\
+\bottomrule
+\end{tabular}
+\end{table}
+The coordinate and phase values are not absolute depth or clock requirements: the closure rejects common and low-order spectral error modes by construction. Nor are the rows generic HgCdTe specifications: they are allocations relative to the electron-affinity-anchored conditional target, and several scale directly with the actual device-specific gradient signal. The baseline row is different again: the same-optics correction itself is about one fifth of the reported excess, so uncertainty in that modeled subtraction cannot be omitted merely because the correction is deterministic in the present code. A realistic experiment should propagate the measured and model-parameter covariance rather than replace either by independent errors. A plausible implementation would use one common RF reference for all spectral channels, interleave rather than permanently separate the wavelength measurements, monitor optical power with a reference photodiode, read the DUT through the same coherent RF receiver chain, and revisit one or more reference wavelengths throughout the acquisition. The calibration target is the non-common high-curvature spectral residual after common delay and smooth spectral terms are removed, not absolute delay at the few-femtosecond level. This is an experimental architecture, not a demonstration that the required $\sim5~\si{fs}$ residual stability or current-step SNR has already been achieved; that feasibility remains open.
+
+For a generic complex or multi-frequency falsification test, the scalar $3\sigma$ rows above should be replaced by a covariance-aware statistic. If the real and imaginary closure components are stacked into a real vector $\mathbf c$ with null covariance $\Sigma_c$, then under a regular linear-Gaussian null
+\begin{equation}
+\boxed{T=\mathbf c^{T}\Sigma_c^{-1}\mathbf c\sim\chi^2_{\nu},}
+\label{eq:complex_closure_stat}
+\end{equation}
+with $\nu$ equal to the number of independent real closure components after fitted nuisance parameters are removed. This is a per-rung or conditional null statistic. A complete implementation that first selects model order from the same data and then tests recovered roots should control the resulting sequential-selection error rather than treat the stages as independent hypothesis tests. The per-frequency table remains a useful engineering resource for the specified signed phase target, but experimental falsification should use the full measured covariance when available.
+
+\section{Discussion}
+
+The main purpose of the closure hierarchy is to constrain interpretation order. A failed one-mode test should not immediately be interpreted as nonlocal transport or a velocity gradient. First ask whether rank one is rejected by a statistically significant second-mode witness. That does not yet establish rank two: the full six-color Hankel determinant must also be consistent with rank at most two under the measured covariance. Even then, model order is not parameter resolution: Eqs.~\eqref{eq:rank2_product_cov}--\eqref{eq:rank2_sum_delta} must support sufficiently precise multiplier products and roots before a finite-boundary, weighting-field, hot-state, or conventional two-carrier law can be discriminated. If the four-color null fails but rank one cannot be rejected, the mechanism is unresolved at the available signal-to-noise ratio; if rank one is rejected but the rank-two determinant null fails, proceed to higher ordinary rank rather than force a two-root fit; if rank two is accepted but its parameters remain poorly conditioned, the physical law remains unresolved. Only when lower-order mechanisms are both resolved and rejected should a richer transport state be introduced. In particular, the intended ladder is rank-one rejection $\rightarrow$ rank-at-most-two model-order test $\rightarrow$ rank-two parameter resolution $\rightarrow$ physical root-law discrimination $\rightarrow$ higher ordinary finite-rank explanations $\rightarrow$ richer or nonlocal transport.
+
+The framework sits next to several established bodies of work rather than replacing them. Shockley--Ramo signal formation is classical \cite{Shockley1938,Ramo1939,Dabrowski1989}. Wavelength-dependent absorption depth and photodiode RF phase are established through optoelectronic chromatic dispersion \cite{Glasser2021}; that literature includes experimental Ge PN wavelength monitoring and FBG interrogation \cite{Liokumovitch2021}, bias-tunable Ge PIN OED \cite{Dutta2024}, and multi-frequency computational spectroscopy \cite{Kassa2026}. Those studies establish spectral phase/amplitude structure and its sensing utility. The narrower distinction here is to calibrate spectral channels as internal spatial coordinates and then impose explicit color-count model-order and cross-RF transport-law nulls. Hankel model-order identification has been applied to time-sampled photodetector impulse responses \cite{Sun2025}. More generally, finite sums of exponentials, their recurrences, Hankel/Casoratian rank conditions, and noise-sensitive root estimation belong to the Prony/ESPRIT/matrix-pencil literature \cite{Prony1795,RoyKailath1989,HuaSarkar1990}. Uniform first-passage drift--diffusion and the quadratic propagation roots are standard stochastic-transport mathematics.
+
+The candidate contribution considered here is therefore the \emph{combination}: wavelength is used as a calibrated internal spatial coordinate; raw Shockley--Ramo current is spatially differenced to isolate propagation modes; minimal color count tests model order; and the recovered spatial roots are forced to satisfy one physical law across RF frequency. Whether this exact spectral-depth construction has appeared previously remains an open priority question. In particular, the directly relevant 2024 composition-gradient laser-measurement paper \cite{Xu2024Laser} must be audited in full before any submission-level priority claim. A negative literature search is not evidence of priority, and no priority language is used here.
+
+The strongest limitations are also clear. The few-nanometer nonaffine source-coordinate and sub-millidegree irregular-phase scales above are derived design requirements, not experimentally demonstrated calibration performance; a practical implementation must show how those high-curvature residuals are independently constrained. The same applies to uncertainty in the modeled homogeneous optical baseline. Rev.~8 uses the 300-K electron-affinity relation \cite{RhigerMustafa2025} to anchor the composition-induced conduction-band force term, not the self-consistent total drift; the worked result remains conditional on mobility, the reduced effective-mass/DOS approximation, electrostatics, carrier density, contacts, and operating point. The explicit DOS sensitivity in Table~\ref{tab:hg_dos_sweep} shows that this remaining material assumption changes the headline closure at the roughly 10--20\% level. A deliberately steep microsecond-scale graded recombination stress anchored to measured low-injection lifetimes \cite{Kopytko2021} is negligible on the present 0.1--1-GHz phase scale in the stated conditional model; that does not cover high-injection nonlinear Auger dynamics or every device architecture. The exact lowest-rung theorem assumes one-dimensional transport and a controlled observation operator. The polynomial $E_w(z)$ treatment is therefore an effective one-dimensional observation surrogate; realistic finite-electrode weighting fields generally require multidimensional electrostatics and can contain both axial and lateral structure. Away from $s=\kappa=0$, that surrogate produces a rank-at-most-two first-difference sequence with an RF-independent multiplier $q=1$ and can alternatively be annihilated exactly by the five-color second-difference closure; at the singular DC/no-recombination point its polynomial degree increases and six colors/third differences are required. Wavelength-independent hot-to-cold thermalization produces an ordinary second spatial mode with thermalization length $\ell_h=v_h\tau_h$. Known unequal source positions constrain a candidate-root set exactly; uniqueness requires an additional spatial/branch constraint. Uncertainty in those positions remains a systematic. More complex weighting fields, depletion-region signal formation, spatially varying coefficients, carrier coupling, trapping, space charge, and genuinely wavelength-dependent initialization can raise the effective rank or create RF dispersion. Several of these ordinary departures can coexist, increasing observable rank beyond the six-color rung. A decisive next validation for device-physics claims is therefore one self-consistent combined-physics synthetic detector whose currents are analyzed blindly through the same hierarchy. That challenge is left as future work here rather than hidden inside one-at-a-time stress tests.
+
+\section{Conclusion}
+
+Wavelength-dependent generation depth can be used for more than fitting a photodiode phase-versus-wavelength curve. When several spectral channels are calibrated as internal source coordinates, their complex terminal currents form a spatial sequence that can be subjected to exact model-order and transport-law closure tests.
+
+Correct treatment of the electrical observable is essential. A homogeneous first-passage field is exponential in propagation distance, but a planar Shockley--Ramo terminal current contains a depth-independent particular term. Spatial first differencing removes that term. Four calibrated source coordinates then overdetermine one spatial mode; equal spacing gives the particularly simple geometric closure, while known unequal positions can be used directly. DC plus one RF frequency structurally determine the homogeneous drift--diffusion--recombination model conditional on a unique spatial-logarithm branch; the multiplier-level four-color null itself is branch-independent. The conditioning result shows that low RF can be excellent for timing/drift while remaining intrinsically poor for diffusion extraction. After branch selection, the next RF introduces no new transport parameter and therefore remains a falsification measurement.
+
+When one mode fails, six coordinates test whether exactly two observable spatial modes suffice. The unconditional classical rank-at-most-two null is the $3\times3$ Hankel determinant; adjacent minors $W_m=ab(q_1q_2)^m(q_1-q_2)^2$ instead expose mode separation and provide recurrence parameters when nondegenerate. A significant minor can reject rank one, but the determinant must also pass a noise-aware rank-two test before a two-root parameterization is accepted. Even then, the covariance of $W_1/W_0$, the recurrence sum, and the individual roots must support a resolved physical-law test. Finite boundaries, weighting-field modes (including the singular repeated-unit-root DC limit), wavelength-independent hot-state relaxation, and conventional two-carrier transport all produce constrained low-order alternatives with different spatial/RF signatures; nearly lossless two-carrier transport can additionally lose useful DC depth contrast. A richer physical model is warranted only if these lower-order closures are sufficiently tested and then fail or are independently excluded.
+
+The program is deliberately modest in what it reconstructs and ambitious in what it demands of a model. It does not seek an unrestricted pointwise map of every internal transport coefficient. It seeks measurements for which simple models make too many predictions---across color, model order, and RF frequency. The purpose is not to make transport fitting unnecessary, but to make the detector itself participate in deciding when a transport model has failed.
+
+\begin{thebibliography}{99}
+
+\bibitem{Shockley1938}
+W.~Shockley, ``Currents to Conductors Induced by a Moving Point Charge,'' \emph{Journal of Applied Physics} \textbf{9}, 635--636 (1938). DOI: 10.1063/1.1710367.
+
+\bibitem{Ramo1939}
+S.~Ramo, ``Currents Induced by Electron Motion,'' \emph{Proceedings of the IRE} \textbf{27}, 584--585 (1939). DOI: 10.1109/JRPROC.1939.228757.
+
+\bibitem{Dabrowski1989}
+W.~Dabrowski, ``Transport equations and Ramo's theorem: Applications to the impulse response of a semiconductor detector and to the generation-recombination noise in a semiconductor junction,'' \emph{Progress in Quantum Electronics} \textbf{13}, 233--266 (1989). DOI: 10.1016/0079-6727(89)90004-9.
+
+\bibitem{Glasser2021}
+Z.~Glasser, P.~K. Dubey, A.~Dutta, E.~Liokumovitch, R.~Abramov, and S.~Sternklar, ``Optoelectronic chromatic dispersion and wavelength monitoring in a photodiode,'' \emph{Optics Express} \textbf{29}(13), 19839--19852 (2021). DOI: 10.1364/OE.424157.
+
+\bibitem{Kassa2026}
+E.~E. Kassa, Z.~Glasser, U.~K. Saint, R.~Yozevitch, and S.~Sternklar, ``Optoelectronic Chromatic Dispersion in a Single Photodiode for Machine-Learning-Based Computational Spectroscopy,'' \emph{CLEO 2026}, JW2A.46 (2026). DOI: 10.1364/CLEO\_AT.2026.JW2A.46. Related preprint: arXiv:2605.18014.
+
+\bibitem{Liokumovitch2021}
+E.~Liokumovitch, Z.~Glasser, L.~Singh, R.~Abramov, and S.~Sternklar, ``Optoelectronic chromatic dispersion in germanium PN photodiodes: wavelength monitoring and FBG interrogation,'' \emph{Optics Letters} \textbf{46}(16), 4061--4064 (2021). DOI: 10.1364/OL.435159.
+
+\bibitem{Dutta2024}
+A.~Dutta, E.~Liokumovitch, Z.~Glaser, and S.~Sternklar, ``Large and tunable optoelectronic chromatic dispersion in PIN-type photodiodes,'' \emph{Optics Letters} \textbf{49}(8), 2057--2060 (2024). DOI: 10.1364/OL.519164.
+
+\bibitem{Sun2025}
+Y.~Sun, Z.~Zhang, X.~Xing, P.~Hu, and J.~Tan, ``Complete model identification for measuring photodetector's data age in high-speed and high-precision interferometry,'' \emph{Optics Express} \textbf{33}(7), 15125--15140 (2025). DOI: 10.1364/OE.550721.
+
+
+\bibitem{Prony1795}
+G.~R.~B. de Prony, ``Essai exp\'erimental et analytique sur les lois de la dilatabilit\'e des fluides \`elastiques et sur celles de la force expansive de la vapeur de l'eau et de la vapeur de l'alkool, \`a diff\'erentes temp\'eratures,'' \emph{Journal de l'\'Ecole Polytechnique} \textbf{1}(2), 24--76 (1795).
+
+\bibitem{RoyKailath1989}
+R.~Roy and T.~Kailath, ``ESPRIT---Estimation of Signal Parameters Via Rotational Invariance Techniques,'' \emph{IEEE Transactions on Acoustics, Speech, and Signal Processing} \textbf{37}(7), 984--995 (1989). DOI: 10.1109/29.32276.
+
+\bibitem{HuaSarkar1990}
+Y.~Hua and T.~K.~Sarkar, ``Matrix pencil method for estimating parameters of exponentially damped/undamped sinusoids in noise,'' \emph{IEEE Transactions on Acoustics, Speech, and Signal Processing} \textbf{38}(5), 814--824 (1990). DOI: 10.1109/29.56027.
+
+\bibitem{Eskin1999}
+J.~D. Eskin, H.~H. Barrett, and H.~B. Barber, ``Signals induced in semiconductor gamma-ray imaging detectors,'' \emph{Journal of Applied Physics} \textbf{85}(2), 647--659 (1999). DOI: 10.1063/1.369198.
+
+\bibitem{RhigerMustafa2025}
+D.~R. Rhiger and J.~I. Mustafa, ``The electron affinity of HgCdTe,'' \emph{Journal of Applied Physics} \textbf{138}, 165701 (2025). DOI: 10.1063/5.0300709.
+
+\bibitem{Kopytko2021}
+M.~Kopytko, J.~Sobieski, W.~Gawron, A.~K\k{e}b\l{}owski, and J.~Piotrowski, ``Minority carrier lifetime in HgCdTe(100) epilayers and their potential application to background radiation limited MWIR photodiodes,'' \emph{Semiconductor Science and Technology} \textbf{36}, 055003 (2021). DOI: 10.1088/1361-6641/abea6d.
+
+\bibitem{Sang2022}
+M.~Sang, G.~Xu, H.~Qiao, and X.~Li, ``High speed uncooled MWIR infrared HgCdTe photodetector based on graded bandgap structure,'' \emph{Journal of Infrared and Millimeter Waves} \textbf{41}(6), 972--979 (2022). DOI: 10.11972/j.issn.1001-9014.2022.06.005.
+
+\bibitem{Rothman2010}
+J.~Rothman, G.~Vojetta, B.~Moselle, L.~Mollard, S.~Gout, and J.-P.~Chamonal, ``Shockley--Haynes Characterization of Minority-Carrier Drift Velocity, Diffusion Coefficient, and Lifetime in HgCdTe Avalanche Photodiodes,'' \emph{Journal of Electronic Materials} \textbf{39}, 837--845 (2010). DOI: 10.1007/s11664-010-1247-8.
+
+\bibitem{Hansen1982}
+G.~L. Hansen, J.~L. Schmit, and T.~N. Casselman, ``Energy gap versus alloy composition and temperature in Hg$_{1-x}$Cd$_x$Te,'' \emph{Journal of Applied Physics} \textbf{53}, 7099--7101 (1982). DOI: 10.1063/1.330018.
+
+\bibitem{Moazzami2005}
+K.~Moazzami, J.~Phillips, D.~Lee, S.~Krishnamurthy, G.~Benoit, Y.~Fink, and T.~Tiwald, ``Detailed Study of Above Bandgap Optical Absorption in HgCdTe,'' \emph{Journal of Electronic Materials} \textbf{34}, 773--778 (2005). DOI: 10.1007/s11664-005-0019-3.
+
+\bibitem{Xu2024Laser}
+G.~Xu, R.~Wang, X.~Chen, H.~Qiao, X.~Yang, K.~Chu, D.~Wang, P.~Yang, and X.~Li, ``Potential application of HgCdTe detector with composition gradient in laser measurement,'' \emph{Journal of Applied Optics} \textbf{45}(3), 549--556 (2024). DOI: 10.5768/JAO202445.0310009.
+
+\end{thebibliography}
+
+\end{document}
