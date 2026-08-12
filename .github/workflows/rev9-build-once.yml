@@ -2,10 +2,8 @@ name: Build Rev9 candidate once
 
 on:
   push:
-    branches:
-      - agent/rev9-adversarial-surgical
-    paths:
-      - '.github/workflows/rev9-build-once.yml'
+    branches: [agent/rev9-adversarial-surgical]
+    paths: ['.github/workflows/rev9-build-once.yml']
 
 permissions:
   contents: write
@@ -15,81 +13,60 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: {fetch-depth: 0}
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+        with: {python-version: '3.12'}
       - name: Reconstruct and verify exact anonymous Rev9
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          import base64, gzip, hashlib, shutil, subprocess
-
+          import base64,gzip,hashlib,shutil,subprocess
           root=Path('experiments/01-vanishing-absorber')
           rev8=root/'MANUSCRIPT_REV8_ANON_2026-08-11.tex'
           rev9=root/'MANUSCRIPT_REV9_ANON_2026-08-11.tex'
-          carrier=root/'.rev9_source_patch.gz.b64'
-          tail_file=root/'.rev9_source_patch.tail'
-
-          b8=rev8.read_bytes()
-          h8=hashlib.sha256(b8).hexdigest()
-          if h8!='28eb3de954d50046f177e06e4b54eb1812414c03a1d53a933904f99fb3c49ba9':
-              raise SystemExit(f'Rev8 predecessor hash mismatch: {h8}')
-
-          prefix=''.join(carrier.read_text(encoding='ascii').split())
-          prefix_hash=hashlib.sha256(prefix.encode('ascii')).hexdigest()
-          print('staged_prefix_len',len(prefix),'staged_prefix_sha256',prefix_hash)
-          if len(prefix)!=19957 or prefix_hash!='3417358af67991c431e68b3a6b0fc66502e79ce9257947ab87d706cd451d106f':
-              raise SystemExit('staged patch prefix mismatch')
-          tail=''.join(tail_file.read_text(encoding='ascii').split())
-          tail_hash=hashlib.sha256(tail.encode('ascii')).hexdigest()
-          print('staged_tail_len',len(tail),'staged_tail_sha256',tail_hash)
-          if len(tail)!=1247 or tail_hash!='ac29ce1814eecca75788d7294cfa5016434f31e7303521bc7cf91d370cf9a9f2':
-              raise SystemExit('staged patch tail mismatch')
-          encoded=prefix+tail
-          if len(encoded)!=21204:
-              raise SystemExit('combined patch carrier length mismatch')
+          want_lens=[3500,3500,3500,3500,3500,3500,204]
+          want_hashes=[
+          '2d21e3bb8894c793ca2aba4e63ce0e52ff09fdceba6f84d383013f56186f75b2',
+          'c4151924eeff9057effc0d48d87c88c03cdaf3d7e510d9306e9049b19407d808',
+          'eb953846206f3ffc4ecebc66d50fb11a5d221776ae27f4d6a975ab065812a208',
+          'f833f2b15823848007c48b56793e5efe1dcdce68078b609adf90db8945f30f3a',
+          'a510596ae3d035eabb0bfc35619699815900763d27409dafc213f6a5c9a8a643',
+          'c9d209e7f975caed249beb06218aefec71d90d84d1df333c82ef5e03f3ef35da',
+          '980d87c3bd1d90897c518096681f77eaa18fcac6ef71dbc0d04b123052c07a06']
+          chunks=[]
+          for i,(n,want) in enumerate(zip(want_lens,want_hashes),1):
+              p=root/f'.rev9_source_patch.part{i:02d}'
+              s=''.join(p.read_text(encoding='ascii').split())
+              got=hashlib.sha256(s.encode()).hexdigest()
+              print(i,len(s),got)
+              if len(s)!=n or got!=want: raise SystemExit(f'chunk {i} mismatch')
+              chunks.append(s)
+          encoded=''.join(chunks)
+          if len(encoded)!=21204: raise SystemExit('carrier length mismatch')
           packed=base64.b64decode(encoded,validate=True)
-          if hashlib.sha256(packed).hexdigest()!='516906719e0214048fba6b3e5bf8566b196f1d3534a3603a8d635ba80d738347':
-              raise SystemExit('compressed patch hash mismatch')
+          if hashlib.sha256(packed).hexdigest()!='516906719e0214048fba6b3e5bf8566b196f1d3534a3603a8d635ba80d738347': raise SystemExit('gzip patch hash mismatch')
           patch=gzip.decompress(packed)
-          if hashlib.sha256(patch).hexdigest()!='1617f8e54cc8ad27d17325bcaddf80debc0ab5ea5a3d9e603de067ec5bf00200':
-              raise SystemExit('patch hash mismatch')
-
+          if hashlib.sha256(patch).hexdigest()!='1617f8e54cc8ad27d17325bcaddf80debc0ab5ea5a3d9e603de067ec5bf00200': raise SystemExit('patch hash mismatch')
+          b8=rev8.read_bytes()
+          if hashlib.sha256(b8).hexdigest()!='28eb3de954d50046f177e06e4b54eb1812414c03a1d53a933904f99fb3c49ba9': raise SystemExit('Rev8 predecessor mismatch')
           shutil.copyfile(rev8,rev9)
-          p=Path('/tmp/rev8_to_rev9.patch')
-          p.write_bytes(patch)
-          subprocess.run(['patch','-p0','-i',str(p)],check=True)
-
-          b=rev9.read_bytes()
+          pp=Path('/tmp/rev8_to_rev9.patch'); pp.write_bytes(patch)
+          subprocess.run(['patch','-p0','-i',str(pp)],check=True)
+          b=rev9.read_bytes(); text=b.decode()
           h=hashlib.sha256(b).hexdigest()
-          if h!='df62813f764f051684ec52162095a5103296b71da1549b4c96829b0168fa1ce4':
-              raise SystemExit(f'Rev9 source hash mismatch: {h}')
-          text=b.decode('utf-8')
-          if len(b)!=92749 or len(text.splitlines())!=1086:
-              raise SystemExit('Rev9 source size/line mismatch')
-          if r'\author{Anonymous}' not in text or 'pdfauthor={Anonymous}' not in text:
-              raise SystemExit('anonymous metadata invariant failed')
-
-          packed9=gzip.compress(b,compresslevel=9,mtime=0)
-          encoded9=base64.b64encode(packed9).decode('ascii')
-          chunks=[encoded9[i:i+6000] for i in range(0,len(encoded9),6000)]
-          if len(chunks)!=7:
-              raise SystemExit(f'expected 7 Rev9 snapshot parts, got {len(chunks)}')
+          if h!='df62813f764f051684ec52162095a5103296b71da1549b4c96829b0168fa1ce4' or len(b)!=92749 or len(text.splitlines())!=1086: raise SystemExit(f'Rev9 invariant mismatch {h} {len(b)} {len(text.splitlines())}')
+          if r'\author{Anonymous}' not in text or 'pdfauthor={Anonymous}' not in text: raise SystemExit('anonymous metadata invariant failed')
+          packed9=gzip.compress(b,compresslevel=9,mtime=0); enc9=base64.b64encode(packed9).decode('ascii')
+          out=[enc9[i:i+6000] for i in range(0,len(enc9),6000)]
+          if len(out)!=7: raise SystemExit('snapshot part count mismatch')
           hist=root/'manuscript_history'
-          for i,s in enumerate(chunks,1):
-              (hist/f'MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part{i:02d}').write_text(s+'\n',encoding='ascii')
-          print('PASS: exact anonymous Rev9 reconstructed')
-          print('source_sha256',h)
-          print('source_bytes',len(b),'source_lines',len(text.splitlines()))
+          for i,s in enumerate(out,1): (hist/f'MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part{i:02d}').write_text(s+'\n',encoding='ascii')
+          print('PASS exact Rev9',h)
           print('gzip_sha256',hashlib.sha256(packed9).hexdigest())
-          print('gzip_bytes',len(packed9),'base64_chars',len(encoded9))
-          print('part_lengths',[len(x) for x in chunks])
-          for i,s in enumerate(chunks,1):
-              print(f'part{i:02d}_sha256',hashlib.sha256(s.encode('ascii')).hexdigest())
+          print('gzip_bytes',len(packed9),'base64_chars',len(enc9),'part_lengths',[len(x) for x in out])
+          for i,s in enumerate(out,1): print(f'part{i:02d}_sha256',hashlib.sha256(s.encode()).hexdigest())
           PY
       - name: Commit exact source and snapshot
         shell: bash
@@ -97,9 +74,6 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add \
-            experiments/01-vanishing-absorber/MANUSCRIPT_REV9_ANON_2026-08-11.tex \
-            experiments/01-vanishing-absorber/manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part*
-          git diff --cached --quiet && { echo 'No Rev9 source change to commit'; exit 0; }
+          git add experiments/01-vanishing-absorber/MANUSCRIPT_REV9_ANON_2026-08-11.tex experiments/01-vanishing-absorber/manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part*
           git commit -m 'Add exact anonymous Rev9 manuscript candidate'
           git push
