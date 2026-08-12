@@ -30,8 +30,22 @@ jobs:
 
           exp = Path('experiments/01-vanishing-absorber')
           parts = sorted((exp / 'manuscript_history').glob('MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part*'))
+          expected_parts = [
+              ('aa3496b97dc9dd7068d1fb6bdd699177e40ce9f1ae41d0b42d23451040cbc5fd', 6001),
+              ('ac2f0529a6276aee102560e50b77b10417093ec1b1a5c5cd46f62f5b0597b6f1', 6001),
+              ('5aaf132a2ad18d2aaaf9095b32d8b8e7ebbc78c00e7f2a55d573d9a0b87cfce5', 6001),
+              ('df20ef750a51d2835a0baa768ea56796d09f54c39a8223a093e5d9069e7e4052', 6001),
+              ('082e99dce71efe263104c42fb1c73747db82d0568cfed7c8cc92be74a0563973', 6001),
+              ('ca6b68e680d0f2be55dd830277fc8fd35aa821216c8f2cb0492bb441f768a081', 4705),
+          ]
           if len(parts) != 6:
               raise SystemExit(f'expected 6 Rev7 snapshot parts, found {len(parts)}')
+          for p, (want_hash, want_len) in zip(parts, expected_parts):
+              raw = p.read_bytes()
+              got = hashlib.sha256(raw).hexdigest()
+              print(p.name, len(raw), got)
+              if len(raw) != want_len or got != want_hash:
+                  raise SystemExit(f'Rev7 snapshot part mismatch: {p.name}')
           encoded = ''.join(p.read_text(encoding='ascii').strip() for p in parts)
           packed = base64.b64decode(encoded, validate=True)
           packed_hash = hashlib.sha256(packed).hexdigest()
