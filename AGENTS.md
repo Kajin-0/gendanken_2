@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **anonymous Rev. 7 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is a conditional scaling/stress example; priority remains unproven**
+**Current mode:** **anonymous Rev. 8 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is a conditional scaling/stress example; priority remains unproven**
 
 Read this file first.
 
@@ -18,7 +18,9 @@ If identity disclosure is explicitly requested, follow `PRIVACY_PROTOCOL.md` and
 
 The repository follows the physics rather than a predetermined paper. Failed conjectures, observable corrections, numerical corrections, counterexamples, and prior-art collisions are part of the result.
 
-**A working manuscript exists. The canonical manuscript is the anonymous 24-page Rev. 7, validated against the previous Rev. 6 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**
+**Rev. 8 model-order lock:** the old six-color scalar closure `W1^2=W0W2` is superseded as an unconditional rank-two null because `W1^2-W0W2=-d2 det(H)`. Use the full `3x3` Hankel determinant `det(H)=0` to test rank at most two before recovering two roots.
+
+**A working manuscript exists. The canonical manuscript is the anonymous 26-page Rev. 8, validated against the previous Rev. 7 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**
 
 ## CRITICAL: manuscript preservation lock
 
@@ -29,13 +31,15 @@ Before any manuscript edit, read these files in order:
 3. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`;
 4. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`;
 5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`;
-6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
-7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;
-8. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.
+6. `experiments/01-vanishing-absorber/REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
+7. `experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;
+8. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
+9. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md` and Rev. 4 as earlier context;
+10. the exact verified manuscript source recovered with `python tools/extract_manuscript_baseline.py` when manuscript work is required.
 
 **Do not treat `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, the older `CURRENT_STATE.md`, the historical Rev. 3 snapshot, this file's summaries, or an agent handoff as a substitute for the exact current manuscript.**
 
-The immutable Rev. 7 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
+The immutable Rev. 8 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
 
 The mandatory default is:
 
@@ -53,6 +57,8 @@ Current manuscript/state sources:
 - `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 - `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
+- `experiments/01-vanishing-absorber/REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+- `experiments/01-vanishing-absorber/MANUSCRIPT_REV8_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_REV7_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
@@ -113,7 +119,7 @@ Use explicitly:
 
 A negative literature search is not novelty evidence.
 
-**REV. 7 submission blockers:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.
+**REV. 8 submission blockers:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.
 
 Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focused primary-source audit and claim-ledger update.
 
@@ -126,8 +132,9 @@ Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focu
 3. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 4. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
-6. `experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
-7. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+6. `experiments/01-vanishing-absorber/REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+7. `experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+8. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 8. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
@@ -191,7 +198,7 @@ Conceptual statement, with the qualification kept explicit:
 
 ### Gedanken III — six colors and higher order
 
-If the one-mode closure fails, use six source coordinates and test whether two first-difference spatial modes are resolved.
+If the one-mode closure fails, use six source coordinates and test the **rank-at-most-two model itself** before interpreting two roots.
 
 For
 
@@ -199,26 +206,38 @@ For
 d_m=a q_1^m+b q_2^m,
 ```
 
+the adjacent minors still satisfy
+
 ```math
-\boxed{W_m=d_md_{m+2}-d_{m+1}^2
-=ab(q_1q_2)^m(q_1-q_2)^2.}
+W_m=d_md_{m+2}-d_{m+1}^2
+=ab(q_1q_2)^m(q_1-q_2)^2.
 ```
 
-A second mode must be statistically resolved before roots are interpreted.
+But **REV. 8 correction:** the unconditional six-color model-order null is the full `3x3` Hankel determinant
 
-**REV. 6 qualification:** rank detection is only the first threshold. A resolved second mode must also have sufficiently precise recurrence parameters before physical root-law discrimination. For `P=W_1/W_0=q_1q_2`, the optimistic independent equal-significance limit gives `sigma_P/|P| ~ sqrt(2)/Z`, so `Z=3` still implies about 47.1% relative product uncertainty. Operational order: **rank detection -> parameter resolution -> physical-law discrimination**. Algebraic branch immunity is not statistical robustness. Degeneracies can reduce observable rank, so use **rank at most two** when referring to the general two-mode mechanism.
+```math
+det(H)=0,
+```
 
-Failure of rank two does **not** imply exotic transport. Continue through higher ordinary finite-rank mechanisms before richer/nonlocal interpretations.
+not `W1^2=W0W2`, because
 
-The interpretation order is:
+```math
+W1^2-W0W2=-d2 det(H).
+```
+
+The old scalar closure therefore has a spurious `d2=0` branch. Never resurrect it as an unconditional rank-two test.
+
+Mandatory operational order:
 
 ```text
-rank 1 / four colors
--> rank 2 / six colors if resolved
--> higher ordinary finite rank if needed
--> RF root-law constraints
--> only then mechanism-specific or richer/nonlocal interpretation
+rank one rejected
+-> rank at most two tested with det(H)
+-> two-mode recurrence parameters resolved
+-> physical root law tested
+-> higher ordinary finite rank if rank two fails
 ```
+
+Adjacent minors remain useful for mode separation, conditioning, and recurrence recovery when nondegenerate. A covariance-aware determinant test is required in noise before two-root interpretation. Failure of rank two does **not** imply exotic transport; continue through higher ordinary finite-rank mechanisms first.
 
 ---
 
@@ -254,7 +273,7 @@ Never import arrival-time identities into terminal current without deriving the 
 
 ---
 
-## 6. Rev. 4/5/6 mathematical boundary conditions — never regress
+## 6. Rev. 4/5/6/7/8 mathematical boundary conditions — never regress
 
 ### Spatial-log branch ambiguity
 

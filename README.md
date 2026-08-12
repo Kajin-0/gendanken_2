@@ -14,15 +14,17 @@ The active result is a **Shockley-Ramo-aware spectral-depth closure hierarchy fo
 
 ## Manuscript status
 
-The current approved baseline is the anonymous **24-page Rev. 7**:
+The current approved baseline is the anonymous **26-page Rev. 8**:
 
 ```text
 Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current
 ```
 
-Rev. 7 was validated against Rev. 6 before canonicalization. It preserves the complete paper spine and established theorem chain while adding classical Prony/ESPRIT/matrix-pencil attribution, a literature-anchored HgCdTe electron-driving band edge, a graded differential-recombination stress, propagated resource numbers, and a concrete but still unvalidated measurement architecture.
+Rev. 8 was validated against Rev. 7 before canonicalization. The central four-color theorem and branch-qualified inversion remain intact. The main new correction is a genuine six-color algebra fix: the unconditional rank-at-most-two model-order null is the full `3x3` Hankel determinant, because the older minor closure also vanished spuriously at `d2=0`.
 
-The exact source is stored as a hash-verified anonymous snapshot. Do not use older `MANUSCRIPT_DRAFT.*` files or historical Rev. 3/4/5 snapshots as the current paper.
+Rev. 8 also adds the missing noisy rank-two determinant test, reconciles weighting-field numerics, validates the tiny recombination subtraction differentially, separates composition-band-edge force from total drift, quantifies DOS/effective-mass sensitivity, and states the nearly lossless two-carrier DC degeneracy.
+
+The exact source is stored as a hash-verified anonymous seven-part snapshot. Older revisions remain provenance only.
 
 Start here:
 
@@ -31,9 +33,9 @@ Start here:
 3. [`MANUSCRIPT_BASELINE.md`](experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md)
 4. [`MANUSCRIPT_PRESERVATION_PROTOCOL.md`](experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md)
 5. [`CURRENT_STATE_LIVE.md`](experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md)
-6. [`REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
-7. [`REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
-8. [`REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
+6. [`REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
+7. [`REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
+8. [`REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
 9. [`PAPER_CLAIM_LEDGER.md`](experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md)
 
 ## Manuscript safety rule
@@ -50,8 +52,9 @@ wavelength
 -> Shockley-Ramo-aware spatial differencing
 -> four-color one-mode closure in q-space
 -> branch-controlled continuous-root recovery
--> six-color/higher finite-rank model-order tests if needed
--> rank-two parameter-resolution check
+-> six-color Hankel rank-at-most-two determinant test if rank one fails
+-> rank-two parameter-resolution check if the determinant null passes
+-> higher finite-rank tests if rank two fails
 -> branch-free RF root invariants where available
 -> branch/permutation-controlled physical root laws
 -> mechanism assignment only after ordinary alternatives are tested
@@ -65,29 +68,34 @@ For the minimal homogeneous one-carrier planar terminal-current model,
 
 The multiplier-level null is branch-independent. Physical inversion from `q` to `gamma` and then to `D,w,kappa` requires spatial unwrapping; a sufficient principal-branch condition is `|Im gamma| h < pi`.
 
-## Rev. 6 post-detection conditioning boundary
+## Rev. 8 rank-two model-order boundary
 
-A statistically resolved second Hankel mode is necessary but not sufficient for a useful physical root-law test. For
+The six-color rung now separates **existence of a second mode**, **rank-at-most-two model order**, and **parameter resolution**.
 
-```math
-P=q_1q_2=W_1/W_0,
-```
-
-Rev. 6 carries the first-order covariance including the shared-minor covariance. In the deliberately optimistic independent equal-significance limit,
+For five first differences, the unconditional rank-at-most-two null is
 
 ```math
-sigma_P/|P| ~ sqrt(2)/Z.
+det(H)=0,
 ```
 
-Thus `Z=3` on each minor still corresponds to about **47.1%** relative product uncertainty. Roughly `Z=14.1` per minor is required for 10% product precision in that simplified limit. The live hierarchy is therefore:
+for the `3x3` Hankel matrix of `d0...d4`. The older identity obeys
+
+```math
+W1^2-W0W2=-d2 det(H),
+```
+
+so it is not an unconditional model-order null. Adjacent minors remain useful after the determinant test for separation, conditioning, and recurrence recovery.
+
+The live hierarchy is:
 
 ```text
-rank-two detection
--> rank-two parameter resolution
--> physical root-law discrimination
+rank one rejected
+-> rank at most two tested
+-> two-mode parameters resolved
+-> physical root law tested
 ```
 
-Algebraic branch immunity is not the same as statistical robustness.
+The Rev. 6 covariance result for recurrence parameters remains mandatory: statistically detecting a second mode does not guarantee accurate roots.
 
 ## Low-RF observation-mode boundary
 
@@ -97,17 +105,15 @@ The prescribed one-dimensional nonuniform weighting field is now explicitly an *
 
 ## HgCdTe status
 
-The manuscript's graded-HgCdTe calculation remains a **conditional sensitivity/stress construction**, not a calibrated detector prediction. Rev. 7 replaces the historical free `xi=1` headline force with the 2025 electron-affinity relation,
+The graded-HgCdTe calculation remains a **conditional composition-band-edge transport stress**, not a calibrated detector prediction. The 2025 electron-affinity relation anchors the composition-induced electron band-edge force and gives `xi_e~0.666--0.695`; it does **not** anchor the omitted self-consistent electrostatic field or total carrier drift.
 
-```math
-E_{drive}^{grad}(z)=|(dE_g/dx-0.45)(dx/dz)|,
-```
+The finite-width phase remains about `-0.0220 / -0.1064 / -0.1942 degree` at 100 / 500 / 1000 MHz.
 
-which gives a local electron-driving fraction `xi_e~0.666--0.695` over the worked profile. The finite-width gradient-sensitive phase is about `-0.0220 / -0.1064 / -0.1942 degree` at 100 / 500 / 1000 MHz.
+Rev. 8 exposes the retained DOS/effective-mass approximation as a significant uncertainty: `|v_DOS|/v_field` is about 8.8--18.3% across the layer, and an `alpha_DOS` sensitivity moves the worked closure appreciably. A deliberately steep 5-us-anchored differential-recombination stress remains negligible on the gradient-signal scale, with the tiny subtraction cross-checked independently to about `3e-9 degree` between implementations across tested environments.
 
-A deliberately steep spatial differential-recombination stress anchored to a 5-us low-injection scale shifts those closures by less than `4e-7 degree` over 0.1--1 GHz in the specified model. That is a conditional sensitivity result, not a general claim that Auger or recombination is negligible in all HgCdTe devices.
+The corrected 1% weighting-field false phases are `0.002947 / 0.012140 / 0.010007 degree` at 100 / 500 / 1000 MHz. The allowable variation for a 10%-of-target contamination is `0.757% / 0.881% / 1.961%`.
 
-The same-optics homogeneous subtraction remains part of the covariance budget; its uncertainty is a required modeling resource rather than assumed zero.
+The same-optics homogeneous subtraction remains part of the covariance budget rather than assumed exact.
 
 ## Prior-art boundary
 
