@@ -1,6 +1,6 @@
 # Canonical Manuscript Baseline
 
-**Status:** **CANONICAL REV. 8 MANUSCRIPT BASELINE — PRESERVE**  
+**Status:** **CANONICAL REV. 9 MANUSCRIPT BASELINE — PRESERVE**  
 **Date canonicalized:** 2026-08-11  
 **Author metadata:** Anonymous  
 **Title:** `Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current`
@@ -22,21 +22,21 @@ Any different author identity requires explicit artifact-specific approval and r
 The authoritative source is:
 
 ```text
-MANUSCRIPT_REV8_ANON_2026-08-11.tex
+MANUSCRIPT_REV9_ANON_2026-08-11.tex
 ```
 
-Rev. 8 was first validated against the established Rev. 7 baseline in PR #13. Only after the preservation and privacy gates passed were canonical pointers updated. The revision is surgical: 26 of 826 established nonblank Rev. 7 lines were changed or removed (~3.15%); no section, subsection, reference, or unrelated derivation was deleted.
+Rev. 9 was first validated against the established Rev. 8 baseline in PR #15. Only after the preservation and privacy gates passed were canonical pointers updated. The revision is surgical: 34 of 883 established nonblank Rev. 8 lines were changed or removed (~3.85%); no prior section, subsection, reference, or unrelated derivation was deleted.
 
 The exact source is preserved as seven deterministic base64 text parts containing a gzip-compressed snapshot:
 
 ```text
-manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part01
-manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part02
-manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part03
-manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part04
-manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part05
-manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part06
-manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part07
+manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part01
+manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part02
+manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part03
+manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part04
+manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part05
+manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part06
+manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part07
 ```
 
 Recover it only with:
@@ -48,14 +48,14 @@ python tools/extract_manuscript_baseline.py
 The recovered source MUST verify as:
 
 ```text
-SHA-256: 28eb3de954d50046f177e06e4b54eb1812414c03a1d53a933904f99fb3c49ba9
-bytes: 81816
-lines: 1023
-compiled pages: 26
+SHA-256: df62813f764f051684ec52162095a5103296b71da1549b4c96829b0168fa1ce4
+bytes: 92749
+lines: 1086
+compiled pages: 28
 sections: 12
-subsections: 18
-bibliography items: 19
-\begin{equation} environments: 107
+subsections: 19
+bibliography items: 21
+\begin{equation} environments: 116
 author metadata: Anonymous
 PDF author metadata: Anonymous
 ```
@@ -63,67 +63,75 @@ PDF author metadata: Anonymous
 The deterministic gzip snapshot MUST verify as:
 
 ```text
-SHA-256: 44af67c407d07b6e7d60bbc6760f14cbe0f44cf763a74e972a9b3322a5d8d2f7
-bytes: 28082
+SHA-256: 15b434edbd72a5217f6183e45a537350683755fd98ec7f39716a21e5f601cdb9
+bytes: 31390
 parts: 7
 ```
 
 If recovery or either hash fails, **do not recreate or edit the manuscript from notes**. Work in a separate addendum until the exact source is restored.
 
-## Rev. 8 corrections now canonical
+## Rev. 9 corrections now canonical
 
-Rev. 8 preserves the central four-color theorem, branch-qualified inversion, classical finite-exponential lineage, singular weighting-field treatment, calibration framework, and the literature-anchored HgCdTe composition-band-edge stress. It repairs one genuine algebraic defect in the six-color rung and hardens the associated statistics and material-model boundaries.
+Rev. 9 preserves the central translated-kernel four-color theorem, branch-qualified DC/RF inversion, conditioning analysis, corrected Rev. 8 Hankel rank-at-most-two null, singular weighting-field treatment, nuisance/calibration framework, and the conditional graded-HgCdTe stress.
 
 The mandatory rank hierarchy is now:
 
 ```text
 rank one rejected
--> rank-at-most-two Hankel-determinant null tested
--> two-mode recurrence parameters resolved
--> RF physical law tested
+-> rank-at-most-two Hankel determinant tested
+-> rank-two recurrence parameters resolved
+-> distinct-root versus confluent/repeated-root rank two classified
+-> multiplicity-aware RF physical law tested
 -> higher ordinary finite rank if rank two fails
 ```
 
-The previous unconditional six-color minor closure is **SUPERSEDED** because
+For a confluent rank-two sequence,
 
 ```math
-W_1^2-W_0W_2=-d_2 det(H).
+d_m=(A+Bm)q^m,
 ```
 
-Thus `W1^2=W0W2` contains a spurious `d2=0` acceptance branch. The unconditional rank-at-most-two null is
+one has nonzero adjacent minors while the recurrence discriminant satisfies
 
 ```math
-det [[d0,d1,d2],[d1,d2,d3],[d2,d3,d4]] = 0.
+Delta_q=S^2-4P=0.
 ```
 
-The adjacent-minor formula remains valid and useful for mode separation, conditioning, and recurrence recovery when nondegenerate; it is not the general model-order null. Rev. 8 also carries a covariance-aware complex determinant residual before root recovery.
+Thus Hankel rank two does not imply two distinct exponentials. The distinct-root adjacent-minor identity is not evaluated by naively setting `q1=q2`; repeated roots use the multiplicity-aware confluent basis. A physical second-order transport model can itself become confluent.
 
 Additional canonical hardening:
 
-- the finite-kernel 1% weighting-field false phases are approximately `0.002947 / 0.012140 / 0.010007 degree` at 100 / 500 / 1000 MHz, with 10%-of-target allowable variations `0.757% / 0.881% / 1.961%`;
-- the tiny graded-recombination subtraction is validated by a dedicated differential finite-difference versus adaptive-shooting comparison, conservatively agreeing within about `3e-9 degree` across tested numerical environments; the coarser `1e-5 degree` absolute solver comparison is not used to validate that subtraction;
-- the 2025 electron-affinity relation anchors the **composition-induced conduction-band force term**, not the total self-consistent device drift; Poisson/electrostatic fields remain outside the worked one-dimensional stress;
-- under the retained reduced `m* proportional to Eg` prescription, `|v_DOS|/v_field` ranges from about **8.8% to 18.3%**, so the DOS/effective-mass term is a substantive uncertainty rather than a negligible correction;
-- scaling `v_DOS` by `alpha_DOS=0,0.5,1,1.5` moves the 100-MHz closure from about `-0.01861` to `-0.02349 degree`, exposing that uncertainty directly;
-- in the nearly lossless two-carrier limit, total DC Shockley--Ramo response can become depth-degenerate, so species-specific tracking may require two or more nonzero RF frequencies;
-- the exact closest 2024 graded-HgCdTe priority audit remains **OPEN / UNPROVEN**; metadata and adjacent papers do not substitute for the exact full-text comparison;
-- the blind combined-physics detector challenge remains the next major device-physics validation, not a prerequisite for this localized algebraic repair.
+- near exact rank one the determinant statistic is nonregular because its first derivative vanishes; null-constrained Monte Carlo / parametric-bootstrap calibration is preferred when linearization is inadequate;
+- a common depth-scale error `h_cal=c h` leaves the model-order null unchanged but transforms dimensional parameters as `D_cal=c^2D`, `w_cal=cw`, `kappa_cal=kappa`;
+- independently calibrated arbitrary generation kernels obey the homogeneous one-mode relation `J_m=A+B M_m(r)`, giving a kernel-aware nonlinear consistency test; the simple geometric four-color identity is the rigid-translation special case;
+- raw geometric-closure failure with wavelength-evolving kernels rejects the combined homogeneous-transport + assumed-optics idealization unless the optical kernels are independently constrained;
+- the composition profile `x(z)` is a shared nuisance because it controls both spectral generation depth/kernels and the modeled composition-induced transport force;
+- the cited electron-affinity source's quoted `67.1%` average conduction-band partition / approximately `±1%` two-thirds comparison is tied to its stated `0.15<x<0.45` interval; the explicit affinity relation is evaluated to the worked `x=0.55` without extending that quoted validation range by assumption;
+- the worked local Peclet numbers are only about `0.48` per source step and `0.75` over the optical-kernel width, so the high-Peclet relation is asymptotic intuition rather than the quantitative HgCdTe result;
+- the inherited hot-to-cold stress is an independent deliberately strong two-state benchmark, not the same Rev. 9 HgCdTe realization;
+- wavelength-dependent absorption/generation depth as a carrier-transport probe is acknowledged as established prior art from classical surface-photovoltage/diffusion-length and photodiode spectral-response work;
+- the stated one-carrier model has free DC admissibility nulls `q(0) in (0,1]`, `D>0`, `kappa>=0`, plus the assumed drift-direction sign;
+- the exact closest 2024 graded-HgCdTe technical comparison remains **OPEN / UNPROVEN**;
+- the blind combined-physics detector challenge remains the next major device-physics validation.
 
 Detailed records:
 
 ```text
-REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md
-MANUSCRIPT_REV8_PRESERVATION_REPORT_2026-08-11.md
-numerics/rev8_review_regression.py
+REV9_ADVERSARIAL_CORRECTIONS_2026-08-11.md
+MANUSCRIPT_REV9_PRESERVATION_REPORT_2026-08-11.md
+PAPER_CLAIM_LEDGER_REV9_ADVERSARIAL_ADDENDUM_2026-08-11.md
+numerics/rev9_review_regression.py
 ```
 
 Adversarial reviews remain attack vectors rather than authority: accept, narrow, reject, or mark an objection out of scope only after independent checking.
 
 ## Priority and feasibility boundary
 
-Priority remains **OPEN / UNPROVEN**. The exact closest 2024 graded-HgCdTe paper still requires a full-text audit before submission-level priority/novelty language. Negative searches or related-paper audits are not novelty evidence.
+Priority remains **OPEN / UNPROVEN**. Spectral-depth probing of carrier transport, wavelength-dependent RF response, and finite-exponential/Hankel identification are all established lineages. The candidate distinction is the specific observable-corrected spectral-depth closure hierarchy plus cross-RF physical-law falsification.
 
-The manuscript also does not claim demonstrated experimental feasibility. The derived few-nanometer nonaffine-coordinate, approximately `10^-4 degree` irregular-phase, and baseline-model covariance requirements remain design/resource scales that require an eventual calibration architecture.
+The exact closest 2024 graded-HgCdTe paper still requires a direct technical full-text comparison before submission-level priority/novelty language. Negative searches, metadata, or related-paper audits are not novelty evidence.
+
+The manuscript also does not claim demonstrated experimental feasibility. The derived nonaffine-depth, irregular-phase, absolute common depth-scale, optical-kernel, composition-profile, and baseline-model covariance requirements remain calibration/modeling resources that require an eventual experimental demonstration.
 
 ## Required section spine
 
@@ -156,6 +164,7 @@ Hot-to-cold thermalization as a conventional second mode
 Source-shape evolution
 Relative amplitude calibration
 Known arbitrary source spacing and coordinate uncertainty
+Known arbitrary generation kernels
 Initial excess-energy invariance in an ideal graded gap
 Optical coordinate
 Transport stress
@@ -165,7 +174,7 @@ Measurement resource
 
 ## Historical baselines
 
-Anonymous Rev. 7, Rev. 6, Rev. 5, Rev. 4, and Rev. 3 snapshots remain preserved under `manuscript_history/` as provenance. They are not current sources and must not override Rev. 8. `MANUSCRIPT_DRAFT.tex` and `MANUSCRIPT_DRAFT.md` are older historical sources only.
+Anonymous Rev. 8, Rev. 7, Rev. 6, Rev. 5, Rev. 4, and Rev. 3 snapshots remain preserved under `manuscript_history/` as provenance. They are not current sources and must not override Rev. 9. `MANUSCRIPT_DRAFT.tex` and `MANUSCRIPT_DRAFT.md` are older historical sources only.
 
 A handoff summary is navigation, never manuscript source-of-truth.
 
