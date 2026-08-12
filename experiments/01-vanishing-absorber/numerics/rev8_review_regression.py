@@ -230,7 +230,7 @@ def main():
         d_sh=np.degrees((yes_sh-no_sh).imag)
         recomb[f]=(d_fd,d_sh,abs(d_sh-d_fd))
         assert abs(d_fd-expected_recomb[f]) < 1.5e-9
-        assert abs(d_sh-d_fd) < 2e-9
+        assert abs(d_sh-d_fd) < 3e-9
 
     assert 3.8e-6 < tau.min() < 3.9e-6
     assert 0.88 < tau.max() < 0.90

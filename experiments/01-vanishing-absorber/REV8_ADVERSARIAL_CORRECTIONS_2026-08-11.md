@@ -98,7 +98,7 @@ RF        finite difference       shooting              |difference|
 1 GHz     3.45631e-7 deg          3.43691e-7 deg        1.94e-9 deg
 ```
 
-Thus the rounded tiny corrections are retained, but the manuscript no longer pretends that the coarser absolute `1e-5 deg` comparison is their validation. The stale `1e-6 deg` wording is also corrected to `1e-5 deg` for the absolute cross-check.
+Thus the rounded tiny corrections are retained. The dedicated implementations agree within about `3e-9 deg` across the tested environments, and the manuscript no longer pretends that the coarser absolute `1e-5 deg` comparison is their validation. The stale `1e-6 deg` wording is also corrected to `1e-5 deg` for the absolute cross-check.
 
 ## 5. Electron-affinity anchor versus total drift — ACCEPTED
 

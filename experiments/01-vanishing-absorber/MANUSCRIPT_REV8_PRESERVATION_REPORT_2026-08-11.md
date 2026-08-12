@@ -23,7 +23,7 @@ base author/PDF metadata: Anonymous
 
 ```text
 candidate source: experiments/01-vanishing-absorber/MANUSCRIPT_REV8_ANON_2026-08-11.tex
-candidate SHA-256: 3f5307064b233f3976e037c541809557ee07fd712b1b5491734d9a3469035b97
+candidate SHA-256: 28eb3de954d50046f177e06e4b54eb1812414c03a1d53a933904f99fb3c49ba9
 candidate bytes: 81816
 candidate lines: 1023
 candidate compiled pages: 26
@@ -32,7 +32,7 @@ candidate subsections: 18
 candidate bibliography items: 19
 candidate equation environments: 107
 candidate author/PDF metadata: Anonymous
-candidate PDF SHA-256: 54e43bbd18cd841bd2138ef98b1568cb16df39589c85e85e4b66a015552fd544
+candidate PDF SHA-256: d0494ed34772edb380a6fca53d1d2dfd42b5013b17ea487b29e55ff320f851e4
 candidate PDF bytes: 508279
 ```
 
@@ -93,14 +93,14 @@ MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part07
 Snapshot invariants:
 
 ```text
-gzip SHA-256: b9c87ffa2dce8870a5716b106280a62f177425c562c44af59f452c8d425d0c67
-gzip bytes: 28085
-base64 characters: 37448
+gzip SHA-256: 44af67c407d07b6e7d60bbc6760f14cbe0f44cf763a74e972a9b3322a5d8d2f7
+gzip bytes: 28082
+base64 characters: 37444
 parts: 7
-part lengths: 6000 / 6000 / 6000 / 6000 / 6000 / 6000 / 1448 characters
+part lengths: 6000 / 6000 / 6000 / 6000 / 6000 / 6000 / 1444 characters
 ```
 
-Reconstruction must yield source SHA-256 `3f5307064b233f3976e037c541809557ee07fd712b1b5491734d9a3469035b97`, 81816 bytes, and 1023 lines.
+Reconstruction must yield source SHA-256 `28eb3de954d50046f177e06e4b54eb1812414c03a1d53a933904f99fb3c49ba9`, 81816 bytes, and 1023 lines.
 
 ## Compilation and visual QA
 
