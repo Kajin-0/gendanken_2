@@ -46,7 +46,9 @@ jobs:
       - name: Run privacy and preservation self-checks
         run: |
           python tools/check_privacy_policy.py
-          python tools/check_manuscript_preservation.py --candidate experiments/01-vanishing-absorber/MANUSCRIPT_REV7_ANON_2026-08-11.tex
+          python tools/check_manuscript_preservation.py \
+            --candidate experiments/01-vanishing-absorber/MANUSCRIPT_REV7_ANON_2026-08-11.tex \
+            --manifest experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.json
       - name: Commit pointer-only canonicalization
         run: |
           git config user.name 'github-actions[bot]'
