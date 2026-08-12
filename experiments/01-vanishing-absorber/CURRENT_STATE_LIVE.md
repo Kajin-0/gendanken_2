@@ -1,39 +1,39 @@
 # Current Live State — Experiment 01
 
 **Date:** 2026-08-11  
-**Status:** anonymous Rev. 6 manuscript + adversarial hardening.  
+**Status:** anonymous Rev. 7 manuscript + adversarial hardening.  
 **Priority:** unresolved; no novelty claim.
 
 This is the current state pointer. Historical state files and older manuscript snapshots must not override it.
 
 ## 1. Canonical manuscript
 
-The current approved manuscript baseline is the anonymous **22-page Rev. 6**:
+The current approved manuscript baseline is the anonymous **24-page Rev. 7**:
 
 ```text
 Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current
 ```
 
-Rev. 6 was first judged against the established Rev. 5 preservation baseline. Only after the manuscript-preservation and privacy gates passed was it made canonical.
+Rev. 7 was first judged against the established Rev. 6 preservation baseline in PR #11. Only after the manuscript-preservation and privacy gates passed was it made canonical.
 
 Exact source:
 
 ```text
-MANUSCRIPT_REV6_ANON_2026-08-11.tex
-SHA-256 = 2f8f6c22b64d89f7237a3053663fc500f97574c75a0c60489bb7f19925f112b4
-bytes = 67837
-lines = 924
-compiled pages = 22
+MANUSCRIPT_REV7_ANON_2026-08-11.tex
+SHA-256 = 9c7fa95eb714b32839760d47f7277aaad795589c44012e2324566b6e6cb9d2f8
+bytes = 75182
+lines = 963
+compiled pages = 24
 sections = 12
 subsections = 18
-bibliography items = 13
-equation environments = 99
+bibliography items = 19
+equation environments = 102
 author/PDF metadata = Anonymous
 ```
 
-Hash-verified recovery uses six Rev. 6 snapshot parts under `manuscript_history/` and `python tools/extract_manuscript_baseline.py`.
+Hash-verified recovery uses six Rev. 7 snapshot parts under `manuscript_history/` and `python tools/extract_manuscript_baseline.py`.
 
-Rev. 5, Rev. 4, Rev. 3, and `MANUSCRIPT_DRAFT.*` remain historical provenance only.
+Rev. 6, Rev. 5, Rev. 4, Rev. 3, and `MANUSCRIPT_DRAFT.*` remain historical provenance only.
 
 ## 2. Current paper hierarchy
 
@@ -65,102 +65,100 @@ W_m=d_md_{m+2}-d_{m+1}^2
 
 The four-color multiplier null is branch-independent. Physical inversion is not: `q=e^{-gamma h}` admits spatial-log aliases and therefore requires independent branch control.
 
-## 3. Rev. 6 adversarial corrections — canonical
+## 3. Rev. 7 adversarial corrections — canonical
 
-### Rank detection is not parameter resolution
+### Review discipline
 
-Rev. 6 explicitly separates:
+Adversarial reviews are **attack vectors, not authority**. For every criticism: independently verify the mathematical premise, physical regime, numerics, and scholarship; then accept, narrow, reject, or mark out-of-scope. Do not alter a correct result merely because a referee states an objection strongly, and do not defend the manuscript reflexively when an objection is valid.
 
-```text
-rank-two detection
--> rank-two parameter resolution
--> physical root-law discrimination
-```
+### Classical exponential-sum lineage
 
-For the recurrence product
+The one- and two-mode spatial identities belong to classical finite-exponential algebra. Rev. 7 explicitly cites Prony (1795), ESPRIT (1989), and the matrix-pencil method (1990). The manuscript does not claim those algebraic identities as new.
 
-```math
-P=q_1q_2=W_1/W_0,
-```
-
-the first-order perturbation is
-
-```math
-delta P=(delta W_1-P delta W_0)/W_0,
-```
-
-with the proper-complex variance carrying the shared-minor covariance. In the deliberately optimistic independent equal-significance limit,
-
-```math
-sigma_P/|P| ~ sqrt(2)/Z.
-```
-
-Thus `Z=3` on both minors still permits about **47.1%** relative product uncertainty. About `Z=14.1` per minor is needed for 10% product precision in that simplified limit. The recurrence sum `S=q_1+q_2` is also propagated, and individual roots become additionally ill-conditioned as `S^2-4P -> 0`.
-
-**Mandatory interpretation:** a statistically resolved second mode does not imply that the multiplier product, sum, or individual roots are precise enough for a physical-law test.
-
-### Algebraic branch immunity is not statistical robustness
-
-The Rev. 5 finite-boundary branch-free constraint remains:
-
-```math
-q_+q_-=e^{-wh/D}\in\mathbb R_{>0},
-```
-
-with RF independence required before logarithmic root recovery. Rev. 6 adds the explicit caveat that this algebraic branch immunity does not make `W_1/W_0` statistically robust when the underlying Hankel minors are small.
-
-### One-dimensional weighting field is an effective surrogate
-
-The Section 6 polynomial `E_w(z)` construction is an **effective one-dimensional observation-operator stress**. For a homogeneous dielectric with ideal infinite planar electrodes, the source-free weighting potential is linear and the weighting field is constant. Real finite-electrode nonuniformity generally requires multidimensional electrostatics, fringing fields, and lateral trajectories.
-
-The one-dimensional polynomial-annihilation theorem remains exact for its stated surrogate; do not generalize it into a generic finite-pixel geometry theorem.
-
-### HgCdTe force-partition sensitivity
-
-Rev. 6 exposes the largest remaining arbitrariness of the conditional HgCdTe stress through
-
-```math
-E_{drive}^{grad}(z;xi)=xi |(dE_g/dx)(dx/dz)|,
-0<xi<=1.
-```
-
-The previously reported finite-width benchmark is explicitly the `xi=1` baseline. `xi` is a sensitivity coordinate for the fraction of the total bandgap gradient assigned to the modeled carrier-driving band edge; it is **not** a claimed known HgCdTe band-offset fraction.
-
-A 100-MHz point-source finite-diffusion sweep using the same backward equation and entrance match gives approximately:
+The candidate distinction is narrower:
 
 ```text
-xi=0.3 -> v(zc)=8.379e3 m/s  -> C4 phase=-0.00740857 deg
-xi=0.6 -> v(zc)=1.9698e4 m/s -> C4 phase=-0.01822428 deg
-xi=1.0 -> v(zc)=3.4757e4 m/s -> C4 phase=-0.01245830 deg
+calibrated spectral generation depth
+-> Shockley-Ramo terminal-current observable
+-> spatial differencing
+-> classical finite-exponential model-order tests
+-> branch-controlled / branch-free RF physical root constraints
 ```
 
-The nonmonotonicity is retained rather than hidden: changing the force partition changes its competition with the fixed density-of-states term and the finite-frequency closure. Therefore the finite-width `-0.011978 degree` 100-MHz target and the nuisance/resource allocations normalized to it are **conditional `xi=1` design stresses**, not generic HgCdTe material specifications.
+Priority remains unproven.
 
-### OED prior-art boundary broadened
+### Literature-anchored HgCdTe force
 
-Rev. 6 adds adjacent primary OED work on commercial Ge PN photodiodes (2021) and bias-tunable Ge PIN photodiodes (2024). Those works use wavelength-dependent RF phase/amplitude as sensing observables. The present candidate distinction remains narrower:
+The headline HgCdTe stress no longer uses the free `xi=1` normalization. A 2025 electron-affinity relation gives
 
-```text
-calibrated spectral internal coordinate
--> Ramo-aware spatial differencing
--> minimal-color model order
--> cross-RF physical closure
+```math
+chi(x)=5.32+0.45x-E_g(x,300 K),
 ```
 
-This is a literature boundary, not a novelty claim.
+so the modeled electron-driving band-edge gradient is
 
-### Two-carrier and hierarchical statistics
+```math
+E_drive^grad(z)=|(dE_g/dx-0.45) dx/dz|.
+```
 
-Carrier labels are meaningful only after both modes are statistically resolved and continuously tracked. A DC root sign does not rescue an unresolved weak/degenerate mode.
+For the worked `x=0.55 -> 0.32` profile,
 
-The covariance `chi^2` statistic is a per-rung/conditional test. An experiment that first selects model order and then tests recovered roots using the same noisy data must control sequential-selection error; the current manuscript does not claim full hierarchical false-positive control.
+```math
+xi_e=1-0.45/(dE_g/dx) \simeq 0.666--0.695.
+```
 
-Detailed Rev. 6 records:
+The resulting finite-width gradient-sensitive closure excess is approximately:
 
 ```text
-REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md
-MANUSCRIPT_REV6_PRESERVATION_REPORT_2026-08-11.md
-numerics/rev6_review_regression.py
+100 MHz -> -0.0220167 deg
+500 MHz -> -0.1064448 deg
+1 GHz   -> -0.1942321 deg
+```
+
+The former constant-`xi` calculations remain sensitivity stresses, not the current headline material baseline.
+
+### Spatial recombination stress
+
+A nonlinear microscopic Auger law can be linearized around an operating point into a differential small-signal recombination rate. The relevant graded-material question is therefore whether that differential rate varies enough with depth to mimic the closure.
+
+Rev. 7 tests an intentionally steep profile anchored at `5 us`:
+
+```math
+tau_gr(z)=5 us exp[(E_g(z)-E_g(x=0.325))/(k_B T)].
+```
+
+With a transit-weighted matched homogeneous baseline, its additional closure shift is only about `3.8e-8 / 1.8e-7 / 3.5e-7 degree` at 100 / 500 / 1000 MHz in the specified model. This is **CHECKED / CONDITIONAL**, not a universal statement about high-injection, depleted, or arbitrary HgCdTe devices.
+
+### Observation operator and statistics
+
+The one-dimensional polynomial `E_w(z)` theory remains an exact effective axial surrogate. It is not a generic finite-pixel electrostatic theorem; real finite electrodes can produce both axial and lateral weighting structure.
+
+The hierarchy is structural model-selection logic. Per-rung covariance statistics remain conditional, and reusing the same noisy data for model-order selection and physical-root tests requires selection-aware error control in a full experiment.
+
+### Measurement architecture and propagated resources
+
+Rev. 7 specifies a plausible architecture using one common RF reference, interleaved wavelength acquisition, optical-power/reference-photodiode monitoring, one coherent DUT receiver chain, repeated reference wavelengths, and calibration of the non-common high-curvature spectral residual rather than absolute path delay. This is an architecture, **not demonstrated feasibility**.
+
+Key propagated scales are:
+
+```text
+conditioning optimum                         5.85 GHz
+K_D at 100 / 500 / 1000 MHz                33.95 / 7.57 / 4.75
+weighting-mode rank-two SNR                 108.6 / 81.2 / 70.5 dB
+five-color annihilation penalty             42.4 / 28.7 / 23.2 dB
+3-sigma current-step SNR                    90.9 / 82.9 / 77.1 / 71.4 dB (100/250/500/1000 MHz)
+nonaffine coordinate RMS                    4.54 / 4.55 / 4.51 nm
+irregular channel phase RMS                 1.88e-4 / 9.15e-4 / 1.71e-3 deg
+1-D weighting change for <10% target        0.757% / 0.881% / 1.961%
+same-optics homogeneous phase / excess      17.3% / 17.9% / 19.8%
+```
+
+Detailed Rev. 7 records:
+
+```text
+REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md
+MANUSCRIPT_REV7_PRESERVATION_REPORT_2026-08-11.md
+numerics/rev7_review_regression.py
 ```
 
 ## 4. Earlier Rev. 4/5 corrections remain mandatory
@@ -172,8 +170,8 @@ spatial-log aliasing / anti-alias bounds
 known-unequal-spacing candidate-root language
 singular s=kappa=0 weighting-field degree increase
 low-RF q_weight=1 versus q_transport->1 mode coalescence
-116.2 / 88.4 / 76.7 dB optimistic equal-mode separation scale
-46.3 / 32.3 / 26.4 dB five-color annihilation penalty
+108.6 / 81.2 / 70.5 dB optimistic equal-mode separation scale
+42.4 / 28.7 / 23.2 dB five-color annihilation penalty
 branch-free finite-boundary multiplier-product prerequisite
 two-root branch/permutation discipline
 confluent q->1 DC limit
@@ -195,19 +193,24 @@ mean generation depths = 2.5, 3.0, 3.5, 4.0 um
 wavelengths ~ 2.134651, 2.215042, 2.301173, 2.393907 um
 ```
 
-The finite-width gradient-sensitive four-color phase at the **conditional `xi=1` baseline** remains approximately:
+The current literature-anchored electron-driving force uses the 2025 electron-affinity relation and `xi_e~0.666--0.695`, not the historical `xi=1` headline normalization.
+
+The finite-width gradient-sensitive four-color phase is approximately:
 
 ```text
-100 MHz -> -0.011978 deg
-500 MHz -> -0.058727 deg
-1 GHz   -> -0.110405 deg
+100 MHz -> -0.0220167 deg
+250 MHz -> -0.0546244 deg
+500 MHz -> -0.1064448 deg
+1 GHz   -> -0.1942321 deg
 ```
 
-These are theory sensitivity coordinates, not calibrated predictions for a named detector.
+These remain conditional theory stresses, not calibrated predictions for a named detector.
 
-The same-optics homogeneous subtraction remains part of the covariance budget. Its nominal contribution is roughly 20.5--22.4% of the quoted excess; its uncertainty must be modeled rather than assumed zero.
+The same-optics homogeneous subtraction remains part of the covariance budget; its nominal phase is about **17.3--19.8%** of the quoted excess over 100 MHz--1 GHz and its uncertainty must be modeled rather than assumed zero.
 
-The existing few-nanometer nonaffine-coordinate and approximately `10^-4 degree` irregular-phase tolerances are derived design requirements under specified error stresses, not demonstrated experimental performance.
+The derived nonaffine-coordinate requirement is about **4.5 nm RMS**. The independent irregular spectral-phase stress is about **1.88e-4 degree at 100 MHz** (about 5.2 fs differential timing) and rises to `1.71e-3 degree` at 1 GHz. These are design requirements, not demonstrated calibration performance.
+
+The graded 5-us-anchored differential-recombination sensitivity changes the closure by less than `4e-7 degree` over the stated RF range in the specified model.
 
 ## 6. Separate realistic-geometry hardening result
 
@@ -222,9 +225,9 @@ PAPER_CLAIM_LEDGER_REV3_GEOMETRY_ADDENDUM_2026-08-11.md
 For the representative 75%-contact + 3 um depletion-like stress, the geometry/depletion excess over the planar same-optics baseline is approximately:
 
 ```text
-100 MHz -> -0.008841 deg = 0.738 x current 1-D gradient target
-500 MHz -> -0.045827 deg = 0.780 x target
-1 GHz   -> -0.095513 deg = 0.865 x target
+100 MHz -> -0.008841 deg = 0.402 x current Rev. 7 1-D gradient target
+500 MHz -> -0.045827 deg = 0.431 x target
+1 GHz   -> -0.095513 deg = 0.492 x target
 ```
 
 Therefore `four-color failure != transport-gradient identification`. The geometry result is **CHECKED / CONDITIONAL**, not a calibrated detector simulation or theorem for arbitrary geometry.
@@ -269,8 +272,9 @@ A new agent should read:
 4. `MANUSCRIPT_BASELINE.md`;
 5. `MANUSCRIPT_PRESERVATION_PROTOCOL.md`;
 6. this file;
-7. `REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
-8. `REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md` and Rev. 4 record as predecessor context;
+7. `REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
+8. `REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;
+9. `REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md` and Rev. 4 record as earlier context;
 9. `PAPER_CLAIM_LEDGER.md` and newer claim-ledger addenda;
 10. the exact extracted manuscript source when manuscript work is required.
 

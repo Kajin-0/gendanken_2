@@ -14,13 +14,13 @@ The active result is a **Shockley-Ramo-aware spectral-depth closure hierarchy fo
 
 ## Manuscript status
 
-The current approved baseline is the anonymous **22-page Rev. 6**:
+The current approved baseline is the anonymous **24-page Rev. 7**:
 
 ```text
 Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current
 ```
 
-Rev. 6 was validated against Rev. 5 before canonicalization. It preserves the complete paper spine and established theorem chain while addressing the latest hostile-review points: post-detection rank-two conditioning, interpretation of the 1-D weighting-field stress, HgCdTe force-partition sensitivity, adjacent OED prior art, two-carrier identifiability, and sequential statistical testing.
+Rev. 7 was validated against Rev. 6 before canonicalization. It preserves the complete paper spine and established theorem chain while adding classical Prony/ESPRIT/matrix-pencil attribution, a literature-anchored HgCdTe electron-driving band edge, a graded differential-recombination stress, propagated resource numbers, and a concrete but still unvalidated measurement architecture.
 
 The exact source is stored as a hash-verified anonymous snapshot. Do not use older `MANUSCRIPT_DRAFT.*` files or historical Rev. 3/4/5 snapshots as the current paper.
 
@@ -31,9 +31,10 @@ Start here:
 3. [`MANUSCRIPT_BASELINE.md`](experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md)
 4. [`MANUSCRIPT_PRESERVATION_PROTOCOL.md`](experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md)
 5. [`CURRENT_STATE_LIVE.md`](experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md)
-6. [`REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
-7. [`REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
-8. [`PAPER_CLAIM_LEDGER.md`](experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md)
+6. [`REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
+7. [`REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
+8. [`REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
+9. [`PAPER_CLAIM_LEDGER.md`](experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md)
 
 ## Manuscript safety rule
 
@@ -90,25 +91,29 @@ Algebraic branch immunity is not the same as statistical robustness.
 
 ## Low-RF observation-mode boundary
 
-The Rev. 5 result remains: a one-dimensional linear weighting-field surrogate supplies `q_weight=1`, while the transport multiplier approaches unity at low RF. The rank-two witness collapses quadratically as the modes coalesce. On the manuscript scale the optimistic equal-mode 3-sigma resolution requirement is approximately 116.2 / 88.4 / 76.7 dB at 100 / 500 / 1000 MHz, while the complementary five-color exact-annihilation penalty is approximately 46.3 / 32.3 / 26.4 dB.
+The Rev. 5 result remains: a one-dimensional linear weighting-field surrogate supplies `q_weight=1`, while the transport multiplier approaches unity at low RF. The rank-two witness collapses quadratically as the modes coalesce. On the manuscript scale the optimistic equal-mode 3-sigma resolution requirement is approximately 108.6 / 81.2 / 70.5 dB at 100 / 500 / 1000 MHz, while the complementary five-color exact-annihilation penalty is approximately 42.4 / 28.7 / 23.2 dB.
 
 The prescribed one-dimensional nonuniform weighting field is now explicitly an **effective observation-operator surrogate**. Real finite-electrode weighting fields generally require multidimensional electrostatics and lateral trajectories.
 
 ## HgCdTe status
 
-The manuscript's graded-HgCdTe calculation is a **conditional sensitivity/stress construction**, not a calibrated detector prediction. Rev. 6 introduces
+The manuscript's graded-HgCdTe calculation remains a **conditional sensitivity/stress construction**, not a calibrated detector prediction. Rev. 7 replaces the historical free `xi=1` headline force with the 2025 electron-affinity relation,
 
 ```math
-E_{drive}^{grad}(z;xi)=xi |(dE_g/dx)(dx/dz)|,  0<xi<=1,
+E_{drive}^{grad}(z)=|(dE_g/dx-0.45)(dx/dz)|,
 ```
 
-so the previously reported finite-width benchmark and nuisance/resource table are explicitly the conditional `xi=1` baseline rather than generic HgCdTe specifications. A 100-MHz point-source finite-diffusion sweep at `xi=0.3, 0.6, 1.0` demonstrates material dependence of the benchmark scale rather than hiding it.
+which gives a local electron-driving fraction `xi_e~0.666--0.695` over the worked profile. The finite-width gradient-sensitive phase is about `-0.0220 / -0.1064 / -0.1942 degree` at 100 / 500 / 1000 MHz.
+
+A deliberately steep spatial differential-recombination stress anchored to a 5-us low-injection scale shifts those closures by less than `4e-7 degree` over 0.1--1 GHz in the specified model. That is a conditional sensitivity result, not a general claim that Auger or recombination is negligible in all HgCdTe devices.
 
 The same-optics homogeneous subtraction remains part of the covariance budget; its uncertainty is a required modeling resource rather than assumed zero.
 
 ## Prior-art boundary
 
-The manuscript now includes adjacent primary OED work on commercial Ge PN photodiodes (2021) and bias-tunable Ge PIN photodiodes (2024). Those works use wavelength-dependent RF phase/amplitude as sensing observables. This manuscript's candidate distinction remains narrower: calibrated spectral channels are treated as an internal spatial sequence and subjected to algebraic color-count model-order and cross-RF transport-law nulls.
+Rev. 7 explicitly places the finite-exponential algebra in the classical Prony / ESPRIT / matrix-pencil lineage. It also retains adjacent primary OED work on commercial Ge PN photodiodes (2021) and bias-tunable Ge PIN photodiodes (2024). Those works use wavelength-dependent RF phase/amplitude as sensing observables.
+
+This manuscript's candidate distinction remains narrower: calibrated spectral channels are treated as an internal spatial sequence, mapped through Shockley--Ramo terminal current, and subjected to classical color-count model-order tests plus cross-RF physical root constraints.
 
 This is a boundary statement, **not** evidence of novelty. The exact closest 2024 graded-HgCdTe paper still requires a full-text audit before any submission-level priority claim.
 
@@ -120,4 +125,4 @@ The realistic finite-electrode/depletion study remains separately auditable in [
 
 The decisive remaining device-physics validation is **one self-consistent combined-physics synthetic detector challenge**, including simultaneous ordinary departures, with its synthetic spectral/RF currents analyzed blindly through the same hierarchy. This tests whether the method retains useful discriminating power when observable rank can exceed two.
 
-Experimental/calibration feasibility and the exact closest-source priority audit remain separate open fronts. Do not restart older exploratory branches merely because they remain in historical documentation; use `CURRENT_STATE_LIVE.md` and `AGENTS.md` for the live frontier.
+Experimental/calibration feasibility, the exact closest-source priority audit, and the blind combined-physics challenge remain separate open fronts. Adversarial referee reports are inputs to test, not instructions to follow automatically. Do not restart older exploratory branches merely because they remain in historical documentation; use `CURRENT_STATE_LIVE.md` and `AGENTS.md` for the live frontier.
