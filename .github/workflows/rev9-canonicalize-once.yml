@@ -1,0 +1,48 @@
+name: Canonicalize Rev9 once
+
+on:
+  push:
+    branches: [agent/canonicalize-rev9-anonymous]
+    paths: ['.github/workflows/rev9-canonicalize-once.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  canonicalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Apply fail-closed AGENTS Rev9 state update
+        run: python tools/rev9_agents_canonicalize_once.py
+      - name: Verify permanent extractor reconstructs exact Rev9
+        shell: bash
+        run: |
+          python tools/extract_manuscript_baseline.py
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path('experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.tex')
+          b=p.read_bytes()
+          assert hashlib.sha256(b).hexdigest()=='df62813f764f051684ec52162095a5103296b71da1549b4c96829b0168fa1ce4'
+          assert len(b)==92749 and len(b.decode().splitlines())==1086
+          print('PASS permanent extractor reconstructs exact anonymous Rev9')
+          PY
+      - name: Run privacy and preservation self-checks
+        shell: bash
+        run: |
+          python tools/check_privacy_policy.py
+          python tools/check_manuscript_preservation.py --candidate experiments/01-vanishing-absorber/MANUSCRIPT_REV9_ANON_2026-08-11.tex --base experiments/01-vanishing-absorber/MANUSCRIPT_REV9_ANON_2026-08-11.tex --manifest experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.json
+      - name: Commit AGENTS canonical state update
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add AGENTS.md
+          git diff --cached --quiet && { echo 'No AGENTS change to commit'; exit 0; }
+          git commit -m 'Update recovery protocol for anonymous Rev9'
+          git push
