@@ -67,8 +67,11 @@ jobs:
           out.write_bytes(source)
           print('PASS: exact Rev8 snapshot reconstructed', sh)
           PY
-      - name: Run Rev8 mathematical and numerical regression
-        run: python experiments/01-vanishing-absorber/numerics/rev8_review_regression.py
+      - name: Diagnose and run Rev8 mathematical and numerical regression
+        shell: bash
+        run: |
+          python -O experiments/01-vanishing-absorber/numerics/rev8_review_regression.py
+          python experiments/01-vanishing-absorber/numerics/rev8_review_regression.py
       - name: Commit exact Rev8 manuscript source
         shell: bash
         run: |
@@ -80,4 +83,4 @@ jobs:
           git commit -m 'Add exact anonymous Rev8 manuscript candidate'
           git push
 
-# retry after exact part02 repair
+# diagnostic retry after exact part02 repair
