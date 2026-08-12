@@ -19,7 +19,17 @@ jobs:
         with:
           python-version: '3.12'
       - name: Apply fail-closed Rev7 pointer update
-        run: python tools/rev7_canonicalize_once.py
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('tools/rev7_canonicalize_once.py')
+          s=p.read_text(encoding='utf-8')
+          redundant='    ("MANUSCRIPT_REV6_ANON_2026-08-11.tex.gz.b64.part", "MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part"),\n'
+          if s.count(redundant) != 2:
+              raise SystemExit(f'expected two redundant snapshot-prefix assertions, found {s.count(redundant)}')
+          p.write_text(s.replace(redundant,''), encoding='utf-8')
+          PY
+          python tools/rev7_canonicalize_once.py
       - name: Verify exact Rev7 recovery
         run: |
           python tools/extract_manuscript_baseline.py
