@@ -1,0 +1,73 @@
+name: Build Rev7 candidate once
+
+on:
+  push:
+    paths:
+      - '.github/workflows/rev7-build-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Reconstruct exact anonymous Rev7 candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import base64, gzip, hashlib
+
+          exp = Path('experiments/01-vanishing-absorber')
+          parts = sorted((exp / 'manuscript_history').glob('MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part*'))
+          if len(parts) != 6:
+              raise SystemExit(f'expected 6 Rev7 snapshot parts, found {len(parts)}')
+          encoded = ''.join(p.read_text(encoding='ascii').strip() for p in parts)
+          packed = base64.b64decode(encoded, validate=True)
+          packed_hash = hashlib.sha256(packed).hexdigest()
+          expected_packed = '8056b7cf995e1d2985a6c5aaf6d6016c8d2714dcfe3e1e2d391fb0169716038b'
+          if packed_hash != expected_packed:
+              raise SystemExit(f'Rev7 gzip hash mismatch: {packed_hash}')
+          source = gzip.decompress(packed)
+          source_hash = hashlib.sha256(source).hexdigest()
+          expected_source = '9c7fa95eb714b32839760d47f7277aaad795589c44012e2324566b6e6cb9d2f8'
+          if source_hash != expected_source:
+              raise SystemExit(f'Rev7 source hash mismatch: {source_hash}')
+          text = source.decode('utf-8')
+          if len(text.splitlines()) != 963:
+              raise SystemExit('Rev7 line-count mismatch')
+          if r'\author{Anonymous}' not in text or 'pdfauthor={Anonymous}' not in text:
+              raise SystemExit('Rev7 anonymous author metadata missing')
+          out = exp / 'MANUSCRIPT_REV7_ANON_2026-08-11.tex'
+          out.write_bytes(source)
+          print('Rev7 source verified:', source_hash)
+          PY
+
+      - name: Run Rev7 mathematical regression
+        run: |
+          python -m pip install --disable-pip-version-check -q numpy scipy
+          python experiments/01-vanishing-absorber/numerics/rev7_review_regression.py
+
+      - name: Commit exact candidate source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add experiments/01-vanishing-absorber/MANUSCRIPT_REV7_ANON_2026-08-11.tex
+          if git diff --cached --quiet; then
+            echo 'Exact Rev7 candidate already committed.'
+            exit 0
+          fi
+          git commit -m 'Add exact anonymous Rev7 manuscript candidate'
+          git push
