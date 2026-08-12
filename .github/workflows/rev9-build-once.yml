@@ -1,0 +1,92 @@
+name: Build Rev9 candidate once
+
+on:
+  push:
+    branches:
+      - agent/rev9-adversarial-surgical
+    paths:
+      - '.github/workflows/rev9-build-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct and verify exact anonymous Rev9
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import base64, gzip, hashlib, shutil, subprocess
+
+          root=Path('experiments/01-vanishing-absorber')
+          rev8=root/'MANUSCRIPT_REV8_ANON_2026-08-11.tex'
+          rev9=root/'MANUSCRIPT_REV9_ANON_2026-08-11.tex'
+          carrier=root/'.rev9_source_patch.gz.b64'
+
+          b8=rev8.read_bytes()
+          h8=hashlib.sha256(b8).hexdigest()
+          if h8!='28eb3de954d50046f177e06e4b54eb1812414c03a1d53a933904f99fb3c49ba9':
+              raise SystemExit(f'Rev8 predecessor hash mismatch: {h8}')
+
+          encoded=''.join(carrier.read_text(encoding='ascii').split())
+          packed=base64.b64decode(encoded,validate=True)
+          if hashlib.sha256(packed).hexdigest()!='516906719e0214048fba6b3e5bf8566b196f1d3534a3603a8d635ba80d738347':
+              raise SystemExit('compressed patch hash mismatch')
+          patch=gzip.decompress(packed)
+          if hashlib.sha256(patch).hexdigest()!='1617f8e54cc8ad27d17325bcaddf80debc0ab5ea5a3d9e603de067ec5bf00200':
+              raise SystemExit('patch hash mismatch')
+
+          shutil.copyfile(rev8,rev9)
+          p=Path('/tmp/rev8_to_rev9.patch')
+          p.write_bytes(patch)
+          subprocess.run(['patch','-p0','-i',str(p)],check=True)
+
+          b=rev9.read_bytes()
+          h=hashlib.sha256(b).hexdigest()
+          if h!='df62813f764f051684ec52162095a5103296b71da1549b4c96829b0168fa1ce4':
+              raise SystemExit(f'Rev9 source hash mismatch: {h}')
+          text=b.decode('utf-8')
+          if len(b)!=92749 or len(text.splitlines())!=1086:
+              raise SystemExit('Rev9 source size/line mismatch')
+          if r'\author{Anonymous}' not in text or 'pdfauthor={Anonymous}' not in text:
+              raise SystemExit('anonymous metadata invariant failed')
+
+          packed9=gzip.compress(b,compresslevel=9,mtime=0)
+          encoded9=base64.b64encode(packed9).decode('ascii')
+          chunks=[encoded9[i:i+6000] for i in range(0,len(encoded9),6000)]
+          if len(chunks)!=7:
+              raise SystemExit(f'expected 7 Rev9 snapshot parts, got {len(chunks)}')
+          hist=root/'manuscript_history'
+          for i,s in enumerate(chunks,1):
+              (hist/f'MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part{i:02d}').write_text(s+'\n',encoding='ascii')
+          print('PASS: exact anonymous Rev9 reconstructed')
+          print('source_sha256',h)
+          print('source_bytes',len(b),'source_lines',len(text.splitlines()))
+          print('gzip_sha256',hashlib.sha256(packed9).hexdigest())
+          print('gzip_bytes',len(packed9),'base64_chars',len(encoded9))
+          print('part_lengths',[len(x) for x in chunks])
+          for i,s in enumerate(chunks,1):
+              print(f'part{i:02d}_sha256',hashlib.sha256(s.encode('ascii')).hexdigest())
+          PY
+      - name: Commit exact source and snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            experiments/01-vanishing-absorber/MANUSCRIPT_REV9_ANON_2026-08-11.tex \
+            experiments/01-vanishing-absorber/manuscript_history/MANUSCRIPT_REV9_ANON_2026-08-11.tex.gz.b64.part*
+          git diff --cached --quiet && { echo 'No Rev9 source change to commit'; exit 0; }
+          git commit -m 'Add exact anonymous Rev9 manuscript candidate'
+          git push
