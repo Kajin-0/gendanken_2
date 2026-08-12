@@ -14,15 +14,15 @@ The active result is a **Shockley-Ramo-aware spectral-depth closure hierarchy fo
 
 ## Manuscript status
 
-The current approved baseline is the anonymous **26-page Rev. 8**:
+The current approved baseline is the anonymous **28-page Rev. 9**:
 
 ```text
 Spectral-depth closure tests for falsifying photocarrier transport from Shockley--Ramo current
 ```
 
-Rev. 8 was validated against Rev. 7 before canonicalization. The central four-color theorem and branch-qualified inversion remain intact. The main new correction is a genuine six-color algebra fix: the unconditional rank-at-most-two model-order null is the full `3x3` Hankel determinant, because the older minor closure also vanished spuriously at `d2=0`.
+Rev. 9 was validated against Rev. 8 before canonicalization. The central four-color theorem, branch-qualified inversion, corrected Hankel rank-at-most-two null, weighting-field treatment, and Rev. 8 numerical fixes remain intact.
 
-Rev. 8 also adds the missing noisy rank-two determinant test, reconciles weighting-field numerics, validates the tiny recombination subtraction differentially, separates composition-band-edge force from total drift, quantifies DOS/effective-mass sensitivity, and states the nearly lossless two-carrier DC degeneracy.
+The main new mathematical correction is the explicit **confluent/repeated-root rank-two branch**. Hankel rank two is now classified by the recurrence discriminant before physical root interpretation. Rev. 9 also separates common depth-scale calibration from closure calibration, adds a kernel-aware homogeneous one-mode null for independently calibrated arbitrary generation kernels, treats composition as a shared optical/transport nuisance, broadens the spectral-depth prior-art boundary, and adds free DC physical-admissibility checks.
 
 The exact source is stored as a hash-verified anonymous seven-part snapshot. Older revisions remain provenance only.
 
@@ -33,9 +33,9 @@ Start here:
 3. [`MANUSCRIPT_BASELINE.md`](experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md)
 4. [`MANUSCRIPT_PRESERVATION_PROTOCOL.md`](experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md)
 5. [`CURRENT_STATE_LIVE.md`](experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md)
-6. [`REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
-7. [`REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
-8. [`REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
+6. [`REV9_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV9_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
+7. [`PAPER_CLAIM_LEDGER_REV9_ADVERSARIAL_ADDENDUM_2026-08-11.md`](experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER_REV9_ADVERSARIAL_ADDENDUM_2026-08-11.md)
+8. [`REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md`](experiments/01-vanishing-absorber/REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md)
 9. [`PAPER_CLAIM_LEDGER.md`](experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md)
 
 ## Manuscript safety rule
@@ -48,80 +48,103 @@ A new theorem, simulation, review response, or correction must not silently comp
 
 ```text
 wavelength
--> calibrated internal source coordinate
--> Shockley-Ramo-aware spatial differencing
--> four-color one-mode closure in q-space
+-> calibrated internal source coordinate / known optical kernels
+-> Shockley-Ramo-aware terminal-current observable
+-> four-color translated-kernel one-mode closure, or kernel-aware one-mode consistency test
 -> branch-controlled continuous-root recovery
 -> six-color Hankel rank-at-most-two determinant test if rank one fails
--> rank-two parameter-resolution check if the determinant null passes
+-> recurrence-parameter resolution
+-> distinct-root versus confluent/repeated-root classification
 -> higher finite-rank tests if rank two fails
 -> branch-free RF root invariants where available
--> branch/permutation-controlled physical root laws
+-> multiplicity/branch/permutation-controlled physical root laws
 -> mechanism assignment only after ordinary alternatives are tested
 ```
 
-For the minimal homogeneous one-carrier planar terminal-current model,
+For the minimal homogeneous one-carrier planar terminal-current model with rigidly translated source kernels,
 
 ```math
 \boxed{(J_2-J_1)^2=(J_1-J_0)(J_3-J_2).}
 ```
 
+For independently calibrated arbitrary kernels `g_m(z)`, define
+
+```math
+M_m(r)=\int g_m(z)e^{rz}\,dz,
+```
+
+so the homogeneous one-mode model is `J_m=A+B M_m(r)`. Four channels still overdetermine the same `r`; the geometric identity is the translated-kernel special case.
+
 The multiplier-level null is branch-independent. Physical inversion from `q` to `gamma` and then to `D,w,kappa` requires spatial unwrapping; a sufficient principal-branch condition is `|Im gamma| h < pi`.
 
-## Rev. 8 rank-two model-order boundary
+## Rev. 9 rank-two model-order boundary
 
-The six-color rung now separates **existence of a second mode**, **rank-at-most-two model order**, and **parameter resolution**.
-
-For five first differences, the unconditional rank-at-most-two null is
+For five first differences, the unconditional rank-at-most-two null remains
 
 ```math
 det(H)=0,
 ```
 
-for the `3x3` Hankel matrix of `d0...d4`. The older identity obeys
+for the `3x3` Hankel matrix of `d0...d4`. The Rev. 8 correction remains mandatory: `W1^2-W0W2=-d2 det(H)`, so the scalar minor identity is not the unconditional model-order null.
+
+After rank two is accepted and recurrence parameters `S,P` are resolved, Rev. 9 requires
 
 ```math
-W1^2-W0W2=-d2 det(H),
+Delta_q=S^2-4P.
 ```
-
-so it is not an unconditional model-order null. Adjacent minors remain useful after the determinant test for separation, conditioning, and recurrence recovery.
 
 The live hierarchy is:
 
 ```text
 rank one rejected
 -> rank at most two tested
--> two-mode parameters resolved
--> physical root law tested
+-> recurrence parameters resolved
+-> Delta_q != 0: distinct-root rank two
+   Delta_q = 0 with nonzero rank-two contrast: confluent rank two, d_m=(A+Bm)q^m
+-> multiplicity-aware physical root law tested
 ```
 
-The Rev. 6 covariance result for recurrence parameters remains mandatory: statistically detecting a second mode does not guarantee accurate roots.
+A repeated recurrence root is not automatically unphysical; a second-order physical model can itself become confluent. Near exact rank one the determinant statistic is nonregular, so null-constrained simulation/bootstrap calibration is preferred when first-order covariance linearization fails.
+
+## Calibration boundary
+
+A common spatial-coordinate rescaling cancels from the model-order closure but not from recovered dimensional coefficients. If `h_cal=c h`,
+
+```math
+D_cal=c^2D,\qquad w_cal=cw,\qquad kappa_cal=kappa.
+```
+
+Thus the few-nanometer nonaffine-depth requirement and the absolute/common depth-scale requirement are separate calibration budgets.
 
 ## Low-RF observation-mode boundary
 
-The Rev. 5 result remains: a one-dimensional linear weighting-field surrogate supplies `q_weight=1`, while the transport multiplier approaches unity at low RF. The rank-two witness collapses quadratically as the modes coalesce. On the manuscript scale the optimistic equal-mode 3-sigma resolution requirement is approximately 108.6 / 81.2 / 70.5 dB at 100 / 500 / 1000 MHz, while the complementary five-color exact-annihilation penalty is approximately 42.4 / 28.7 / 23.2 dB.
-
-The prescribed one-dimensional nonuniform weighting field is now explicitly an **effective observation-operator surrogate**. Real finite-electrode weighting fields generally require multidimensional electrostatics and lateral trajectories.
+The earlier low-RF result remains: a one-dimensional linear weighting-field surrogate supplies `q_weight=1`, while the transport multiplier approaches unity at low RF. The rank-two witness collapses quadratically as the modes coalesce. The prescribed one-dimensional nonuniform weighting field remains an **effective observation-operator surrogate**; real finite-electrode weighting fields generally require multidimensional electrostatics and lateral trajectories.
 
 ## HgCdTe status
 
 The graded-HgCdTe calculation remains a **conditional composition-band-edge transport stress**, not a calibrated detector prediction. The 2025 electron-affinity relation anchors the composition-induced electron band-edge force and gives `xi_e~0.666--0.695`; it does **not** anchor the omitted self-consistent electrostatic field or total carrier drift.
 
-The finite-width phase remains about `-0.0220 / -0.1064 / -0.1942 degree` at 100 / 500 / 1000 MHz.
+The finite-width phase remains about `-0.0220 / -0.1064 / -0.1942 degree` at 100 / 500 / 1000 MHz. The DOS/effective-mass term remains a significant model uncertainty. The local Peclet numbers are only about `0.48` per 0.5-um source step and `0.75` over the 0.79-um kernel width, so the high-Peclet formula is asymptotic intuition rather than the quantitative explanation of the worked result.
 
-Rev. 8 exposes the retained DOS/effective-mass approximation as a significant uncertainty: `|v_DOS|/v_field` is about 8.8--18.3% across the layer, and an `alpha_DOS` sensitivity moves the worked closure appreciably. A deliberately steep 5-us-anchored differential-recombination stress remains negligible on the gradient-signal scale, with the tiny subtraction cross-checked independently to about `3e-9 degree` between implementations across tested environments.
+The same composition profile enters both the wavelength-to-depth/kernels and the modeled composition-induced transport force. Experimental inference must therefore constrain that profile independently or propagate it as a shared nuisance.
 
-The corrected 1% weighting-field false phases are `0.002947 / 0.012140 / 0.010007 degree` at 100 / 500 / 1000 MHz. The allowable variation for a 10%-of-target contamination is `0.757% / 0.881% / 1.961%`.
-
-The same-optics homogeneous subtraction remains part of the covariance budget rather than assumed exact.
+The cited electron-affinity paper's quoted `67.1%` average partition and approximately `±1%` two-thirds comparison are tied to its stated `0.15<x<0.45` averaging interval; the explicit formula is still evaluated over the worked profile reaching `x=0.55` without extending that quoted validation range by assumption.
 
 ## Prior-art boundary
 
-Rev. 7 explicitly places the finite-exponential algebra in the classical Prony / ESPRIT / matrix-pencil lineage. It also retains adjacent primary OED work on commercial Ge PN photodiodes (2021) and bias-tunable Ge PIN photodiodes (2024). Those works use wavelength-dependent RF phase/amplitude as sensing observables.
+Spectral-depth carrier probing itself is established. Classical surface-photovoltage/diffusion-length and photodiode spectral-response work already used wavelength-dependent absorption/generation depth to infer or model carrier transport. Wavelength-dependent RF phase and finite-exponential/Hankel model identification are also established lineages.
 
-This manuscript's candidate distinction remains narrower: calibrated spectral channels are treated as an internal spatial sequence, mapped through Shockley--Ramo terminal current, and subjected to classical color-count model-order tests plus cross-RF physical root constraints.
+This manuscript's candidate distinction is therefore narrower:
 
-This is a boundary statement, **not** evidence of novelty. The exact closest 2024 graded-HgCdTe paper still requires a full-text audit before any submission-level priority claim.
+```text
+calibrated spectral/internal-depth channels
+-> Shockley-Ramo terminal-current observable
+-> spatial differencing / finite-rank model-order closure
+-> branch-controlled or branch-free RF root constraints
+-> cross-RF physical-law falsification
+```
+
+This is a boundary statement, **not** evidence of novelty. The exact closest 2024 graded-HgCdTe paper still requires a direct technical full-text comparison before any submission-level priority claim.
 
 ## Separate geometry hardening result
 
@@ -129,6 +152,6 @@ The realistic finite-electrode/depletion study remains separately auditable in [
 
 ## Next scientific attack
 
-The decisive remaining device-physics validation is **one self-consistent combined-physics synthetic detector challenge**, including simultaneous ordinary departures, with its synthetic spectral/RF currents analyzed blindly through the same hierarchy. This tests whether the method retains useful discriminating power when observable rank can exceed two.
+The decisive remaining device-physics validation is **one self-consistent combined-physics synthetic detector challenge**, including simultaneous ordinary departures, with its synthetic spectral/RF currents analyzed blindly through the same hierarchy. The hierarchy should be allowed to return `rank>2, mechanism unresolved`; failing safely is part of the validation.
 
 Experimental/calibration feasibility, the exact closest-source priority audit, and the blind combined-physics challenge remain separate open fronts. Adversarial referee reports are inputs to test, not instructions to follow automatically. Do not restart older exploratory branches merely because they remain in historical documentation; use `CURRENT_STATE_LIVE.md` and `AGENTS.md` for the live frontier.
