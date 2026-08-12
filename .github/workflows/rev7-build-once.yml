@@ -18,37 +18,78 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Locate corrupted Rev7 snapshot block
+      - name: Repair one-byte snapshot transport error and reconstruct exact anonymous Rev7
+        shell: bash
         run: |
+          set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          import hashlib
-          p=Path('experiments/01-vanishing-absorber/manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part04')
-          s=p.read_text(encoding='ascii').strip()
+          import base64, gzip, hashlib
+
+          exp=Path('experiments/01-vanishing-absorber')
+          hist=exp/'manuscript_history'
+          p4=hist/'MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part04'
+          s=p4.read_text(encoding='ascii').strip()
+          if len(s)!=6000:
+              raise SystemExit(f'part04 normalized length mismatch: {len(s)}')
+          if s[2701] not in ('s','S'):
+              raise SystemExit(f'unexpected part04 byte at 2701: {s[2701]!r}')
+          s=s[:2701]+'S'+s[2702:]
+          p4.write_text(s+'\n',encoding='ascii')
+
+          parts=sorted(hist.glob('MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part*'))
           expected=[
-            '7c08fdd5ea217fa114a9a65f277bbe1f8802935d38716b6cb6e51b6e24126a93',
-            'cd88e048d3083d4b4953108110211a5eda9119e5e0a336c8e4dc455eab6c7950',
-            '75dd8a80daf12e603a99d97147a716fff6679b69bf8e0401e1ae681e19ae0292',
-            'bf9eec201a8a8f6f742eac06f59ab0a2b60f2d3c7faa3dd0d1f2690b24319d7d',
-            'be1ba9a8aabc87a678766a9aeca534a96f1007f99dd05d06d526a1996926355d',
-            'ee80d75e427d583d6c5aae56b272f036f940d9684a26c298dd784236113ea0d3',
-            '1c251c1bc0ddf70efb468232017c289c622d909114dc8705c70040b6bcec7199',
-            '96ae453194082554b965b1b6d6471ad81d0c70bbf3f012c2862aded7f964877a',
-            'cf892a58684ddd554be7a087974b76d8aafc76e4450a919b9feaf18180172a1b',
-            'b771ed505b4f433889f4aafe20b63c57b92b1f973c4f7a1a7673349e11b8b767',
-            'ee2d29c60c906e733b95c3cb2f8381f11eb3b5acbc21eb0a8c52656d168bdead',
-            'f7c3a0d782f8704493c6dfc25a3e5c61d12e02db132c8982856059befabb3f87',
+            ('0608124ac12d6982cff680cfcfa6c68533493fd9e5b5accb025087c3cadc694e',6000),
+            ('0f4e5504ba6c73c5475f3dfb398c96be373206c4c3ca5abe40e7b660305f2354',6000),
+            ('772c743b6602d73d4fa54a036037b0f6b52b4e17994946df3e4cc058ac00bf64',6000),
+            ('1739d7ebfda2271be14f77ca2199f79b25b5e591da31c4950c0f6ce76ac100e3',6000),
+            ('4490c158930e0e85080785dad069a68c7b28c633064d23ce57ea976ae9cbcb79',6000),
+            ('67e1a8d56b6b09b1fb9383974278684635ee6af55a4b62554671e3df1c085855',4704),
           ]
-          print('length',len(s))
-          bad=[]
-          for i,want in enumerate(expected):
-            chunk=s[i*500:(i+1)*500]
-            got=hashlib.sha256(chunk.encode()).hexdigest()
-            print(i*500, got, 'OK' if got==want else 'BAD')
-            if got!=want:
-              bad.append(i)
-              print('BAD_CHUNK_REPR=',repr(chunk))
-          if not bad:
-            raise SystemExit('No 500-character mismatch found')
-          print('bad_blocks',bad)
+          if len(parts)!=6:
+              raise SystemExit(f'expected 6 snapshot parts, found {len(parts)}')
+          chunks=[]
+          for p,(want,n) in zip(parts,expected):
+              chunk=p.read_text(encoding='ascii').strip()
+              got=hashlib.sha256(chunk.encode('ascii')).hexdigest()
+              print(p.name,len(chunk),got)
+              if len(chunk)!=n or got!=want:
+                  raise SystemExit(f'snapshot part mismatch: {p.name}')
+              chunks.append(chunk)
+
+          packed=base64.b64decode(''.join(chunks),validate=True)
+          gh=hashlib.sha256(packed).hexdigest()
+          expected_gh='8056b7cf995e1d2985a6c5aaf6d6016c8d2714dcfe3e1e2d391fb0169716038b'
+          if gh!=expected_gh:
+              raise SystemExit(f'Rev7 gzip hash mismatch: {gh}')
+          source=gzip.decompress(packed)
+          sh=hashlib.sha256(source).hexdigest()
+          expected_sh='9c7fa95eb714b32839760d47f7277aaad795589c44012e2324566b6e6cb9d2f8'
+          if sh!=expected_sh:
+              raise SystemExit(f'Rev7 source hash mismatch: {sh}')
+          text=source.decode('utf-8')
+          if len(text.splitlines())!=963:
+              raise SystemExit(f'Rev7 line-count mismatch: {len(text.splitlines())}')
+          if r'\author{Anonymous}' not in text or 'pdfauthor={Anonymous}' not in text:
+              raise SystemExit('Rev7 anonymous metadata missing')
+          (exp/'MANUSCRIPT_REV7_ANON_2026-08-11.tex').write_bytes(source)
+          print('Rev7 source verified:',sh)
           PY
+      - name: Run Rev7 mathematical regression
+        run: |
+          python -m pip install --disable-pip-version-check -q numpy scipy
+          python experiments/01-vanishing-absorber/numerics/rev7_review_regression.py
+      - name: Commit repaired snapshot byte and exact candidate source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add experiments/01-vanishing-absorber/manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part04
+          git add experiments/01-vanishing-absorber/MANUSCRIPT_REV7_ANON_2026-08-11.tex
+          if git diff --cached --quiet; then
+            echo 'Exact Rev7 snapshot/source already committed.'
+            exit 0
+          fi
+          git commit -m 'Add exact anonymous Rev7 manuscript candidate'
+          git push
