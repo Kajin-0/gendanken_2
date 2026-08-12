@@ -48,8 +48,7 @@ jobs:
               got=hashlib.sha256(s.encode('ascii')).hexdigest()
               if got!=want: raise SystemExit(f'old part {i} hash mismatch: {got} != {want}')
               old_chunks.append(s)
-          old_encoded=''.join(old_chunks)
-          old_packed=base64.b64decode(old_encoded,validate=True)
+          old_packed=base64.b64decode(''.join(old_chunks),validate=True)
           if hashlib.sha256(old_packed).hexdigest()!='b9c87ffa2dce8870a5716b106280a62f177425c562c44af59f452c8d425d0c67':
               raise SystemExit('old gzip hash mismatch')
           old_source=gzip.decompress(old_packed)
@@ -73,8 +72,8 @@ jobs:
 
           packed=gzip.compress(source,compresslevel=9,mtime=0)
           packed_hash=hashlib.sha256(packed).hexdigest()
-          if packed_hash!='575ca298b17aff3f68fd41a4196662c47f8abcf65938f7d4f4b79591bcfe7655':
-              raise SystemExit(f'final gzip hash mismatch {packed_hash}')
+          if packed_hash!='44af67c407d07b6e7d60bbc6760f14cbe0f44cf763a74e972a9b3322a5d8d2f7':
+              raise SystemExit(f'runner gzip hash mismatch {packed_hash}')
           if len(packed)!=28082:
               raise SystemExit(f'final gzip size mismatch {len(packed)}')
           encoded=base64.b64encode(packed).decode('ascii')
@@ -82,7 +81,7 @@ jobs:
               raise SystemExit(f'final base64 length mismatch {len(encoded)}')
           new_parts=[encoded[i:i+6000] for i in range(0,len(encoded),6000)]
           expected_new_hashes=[
-            '09830ddc9bc63076393bdcee18d845fe351501d4f4efd0827969e49b73c90a04',
+            'bb215c6185f44c6587ba9ae0b03ff471c4c3ba29c03a86815e9e5ef9406cf59c',
             '114aa44e0b2c71997f5e0d11772be388d0a43486c3312998ba305c9f0a82d72b',
             '66507ded348a55c6bf94d372e4c11923da99f2654b950f86a6add37dbe4b0414',
             '56a68ec8bf92bfd955dd3f1375edc3cce67c8c1f41ea1924abac2df668ea59f4',
@@ -120,7 +119,7 @@ jobs:
           replacements={
             '3f5307064b233f3976e037c541809557ee07fd712b1b5491734d9a3469035b97':'28eb3de954d50046f177e06e4b54eb1812414c03a1d53a933904f99fb3c49ba9',
             '54e43bbd18cd841bd2138ef98b1568cb16df39589c85e85e4b66a015552fd544':'d0494ed34772edb380a6fca53d1d2dfd42b5013b17ea487b29e55ff320f851e4',
-            'b9c87ffa2dce8870a5716b106280a62f177425c562c44af59f452c8d425d0c67':'575ca298b17aff3f68fd41a4196662c47f8abcf65938f7d4f4b79591bcfe7655',
+            'b9c87ffa2dce8870a5716b106280a62f177425c562c44af59f452c8d425d0c67':'44af67c407d07b6e7d60bbc6760f14cbe0f44cf763a74e972a9b3322a5d8d2f7',
             'gzip bytes: 28085':'gzip bytes: 28082',
             'base64 characters: 37448':'base64 characters: 37444',
             '6000 / 6000 / 6000 / 6000 / 6000 / 6000 / 1448 characters':'6000 / 6000 / 6000 / 6000 / 6000 / 6000 / 1444 characters',
@@ -130,7 +129,7 @@ jobs:
               ps=ps.replace(oldv,newv)
           report.write_text(ps,encoding='utf-8')
 
-          print('PASS: final exact Rev8 source and deterministic snapshot derived')
+          print('PASS: final exact Rev8 source and runner-standard snapshot derived')
           print('source',source_hash,'gzip',packed_hash)
           PY
       - name: Run final Rev8 mathematical and numerical regression
