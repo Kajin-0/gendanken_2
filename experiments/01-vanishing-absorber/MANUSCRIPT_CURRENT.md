@@ -1,28 +1,29 @@
 # Current Manuscript Pointer
 
-**Canonical manuscript status:** the current approved manuscript baseline is the anonymous **24-page Rev. 7**, validated against Rev. 5 before canonicalization.
+**Canonical manuscript status:** the current approved manuscript baseline is the anonymous **26-page Rev. 8**, validated against Rev. 7 before canonicalization.
 
 **Canonical author metadata:** `Anonymous`.
 
-Do **not** use `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, or historical Rev. 3/4/5 snapshots as the current source. Do not restore identifying author information from historical files, git history, account/profile information, public sources, or memory.
+Do **not** use `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, or historical Rev. 3/4/5/6/7 snapshots as the current source. Do not restore identifying author information from historical files, git history, account/profile information, public sources, or memory.
 
 ## Exact source
 
 The canonical source is:
 
 ```text
-MANUSCRIPT_REV7_ANON_2026-08-11.tex
+MANUSCRIPT_REV8_ANON_2026-08-11.tex
 ```
 
-and is preserved in six repository snapshot parts:
+and is preserved in seven repository snapshot parts:
 
 ```text
-manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part01
-manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part02
-manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part03
-manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part04
-manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part05
-manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part06
+manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part01
+manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part02
+manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part03
+manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part04
+manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part05
+manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part06
+manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part07
 ```
 
 Recover the exact editable baseline only with:
@@ -34,11 +35,11 @@ python tools/extract_manuscript_baseline.py
 The extractor refuses to write a working source unless the snapshot hash, source hash, line count, and anonymous author metadata match:
 
 ```text
-source SHA-256 = 9c7fa95eb714b32839760d47f7277aaad795589c44012e2324566b6e6cb9d2f8
-gzip SHA-256   = 8056b7cf995e1d2985a6c5aaf6d6016c8d2714dcfe3e1e2d391fb0169716038b
-bytes = 75182
-lines = 963
-pages in matching compiled PDF = 24
+source SHA-256 = 28eb3de954d50046f177e06e4b54eb1812414c03a1d53a933904f99fb3c49ba9
+gzip SHA-256   = 44af67c407d07b6e7d60bbc6760f14cbe0f44cf763a74e972a9b3322a5d8d2f7
+bytes = 81816
+lines = 1023
+pages in matching compiled PDF = 26
 author = Anonymous
 PDF author metadata = Anonymous
 ```
@@ -51,49 +52,47 @@ experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.tex
 
 Never reconstruct it from handoff notes or overwrite it with an older source.
 
-## Rev. 7 status
+## Rev. 8 status
 
-Rev. 7 is a surgical response to the post-Rev. 6 hostile review. The report was treated as an attack list rather than authority: objections were independently checked and only scientifically useful corrections were adopted.
+Rev. 8 is a surgical correction of canonical Rev. 7. The hostile review was not followed mechanically: one theorem-level defect was accepted, several physical/numerical criticisms were narrowed and repaired, and suggestions that did not survive independent checking were not adopted as stated.
 
-The core hierarchy is unchanged:
+The critical model-order lock is:
 
 ```text
-rank detection
--> parameter resolution
+rank one rejected
+-> rank-at-most-two determinant null tested
+-> two-mode parameters resolved
 -> physical root-law discrimination
 ```
 
-Rev. 7 adds the following locks:
+For five first differences `d0...d4`, define the `3x3` Hankel matrix `H`. The unconditional six-color rank-at-most-two null is `det(H)=0`. The older scalar minor identity is no longer a general null because
 
-- classical Prony/ESPRIT/matrix-pencil algebra is cited explicitly and is **not** claimed as new;
-- the proposed distinction is the calibrated spectral-depth + Shockley--Ramo + spatial-difference + classical finite-rank + cross-RF physical-constraint construction;
-- the HgCdTe worked stress now uses the electron-affinity-anchored driving band edge `E_drive^grad=|(dE_g/dx-0.45) dx/dz|`, giving `xi_e~0.666--0.695`, instead of using `xi=1` as the headline baseline;
-- the finite-width closure excess is about `-0.0220167 / -0.1064448 / -0.1942321 degree` at 100 / 500 / 1000 MHz;
-- an intentionally steep 5-us-anchored spatial differential-recombination stress changes the closure by less than `4e-7 degree` over 0.1--1 GHz in this conditional model; do not generalize that result to high-injection, depleted, or arbitrary devices;
-- the 1-D weighting-field theorem remains an effective axial observation-operator surrogate, not a generic finite-electrode electrostatic theorem;
-- the hierarchy is structural model-selection logic; per-rung significance does not constitute a globally calibrated sequential test;
-- a common-RF-reference, interleaved-wavelength, reference-photodiode/coherent-receiver architecture is specified as a plausible measurement path, but its residual calibration performance is not demonstrated.
-
-Propagated design scales now include:
-
-```text
-conditioning optimum:             5.85 GHz
-3-sigma current-step SNR:         90.9 / 82.9 / 77.1 / 71.4 dB at 100/250/500/1000 MHz
-nonaffine coordinate RMS:         ~4.5 nm at 100--1000 MHz
-irregular channel phase RMS:      1.88e-4 / 9.15e-4 / 1.71e-3 deg at 100/500/1000 MHz
-1-D weighting change for <10%:    0.757% / 0.881% / 1.961%
-same-optics baseline/excess:      17.3% / 17.9% / 19.8%
+```math
+W1^2-W0W2 = -d2 det(H),
 ```
+
+so it also vanishes spuriously when `d2=0`. Adjacent minors remain valid conditioning and parameter-recovery objects when nondegenerate.
+
+Rev. 8 additionally locks in:
+
+- a noise-aware covariance test for the complex Hankel determinant before rank-two root recovery;
+- corrected finite-kernel weighting-field values: `0.002947 / 0.012140 / 0.010007 degree` false phase for 1% variation at 100 / 500 / 1000 MHz and allowable 10%-target variations `0.757% / 0.881% / 1.961%`;
+- a dedicated differential recombination cross-check agreeing within about `3e-9 degree` across tested numerical environments;
+- explicit separation of the electron-affinity-anchored composition-band-edge force from unknown self-consistent electrostatic drift;
+- DOS/effective-mass sensitivity: `|v_DOS|/v_field ~= 8.8--18.3%` and a nontrivial `alpha_DOS` closure sweep;
+- the nearly lossless two-carrier DC degeneracy, for which two or more nonzero RF frequencies may be required.
+
+The worked finite-width HgCdTe closure remains approximately `-0.0220167 / -0.1064448 / -0.1942321 degree` at 100 / 500 / 1000 MHz. It remains a conditional composition-band-edge transport stress, not a calibrated device prediction.
 
 Detailed audit:
 
 ```text
-REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md
-MANUSCRIPT_REV7_PRESERVATION_REPORT_2026-08-11.md
-numerics/rev7_review_regression.py
+REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md
+MANUSCRIPT_REV8_PRESERVATION_REPORT_2026-08-11.md
+numerics/rev8_review_regression.py
 ```
 
-Rev. 6 and earlier revisions remain preserved historical provenance.
+Rev. 7 and earlier revisions remain preserved historical provenance.
 
 ## Priority and feasibility blockers
 
@@ -129,10 +128,11 @@ Before any manuscript edit, read:
 4. `MANUSCRIPT_PRESERVATION_PROTOCOL.md`;
 5. this file;
 6. `CURRENT_STATE_LIVE.md`;
-7. `REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
-8. `REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;
-9. `REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md` and Rev. 4 record as earlier context;
-10. the exact extracted current source.
+7. `REV8_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
+8. `REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md` as predecessor context;
+9. `REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`;
+10. `REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md` and Rev. 4 record as earlier context;
+11. the exact extracted current source.
 
 **Preserve first; integrate second; rewrite only when explicitly requested by the user.**
 
