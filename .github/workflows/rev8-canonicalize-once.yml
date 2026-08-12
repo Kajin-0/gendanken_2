@@ -21,7 +21,19 @@ jobs:
         with:
           python-version: '3.12'
       - name: Apply fail-closed Rev8 recovery update
-        run: python tools/rev8_canonicalize_once.py
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('tools/rev8_canonicalize_once.py')
+          s=p.read_text(encoding='utf-8')
+          old="('manuscript_history/MANUSCRIPT_REV7_ANON_2026-08-11.tex.gz.b64.part06',"
+          new="('manuscript_history/MANUSCRIPT_REV8_ANON_2026-08-11.tex.gz.b64.part06',"
+          if s.count(old) != 2:
+              raise SystemExit(f'expected two stale part06 assertions, found {s.count(old)}')
+          p.write_text(s.replace(old,new),encoding='utf-8')
+          PY
+          python tools/rev8_canonicalize_once.py
       - name: Verify permanent extractor reconstructs exact Rev8
         shell: bash
         run: |
