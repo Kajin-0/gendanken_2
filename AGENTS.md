@@ -2,7 +2,7 @@
 
 **Repository:** `Kajin-0/gendanken_2`  
 **Active experiment:** `experiments/01-vanishing-absorber/`  
-**Current mode:** **anonymous Rev. 6 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is a conditional scaling/stress example; priority remains unproven**
+**Current mode:** **anonymous Rev. 7 working theory manuscript + adversarial revision; strongest result is a Shockley-Ramo-aware spectral-depth closure hierarchy for falsifying photocarrier transport models; HgCdTe is a conditional scaling/stress example; priority remains unproven**
 
 Read this file first.
 
@@ -18,7 +18,7 @@ If identity disclosure is explicitly requested, follow `PRIVACY_PROTOCOL.md` and
 
 The repository follows the physics rather than a predetermined paper. Failed conjectures, observable corrections, numerical corrections, counterexamples, and prior-art collisions are part of the result.
 
-**A working manuscript exists. The canonical manuscript is the anonymous 22-page Rev. 6, validated against the previous Rev. 5 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**
+**A working manuscript exists. The canonical manuscript is the anonymous 24-page Rev. 7, validated against the previous Rev. 6 baseline before canonicalization. It is not yet submission-ready; the exact closest-source priority audit and experimental-feasibility attack remain open.**
 
 ## CRITICAL: manuscript preservation lock
 
@@ -35,7 +35,7 @@ Before any manuscript edit, read these files in order:
 
 **Do not treat `MANUSCRIPT_DRAFT.tex`, `MANUSCRIPT_DRAFT.md`, the older `CURRENT_STATE.md`, the historical Rev. 3 snapshot, this file's summaries, or an agent handoff as a substitute for the exact current manuscript.**
 
-The immutable Rev. 6 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
+The immutable Rev. 7 source is stored inside the repository as hash-verified split snapshot parts under `experiments/01-vanishing-absorber/manuscript_history/`. The extractor verifies both the compressed snapshot and decompressed source before writing `MANUSCRIPT_CURRENT.tex`.
 
 The mandatory default is:
 
@@ -53,6 +53,8 @@ Current manuscript/state sources:
 - `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 - `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
+- `experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+- `experiments/01-vanishing-absorber/MANUSCRIPT_REV7_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 - `experiments/01-vanishing-absorber/MANUSCRIPT_REV6_PRESERVATION_REPORT_2026-08-11.md`
 - `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
@@ -111,7 +113,7 @@ Use explicitly:
 
 A negative literature search is not novelty evidence.
 
-**REV. 6 submission blockers:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.
+**REV. 7 submission blockers:** the closest-looking 2024 graded-HgCdTe paper has verified bibliographic metadata but its exact full text has not yet been lawfully recovered and audited. That exact-source audit remains OPEN and blocks submission-level priority/novelty claims. Related-paper searches do not substitute for reading it.
 
 Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focused primary-source audit and claim-ledger update.
 
@@ -124,8 +126,9 @@ Do not use `first`, `new fundamental`, `universal`, `novel`, etc. without a focu
 3. `experiments/01-vanishing-absorber/MANUSCRIPT_BASELINE.md`
 4. `experiments/01-vanishing-absorber/MANUSCRIPT_PRESERVATION_PROTOCOL.md`
 5. `experiments/01-vanishing-absorber/CURRENT_STATE_LIVE.md`
-6. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
-6. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+6. `experiments/01-vanishing-absorber/REV7_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+7. `experiments/01-vanishing-absorber/REV6_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
+8. `experiments/01-vanishing-absorber/REV5_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 7. `experiments/01-vanishing-absorber/REV4_ADVERSARIAL_CORRECTIONS_2026-08-11.md`
 8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER.md`
 8. `experiments/01-vanishing-absorber/PAPER_CLAIM_LEDGER_REV3_GEOMETRY_ADDENDUM_2026-08-11.md` when present
@@ -298,6 +301,48 @@ J_p=-E_0z-\frac{E_1}{2}z^2.
 A linear field therefore requires **third differences / six colors** for exact polynomial annihilation at the singular DC/no-recombination point. Do not apply the five-color theorem there.
 
 **REV. 6 interpretation lock:** prescribed one-dimensional `E_w(z)` is an effective observation-operator surrogate, not a generic self-consistent finite-pixel electrostatic geometry. Real finite-electrode nonuniformity generally requires multidimensional electrostatics and lateral trajectories.
+
+---
+
+## 6A. Rev. 7 scientific locks — never regress
+
+### Adversarial-review discipline
+
+A hostile referee report is **evidence and an attack vector, not authority or a task list**. Independently determine whether each objection is mathematically correct, physically relevant in the stated regime, numerically supported, and within scope. Then explicitly classify it as accepted, narrowed, rejected, useful stress test, or out-of-scope. Do not overcorrect a valid but limited criticism, and do not defend an invalid manuscript claim merely because it is already in the paper.
+
+### Classical finite-exponential attribution
+
+The geometric one-mode identity and two-mode Hankel/Casoratian identities belong to the classical Prony/ESPRIT/matrix-pencil family. Never imply that those algebraic identities themselves are novel. The candidate distinction is the detector-specific construction that creates and physically constrains the spatial sequence.
+
+### HgCdTe force baseline
+
+The current headline worked stress uses the 2025 electron-affinity relation
+
+```math
+chi(x)=5.32+0.45x-E_g(x,300 K)
+```
+
+and therefore
+
+```math
+E_{drive}^{grad}=|(dE_g/dx-0.45)dx/dz|,
+```
+
+with `xi_e~0.666--0.695` for the worked `x=0.55 -> 0.32` profile. The historical `xi=1` calculation is a sensitivity case, not the canonical Rev. 7 HgCdTe baseline.
+
+Canonical finite-width gradient-sensitive phase stresses are approximately `-0.0220167 / -0.1064448 / -0.1942321 degree` at 100 / 500 / 1000 MHz.
+
+### Recombination interpretation
+
+Do not repeat the false statement that nonlinear Auger recombination is intrinsically incompatible with a first-order small-signal `kappa`. A nonlinear recombination law can be linearized around an operating point; the graded-material issue is the resulting spatially varying differential rate.
+
+The Rev. 7 deliberately steep 5-us-anchored recombination profile changes the closure by less than `4e-7 degree` over 0.1--1 GHz in the specified conditional stress. This does **not** establish negligible recombination for high injection, depletion, every composition profile, or every detector architecture.
+
+### Current experimental/resource scales
+
+Use the Rev. 7 propagated scales, not Rev. 5/6 values: conditioning optimum about `5.85 GHz`; optimistic weighting-mode rank-two separation about `108.6 / 81.2 / 70.5 dB`; five-color penalty about `42.4 / 28.7 / 23.2 dB`; 3-sigma current-step SNR `90.9 / 82.9 / 77.1 / 71.4 dB` at 100/250/500/1000 MHz; nonaffine coordinate RMS about `4.5 nm`; irregular phase RMS `1.88e-4 / 9.15e-4 / 1.71e-3 degree` at 100/500/1000 MHz.
+
+The proposed common-reference/interleaved-wavelength coherent architecture is **not demonstrated feasibility**. Residual spectral-phase/depth and baseline-covariance performance remain open experimental requirements.
 
 ---
 
