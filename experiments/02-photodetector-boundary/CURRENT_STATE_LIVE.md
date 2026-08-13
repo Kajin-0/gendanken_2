@@ -1,7 +1,7 @@
 # Current Live State — Experiment 02
 
 **Date:** 2026-08-12  
-**Status:** exploratory first-principles theory; microscopic interaction through decision and cyclic reset now mapped in minimal models  
+**Status:** exploratory first-principles theory; microscopic interaction through decision and source-inclusive resource closure now mapped in minimal models  
 **Priority:** unassessed; no novelty claim
 
 This is the current state pointer. `CLAIM_LEDGER.md` is the epistemic boundary; `RESEARCH_LOG.md` preserves chronology. Detailed derivations are authoritative for algebra.
@@ -19,6 +19,7 @@ Active derivations:
 9. `UNKNOWN_ARRIVAL_TIME.md`
 10. `TASK_SPECIFIC_DETECTIVITY.md`
 11. `RESET_AND_CYCLE_CLOSURE.md`
+12. `SOURCE_INCLUSIVE_THERMODYNAMIC_CLOSURE.md`
 
 ---
 
@@ -30,9 +31,9 @@ The starting question was:
 
 The current answer is:
 
-> **There is no universal atom-count transition. Detection is a relation among the optical task, the matter and optical interaction architecture, the accessible output process, temporal/noise constraints, and the observer's decision criterion. Under explicit constraints, minimum effective atom numbers, optical depths, rate ratios, event energies, or reset resources emerge.**
+> **There is no universal atom-count transition. Detection is a relation among the optical task, the matter and optical interaction architecture, the accessible output process, temporal/noise constraints, and the observer's decision criterion. Under explicit constraints, minimum effective atom numbers, optical depths, rate ratios, event energies, or reset resources emerge. Thermodynamic cost is a separate property of the complete information/resource cycle, not of `detection` by itself.**
 
-The detector boundary has therefore migrated from a boundary in matter to a boundary in **measurement performance**.
+The detector boundary has therefore migrated from a boundary in matter to a boundary in **measurement performance and resource conversion**.
 
 ---
 
@@ -358,7 +359,7 @@ Therefore detector comparison is generally a **partial order**, not a universal 
 
 ---
 
-## 12. Thermodynamics re-enters at cycle closure, not necessarily acquisition
+## 12. Thermodynamic closure correction — detector memory is not the whole information source
 
 The naive statement
 
@@ -383,25 +384,112 @@ Under ideal degenerate-memory, quasistatic isothermal erasure assumptions, exact
 
 `k_BT ln2` is only the unbiased `p=1/2` case.
 
-If the detector exports a copy of its record to an external register `R`, local reset can in principle use that side information; the relevant uncertainty becomes `H(M|R)`. For a perfect external copy, `H(M|R)=0`.
+Exported side information can remove a universal local reset cost.
+
+But the earlier stronger statement
+
+```text
+detector + controller + all record memories reset
+and no detector-side record survives
+-> event entropy must be erased
+```
+
+is also **too strong**.
+
+A surviving optical/source variable can act as side information and permit reversible uncomputation:
+
+```math
+\boxed{
+|x\rangle_S|0\rangle_M
+\to
+|x\rangle_S|x\rangle_M
+\to
+|x\rangle_S|0\rangle_M.
+}
+```
+
+Therefore:
+
+```text
+detector-memory closure
+!=
+source-inclusive informational closure.
+```
+
+A genuine erasure theorem must include every usable system correlated with the optical hypothesis, including the source/reference variable itself.
+
+Detailed correction: `SOURCE_INCLUSIVE_THERMODYNAMIC_CLOSURE.md`.
+
+---
+
+## 13. Source-inclusive closure still does not imply positive external detector work
+
+Suppose all information about the optical hypothesis really is discarded inside a declared source-inclusive boundary.
+
+Even then the detected optical field, a detector bias, pump, or another nonequilibrium reservoir can supply usable free energy.
+
+Define schematically
+
+```math
+\Delta F_{\rm opt}^{\rm avail}
+=F(\rho_{\rm opt,in})-F(\rho_{\rm opt,out}).
+```
+
+A useful organizing balance is
+
+```math
+\boxed{
+W_{\rm ext}
+\gtrsim
+W_{\rm info}
+-\Delta F_{\rm opt}^{\rm avail}
+-\Delta F_{\rm other}^{\rm avail}.
+}
+```
+
+The exact inequality/free-energy functional is regime dependent; this is not asserted as a universal single-shot theorem.
+
+The robust conclusion is:
+
+```text
+source-inclusive erasure
+!=
+positive externally supplied detector work.
+```
+
+If optical or pump free energy pays the cost, `W_ext` can vanish or become negative.
+
+The relevant optical resource is available nonequilibrium free energy, not raw photon energy `h nu` automatically.
+
+---
+
+## 14. Continuous reversible transduction removes the binary-memory assumption
+
+A detector need not latch a binary bit.
+
+It may instead create a reversible continuous correlation between the optical state and a pointer/output coordinate.
+
+If that correlation is later uncomputed using retained side information, no logical erasure occurs.
+
+If the output is retained, it is the record.
+
+If the output is eventually discarded, the thermodynamic cost attaches at that discard stage.
 
 Thus:
 
 ```text
-local reusable detector
+photodetection
 !=
-mandatory local k_BT ln2 heat per click.
+mandatory binary memory formation
+!=
+mandatory logical erasure.
 ```
 
-The entropy has been exported rather than erased.
-
-A nontrivial Landauer-like requirement reappears only after **global cycle closure** is imposed: detector, controller, and all record memories must return to standard states and no event copy may remain outside the accounting boundary.
-
-Then the event-record entropy must eventually be removed somewhere under the stated thermodynamic assumptions.
+The strongest thermodynamic object is **discarded information conditional on retained information, together with the free-energy resources consumed by the full process**.
 
 ---
 
-## 13. Stability versus reset-speed control range
+## 15. Stability versus reset-speed control range remains conditional
 
 For an activated record with spontaneous rate
 
@@ -436,11 +524,11 @@ k_BT\ln\left[
 
 when positive and when the same activated-rate model applies.
 
-This is a **control-range / stability-speed tradeoff**, not a universal dissipated-work bound.
+This remains a **control-range / stability-speed tradeoff**, not a universal dissipated-work bound.
 
 ---
 
-## 14. Current strongest conceptual structure
+## 16. Current strongest conceptual structure
 
 ```text
 material constitution
@@ -451,41 +539,64 @@ material constitution
 -> persistent record
 -> complete conditional output process
 -> timing / nuisance parameters
--> optimum likelihood decision
+-> optimum decision
 -> error probability
--> local reset / record export
--> optional global cycle closure.
+-> record export / local reset
+-> source-inclusive information accounting
+-> nonequilibrium free-energy accounting if full cyclic thermodynamics is imposed.
 ```
 
-Every attempted universal scalar has so far exposed an omitted resource:
+Every attempted universal scalar/bound has exposed an omitted resource:
 
 ```text
-atom count       -> coupling/time and mode overlap
-peak efficiency  -> bandwidth
-more atoms       -> optical escape
-more absorber    -> downstream loss and dark events
-fixed-noise SNR  -> hypothesis-dependent noise statistics
-D*               -> temporal/spectral task structure
-known-time score -> timing-search complexity
-local reset heat -> exported record capacity.
+atom count             -> coupling/time and mode overlap
+peak efficiency        -> bandwidth
+more atoms             -> optical escape
+more absorber          -> downstream loss and dark events
+fixed-noise SNR        -> hypothesis-dependent noise statistics
+D*                     -> temporal/spectral task structure
+known-time score       -> timing-search complexity
+local reset heat       -> exported record capacity
+memory-global erasure  -> surviving source/side information
+positive cycle work    -> optical/pump nonequilibrium free energy.
 ```
+
+The recurring pattern is now itself a major result of the Gedanken experiment:
+
+> **A proposed detector limit is not meaningful until every alternate resource capable of carrying the same information, time, coupling, or free-energy burden is either bounded or included in the accounting ledger.**
 
 ---
 
-## 15. Current frontier
+## 17. Current frontier
 
-The next strongest lower-bound attack is global thermodynamic accounting.
+The next attack is no longer a simple Landauer calculation.
 
-Test whether the cycle-closure result survives when allowing
+Ask whether the current resource ledger is complete enough to support any useful architecture-independent resource-conversion theorem.
+
+Try to break it with
 
 ```text
-correlations with the optical/environmental input as side information;
-work extraction from the detected field;
-nonequilibrium reservoirs and active pumps;
-continuous reversible transduction with no explicit binary memory;
-exported records that are never reset inside the accounting horizon.
+coherence / optical phase-reference resources;
+spatial mode count and parallel channels;
+clock / synchronization resources;
+finite control precision;
+catalysts that return locally unchanged but accumulate correlations;
+finite-size / single-shot work fluctuations;
+causal latency and maximum power constraints.
 ```
 
-The goal is to identify the **weakest precise closure assumptions** under which any nontrivial universal detector-cycle bound survives.
+Candidate target:
+
+```text
+optical-state distinguishability
++ available nonequilibrium free energy
++ interaction time / bandwidth
++ side information
++ exported-record capacity
++ decision error
+-> achievable detector performance region.
+```
+
+Do not propose a theorem until adversarial counterexamples to this ledger are exhausted.
 
 A focused primary-source prior-art audit remains mandatory before novelty language.
