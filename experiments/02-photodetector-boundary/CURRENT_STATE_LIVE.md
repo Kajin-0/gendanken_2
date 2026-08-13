@@ -1,10 +1,10 @@
 # Current Live State — Experiment 02
 
 **Date:** 2026-08-12  
-**Status:** exploratory first-principles theory; conceptual boundary formulation  
+**Status:** exploratory first-principles theory; first constrained lower-bound result  
 **Priority:** unassessed; no novelty claim
 
-This file is the current state pointer for Experiment 02. `RESEARCH_LOG.md` preserves chronology; `CLAIM_LEDGER.md` is the epistemic boundary.
+This file is the current state pointer for Experiment 02. `RESEARCH_LOG.md` preserves chronology; `CLAIM_LEDGER.md` is the epistemic boundary. The detailed first lower-bound derivation is in `INTERACTION_ACTION_LOWER_BOUND.md`.
 
 ## 1. Current question
 
@@ -99,7 +99,7 @@ Then
 
 even if the optical absorption probability was unity.
 
-This is enough to kill absorption as a sufficient definition of detection.
+This kills absorption as a sufficient definition of detection.
 
 ### B. Nonabsorbing interaction, useful detector
 
@@ -113,7 +113,7 @@ Suppose a photon survives a dispersive interaction while changing a material poi
 
 If `|D_0>` and `|D_1>` are distinguishable, the material carries information about photon presence without requiring photon destruction.
 
-This is enough to kill absorption as a necessary definition of detection.
+This kills absorption as a necessary definition of detection.
 
 Together:
 
@@ -226,7 +226,7 @@ gain makes the encoded distinction robust to later noise and readout limitations
 
 A deterministic downstream channel cannot create information about the input variable that was absent from its input state. This is consistent with data-processing logic.
 
-Gain can nevertheless greatly improve *practical* observability by mapping a microscopic distinction onto macroscopically separated output distributions.
+Gain can nevertheless greatly improve practical observability by mapping a microscopic distinction onto macroscopically separated output distributions.
 
 ## 7. Irreversibility / decoherence boundary
 
@@ -244,51 +244,253 @@ microscopic interaction
 
 The word "irreversible" is therefore operational unless a more specific open-system model is stated.
 
-## 8. Current deepest open problem
+## 8. First lower-bound attack — deposited energy fails
 
-The strongest next attack is to impose explicit performance constraints:
+A universal lower bound on **final detector energy change** does not follow from distinguishability alone.
 
-```text
-binary or photon-number input ensemble
-allowed detector Hilbert space / architecture
-operating temperature T
-observation interval tau_obs
-required retention tau_rec
-false-positive / false-negative limits
-target discrimination error epsilon
-reset requirement and cycle time
-allowed outgoing optical disturbance
+A two-state pointer can have degenerate bare states,
+
+```math
+H_D=0,
 ```
 
-Then ask:
+while a photon-conditioned unitary rotates
 
-> **What is the minimum physical resource required to generate and retain the required distinguishability?**
-
-Candidate resources to test rather than assume include
-
-```text
-energy deposition / dissipation
-entropy production
-measurement back-action
-pointer-state separation
-metastable barrier height
-number of controlled degrees of freedom
-bandwidth-time resource
-reset work
+```math
+|0\rangle\rightarrow|1\rangle.
 ```
 
-A universal lower bound may fail if the resource accounting is incomplete; counterexamples are expected and must be preserved.
+The two final detector states are orthogonal although
 
-## 9. Immediate next steps
+```math
+\Delta\langle H_D\rangle=0.
+```
 
-1. Formalize the detector as a quantum channel from the optical hypothesis to an accessible material record and identify which statements follow purely from distinguishability/data processing.
-2. Introduce finite temperature and dark-event statistics so the boundary becomes an explicit decision problem rather than `D>0` only.
-3. Test candidate thermodynamic lower bounds adversarially, especially any naive `k_B T ln 2` per detected photon assertion.
-4. Only after the abstract boundary is stable, map it back onto concrete semiconductor architectures: photoconductor, photovoltaic diode, APD/SPAD, bolometer, and nonabsorptive/dispersive detector.
-5. Perform a focused prior-art audit before treating any formulation as a distinct research contribution.
+Thus target discrimination does not by itself imply a nonzero final energy separation or a universal deposited/dissipated energy per detection event.
 
-## 10. Current one-line result
+The interaction still requires a finite Hamiltonian action. This motivates the surviving bound below.
 
-> **A photodetector is not a phase of matter reached at a critical atom count; operationally it is a physical system that maps an optical hypothesis into a sufficiently distinguishable, sufficiently persistent, accessible record.**
+## 9. First surviving bound — interaction action
 
-Status: **DERIVED ORGANIZING STATEMENT / PRIORITY UNASSESSED.**
+Restrict first to a pure detector state and conditional unitary evolution. Write
+
+```math
+H_0(t)=H_D(t),
+\qquad
+H_1(t)=H_D(t)+V(t).
+```
+
+After removing the common `H_D` evolution, the relative detector state is generated by `V_I(t)`.
+
+Define the branch angle
+
+```math
+\theta
+=
+\arccos
+\left|
+\langle D^{(0)}|D^{(1)}\rangle
+\right|.
+```
+
+For pure states,
+
+```math
+\mathcal D_D=\sin\theta.
+```
+
+Therefore `P_e<=epsilon` requires
+
+```math
+\theta\ge\arcsin(1-2\epsilon).
+```
+
+The pure-state geometric speed limit gives
+
+```math
+\theta(\tau)
+\le
+\frac{1}{\hbar}
+\int_0^\tau
+\Delta V_I(t)\,dt.
+```
+
+Define
+
+```math
+\mathcal A_\Delta
+\equiv
+\int_0^\tau \Delta V_I(t)dt.
+```
+
+Then
+
+```math
+\boxed{
+\mathcal A_\Delta
+\ge
+\hbar\arcsin(1-2\epsilon).
+}
+```
+
+For perfect discrimination,
+
+```math
+\boxed{
+\mathcal A_\Delta\ge\frac{\pi\hbar}{2}.
+}
+```
+
+A degenerate qubit pointer driven by
+
+```math
+V=(\hbar\Omega/2)\sigma_y,
+\qquad
+\Omega\tau=\pi
+```
+
+saturates the bound while its final bare-energy change remains zero.
+
+**Interpretation:** distinguishability need not cost final-state energy separation, but finite-time branch separation requires finite differential interaction action in this model.
+
+This result is a direct specialization of established quantum-state geometry / speed-limit physics, not a novelty claim.
+
+## 10. Conditional atom-count bound recovered
+
+Now impose the missing microscopic constraint that the original question lacked.
+
+Let
+
+```math
+V_I(t)=\sum_{j=1}^{N}v_j(t)
+```
+
+and define each local term's half spectral range
+
+```math
+g_j(t)
+=
+\frac{\lambda_{\max}[v_j(t)]-\lambda_{\min}[v_j(t)]}{2}.
+```
+
+If
+
+```math
+a_j\equiv\int_0^\tau g_j(t)dt
+```
+
+is the maximum action supplied by atom/local degree `j`, then
+
+```math
+\boxed{
+\sum_{j=1}^{N}a_j
+\ge
+\hbar\arcsin(1-2\epsilon).
+}
+```
+
+If every local constituent satisfies
+
+```math
+a_j\le a_{\max},
+```
+
+then
+
+```math
+\boxed{
+N
+\ge
+\left\lceil
+\frac{\hbar\arcsin(1-2\epsilon)}{a_{\max}}
+\right\rceil.
+}
+```
+
+This is the first mathematically clean recovery of an atom-count threshold in the experiment.
+
+Crucially, it is **conditional**, not ontological:
+
+> atom count becomes a lower-bound coordinate only after the maximum photon-conditioned action available from each atom is bounded.
+
+One strongly coupled atom can satisfy the requirement; many weakly coupled atoms can collectively satisfy the same action budget.
+
+## 11. Acquisition and retention separate
+
+The action bound constrains record **creation**, not record lifetime.
+
+For an activated bistable pointer with
+
+```math
+\Gamma_d
+=\nu_0e^{-E_b/k_BT},
+```
+
+requiring dark-switch probability `p_d` during `tau_rec` gives
+
+```math
+\boxed{
+E_b
+\ge
+k_BT
+\ln\left[
+\frac{\nu_0\tau_{\rm rec}}
+{-\ln(1-p_d)}
+\right].
+}
+```
+
+For `p_d<<1`,
+
+```math
+E_b
+\gtrsim
+k_BT\ln(\nu_0\tau_{\rm rec}/p_d).
+```
+
+This is **CONDITIONAL** on activated Arrhenius escape. It is not a universal thermodynamic detector bound.
+
+The emerging decomposition is therefore
+
+```text
+ACQUISITION -> interaction action
+RETENTION   -> architecture-specific stability / dark-event suppression
+RESET       -> separate logical/thermodynamic accounting
+```
+
+This is currently a stronger organizing structure than `energy per detected photon`.
+
+## 12. Current deepest open problem
+
+The immediate frontier has sharpened from a generic minimum-resource question to a microscopic optical-coupling test:
+
+> **Can the interaction-action bound be rewritten in measurable photon--matter quantities such as dipole matrix element, oscillator strength, cross section, optical depth, mode volume, dwell time, or cooperativity?**
+
+The natural next model is
+
+```text
+one photon
+-> N identical two-level absorbers/dipoles
+-> per-dipole coupling g
+-> finite interaction/dwell time
+-> collective state separation
+-> target trace distance / error epsilon
+-> conditional minimum N.
+```
+
+This should reveal whether the abstract action bound becomes a physically useful optical detector bound or collapses into a restatement of known coupling/cooperativity limits.
+
+## 13. Immediate next steps
+
+1. Solve the one-photon + `N` identical dipole model in the simplest single-mode / wavepacket geometry and express the action budget in `g tau`.
+2. Compare independent versus collectively enhanced coupling and identify the physically permitted `N` scaling.
+3. Replace abstract `g` with dipole matrix element / mode-volume quantities, then ask whether free-space cross-section or optical-depth constraints produce a more experimental form.
+4. Generalize the acquisition bound to mixed detector states and open-system dynamics using Bures-angle / generator speed limits.
+5. Keep retention and reset separate; do not fold Arrhenius or Landauer costs into the acquisition theorem.
+6. Perform the focused prior-art audit before any novelty language.
+
+## 14. Current one-line result
+
+> **There is no universal atom-count threshold for photodetection, but finite-time photon/no-photon discrimination requires finite interaction action; once per-atom interaction action is capped, an explicit minimum atom count follows.**
+
+Status: **DERIVED CONDITIONAL RESULT / ESTABLISHED SPEED-LIMIT FOUNDATION / PRIORITY UNASSESSED.**
