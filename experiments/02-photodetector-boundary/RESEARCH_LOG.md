@@ -1,6 +1,6 @@
 # Research Log — Experiment 02: The Photodetector Boundary
 
-Chronological reasoning log. This file records **why the direction changed**, including failed boundaries, counterexamples, and corrected terminology.
+Chronological reasoning log. This file records **why the direction changed**, including failed boundaries, counterexamples, and corrected definitions. Detailed algebra lives in the dedicated derivation files.
 
 ---
 
@@ -10,7 +10,7 @@ Starting question:
 
 > At what point does a simple collection of atoms become a photodetector? If light is absorbed and re-emitted versus absorbed and a charge pair is generated, when does that happen and what is the boundary?
 
-The rough initial picture was
+Initial intuitive chain:
 
 ```text
 few atoms / atomic absorption
@@ -19,71 +19,53 @@ few atoms / atomic absorption
 -> photodetector.
 ```
 
-The project did not assume this chain was correct.
+The project explicitly refused to assume this chain was correct.
 
 ---
 
-## Terminology split — re-emission is not the alternative to pair generation
+## Re-emission versus electron-hole generation — terminology corrected
 
-Absorption followed by later photon emission is radiative excitation/relaxation, not by itself the external photoelectric effect.
+Interband absorption can create an electron-hole excitation that later recombines radiatively.
 
-In a semiconductor, interband absorption can create an electron-hole excitation:
+Therefore
 
-```math
-h\nu+e^-_{\rm VB}
-\rightarrow
-e^-_{\rm CB}+h^+_{\rm VB}.
+```text
+photon absorbed and re-emitted
 ```
 
-That excitation may later recombine radiatively:
+and
 
-```math
-e^-+h^+\rightarrow h\nu'.
+```text
+photon absorbed and electron-hole pair generated
 ```
 
-**Conclusion:** electron-hole generation and later photon re-emission can be stages of the same event.
+are not generally mutually exclusive alternatives.
 
-Direction: separate optical absorption physics from what makes the event a detector record.
+**Direction:** separate absorption physics from detector-record physics.
 
 ---
 
-## Single-atom counterexample — universal atom-count threshold killed
+## Universal atom-count threshold attacked — failed
 
-A resonant photon can excite a single atom. If the excitation leaves no accessible lasting record, absorption alone does not establish detection.
+A single atom can in principle encode photon arrival through excitation, ionization, or another readable state change.
 
-But a single atom can in principle encode photon arrival through ionization or another readable state change.
+A macroscopic absorber can absorb and then leave no accessible material record.
 
-**Conclusion:** there is no universal critical atom number without constraints on coupling, readout, persistence, and noise.
+**Conclusion:** there is no universal `N_c` without specifying interaction, readout, persistence, and noise.
 
-Direction: replace atom count with a discrimination criterion.
+**Direction:** replace atom count with hypothesis discrimination.
 
 ---
 
 ## Operational detector definition introduced
 
-Define
+For photon/no-photon hypotheses, define accessible material states
 
 ```math
-H_0:\text{ no photon},
-\qquad
-H_1:\text{ one photon}.
+\rho_D^{(0)},\qquad\rho_D^{(1)}.
 ```
 
-For an allowed material readout `Y`, require
-
-```math
-P(Y|H_1)\neq P(Y|H_0)
-```
-
-for any nonzero discriminating information.
-
-At the quantum-state level, for accessible detector subsystem `D`,
-
-```math
-\rho_D^{(0)},\qquad\rho_D^{(1)},
-```
-
-with trace distance
+Use
 
 ```math
 \mathcal D_D
@@ -97,81 +79,47 @@ P_{e,\min}
 =\frac12(1-\mathcal D_D).
 ```
 
-**Conclusion:** detection becomes a continuous hypothesis-discrimination problem rather than an ontological yes/no atom threshold.
-
-Direction: attack absorption as necessary or sufficient.
+**Conclusion:** detection becomes a quantitative discrimination problem rather than a phase-of-matter label.
 
 ---
 
-## Perfect-absorber counterexample — absorption not sufficient
+## Absorption as the detector boundary attacked — failed twice
 
-Construct an absorber with
+### Perfect absorber, no accessible record
+
+If
 
 ```math
 P_{\rm abs}=1
 ```
 
-but identical accessible material states at interrogation:
+but
 
 ```math
-\rho_D^{(1)}=\rho_D^{(0)}.
+\rho_D^{(1)}=\rho_D^{(0)},
 ```
 
-Then
+then the material does not discriminate the optical hypotheses.
 
-```math
-\mathcal D_D=0.
-```
+### Nonabsorptive dispersive record
 
-**Conclusion:** perfect absorption does not imply photodetection under the operational definition.
+A surviving photon can correlate with a distinguishable matter pointer.
+
+**Conclusion:** absorption is neither sufficient nor universally necessary.
 
 ---
 
-## Dispersive counterexample — absorption not necessary
+## Atomic-to-band crossover separated
 
-A photon can survive a dispersive interaction while changing a material pointer state:
+Increasing `N` can turn sparse molecular/atomic spectra into dense band-like spectra, but this is a condensed-matter crossover, not the detector definition.
 
-```math
-|1_\gamma\rangle|D_0\rangle
-\rightarrow
-|1_\gamma\rangle|D_1\rangle.
-```
-
-If the material states are distinguishable, the detector has acquired information without photon destruction.
-
-**Conclusion:** photodetection is more general than absorption.
-
-Direction: return to what increasing atom count actually changes.
+**Direction:** locate electron-hole generation separately.
 
 ---
 
-## Atomic-to-band crossover separated from detector boundary
+## Electron-hole generation separated from mobile/collected charge
 
-For many coupled states spread over characteristic width `W`, a rough spacing is
-
-```math
-\Delta E\sim W/N.
-```
-
-As `N` grows and the spacing becomes small relative to linewidth/disorder/thermal/measurement resolution, a band or quasi-continuum description becomes natural.
-
-**Conclusion:** finite-spectrum -> band-like spectrum is a condensed-matter crossover, not the detector definition.
-
----
-
-## Exciton/mobile-carrier boundary separated
-
-An absorbed semiconductor photon can create an electron-hole excitation without guaranteeing immediately mobile charge.
-
-Coulomb binding, temperature, electric field, interfaces, screening, and scattering determine whether the excitation remains bound or dissociates.
-
-**Conclusion:** bound-excitation -> mobile-carrier conversion is another physical boundary, but still not the universal detector boundary.
-
----
-
-## Pair generation not sufficient — collection race
-
-In a minimal competing-rate model,
+An absorbed photon can create a bound or mobile excitation. A minimal competing-rate collection model is
 
 ```math
 P_{\rm col}
@@ -183,104 +131,61 @@ P_{\rm col}
 
 ```text
 absorption
-!= carrier generation
-!= charge separation/collection
+!= pair generation
+!= collection
 != readable event.
 ```
 
-Direction: distinguish information acquisition from amplification and retention.
-
 ---
 
-## Amplification reinterpreted
+## Gain reinterpreted
 
-The naive picture
+Naive idea:
 
 ```text
-1 photon -> 1 electron -> 10^6 electrons -> more information
+1 photon -> 1 electron -> 10^6 electrons -> more information.
 ```
 
-was corrected to
+Corrected interpretation:
 
 ```text
-1 photon
--> microscopic photon-conditioned distinction
+microscopic photon-conditioned distinction
 -> gain/transduction
--> macroscopically separated output distributions
--> improved robustness against downstream readout noise.
+-> larger separation of practical output distributions.
 ```
 
-**Conclusion:** gain stabilizes/enlarges an existing distinction; it does not manufacture photon-arrival information that was absent from its input.
+**Conclusion:** gain stabilizes/enlarges an existing distinction against later readout limitations; it does not create photon-arrival information that was absent upstream.
 
 ---
 
-## Irreversibility moved from axiom to open-system question
+## Irreversibility moved from axiom to dynamical question
 
-A naive detector story says absorption becomes detection when the process becomes irreversible.
+Closed photon + detector + environment evolution can remain unitary while a reduced detector develops a metastable pointer record.
 
-That is too loose. Closed photon + detector + environment dynamics can remain unitary while local coherence becomes inaccessible and a pointer-like record emerges.
+**Conclusion:** operational irreversibility must be tied to subsystem choice, information dispersal, metastability, and accessibility.
 
-**Conclusion:** operational irreversibility must be tied to subsystem choice, information dispersal, metastability, and record persistence.
-
-Direction: explicitly separate momentary encoding from persistent record.
+**Direction:** explicitly require record persistence.
 
 ---
 
-## Momentary encoding versus retention
+## Momentary encoding versus persistent record
 
-A microscopic state can have
-
-```math
-\mathcal D_D(t)>0
-```
-
-for a short interval and then relax so that the distinction disappears before any allowed readout.
-
-A record requirement must therefore include time, e.g.
-
-```math
-\mathcal D_D(t)\ge\mathcal D_{\min}
-\quad
-0<t\le\tau_{\rm rec}.
-```
+A system can satisfy `D_D(t)>0` briefly and then lose the distinction before any permitted readout.
 
 **Conclusion:** acquisition and retention are separate resources.
 
-Direction: attack candidate lower bounds.
-
 ---
 
-## Energy-per-detection lower bound attacked — failed
+## Universal deposited-energy lower bound attacked — failed
 
-Candidate conjecture:
+A degenerate two-state pointer can be conditionally rotated into an orthogonal state while its final bare detector-energy difference is zero.
 
-> target detector distinguishability requires a nonzero final deposited energy.
-
-Counterexample: a degenerate two-state pointer can be conditionally rotated into an orthogonal state while its final bare-energy change is zero.
-
-Therefore final energy separation or deposited energy is not a universal detection resource.
-
-However, finite-time pure-state separation still requires finite Hamiltonian action.
-
-For relative generator `V_I(t)`, the state-space angle obeys
+However finite-time pure-state separation still requires interaction action:
 
 ```math
-\theta(\tau)
-\le
-\frac{1}{\hbar}
-\int_0^\tau\Delta V_I(t)dt.
-```
-
-Target error `epsilon` therefore gives
-
-```math
-\boxed{
 \mathcal A_\Delta
-\equiv
-\int_0^\tau\Delta V_I(t)dt
 \ge
 \hbar\arcsin(1-2\epsilon).
-}
 ```
 
 Perfect discrimination requires
@@ -289,17 +194,15 @@ Perfect discrimination requires
 \mathcal A_\Delta\ge\pi\hbar/2.
 ```
 
-The degenerate qubit example saturates the perfect-discrimination value.
-
-**Conclusion:** final detector energy fails as a universal bound; interaction action survives in the stated finite-time pure/unitary model.
+**Conclusion:** final deposited energy is not universal; finite interaction action survives in the stated pure/unitary model.
 
 Detailed derivation: `INTERACTION_ACTION_LOWER_BOUND.md`.
 
 ---
 
-## Original N question recovered conditionally
+## Constrained N recovered
 
-If the interaction is a sum of constituent terms and each constituent supplies at most action `a_max`, then
+If each constituent can supply at most interaction action `a_max`,
 
 ```math
 N
@@ -309,126 +212,68 @@ N
 \right\rceil.
 ```
 
-**Conclusion:** a minimum atom number can emerge after the microscopic per-constituent resource is capped.
-
-This is a constrained engineering/physics threshold, not an ontological material boundary.
-
-Direction: replace the abstract local-action cap with an explicit optical interaction.
+**Conclusion:** `N_min` can exist after a microscopic resource cap is stated.
 
 ---
 
 ## Exact one-photon + N-dipole model
 
-For identical resonant two-level dipoles in one mode,
-
-```math
-H_I
-=\hbar g\sum_j(a\sigma_j^+ + a^\dagger\sigma_j^-).
-```
-
-The photon couples only to the symmetric bright `W_N` state with
+For identical resonant two-level dipoles,
 
 ```math
 G=g\sqrt N.
 ```
 
-Starting from one photon,
+The matter-only distinguishability is
 
 ```math
 \mathcal D_D(t)=\sin^2(g\sqrt Nt).
 ```
 
-Thus on the first transfer lobe,
+Perfect transient first-lobe transfer requires
 
 ```math
 N_{\min}
-=
-\left\lceil
-\frac{[\arcsin\sqrt{1-2\epsilon}]^2}
-{g^2\tau^2}
-\right\rceil.
+=\left\lceil(\pi/(2g\tau))^2\right\rceil.
 ```
 
-For perfect transient transfer,
-
-```math
-N_{\min}
-=
-\left\lceil
-\left(\frac{\pi}{2g\tau}\right)^2
-\right\rceil.
-```
-
-**Conclusion:** in this explicit coherent architecture, the atom threshold comes from collective optical matrix element and finite interaction time, not band formation.
+**Conclusion:** a many-atom threshold can arise from collective optical coupling and finite time without band formation.
 
 Detailed derivation: `N_DIPOLE_SINGLE_MODE_MODEL.md`.
 
 ---
 
-## Coherent transfer attacked as a detector record — failed
+## Coherent transfer as persistent detection attacked — failed
 
 The matter excitation Rabi-oscillates back into the optical mode.
 
-So even perfect transient transfer does not guarantee a persistent record.
+**Conclusion:** strong acquisition is not yet a persistent detector record.
 
-**Conclusion:** coherent acquisition is not yet detection in the practical record sense.
-
-Direction: add an irreversible record state and competing loss.
+**Direction:** add a long-lived record channel and competing loss.
 
 ---
 
-## Coherent capture -> persistent record model
+## Initial-in-mode coherent capture -> record
 
-Use
-
-```text
-|P> = photon in optical mode
-|M> = collective matter excitation
-|R> = persistent record
-```
-
-with
-
-```text
-G      = g sqrt(N)
-kappa  = optical loss
-gamma  = unwanted matter loss
-Gamma  = desired M -> R trapping.
-```
-
-The exact long-time record probability is
+With collective coupling `G`, optical loss `kappa`, unwanted matter loss `gamma`, and desired record trapping `Gamma`,
 
 ```math
-\boxed{
 P_R
 =
 \frac{4G^2\Gamma}
 {(\kappa+\gamma+\Gamma)
 [4G^2+\kappa(\gamma+\Gamma)]}.
-}
 ```
 
-Direct numerical integration agreed with the analytic expression at about `1e-11` absolute level in tested cases.
+The analytic result was checked against direct numerical integration at about `1e-11` absolute agreement in tested cases.
 
 Detailed derivation: `COHERENT_CAPTURE_TO_RECORD.md`.
 
 ---
 
-## "More irreversibility is always better" attacked — failed
+## More irreversibility is always better — attacked and failed
 
-Naive expectation:
-
-```text
-larger Gamma -> faster freezing -> better detector.
-```
-
-The exact model contradicts this for `kappa>0`.
-
-Too little trapping lets the excitation return or escape.
-
-Too much trapping overdamps coherent transfer while the photon remains exposed to optical loss.
-
-The optimum is
+The exact record probability has finite optimum
 
 ```math
 \Gamma_{\rm opt}
@@ -444,17 +289,17 @@ For `gamma=0`,
 \Gamma_{\rm opt}=2G.
 ```
 
-**Conclusion:** record formation must be dynamically rate matched.
+Too little trapping fails to freeze the excitation; too much overdamps coherent acquisition while optical escape remains available.
 
-Direction: remove the artificial assumption that the photon begins inside the optical mode.
+**Conclusion:** record formation must be rate matched.
 
 ---
 
-## Traveling-wave photon capture introduced
+## Traveling-wave capture introduced
 
-Use one external input/output channel with coupling `kappa_in`, parasitic optical loss `kappa_loss`, collective matter coupling `G`, unwanted matter loss `gamma`, and record trapping `Gamma`.
+The photon was no longer placed inside the optical mode by assumption.
 
-For a spectral component, the exact record conversion kernel is
+For an incident one-photon spectral component,
 
 ```math
 \eta_R(\delta)
@@ -476,25 +321,7 @@ At resonance,
 {[\kappa(\gamma+\Gamma)+4G^2]^2}.
 ```
 
-Define
-
-```math
-\kappa_m=4G^2/(\gamma+\Gamma),
-\qquad
-\beta_R=\Gamma/(\gamma+\Gamma).
-```
-
-Then
-
-```math
-\eta_R(0)
-=
-\beta_R
-\frac{4\kappa_{\rm in}\kappa_m}
-{(\kappa+\kappa_m)^2}.
-```
-
-**Conclusion:** external detection factorizes naturally into optical matching and record branching.
+**Conclusion:** external detection separates into optical matching and matter-to-record branching.
 
 Detailed derivation: `TRAVELING_WAVE_CAPTURE.md`.
 
@@ -504,18 +331,11 @@ Detailed derivation: `TRAVELING_WAVE_CAPTURE.md`.
 
 In the clean one-port limit,
 
-```text
-kappa_loss=0,
-gamma=0,
-```
-
-critical matching occurs at
-
 ```math
-\Gamma_{\rm match}=4G^2/\kappa.
+\Gamma_{\rm match}=4G^2/\kappa
 ```
 
-Then
+gives
 
 ```math
 r(0)=0,
@@ -523,83 +343,46 @@ r(0)=0,
 \eta_R(0)=1.
 ```
 
-This holds for any nonzero `G` if arbitrarily slow/narrowband operation is permitted.
+This works for any nonzero `G` if arbitrarily slow/narrowband operation is allowed.
 
-**Conclusion:** unit monochromatic efficiency does not impose a positive `N_min`; weak coupling is paid for in bandwidth/time.
+**Conclusion:** unit monochromatic efficiency does not impose a positive `N_min`.
 
-This is a major counterexample to any atom-count bound built from peak efficiency alone.
-
-Direction: identify the resource that restores a threshold.
+**Hidden resource found:** bandwidth/time.
 
 ---
 
-## External-capture optimum -> collective cooperativity
+## Collective cooperativity and optical-access ceilings emerged
 
-For fixed `G`, `kappa`, and `gamma`, optimization over `Gamma` gives
-
-```math
-\Gamma_{\rm opt}
-=\gamma+4G^2/\kappa.
-```
-
-The maximum resonant record probability is
+Optimized external efficiency is
 
 ```math
 \eta_{R,\max}
-=\frac{\kappa_{\rm in}}{\kappa}
-\frac{4G^2}{4G^2+\kappa\gamma}.
+=\eta_{\rm esc}\frac{C_N}{1+C_N},
 ```
 
-Define
+where
 
 ```math
 \eta_{\rm esc}=\kappa_{\rm in}/\kappa,
-```
-
-and
-
-```math
+\qquad
 C_N=4G^2/(\kappa\gamma).
 ```
 
-Then
-
-```math
-\eta_{R,\max}
-=\eta_{\rm esc}\frac{C_N}{1+C_N}.
-```
-
-**Conclusion:** two independent ceilings appear:
-
-```text
-optical-access / parasitic-loss ceiling
-and
-collective-coupling / matter-loss ceiling.
-```
-
-No increase in atom number can overcome an optical-access ceiling without changing the architecture.
+**Conclusion:** optical access/parasitic loss and coherent coupling/matter loss are independent ceilings. More atoms cannot repair an inaccessible optical port.
 
 ---
 
-## Bandwidth restores a finite resource threshold
+## Bandwidth restored a finite N threshold
 
-In the clean critically matched bad-cavity limit,
+In the clean critically matched bad-cavity benchmark,
 
 ```math
-\eta_R(\delta)
-\simeq
-\frac{\Gamma^2}{\delta^2+\Gamma^2},
+P_R=\frac{\Gamma}{\Gamma+B},
 \qquad
 \Gamma=4Ng^2/\kappa.
 ```
 
-For a Lorentzian incident photon spectrum of HWHM `B`,
-
-```math
-P_R=\frac{\Gamma}{\Gamma+B}.
-```
-
-Target error `epsilon` gives
+Hence
 
 ```math
 N
@@ -608,106 +391,58 @@ N
 \frac{1-2\epsilon}{\epsilon}.
 ```
 
-**Conclusion:** weak coupling can preserve peak efficiency only by narrowing the detector's useful spectral/temporal acceptance.
-
-The atom threshold has become a bandwidth/resource statement.
+**Conclusion:** weak coupling can preserve peak efficiency only by narrowing useful spectral/temporal acceptance.
 
 ---
 
 ## Literal total atom count attacked — failed
 
-For nonuniform microscopic couplings,
+For unequal microscopic couplings,
 
 ```math
 G^2=\sum_j|g_j|^2.
 ```
 
-The photon couples only to one bright superposition proportional to
+Only one bright superposition couples directly to the ideal optical mode.
 
-```math
-\sum_jg_j|e_j\rangle.
-```
+Atoms outside the optical field, at nodes, or poorly aligned contribute little.
 
-Atoms outside the optical mode, at field nodes, or poorly aligned with the field contribute little.
+**Conclusion:** the microscopic resource is mode-weighted oscillator strength, not literal total atom count.
 
-**Conclusion:** total physical atom count is not even the correct constrained microscopic coordinate.
-
-A useful effective atom number is mode weighted.
-
-Direction: take the continuum limit.
+Detailed derivation: `MODE_WEIGHTED_OPTICAL_DEPTH.md`.
 
 ---
 
-## Optical depth emerges in the traveling-wave continuum
+## Continuum limit -> optical depth
 
-For independent dilute absorbers,
+For a dilute single-pass absorber,
 
 ```math
 \mathrm{OD}=n\sigma L
 =\frac{N_{\rm col}\sigma}{A},
 ```
 
-with
+and
 
 ```math
 P_{\rm abs}=1-e^{-\mathrm{OD}}.
 ```
 
-A minimal single-pass record model gives
-
-```math
-P_R
-=\eta_{\rm mode}\eta_{\rm rec}
-(1-e^{-\mathrm{OD}}).
-```
-
-Thus
-
-```math
-\mathrm{OD}_{\min}
-=-\ln\left[
-1-\frac{\eta_{\rm req}}
-{\eta_{\rm mode}\eta_{\rm rec}}
-\right].
-```
-
-In the ideal high-efficiency case,
+In the ideal high-efficiency single-pass limit,
 
 ```math
 \mathrm{OD}_{\min}=-\ln(2\epsilon).
 ```
 
-**Conclusion:** in extended matter the relevant variable is closer to column density / optical depth / oscillator-strength overlap than total `N`.
+**Conclusion:** in extended matter, column density / optical depth is more physically meaningful than total atom count.
 
-Detailed derivation: `MODE_WEIGHTED_OPTICAL_DEPTH.md`.
-
----
-
-## Why single-pass and resonant detectors have different apparent N laws
-
-Single-pass Beer-Lambert absorption gives one traversal.
-
-A one-port matched resonator can build up the field and give weak matter repeated coherent interaction before escape.
-
-Therefore
-
-```text
-single pass:
-weak optical depth -> weak absorption;
-
-matched resonator:
-weak absorption per pass can -> unity narrowband capture.
-```
-
-The hidden cost is lifetime/bandwidth/detuning sensitivity.
-
-**Conclusion:** detector architecture changes the projection of microscopic matter resources into apparent atom-count thresholds.
+The contrast with resonant critical coupling showed explicitly that architecture changes the apparent matter requirement by trading absorber strength against optical dwell time/bandwidth.
 
 ---
 
-## Returned to the semiconductor question
+## Returned to semiconductor electron-hole physics
 
-For a minimal semiconductor slab, define
+For a minimal slab,
 
 ```math
 \eta_s
@@ -718,7 +453,7 @@ P_{\rm col}
 P_{\rm read}.
 ```
 
-With independent extraction and recombination hazards,
+with
 
 ```math
 P_{\rm col}
@@ -726,18 +461,7 @@ P_{\rm col}
 {\Gamma_{\rm ext}+\Gamma_{\rm rec}}.
 ```
 
-This gives a precise location for electron-hole generation:
-
-```text
-optical access
--> absorption
--> electron-hole excitation
--> survival/separation
--> persistent record
--> decision.
-```
-
-**Conclusion:** electron-hole generation is the semiconductor-specific transduction stage, not the detector boundary itself.
+**Conclusion:** electron-hole generation is the semiconductor-specific transduction stage. It becomes useful detection only after survival/separation, record formation, and readout.
 
 Detailed derivation: `SEMICONDUCTOR_DECISION_BRIDGE.md`.
 
@@ -745,138 +469,211 @@ Detailed derivation: `SEMICONDUCTOR_DECISION_BRIDGE.md`.
 
 ## Dark-event decision boundary derived
 
-Let dark clicks be an independent Poisson process of rate `R_d` over observation window `tau`.
-
-No-photon click probability:
+For independent Poisson dark clicks of rate `R_d` over decision window `tau`,
 
 ```math
-p_0=1-e^{-R_d\tau}.
-```
-
-One-photon click probability:
-
-```math
-p_1
-=1-(1-\eta_s)e^{-R_d\tau}.
-```
-
-For the binary output, the exact distribution distance is
-
-```math
-\boxed{
 \mathcal D_{\rm click}
 =\eta_s e^{-R_d\tau}.
-}
 ```
 
-Thus
+and
 
 ```math
-\boxed{
 P_e
 =\frac12(1-\eta_s e^{-R_d\tau}).
-}
 ```
 
-Target `P_e<=epsilon` requires
+A necessary target condition is
+
+```math
+R_d\tau
+\le
+-\ln(1-2\epsilon).
+```
+
+For small `epsilon`, `R_d tau` must be approximately `<=2 epsilon`.
+
+**Conclusion:** no amount of atom number, absorptance, or gain can overcome a dark-event budget that already destroys the needed evidential contrast.
+
+---
+
+## Continuous Gaussian electrical readout introduced
+
+Binary click output was replaced by
+
+```math
+H_0:y(t)=n(t),
+\qquad
+H_1:y(t)=s(t)+n(t),
+```
+
+with common Gaussian covariance.
+
+The exact decision coordinate is the noise-whitened waveform distance
 
 ```math
 \boxed{
-R_d\tau
-\le
--\ln(1-2\epsilon)
+d^2
+=\langle s,C^{-1}s\rangle
+=\int_{-\infty}^{\infty}
+\frac{|\tilde s(f)|^2}
+{S_n^{(2)}(f)}df.
 }
 ```
 
-as a necessary condition because `eta_s<=1`.
-
-For small `epsilon`,
+Equal-prior optimum error is
 
 ```math
-R_d\tau\lesssim2\epsilon.
+\boxed{P_e=Q(d/2).}
 ```
 
-**Conclusion:** no amount of absorption, atom number, or gain can overcome a dark-event budget that already destroys the required evidential contrast.
+**Conclusion:** at the electrical-output level, detector quality for a task is the separation of the complete photon/no-photon waveform distributions in the inverse-noise metric.
 
-This is structurally analogous to the optical-access ceiling from the traveling-wave model.
+Detailed derivation: `CONTINUOUS_GAUSSIAN_DECISION.md`.
+
+---
+
+## NEP and D* reinterpreted as projections
+
+If
+
+```math
+\tilde s(f)=\mathcal R(f)\tilde p(f),
+```
+
+then
+
+```math
+\boxed{
+d^2
+=\int
+\frac{|\tilde p(f)|^2}
+{\mathrm{NEP}_2^2(f)}df.
+}
+```
+
+A full frequency-dependent input-referred noise model can therefore determine the decision distance.
+
+A scalar `D*` quoted at one frequency generally cannot.
+
+**Conclusion:** conventional figures of merit are descriptors feeding the decision problem; they are not the universal detector boundary.
+
+---
+
+## Same D* -> same event performance attacked — failed
+
+For a one-pole detector
+
+```math
+h(t)=\frac1\tau e^{-t/\tau}u(t)
+```
+
+with a short optical pulse of energy `E` and white one-sided output noise,
+
+```math
+\boxed{
+d^2
+=\frac{E^2}{\tau\,\mathrm{NEP}^2}.
+}
+```
+
+Using
+
+```math
+\mathrm{NEP}=\sqrt A/D^*,
+```
+
+```math
+\boxed{
+d^2
+=\frac{E^2D^{*2}}{A\tau}.
+}
+```
+
+Thus at equal area and equal low-frequency white-noise `D*`,
+
+```math
+d\propto\tau^{-1/2}.
+```
+
+**Conclusion:** two detectors with identical conventional `D*` can have different optimum discrimination error for a short fixed-energy event solely because their temporal responses differ.
+
+This directly validates the intuition that a scalar detectivity omits task-relevant time structure.
+
+---
+
+## Finite decision deadline sharpens the difference
+
+If the output is observed only for `0<t<T`,
+
+```math
+\boxed{
+d^2(T)
+=\frac{E^2}{\tau\,\mathrm{NEP}^2}
+(1-e^{-2T/\tau}).
+}
+```
+
+For `T<<tau`,
+
+```math
+d^2(T)
+\simeq
+\frac{2E^2T}{\tau^2\mathrm{NEP}^2}.
+```
+
+**Conclusion:** a slow detector pays an even stronger penalty under a short decision deadline.
 
 ---
 
 ## Current strongest organizing picture
 
-The experiment now reads
+The path is now
 
 ```text
-ATOMIC / MATERIAL CONSTITUTION
-        |
-        +-> spectral/band crossover
-        |
-        v
-OPTICAL ACCESS / MODE OVERLAP
-        |
-        v
-MODE-WEIGHTED OPTICAL RESOURCE
-G^2 = sum |g_j|^2
-or optical depth alpha L
-        |
-        v
-MICROSCOPIC TRANSDUCTION
-exciton / electron-hole / other excitation
-        |
-        v
-DYNAMICAL COMPETITION
-acquisition or extraction versus loss/recombination
-        |
-        v
-RATE-MATCHED PERSISTENT RECORD
-        |
-        v
-DECISION AGAINST DARK/READOUT NOISE
-        |
-        v
-RESET / REUSE
+material constitution
+-> optical access / mode overlap
+-> mode-weighted coupling or optical depth
+-> microscopic excitation / electron-hole generation
+-> acquisition/extraction versus loss/recombination
+-> persistent record
+-> electrical transfer function + noise spectrum
+-> noise-weighted photon/no-photon waveform distance
+-> decision error
+-> reset/reuse.
 ```
 
-Natural coordinates now include
+Every attempted universal scalar boundary has so far exposed a missing resource coordinate:
 
-```math
-\eta_{\rm esc},
-\quad
-C_N,
-\quad
-\Gamma/(4G^2/\kappa),
-\quad
-B/(4G^2/\kappa),
-\quad
-\alpha L,
-\quad
-\Gamma_{\rm ext}/\Gamma_{\rm rec},
-\quad
-R_d\tau.
+```text
+N                  -> per-constituent coupling/time
+peak efficiency    -> bandwidth
+more atoms         -> mode overlap / optical escape
+more absorber      -> downstream collection / dark events
+D*                 -> temporal/spectral task structure.
 ```
 
-The strongest answer to the original question is now:
+The strongest answer to the starting question is therefore:
 
-> **A collection of atoms does not become a photodetector at a universal N. It enters a useful detector regime when the complete optical–matter–record–decision dynamics cross the required performance surface.**
-
-Atom count survives only through mode-weighted coupling, optical depth, or other explicitly constrained physical resources.
+> **A collection of atoms becomes useful as a photodetector only relative to a specified measurement task. The physically relevant boundary is a performance surface of the complete optical–matter–record–noise dynamics, not a universal atom count or one scalar figure of merit.**
 
 ---
 
-## Current frontier — continuous noisy electrical output
+## Current frontier
 
-The next attack is to replace binary click/no-click output with a continuous electrical waveform:
+Next attacks:
 
 ```text
-H0 / H1
--> current or voltage waveform
--> Gaussian / colored noise
--> optimum likelihood-ratio / matched-filter statistic
--> integration time and bandwidth
--> responsivity / noise PSD / NEP / D*
--> determine what conventional metrics preserve or hide about detector distinguishability.
+signal-dependent noise
+-> covariance differs under photon/no-photon hypotheses
+-> shot / generation-recombination / gain noise
+
+unknown arrival time / timing jitter
+-> search over temporal mode / trials penalty
+
+then
+-> test whether a task-specific scalar detectivity can be defined
+   from optimum decision distance.
 ```
 
-This is the strongest route back to practical photodetector figures of merit without allowing those conventional metrics to define the detector boundary by assumption.
-
-A focused primary-source prior-art audit remains required before novelty language.
+A focused primary-source prior-art audit remains mandatory before novelty language.
