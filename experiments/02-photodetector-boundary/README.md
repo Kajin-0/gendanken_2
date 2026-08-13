@@ -1,7 +1,7 @@
 # Experiment 02 — The Photodetector Boundary
 
 **Opened:** 2026-08-12  
-**Status:** exploratory first-principles Gedanken experiment; optical interaction through decision and cyclic reset mapped in minimal models  
+**Status:** exploratory first-principles Gedanken experiment; optical interaction through channel ordering and source-inclusive resource closure mapped in minimal models  
 **Priority / novelty:** unassessed; **no novelty claim**
 
 ## Starting question
@@ -14,9 +14,9 @@ There is **no universal atom-count transition** at which matter becomes a photod
 
 The strongest current formulation is:
 
-> **Matter functions as a detector only relative to a specified optical task, accessible output, temporal/noise environment, and decision criterion. The boundary is statistical distinguishability of the complete photon-conditioned output process, not a particular atom count, absorption event, electron-hole pair, or conventional scalar figure of merit.**
+> **Matter functions as a detector only relative to a specified optical input family, allowed operations/reference resources, accessible output channel, temporal/noise environment, and decision criterion. The boundary is operational distinguishability of the induced detector channel, not a particular atom count, absorption event, electron-hole pair, or conventional scalar figure of merit.**
 
-Under explicit constraints, minimum effective atom numbers, optical depths, event energies, rate ratios, or reset resources can emerge.
+Under explicit constraints, minimum effective atom numbers, optical depths, event energies, rate ratios, control precision, channel counts, or reset resources can emerge.
 
 ## Operational spine
 
@@ -33,7 +33,13 @@ with equal-prior optimum error
 P_{e,\min}=\frac12(1-\mathcal D_D).
 ```
 
-This immediately kills absorption as the universal definition: perfect absorption can leave no accessible record, while dispersive nonabsorptive coupling can create one.
+This is the unrestricted-POVM benchmark. `REFERENCE_FRAME_ACCESS.md` now makes the operation-set caveat explicit: if measurements obey a symmetry and no phase/time reference is available, globally distinct states can become operationally indistinguishable.
+
+Thus the more precise object is
+
+```text
+distinguishability under the allowed operations + reference resources.
+```
 
 ## What increasing atom count actually changes
 
@@ -80,7 +86,7 @@ Coherent photon-to-matter transfer is still not a persistent record because the 
 
 Adding desired trapping and competing loss shows that record formation is rate matched: arbitrarily strong trapping can overdamp acquisition.
 
-## Traveling-wave capture
+## Traveling-wave capture and control precision
 
 For an incident photon, clean one-port critical matching gives
 
@@ -88,18 +94,38 @@ For an incident photon, clean one-port critical matching gives
 \Gamma_{\rm match}=4G^2/\kappa.
 ```
 
-At resonance this can yield unit record conversion for **any nonzero `G`** if sufficiently slow/narrowband operation is allowed.
+At resonance this can yield unit record conversion for **any nonzero `G`** if sufficiently slow/narrowband operation and arbitrarily good rate control are allowed.
 
 Therefore:
 
-> **Peak monochromatic efficiency does not impose a positive atom-count threshold; weak coupling is paid for in bandwidth/time.**
+> **Peak monochromatic efficiency does not impose a positive atom-count threshold; weak coupling is paid for in bandwidth/time and control range/precision.**
 
-Optimized external efficiency separates optical escape and collective cooperativity:
+The exact clean mismatch law is
 
 ```math
-\eta_{R,\max}
-=\eta_{\rm esc}\frac{C_N}{1+C_N}.
+\eta_R
+=\frac{4x}{(1+x)^2},
+\qquad
+x=\Gamma/\Gamma_{\rm match},
 ```
+
+so
+
+```math
+1-\eta_R
+=\left(\frac{x-1}{x+1}\right)^2.
+```
+
+If a nonzero minimum trapping rate `Gamma_floor` exists, target efficiency `1-epsilon` restores the constrained matter threshold
+
+```math
+G^2
+\ge
+\frac{\kappa\Gamma_{\rm floor}}{4}
+\frac{1-\sqrt\epsilon}{1+\sqrt\epsilon}.
+```
+
+For identical dipoles this becomes a positive conditional `N_min`.
 
 ## Semiconductor bridge
 
@@ -183,7 +209,7 @@ BC
 
 This shows that ordinary shot-noise SNR is a local approximation to the full count-distribution geometry.
 
-## Unknown timing
+## Unknown timing and parallel channels
 
 If the event can occur in one of `M` independent candidate temporal modes,
 
@@ -194,9 +220,46 @@ If the event can occur in one of `M` independent candidate temporal modes,
 
 The false-alarm threshold grows approximately as `sqrt(2 ln M)` at large `M` for fixed small false-alarm probability.
 
-Thus intrinsic bandwidth, search-window duration, and timing knowledge are separate resources.
+Parallel spatial/readout channels introduce the complementary resource. For independent Gaussian evidence,
 
-## Task-specific sensitivity and no universal ranking
+```math
+\boxed{d_{\rm tot}^2=\sum_jd_j^2.}
+```
+
+Thus many known weak channels can compensate weak per-channel evidence, while an **unknown active channel** creates a search/trials penalty analogous to unknown arrival time.
+
+Detector theorems must therefore state total accessible channel count/capacity and whether channel identity is known.
+
+## Reference frames are a detector resource
+
+Take
+
+```math
+|\psi_\pm\rangle
+=(|0\rangle\pm|1\rangle)/\sqrt2.
+```
+
+They are orthogonal globally.
+
+Without an optical phase reference, `U(1)` phase twirling gives the same mixed state for both:
+
+```math
+\mathcal G(\rho_+)
+=\mathcal G(\rho_-)
+=\frac12(|0\rangle\langle0|+|1\rangle\langle1|).
+```
+
+So unrestricted trace distance can say `D=1` while a symmetry-restricted reference-free detector has operational distinguishability zero.
+
+This adds
+
+```text
+phase/time reference quality + allowed measurement operations
+```
+
+to the detector resource ledger.
+
+## Task-specific sensitivity and no universal scalar ranking
 
 For a normalized optical waveform `p(t)=E q(t)`, define
 
@@ -214,19 +277,54 @@ E_{\min}
 
 This is a useful scalar **only after the task is fixed**.
 
-Define the detector decision kernel
+Crossing spectral decision kernels give task-dependent ranking reversal.
+
+That led to a stronger organizing framework.
+
+## Detector as a statistical / quantum channel
+
+For a declared input family `X`, write the complete classical detector experiment as
 
 ```math
-W_D(f)=1/\mathrm{NEP}_{2,D}^2(f).
+\boxed{K_D(y|x)=P_D(Y=y|X=x).}
 ```
 
-If `W_A>=W_B` pointwise, A dominates B for every waveform in the allowed class.
+Detector A universally dominates detector B if B can be generated from A by hypothesis-independent post-processing:
 
-If the kernels cross, there exist tasks that reverse the ranking.
+```math
+\boxed{K_B=T\circ K_A.}
+```
 
-Therefore detector comparison is generally a **partial order**, not a universal one-dimensional leaderboard.
+Then every decision strategy available with B can be simulated from A.
 
-## Reset and thermodynamic closure
+This is the classical Blackwell/garbling order applied to detector outputs.
+
+If neither detector is a post-processing of the other, they are **incomparable**, and different tasks may legitimately prefer different detectors.
+
+At the microscopic quantum level, the analogous object is
+
+```math
+\Phi_D:\rho_{\rm opt}\mapsto\rho_{\rm out},
+```
+
+with post-processing order
+
+```math
+\Phi_B=\Lambda\circ\Phi_A
+```
+
+under the proper quantum comparison conditions.
+
+This gives the current hierarchy:
+
+```text
+scalar metric
+-> task-specific decision metric
+-> detector-channel partial order
+-> resource-constrained set of physically achievable channels.
+```
+
+## Reset and source-inclusive thermodynamic closure
 
 The statement
 
@@ -248,13 +346,23 @@ Under ideal degenerate-memory quasistatic isothermal erasure with no retained si
 W_{\rm erase,min}\ge k_BT h(p).
 ```
 
-`k_BT ln2` is only the unbiased case.
+But detector/controller/record-memory closure is **not yet source-inclusive closure**.
 
-A local detector can export its record to another register and use that side information for local reset, so no universal local per-click Landauer heat survives.
+A surviving source variable can enable reversible uncomputation:
 
-A nontrivial erasure problem reappears only after imposing **global cycle closure**: detector, controller, and all record memories return to standard states and no event copy remains outside the accounting boundary.
+```math
+|x\rangle_S|0\rangle_M
+\to
+|x\rangle_S|x\rangle_M
+\to
+|x\rangle_S|0\rangle_M.
+```
 
-For a simple activated record, long retention plus fast reliable reset implies a conditional energy-landscape control range,
+So a genuine erasure statement must account for all usable side information correlated with `X`, including source/reference degrees of freedom.
+
+Even then, optical or pump nonequilibrium free energy can pay the information-processing cost. The surviving statement is a generalized discarded-information/free-energy resource balance, **not a universal positive heat or external-work quantum per detector event**.
+
+For a simple activated record, long retention plus fast reliable reset still implies a conditional energy-landscape control range,
 
 ```math
 \Delta E
@@ -265,50 +373,64 @@ k_BT\ln\left[
 \right],
 ```
 
-when positive. This is a control-range bound, **not** automatically dissipated work.
+when positive. This is a control-range bound, not automatically dissipated work.
 
 ## Strongest organizing picture
 
 ```text
-material constitution
+optical input family / task
+-> allowed operations + reference frames
 -> optical access / mode overlap
 -> mode-weighted interaction resource
 -> microscopic transduction
 -> acquisition/extraction versus loss
 -> persistent record
 -> complete conditional output process
--> timing / nuisance parameters
+-> timing / parallel-channel nuisance structure
 -> optimum decision
--> local reset / record export
--> optional global cycle closure.
+-> detector-channel partial order
+-> record export / local reset
+-> source-inclusive information accounting
+-> nonequilibrium free-energy accounting for cyclic operation.
 ```
 
-Every attempted universal scalar has exposed an omitted resource:
+Every attempted universal scalar/bound has exposed an omitted resource:
 
 ```text
-atom count       -> coupling/time and mode overlap
-peak efficiency  -> bandwidth
-more atoms       -> optical escape
-more absorber    -> downstream loss and dark events
-fixed-noise SNR  -> hypothesis-dependent statistics
-D*               -> temporal/spectral task structure
-known-time score -> timing-search complexity
-local reset heat -> exported record capacity.
+atom count             -> coupling/time and mode overlap
+peak efficiency        -> bandwidth
+weak-coupling matching -> control range / precision
+more atoms             -> optical escape
+more absorber          -> downstream loss and dark events
+fixed-noise SNR        -> hypothesis-dependent statistics
+D*                     -> temporal/spectral task structure
+known-time score       -> timing-search complexity
+per-channel bound      -> parallel channel count
+unrestricted D         -> reference-frame / operation access
+local reset heat       -> exported record capacity
+memory-global erasure  -> surviving source/side information
+positive cycle work    -> optical/pump nonequilibrium free energy.
 ```
 
 ## Current frontier
 
-Attack **global cycle closure** itself by allowing, one at a time:
+The project should now **deprioritize inventing another universal detector scalar**.
+
+The live question is:
+
+> Can the physically achievable detector channels be characterized by a resource ledger that remains closed under counterexamples?
+
+Attack next with
 
 ```text
-side information correlated with the optical/environmental input;
-work extraction from the detected field;
-nonequilibrium reservoirs and active pumps;
-continuous reversible transduction with no explicit binary memory;
-external records retained indefinitely outside the accounting horizon.
+correlating catalysts;
+finite-size / single-shot work fluctuations;
+causal latency / maximum power;
+spatially distributed adaptive measurement;
+resource states that return locally unchanged but accumulate correlations.
 ```
 
-The goal is to find the weakest assumptions under which any genuinely architecture-independent detector-cycle thermodynamic bound survives.
+Only after those attacks should a resource-conversion theorem be attempted.
 
 ## Reading order
 
@@ -327,6 +449,11 @@ The goal is to find the weakest assumptions under which any genuinely architectu
 13. `UNKNOWN_ARRIVAL_TIME.md`
 14. `TASK_SPECIFIC_DETECTIVITY.md`
 15. `RESET_AND_CYCLE_CLOSURE.md`
+16. `SOURCE_INCLUSIVE_THERMODYNAMIC_CLOSURE.md`
+17. `REFERENCE_FRAME_ACCESS.md`
+18. `CRITICAL_MATCHING_CONTROL_PRECISION.md`
+19. `PARALLEL_CHANNEL_RESOURCE.md`
+20. `DETECTOR_CHANNEL_ORDERING.md`
 
 ## Research rule
 
