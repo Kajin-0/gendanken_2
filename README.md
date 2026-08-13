@@ -6,13 +6,46 @@ First-principles thought experiments in photodetector physics. Failed conjecture
 
 The pre-remediation README remains historical provenance in `README_LEGACY_2026-08-10.md` and git history; it must not override current state.
 
-## Active experiment
+## Experiments
+
+### Experiment 01 — Vanishing absorber / spectral-depth closure
 
 `experiments/01-vanishing-absorber/`
 
+**Status:** manuscript-active canonical experiment.
+
 The active result is a **Shockley-Ramo-aware spectral-depth closure hierarchy for adversarially falsifying photocarrier transport models**. HgCdTe is a conditional scaling/stress example. Priority remains unresolved; no novelty claim is made.
 
-## Manuscript status
+### Experiment 02 — The photodetector boundary
+
+`experiments/02-photodetector-boundary/`
+
+**Status:** new exploratory first-principles experiment; no manuscript; priority unassessed; no novelty claim.
+
+Starting question:
+
+> At what point does a simple collection of atoms become a photodetector?
+
+The current strongest formulation separates atomic-to-band, bound-to-mobile-carrier, information-encoding, record-formation, and useful-readout boundaries. Its operational core is the distinguishability between the accessible material states conditioned on zero versus one incident photon:
+
+```math
+\mathcal D_D
+=\frac12\left\|\rho_D^{(1)}-\rho_D^{(0)}\right\|_1.
+```
+
+The current organizing result is that **absorption is neither sufficient nor universally necessary for photodetection** under this definition. The open frontier is whether specified discrimination error, retention time, temperature, allowed optical disturbance, and reset requirements force a minimum physical resource for a robust photon-arrival record.
+
+Experiment 02 reading order:
+
+1. [`AGENTS.md`](experiments/02-photodetector-boundary/AGENTS.md)
+2. [`CURRENT_STATE_LIVE.md`](experiments/02-photodetector-boundary/CURRENT_STATE_LIVE.md)
+3. [`CLAIM_LEDGER.md`](experiments/02-photodetector-boundary/CLAIM_LEDGER.md)
+4. [`RESEARCH_LOG.md`](experiments/02-photodetector-boundary/RESEARCH_LOG.md)
+5. [`README.md`](experiments/02-photodetector-boundary/README.md)
+
+Experiment 01 remains the repository's manuscript-active line. Experiment 02 must not modify or reinterpret the canonical Rev. 9 manuscript unless a later explicit cross-experiment result justifies a separately reviewed change.
+
+## Manuscript status — Experiment 01
 
 The current approved baseline is the anonymous **28-page Rev. 9**:
 
@@ -26,7 +59,7 @@ The main new mathematical correction is the explicit **confluent/repeated-root r
 
 The exact source is stored as a hash-verified anonymous seven-part snapshot. Older revisions remain provenance only.
 
-Start here:
+Start here for Experiment 01 manuscript work:
 
 1. [`AGENTS.md`](AGENTS.md)
 2. [`MANUSCRIPT_CURRENT.md`](experiments/01-vanishing-absorber/MANUSCRIPT_CURRENT.md)
@@ -44,7 +77,7 @@ Start here:
 
 A new theorem, simulation, review response, or correction must not silently compress or restructure unrelated manuscript work. `tools/check_manuscript_preservation.py` and the GitHub Actions preservation check enforce the structural baseline. A deliberate large rewrite requires explicit current-user authorization and the repository justification defined by `MANUSCRIPT_PRESERVATION_PROTOCOL.md`.
 
-## Core experimental logic
+## Experiment 01 core experimental logic
 
 ```text
 wavelength
@@ -130,7 +163,7 @@ The same composition profile enters both the wavelength-to-depth/kernels and the
 
 The cited electron-affinity paper's quoted `67.1%` average partition and approximately `±1%` two-thirds comparison are tied to its stated `0.15<x<0.45` averaging interval; the explicit formula is still evaluated over the worked profile reaching `x=0.55` without extending that quoted validation range by assumption.
 
-## Prior-art boundary
+## Prior-art boundary — Experiment 01
 
 Spectral-depth carrier probing itself is established. Classical surface-photovoltage/diffusion-length and photodiode spectral-response work already used wavelength-dependent absorption/generation depth to infer or model carrier transport. Wavelength-dependent RF phase and finite-exponential/Hankel model identification are also established lineages.
 
@@ -146,12 +179,18 @@ calibrated spectral/internal-depth channels
 
 This is a boundary statement, **not** evidence of novelty. The exact closest 2024 graded-HgCdTe paper still requires a direct technical full-text comparison before any submission-level priority claim.
 
-## Separate geometry hardening result
+## Separate geometry hardening result — Experiment 01
 
 The realistic finite-electrode/depletion study remains separately auditable in [`REALISTIC_GEOMETRY_CLOSURE_STRESS.md`](experiments/01-vanishing-absorber/REALISTIC_GEOMETRY_CLOSURE_STRESS.md). It shows that an ordinary geometry/depletion confound can generate an order-unity fraction of the current one-dimensional gradient target, so a four-color residual is not by itself a transport-gradient label.
 
-## Next scientific attack
+## Next scientific attacks
+
+### Experiment 01
 
 The decisive remaining device-physics validation is **one self-consistent combined-physics synthetic detector challenge**, including simultaneous ordinary departures, with its synthetic spectral/RF currents analyzed blindly through the same hierarchy. The hierarchy should be allowed to return `rank>2, mechanism unresolved`; failing safely is part of the validation.
 
-Experimental/calibration feasibility, the exact closest-source priority audit, and the blind combined-physics challenge remain separate open fronts. Adversarial referee reports are inputs to test, not instructions to follow automatically. Do not restart older exploratory branches merely because they remain in historical documentation; use `CURRENT_STATE_LIVE.md` and `AGENTS.md` for the live frontier.
+Experimental/calibration feasibility, the exact closest-source priority audit, and the blind combined-physics challenge remain separate open fronts. Adversarial referee reports are inputs to test, not instructions to follow automatically. Do not restart older exploratory branches merely because they remain in historical documentation; use Experiment 01 `CURRENT_STATE_LIVE.md` and root `AGENTS.md` for that frontier.
+
+### Experiment 02
+
+Formalize the photon-to-record mapping as a constrained quantum/statistical decision problem, introduce finite-temperature false events and retention time, then adversarially test candidate minimum-resource bounds. Do **not** assume a universal atom count, mandatory absorption, or `k_B T ln 2` cost per detector click. Use Experiment 02 `CURRENT_STATE_LIVE.md`, `CLAIM_LEDGER.md`, and local `AGENTS.md` as the live frontier.
