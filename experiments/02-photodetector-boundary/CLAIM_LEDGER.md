@@ -1,10 +1,10 @@
 # Claim Ledger — Experiment 02
 
 **Updated:** 2026-08-12  
-**Status:** exploratory photodetector-boundary Gedanken experiment  
+**Status:** exploratory photodetector-boundary Gedanken experiment; first constrained lower-bound result  
 **Priority:** unassessed; no novelty claim
 
-This file is the epistemic boundary. `CURRENT_STATE_LIVE.md` is the operational front door; `RESEARCH_LOG.md` preserves chronology.
+This file is the epistemic boundary. `CURRENT_STATE_LIVE.md` is the operational front door; `RESEARCH_LOG.md` preserves chronology; `INTERACTION_ACTION_LOWER_BOUND.md` contains the detailed first resource-bound attack.
 
 ## Status vocabulary
 
@@ -63,9 +63,24 @@ Downstream processing can stabilize or enlarge an encoded distinction but cannot
 For a closed photon + detector + environment model, evolution can remain unitary. Operational irreversibility arises through information dispersal, decoherence, inaccessible correlations, and metastable record formation. No universal atom-count transition is assumed.
 
 ### H9 — every detected photon must dissipate `k_B T ln 2` at the moment of detection
-**Status:** NON-CLAIM / TARGET FOR ADVERSARIAL TESTING
+**Status:** INVALIDATED AS A UNIVERSAL ACQUISITION BOUND / RETAINED AS RESET QUESTION
 
-Landauer-type reset costs cannot be imported automatically as a per-detection-event lower bound. The memory/reset cycle, logical operation, and resource accounting must be specified.
+Landauer-type costs attach to logically irreversible operations such as erasure under stated thermodynamic conditions. A detection interaction can be modeled reversibly/unitarily, so `k_B T ln 2` cannot be imported as a universal acquisition cost per click. Reset remains a separate open accounting problem.
+
+### H10 — a nonzero final detector energy change is necessary for distinguishability
+**Status:** INVALIDATED
+
+A degenerate two-state pointer with `H_D=0` can be conditionally rotated from `|0>` to the orthogonal state `|1>` while the final bare detector energy change remains zero.
+
+### H11 — target discrimination alone implies a universal positive deposited/dissipated energy per event
+**Status:** INVALIDATED IN GENERAL
+
+The degenerate-pointer counterexample gives perfect detector-state distinguishability with zero final bare-energy separation. It still requires nonzero interaction Hamiltonian action during acquisition.
+
+### H12 — atom count itself is the fundamental detector resource coordinate
+**Status:** INVALIDATED / SUPERSEDED
+
+A minimum `N` appears only after a microscopic per-constituent interaction cap is specified. Atom count is therefore a derived constrained resource count rather than the universal detector boundary.
 
 ---
 
@@ -234,17 +249,196 @@ No claim is made that this chain has one universal quantitative threshold.
 
 ---
 
-# 5. Open fronts
+# 5. First constrained lower-bound results
 
-### O1 — minimum-resource record formation
+### B1 — pure-state discrimination target fixes a minimum branch angle
+**Status:** DERIVED / KNOWN GEOMETRY
+
+For pure detector branch states define
+
+```math
+\theta
+=\arccos|\langle D^{(0)}|D^{(1)}\rangle|.
+```
+
+Since
+
+```math
+\mathcal D_D=\sin\theta,
+```
+
+the equal-prior error target `P_e<=epsilon` requires
+
+```math
+\boxed{
+\theta\ge\arcsin(1-2\epsilon).
+}
+```
+
+### B2 — finite-time pure-state branch separation requires interaction action
+**Status:** DERIVED FROM ESTABLISHED QUANTUM SPEED-LIMIT GEOMETRY / CONDITIONAL
+
+For
+
+```math
+H_0=H_D,
+\qquad
+H_1=H_D+V,
+```
+
+remove the common detector evolution and let `V_I(t)` generate the relative branch state. Then
+
+```math
+\theta(\tau)
+\le
+\frac{1}{\hbar}
+\int_0^\tau\Delta V_I(t)dt.
+```
+
+Therefore
+
+```math
+\boxed{
+\mathcal A_\Delta
+\equiv
+\int_0^\tau\Delta V_I(t)dt
+\ge
+\hbar\arcsin(1-2\epsilon).
+}
+```
+
+For perfect discrimination,
+
+```math
+\boxed{
+\mathcal A_\Delta\ge\pi\hbar/2.
+}
+```
+
+This is not claimed as a new quantum speed-limit theorem. The Experiment-02 content is the detector-specific resource interpretation.
+
+### B3 — degenerate conditional qubit saturates the perfect-discrimination action bound
+**Status:** CHECKED ANALYTICALLY
+
+For
+
+```math
+H_D=0,
+\qquad
+V=(\hbar\Omega/2)\sigma_y,
+```
+
+with initial `|0>` and pulse area `Omega tau=pi`, the photon branch ends in the orthogonal state `|1>`. Meanwhile
+
+```math
+\Delta\langle H_D\rangle=0
+```
+
+and
+
+```math
+\mathcal A_\Delta=\pi\hbar/2.
+```
+
+Thus the action bound is saturated while the final bare detector energy change vanishes.
+
+### B4 — a per-constituent action cap induces an explicit minimum atom count
+**Status:** DERIVED / CONDITIONAL
+
+Let
+
+```math
+V_I(t)=\sum_{j=1}^{N}v_j(t),
+```
+
+and define
+
+```math
+g_j(t)
+=\frac{\lambda_{\max}[v_j]-\lambda_{\min}[v_j]}{2},
+\qquad
+a_j=\int_0^\tau g_j(t)dt.
+```
+
+Then
+
+```math
+\sum_j a_j
+\ge
+\hbar\arcsin(1-2\epsilon).
+```
+
+If `a_j<=a_max` for every constituent,
+
+```math
+\boxed{
+N
+\ge
+\left\lceil
+\frac{\hbar\arcsin(1-2\epsilon)}{a_{\max}}
+\right\rceil.
+}
+```
+
+This is the first recovered atom-count threshold in the experiment, but it exists only after a per-atom physical coupling/action constraint is supplied.
+
+### B5 — activated thermal retention produces a conditional barrier bound
+**Status:** DERIVED / CONDITIONAL
+
+For
+
+```math
+\Gamma_d=\nu_0e^{-E_b/k_BT},
+```
+
+and dark-switch probability over `tau_rec`
+
+```math
+p_d=1-e^{-\Gamma_d\tau_{\rm rec}},
+```
+
+requiring `p_d<=p_d,max` gives
+
+```math
+\boxed{
+E_b
+\ge
+k_BT
+\ln\left[
+\frac{\nu_0\tau_{\rm rec}}
+{-\ln(1-p_{d,\max})}
+\right].
+}
+```
+
+This is an Arrhenius bistable-pointer result, not a universal detector bound.
+
+### B6 — acquisition, retention, and reset are distinct resource stages
+**Status:** DERIVED ORGANIZING STATEMENT
+
+Current decomposition:
+
+```text
+acquisition -> differential interaction action
+retention   -> architecture-specific stability / dark-event suppression
+reset       -> separate thermodynamic/logical cost
+```
+
+A single scalar `energy per detected photon` generally conflates these stages.
+
+---
+
+# 6. Open fronts
+
+### O1 — microscopic optical realization of the action bound
+**Status:** OPEN / CURRENT FRONTIER
+
+For one photon interacting with `N` identical absorbers/dipoles, express the required action in physical optical quantities: coupling `g`, dwell time, dipole matrix element, oscillator strength, mode volume, cross section, optical depth, or cooperativity. Determine whether the result is useful or merely restates known strong-coupling/cooperativity conditions.
+
+### O2 — finite-temperature false-event boundary beyond activated bistability
 **Status:** OPEN
 
-Given `epsilon`, `tau_obs`, `tau_rec`, temperature, reset requirements, allowed optical disturbance, and a specified system boundary, determine whether any nontrivial lower bound exists on energy, entropy production, back-action, metastable barrier, controlled dimension, or another resource.
-
-### O2 — finite-temperature false-event boundary
-**Status:** OPEN
-
-Introduce dark events and thermal fluctuations explicitly. Determine the minimal record separation required for target false-positive and false-negative rates.
+Introduce thermal initial mixtures and dark dynamics explicitly. Determine whether any architecture-independent stability coordinate survives beyond model-specific barriers/rates.
 
 ### O3 — persistence versus reversibility
 **Status:** OPEN
@@ -261,29 +455,37 @@ Separate energy/dissipation needed for interaction, amplification, retention, re
 
 If photon absorption is forbidden, quantify what disturbance must remain in conjugate optical observables or other degrees of freedom for a specified amount of acquired information.
 
-### O6 — atom-number scaling under explicit architecture constraints
+### O6 — mixed-state / open-system acquisition bound
 **Status:** OPEN
 
-A universal `N_c` is rejected, but a meaningful minimum `N` may emerge after fixing interaction strength, temperature, linewidth, retention time, readout access, and error target. This is a constrained engineering/physics question rather than an ontological threshold.
+Generalize the pure conditional-unitary action result using Bures-angle / quantum-Fisher-information or generator-norm speed limits. Track which subsystem contains the acquired information.
 
-### O7 — mapping to real detector metrics
+### O7 — many-body scaling
+**Status:** OPEN
+
+Determine how independent, collective, correlated, and entangled matter states change achievable detector-state separation for fixed local interaction resources. Do not assume `sqrt(N)` or `N` enhancement without a specified Hamiltonian and state family.
+
+### O8 — mapping to real detector metrics
 **Status:** OPEN
 
 Connect the abstract decision variables to quantum efficiency, dark-count probability/rate, NEP, specific detectivity, timing jitter, dead time, gain, and bandwidth without assuming that any one conventional metric captures record distinguishability by itself.
 
-### O8 — prior-art / terminology audit
+### O9 — prior-art / terminology audit
 **Status:** OPEN AND REQUIRED BEFORE NOVELTY LANGUAGE
 
-Audit quantum measurement theory, photodetection theory, quantum nondemolition measurement, detector thermodynamics, metastable measurement records, and finite-system electronic-structure crossover literature.
+Audit quantum measurement theory, photodetection theory, quantum nondemolition measurement, detector thermodynamics, quantum speed limits, metastable measurement records, finite-system electronic-structure crossover literature, and optical cooperativity/absorption bounds.
 
 ---
 
-# 6. Explicit non-claims
+# 7. Explicit non-claims
 
 - **NON-CLAIM:** there is a universal critical number of atoms at which a photodetector appears.
 - **NON-CLAIM:** absorption is required for all photodetection.
 - **NON-CLAIM:** electron-hole generation alone is a complete detection event.
 - **NON-CLAIM:** decoherence by itself guarantees a useful detector.
-- **NON-CLAIM:** every detection event costs `k_B T ln 2`.
+- **NON-CLAIM:** every detection event costs `k_B T ln 2` during acquisition.
+- **NON-CLAIM:** a nonzero final detector energy change is required for detection.
+- **NON-CLAIM:** the interaction-action inequality is a new quantum speed-limit theorem.
+- **NON-CLAIM:** the current conditional atom-count bound is universal across unconstrained matter-light interactions.
 - **NON-CLAIM:** the trace-distance formulation is novel.
 - **NON-CLAIM:** the current experiment has established a publishable new theorem.
