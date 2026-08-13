@@ -1,12 +1,12 @@
 # Current Live State — Experiment 02
 
 **Date:** 2026-08-12  
-**Status:** exploratory first-principles theory; microscopic interaction through decision and source-inclusive resource closure now mapped in minimal models  
+**Status:** exploratory first-principles theory; detector-channel / resource-ledger formulation active  
 **Priority:** unassessed; no novelty claim
 
-This is the current state pointer. `CLAIM_LEDGER.md` is the epistemic boundary; `RESEARCH_LOG.md` preserves chronology. Detailed derivations are authoritative for algebra.
+This is the current operational pointer. Use `CLAIM_LEDGER.md` for epistemic status and `RESEARCH_LOG.md` for chronology. Detailed algebra belongs in the dedicated derivation files.
 
-Active derivations:
+## Active derivations
 
 1. `INTERACTION_ACTION_LOWER_BOUND.md`
 2. `N_DIPOLE_SINGLE_MODE_MODEL.md`
@@ -20,32 +20,36 @@ Active derivations:
 10. `TASK_SPECIFIC_DETECTIVITY.md`
 11. `RESET_AND_CYCLE_CLOSURE.md`
 12. `SOURCE_INCLUSIVE_THERMODYNAMIC_CLOSURE.md`
+13. `REFERENCE_FRAME_ACCESS.md`
+14. `CRITICAL_MATCHING_CONTROL_PRECISION.md`
+15. `PARALLEL_CHANNEL_RESOURCE.md`
+16. `DETECTOR_CHANNEL_ORDERING.md`
 
 ---
 
-## 1. Strongest current answer
+## 1. Current answer to the starting question
 
-The starting question was:
+Starting question:
 
 > At what point does a collection of atoms become a photodetector?
 
-The current answer is:
+Current answer:
 
-> **There is no universal atom-count transition. Detection is a relation among the optical task, the matter and optical interaction architecture, the accessible output process, temporal/noise constraints, and the observer's decision criterion. Under explicit constraints, minimum effective atom numbers, optical depths, rate ratios, event energies, or reset resources emerge. Thermodynamic cost is a separate property of the complete information/resource cycle, not of `detection` by itself.**
+> **There is no universal atom-count transition. A material system functions as a detector only relative to a specified optical input family, allowed operations/reference resources, accessible output channel, temporal/noise environment, and decision criterion. Under explicit constraints, minimum effective atom numbers, optical depths, interaction actions, rate ratios, control precision, channel counts, or reset resources can emerge.**
 
-The detector boundary has therefore migrated from a boundary in matter to a boundary in **measurement performance and resource conversion**.
+The detector boundary is therefore not a phase boundary in matter. It is an **operational channel / decision-performance boundary**.
 
 ---
 
-## 2. Operational quantum criterion
+## 2. Minimal quantum criterion
 
-For accessible detector states conditioned on no photon and one photon,
+For photon-conditioned accessible detector states,
 
 ```math
 \rho_D^{(0)},\qquad\rho_D^{(1)},
 ```
 
-define
+define unrestricted trace distance
 
 ```math
 \boxed{
@@ -60,19 +64,25 @@ For equal priors,
 \boxed{P_{e,\min}=\frac12(1-\mathcal D_D).}
 ```
 
-This preserves the first fundamental correction:
+This already established:
 
 ```text
-absorption != detection.
+absorption is not sufficient;
+absorption is not universally necessary;
+electron-hole generation is not a complete detection event.
 ```
 
-Perfect absorption can leave no accessible material record; a dispersive nonabsorptive interaction can create one.
+But `REFERENCE_FRAME_ACCESS.md` adds an important qualification: unrestricted trace distance assumes access to the optimal measurement. Under symmetry-restricted operations without the needed phase/time reference, operational distinguishability can be smaller.
+
+The most precise current statement is therefore:
+
+> **detector performance is distinguishability under the allowed operations and available reference resources.**
 
 ---
 
-## 3. Atom count only reappears after resource constraints
+## 3. Atom count becomes meaningful only after another resource is bounded
 
-A universal positive final deposited-energy cost failed. In the stated pure/unitary finite-time model, a surviving resource is interaction action:
+A universal positive deposited-energy cost failed. In the stated pure finite-time conditional-unitary model,
 
 ```math
 \boxed{
@@ -82,521 +92,385 @@ A universal positive final deposited-energy cost failed. In the stated pure/unit
 }
 ```
 
-Perfect discrimination requires `A_Delta >= pi hbar/2`.
-
-If each constituent supplies at most action `a_max`,
-
-```math
-N
-\ge
-\left\lceil
-\frac{\hbar\arcsin(1-2\epsilon)}{a_{\max}}
-\right\rceil.
-```
-
 For identical resonant dipoles,
 
 ```math
-\boxed{G=g\sqrt N,}
+\boxed{G=g\sqrt N.}
 ```
 
-and perfect transient first-lobe transfer requires
+Perfect transient first-lobe transfer requires
 
 ```math
 N_{\min}=\left\lceil(\pi/(2g\tau))^2\right\rceil.
 ```
 
-These are constrained coupling/time results, not band-formation thresholds.
+For unequal couplings,
+
+```math
+\boxed{G^2=\sum_j|g_j|^2,}
+```
+
+so literal total atom count is not the invariant microscopic resource.
+
+In extended dilute matter this becomes optical depth / column density rather than total `N`.
 
 ---
 
-## 4. Persistent record requires rate matching
+## 4. Persistent record is a rate-matching problem
 
-For a photon initially inside a lossy optical mode,
+For a photon initially inside a lossy mode,
 
 ```math
-\boxed{
 P_R
 =\frac{4G^2\Gamma}
 {(\kappa+\gamma+\Gamma)[4G^2+\kappa(\gamma+\Gamma)]}.
-}
 ```
 
-The desired trapping rate has a finite optimum; for `gamma=0`, `Gamma_opt=2G`.
+The desired trapping rate has a finite optimum; in the clean internal-mode limit,
 
-Thus
-
-```text
-more irreversibility != monotonically better detection.
+```math
+\Gamma_{\rm opt}=2G.
 ```
+
+Thus more irreversible trapping is not monotonically better.
 
 ---
 
-## 5. External capture kills a peak-efficiency N threshold
+## 5. Traveling-wave capture: weak coupling can trade against time
 
-For an incident traveling photon, clean one-port critical matching gives
+For a clean one-port incident photon,
 
 ```math
 \boxed{\Gamma_{\rm match}=4G^2/\kappa.}
 ```
 
-At resonance this can produce unit record conversion for any nonzero `G` if sufficiently slow/narrowband operation is allowed.
+Unit monochromatic record conversion is possible for any nonzero `G` if sufficiently slow/narrowband operation and exact matching are allowed.
 
-Therefore:
+Therefore peak narrowband efficiency alone imposes no positive `N_min`.
 
-> **Peak monochromatic efficiency alone does not imply a positive minimum atom count. Weak coupling is paid for in bandwidth/time.**
-
-Optimized external efficiency is
-
-```math
-\boxed{
-\eta_{R,\max}
-=\eta_{\rm esc}\frac{C_N}{1+C_N},
-}
-```
-
-with `eta_esc=kappa_in/kappa` and `C_N=4G^2/(kappa gamma)`.
-
-Finite photon bandwidth restores a constrained resource threshold.
+Weak coupling costs bandwidth / interaction time.
 
 ---
 
-## 6. Total N becomes mode-weighted coupling / optical depth
+## 6. Control precision restores a constrained threshold
 
-For unequal microscopic couplings,
+The clean resonant efficiency versus mismatch ratio
 
 ```math
-\boxed{G^2=\sum_j|g_j|^2.}
+x=\Gamma/\Gamma_{\rm match}
 ```
 
-Only optically participating matter counts.
-
-In a dilute traveling-wave continuum,
+is
 
 ```math
-\boxed{
-\mathrm{OD}=n\sigma L
-=\frac{N_{\rm col}\sigma}{A},
-}
-```
-
-with `P_abs=1-e^-OD`.
-
-Thus optical depth / oscillator-strength overlap is more invariant than total atom count in extended matter.
-
----
-
-## 7. Semiconductor electron-hole bridge
-
-For a minimal slab,
-
-```math
-\boxed{
-\eta_s
-=\eta_{\rm mode}(1-e^{-\alpha L})\eta_{eh}P_{\rm col}P_{\rm read}.
-}
-```
-
-With independent extraction/recombination hazards,
-
-```math
-\boxed{
-P_{\rm col}
-=\frac{\Gamma_{\rm ext}}
-{\Gamma_{\rm ext}+\Gamma_{\rm rec}}.
-}
-```
-
-Electron-hole generation is therefore the semiconductor-specific **microscopic transduction stage**, not the complete detection event.
-
-For independent Poisson dark clicks,
-
-```math
-\boxed{
-\mathcal D_{\rm click}=\eta_s e^{-R_d\tau},
-}
-```
-
-and target error requires the necessary condition
-
-```math
-\boxed{R_d\tau\le-\ln(1-2\epsilon).}
-```
-
----
-
-## 8. Continuous electrical output -> full decision geometry
-
-For equal-covariance Gaussian output,
-
-```math
-H_0:y=n,\qquad H_1:y=s+n,
-```
-
-the optimum distance is
-
-```math
-\boxed{
-d^2=\langle s,C^{-1}s\rangle
-=\int\frac{|\tilde s(f)|^2}{S_n^{(2)}(f)}df.
-}
-```
-
-and
-
-```math
-\boxed{P_e=Q(d/2).}
-```
-
-Input referring gives
-
-```math
-\boxed{
-d^2=\int\frac{|\tilde p(f)|^2}{\mathrm{NEP}_2^2(f)}df.}
-```
-
-For a one-pole white-noise short-pulse benchmark,
-
-```math
-\boxed{
-d^2
-=\frac{E^2}{\tau\,\mathrm{NEP}^2}
-=\frac{E^2D^{*2}}{A\tau}.}
-```
-
-Thus equal scalar `D*` does not imply equal event-detection performance.
-
----
-
-## 9. Signal-dependent noise makes the complete distribution fundamental
-
-For Gaussian hypotheses with `C_0 != C_1`, the optimum likelihood ratio is quadratic. A covariance change can carry information even when the mean does not change.
-
-For Poisson counts,
-
-```math
-\ell(K)=K\ln(\mu_1/\mu_0)-(\mu_1-\mu_0),
-```
-
-and
-
-```math
-\boxed{
-BC
-=\exp[-(\sqrt{\mu_1}-\sqrt{\mu_0})^2/2].}
-```
-
-The familiar background-shot-noise SNR is only a local expansion of this full count-distribution geometry.
-
-In the zero-background limit,
-
-```math
-\boxed{P_e=\frac12e^{-\lambda_sT}.}
-```
-
-Hence no single fixed-noise SNR law spans all counting regimes.
-
----
-
-## 10. Unknown arrival time creates a search resource
-
-For `M` independent candidate event times,
-
-```math
-\boxed{
-\Lambda(z)=\frac1M\sum_{m=1}^M e^{dz_m-d^2/2}.}
-```
-
-A max-threshold benchmark gives
-
-```math
-P_{\rm FA}=1-\Phi(\eta)^M,
-```
-
-```math
-P_{\rm miss}=\Phi(\eta-d)\Phi(\eta)^{M-1}.
-```
-
-At fixed small false-alarm probability the threshold grows approximately as `sqrt(2 ln M)`.
-
-Thus intrinsic speed, search-window duration, and false-alarm budget are separate temporal resources.
-
----
-
-## 11. Task-specific scalar exists; universal scalar ranking usually does not
-
-For `p(t)=E q(t)` with normalized waveform shape,
-
-```math
-\boxed{
-\mathcal K_D[q]
-=\int\frac{|\tilde q(f)|^2}{\mathrm{NEP}_{2,D}^2(f)}df,
-}
+\boxed{\eta_R=\frac{4x}{(1+x)^2},}
 ```
 
 so
 
 ```math
+\boxed{1-\eta_R=\left(\frac{x-1}{x+1}\right)^2.}
+```
+
+If the architecture imposes a minimum realizable trapping rate `Gamma_floor`, target efficiency `1-epsilon` requires
+
+```math
 \boxed{
-E_{\min}(q,\epsilon)
-=\frac{2Q^{-1}(\epsilon)}{\sqrt{\mathcal K_D[q]}}
+G^2
+\ge
+\frac{\kappa\Gamma_{\rm floor}}{4}
+\frac{1-\sqrt\epsilon}{1+\sqrt\epsilon}.
 }
 ```
 
-for known-time equal-prior Gaussian readout.
+For identical dipoles this restores a positive constrained `N_min`.
 
-Define
-
-```math
-W_D(f)=1/\mathrm{NEP}_{2,D}^2(f).
-```
-
-If `W_A>=W_B` pointwise over the allowed band, A dominates B for every waveform in the task class.
-
-If `W_A-W_B` changes sign, there are tasks that reverse the ranking.
-
-Therefore detector comparison is generally a **partial order**, not a universal one-dimensional leaderboard.
+Thus the ideal `G->0` counterexample was using **arbitrarily slow and arbitrarily well-controlled matching dynamics as a free resource**.
 
 ---
 
-## 12. Thermodynamic closure correction — detector memory is not the whole information source
+## 7. Semiconductor bridge
 
-The naive statement
+For a minimal semiconductor slab,
 
-```text
-every click dissipates at least k_BT ln2
+```math
+\eta_s
+=\eta_{\rm mode}(1-e^{-\alpha L})\eta_{eh}P_{\rm col}P_{\rm read},
 ```
 
-remains rejected.
+with
 
-For a binary record with event probability `p`, logical entropy is
+```math
+P_{\rm col}
+=\frac{\Gamma_{\rm ext}}
+{\Gamma_{\rm ext}+\Gamma_{\rm rec}}.
+```
+
+Electron-hole generation is the microscopic transduction stage, not the detector boundary.
+
+For independent Poisson dark clicks,
+
+```math
+\mathcal D_{\rm click}=\eta_s e^{-R_d\tau},
+```
+
+so target error requires
+
+```math
+R_d\tau\le-\ln(1-2\epsilon).
+```
+
+---
+
+## 8. Electrical output: complete distribution, not one SNR
+
+For common Gaussian covariance,
 
 ```math
 \boxed{
-h(p)=-p\ln p-(1-p)\ln(1-p).}
+d^2
+=\int\frac{|\tilde s(f)|^2}{S_n^{(2)}(f)}df
+=\int\frac{|\tilde p(f)|^2}{\mathrm{NEP}_2^2(f)}df,
+}
 ```
 
-Under ideal degenerate-memory, quasistatic isothermal erasure assumptions, exact reset with no retained side information has scale
+with
 
 ```math
-\boxed{W_{\rm erase,min}\ge k_BT h(p).}
+P_e=Q(d/2).
 ```
 
-`k_BT ln2` is only the unbiased `p=1/2` case.
+For a one-pole white-noise short-pulse benchmark,
 
-Exported side information can remove a universal local reset cost.
+```math
+\boxed{d^2=E^2D^{*2}/(A\tau).}
+```
 
-But the earlier stronger statement
+Thus equal scalar `D*` does not imply equal event performance when temporal response differs.
+
+If `C_0 != C_1`, the optimum Gaussian statistic is quadratic and covariance change itself can carry information.
+
+For Poisson counts,
+
+```math
+BC
+=\exp[-(\sqrt{\mu_1}-\sqrt{\mu_0})^2/2],
+```
+
+so conventional shot-noise SNR is only a local approximation to full count-distribution geometry.
+
+The general classical object is the **complete conditional output process**.
+
+---
+
+## 9. Timing and parallelism are independent resources
+
+Unknown arrival time creates a mixture over shifted templates. In the independent-bin benchmark,
+
+```math
+\Lambda
+=\frac1M\sum_m e^{dz_m-d^2/2}.
+```
+
+At fixed small false-alarm probability, the search threshold grows approximately as `sqrt(2 ln M)`.
+
+Parallel known channels behave differently. For independent Gaussian outputs,
+
+```math
+\boxed{d_{\rm tot}^2=\sum_jd_j^2.}
+```
+
+Many weak channels can therefore compensate weak per-channel evidence.
+
+If the active channel is unknown, channel search introduces a spatial trials penalty analogous to unknown arrival time.
+
+Therefore a detector theorem must state
 
 ```text
-detector + controller + all record memories reset
-and no detector-side record survives
--> event entropy must be erased
+total accessible channel count / capacity
+and
+whether active channel identity is known.
 ```
 
-is also **too strong**.
+---
 
-A surviving optical/source variable can act as side information and permit reversible uncomputation:
+## 10. Reference frames can change accessible information
+
+Consider
 
 ```math
-\boxed{
+|\psi_\pm\rangle
+=(|0\rangle\pm|1\rangle)/\sqrt2.
+```
+
+Globally they are orthogonal, so unrestricted trace distance is one.
+
+Without an optical phase reference, `U(1)` twirling gives
+
+```math
+\mathcal G(\rho_+)
+=\mathcal G(\rho_-)
+=\frac12(|0\rangle\langle0|+|1\rangle\langle1|),
+```
+
+making them indistinguishable to symmetry-invariant measurements.
+
+Hence
+
+```text
+same optical states
++ different phase/time-reference resources
+-> different achievable detector performance.
+```
+
+Reference-frame/coherence resources are therefore independent ledger coordinates, not merely energy.
+
+---
+
+## 11. Task-specific scalar versus universal detector ordering
+
+For a fixed normalized waveform `p(t)=Eq(t)`, define
+
+```math
+\mathcal K_D[q]
+=\int |\tilde q(f)|^2/\mathrm{NEP}_{2,D}^2(f)\,df,
+```
+
+so
+
+```math
+E_{\min}
+=2Q^{-1}(\epsilon)/\sqrt{\mathcal K_D[q]}
+```
+
+in the known-time Gaussian model.
+
+This is useful after the task is fixed.
+
+But crossing detector decision kernels can reverse rankings across waveform tasks, so no universal scalar ordering exists in general.
+
+---
+
+## 12. Detector-channel partial order is the stronger universal comparison
+
+For a declared optical input family `X`, represent a classical detector by
+
+```math
+\boxed{K_D(y|x)=P_D(Y=y|X=x).}
+```
+
+If detector B can be generated from A by hypothesis-independent post-processing,
+
+```math
+\boxed{K_B=T\circ K_A,}
+```
+
+then every decision rule available with B can be simulated using A.
+
+So A is universally at least as informative as B for the declared statistical experiment.
+
+If neither detector is a post-processing of the other, they are **incomparable** and task-dependent ranking is expected.
+
+This is the classical Blackwell/garbling structure applied to photodetectors.
+
+At the microscopic level, use quantum detector channels
+
+```math
+\Phi_D:\rho_{\rm opt}\mapsto\rho_{\rm out}
+```
+
+and the corresponding post-processing comparison under proper quantum conditions.
+
+The current performance hierarchy is therefore
+
+```text
+scalar conventional metric
+-> task-specific decision metric
+-> detector-channel partial order
+-> resource-constrained set of physically achievable detector channels.
+```
+
+This is currently the cleanest general answer to `which detector is fundamentally better?`
+
+---
+
+## 13. Thermodynamics: source-inclusive closure, not detector-local Landauer
+
+The fixed per-click `k_B T ln2` statement remains rejected.
+
+A local detector can export its record. Even detector/controller/all-record-memory closure is not enough if the original optical/source variable survives as side information:
+
+```math
 |x\rangle_S|0\rangle_M
 \to
 |x\rangle_S|x\rangle_M
 \to
 |x\rangle_S|0\rangle_M.
-}
 ```
 
-Therefore:
+A true erasure statement must include every usable degree of freedom correlated with `X`.
+
+Even under source-inclusive logical erasure, optical or pump nonequilibrium free energy can pay the information-processing cost.
+
+Therefore no architecture-independent positive heat or externally supplied work per detector event has survived.
+
+The robust endpoint is
 
 ```text
-detector-memory closure
-!=
-source-inclusive informational closure.
+identify discarded information
++ retained side information
++ all consumed free-energy resources
+-> apply the appropriate second-law/work-cost relation.
 ```
 
-A genuine erasure theorem must include every usable system correlated with the optical hypothesis, including the source/reference variable itself.
-
-Detailed correction: `SOURCE_INCLUSIVE_THERMODYNAMIC_CLOSURE.md`.
+Thermodynamic irreversibility is a property of the complete resource cycle, not the definition of photodetection.
 
 ---
 
-## 13. Source-inclusive closure still does not imply positive external detector work
+## 14. Current resource ledger
 
-Suppose all information about the optical hypothesis really is discarded inside a declared source-inclusive boundary.
-
-Even then the detected optical field, a detector bias, pump, or another nonequilibrium reservoir can supply usable free energy.
-
-Define schematically
-
-```math
-\Delta F_{\rm opt}^{\rm avail}
-=F(\rho_{\rm opt,in})-F(\rho_{\rm opt,out}).
-```
-
-A useful organizing balance is
-
-```math
-\boxed{
-W_{\rm ext}
-\gtrsim
-W_{\rm info}
--\Delta F_{\rm opt}^{\rm avail}
--\Delta F_{\rm other}^{\rm avail}.
-}
-```
-
-The exact inequality/free-energy functional is regime dependent; this is not asserted as a universal single-shot theorem.
-
-The robust conclusion is:
+Current known independent coordinates/resources include
 
 ```text
-source-inclusive erasure
-!=
-positive externally supplied detector work.
+optical input family / prior / task
+allowed operations
+phase/time reference resources
+mode overlap / optical access
+interaction action / microscopic coupling
+interaction time / bandwidth
+optical escape / competing loss
+record trapping / retention
+control rate floor / precision
+parallel channel count / occupancy knowledge
+complete noise statistics / dark events
+timing prior / synchronization
+side information / exported-record capacity
+nonequilibrium optical/pump free energy
+reset / cycle-closure requirements.
 ```
 
-If optical or pump free energy pays the cost, `W_ext` can vanish or become negative.
-
-The relevant optical resource is available nonequilibrium free energy, not raw photon energy `h nu` automatically.
+Every attempted universal bound has failed when one of these was left free.
 
 ---
 
-## 14. Continuous reversible transduction removes the binary-memory assumption
+## 15. Current frontier
 
-A detector need not latch a binary bit.
+Do not propose another scalar metric or simple thermodynamic lower bound.
 
-It may instead create a reversible continuous correlation between the optical state and a pointer/output coordinate.
+The live question is:
 
-If that correlation is later uncomputed using retained side information, no logical erasure occurs.
+> **Can the set of physically achievable detector channels be bounded by a resource ledger that remains closed under adversarial counterexamples?**
 
-If the output is retained, it is the record.
-
-If the output is eventually discarded, the thermodynamic cost attaches at that discard stage.
-
-Thus:
+Attack next with
 
 ```text
-photodetection
-!=
-mandatory binary memory formation
-!=
-mandatory logical erasure.
+correlating catalysts;
+finite-size / single-shot fluctuations;
+causal latency / maximum power;
+spatially distributed adaptive measurements;
+resource states that return locally unchanged but accumulate correlations.
 ```
 
-The strongest thermodynamic object is **discarded information conditional on retained information, together with the free-energy resources consumed by the full process**.
-
----
-
-## 15. Stability versus reset-speed control range remains conditional
-
-For an activated record with spontaneous rate
-
-```math
-\Gamma_d=\nu_0e^{-E_b/(k_BT)},
-```
-
-retention error `p_d` over `tau_rec` requires
-
-```math
-\boxed{
-E_b
-\ge
-k_BT\ln\left[
-\frac{\nu_0\tau_{\rm rec}}
-{-\ln(1-p_d)}
-\right].}
-```
-
-If reset lowers the barrier by `Delta E`, achieving reset failure `epsilon_r` within `tau_r` gives the conditional requirement
-
-```math
-\boxed{
-\Delta E
-\ge
-k_BT\ln\left[
-\frac{\tau_{\rm rec}\ln(1/\epsilon_r)}
-{\tau_r[-\ln(1-p_d)]}
-\right]
-}
-```
-
-when positive and when the same activated-rate model applies.
-
-This remains a **control-range / stability-speed tradeoff**, not a universal dissipated-work bound.
-
----
-
-## 16. Current strongest conceptual structure
-
-```text
-material constitution
--> optical access / mode overlap
--> mode-weighted interaction resource
--> microscopic transduction
--> acquisition/extraction versus loss
--> persistent record
--> complete conditional output process
--> timing / nuisance parameters
--> optimum decision
--> error probability
--> record export / local reset
--> source-inclusive information accounting
--> nonequilibrium free-energy accounting if full cyclic thermodynamics is imposed.
-```
-
-Every attempted universal scalar/bound has exposed an omitted resource:
-
-```text
-atom count             -> coupling/time and mode overlap
-peak efficiency        -> bandwidth
-more atoms             -> optical escape
-more absorber          -> downstream loss and dark events
-fixed-noise SNR        -> hypothesis-dependent noise statistics
-D*                     -> temporal/spectral task structure
-known-time score       -> timing-search complexity
-local reset heat       -> exported record capacity
-memory-global erasure  -> surviving source/side information
-positive cycle work    -> optical/pump nonequilibrium free energy.
-```
-
-The recurring pattern is now itself a major result of the Gedanken experiment:
-
-> **A proposed detector limit is not meaningful until every alternate resource capable of carrying the same information, time, coupling, or free-energy burden is either bounded or included in the accounting ledger.**
-
----
-
-## 17. Current frontier
-
-The next attack is no longer a simple Landauer calculation.
-
-Ask whether the current resource ledger is complete enough to support any useful architecture-independent resource-conversion theorem.
-
-Try to break it with
-
-```text
-coherence / optical phase-reference resources;
-spatial mode count and parallel channels;
-clock / synchronization resources;
-finite control precision;
-catalysts that return locally unchanged but accumulate correlations;
-finite-size / single-shot work fluctuations;
-causal latency and maximum power constraints.
-```
-
-Candidate target:
-
-```text
-optical-state distinguishability
-+ available nonequilibrium free energy
-+ interaction time / bandwidth
-+ side information
-+ exported-record capacity
-+ decision error
--> achievable detector performance region.
-```
-
-Do not propose a theorem until adversarial counterexamples to this ledger are exhausted.
+Only after those attacks should a resource-conversion theorem be attempted.
 
 A focused primary-source prior-art audit remains mandatory before novelty language.
