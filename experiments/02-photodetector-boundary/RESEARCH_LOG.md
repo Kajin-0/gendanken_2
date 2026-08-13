@@ -705,18 +705,176 @@ This is not a novelty claim; the information-thermodynamic ingredients are estab
 
 ---
 
+## Reference-frame access exposed another hidden resource
+
+Unrestricted trace distance assumes the detector can perform the optimal measurement.
+
+Take
+
+```math
+|\psi_\pm\rangle
+=(|0\rangle\pm|1\rangle)/\sqrt2.
+```
+
+These are orthogonal globally.
+
+Without an optical phase reference, `U(1)` phase twirling maps both to
+
+```math
+\frac12(|0\rangle\langle0|+|1\rangle\langle1|),
+```
+
+so a symmetry-restricted reference-free detector cannot distinguish them.
+
+**Conclusion:** globally available optical information and operationally accessible detector information are not the same when measurement operations are reference constrained.
+
+**Missing resource:** phase/reference-frame asymmetry; clock/synchronization is the temporal analogue.
+
+Detailed derivation: `REFERENCE_FRAME_ACCESS.md`.
+
+---
+
+## Arbitrarily weak critical matching — narrowed by control precision
+
+The clean one-port critical-coupling counterexample used
+
+```math
+\Gamma_{\rm match}=4G^2/\kappa.
+```
+
+Define
+
+```math
+x=\Gamma/\Gamma_{\rm match}.
+```
+
+The exact resonant efficiency is
+
+```math
+\eta_R=\frac{4x}{(1+x)^2},
+```
+
+so
+
+```math
+1-\eta_R
+=\left(\frac{x-1}{x+1}\right)^2.
+```
+
+If a nonzero minimum realizable trapping rate `Gamma_floor` exists, target efficiency `1-epsilon` requires
+
+```math
+G^2
+\ge
+\frac{\kappa\Gamma_{\rm floor}}{4}
+\frac{1-\sqrt\epsilon}{1+\sqrt\epsilon}.
+```
+
+For identical dipoles this restores a positive conditional `N_min`.
+
+**Conclusion:** the earlier `G->0` perfect-efficiency result used arbitrarily slow and arbitrarily precise rate control as a hidden free resource.
+
+**Missing coordinate:** achievable control range / resolution.
+
+Detailed derivation: `CRITICAL_MATCHING_CONTROL_PRECISION.md`.
+
+---
+
+## Parallel channels exposed a spatial/multiplicity resource
+
+For independent Gaussian channels,
+
+```math
+d_{\rm tot}^2=\sum_jd_j^2.
+```
+
+For independent Poisson channels, the square-root-count separation exponents likewise add.
+
+Thus many weak known channels can compensate weak per-channel evidence.
+
+If the active channel is unknown, however, a spatial trials penalty appears analogous to unknown arrival time.
+
+**Conclusion:** a per-channel lower bound is not automatically a system-level detector bound.
+
+**Missing coordinate:** total accessible channel count/capacity and knowledge of active-channel identity.
+
+Detailed derivation: `PARALLEL_CHANNEL_RESOURCE.md`.
+
+---
+
+## Search for a universal scalar detector ranking was superseded by channel ordering
+
+The earlier crossing-kernel result already showed that scalar rankings can reverse across tasks.
+
+The stronger question became:
+
+> Is there a mathematically exact sense in which detector A is never worse than detector B for every decision problem?
+
+Represent the detector as a complete statistical channel
+
+```math
+K_D(y|x)=P_D(Y=y|X=x).
+```
+
+If
+
+```math
+K_B=T\circ K_A
+```
+
+for a hypothesis-independent post-processing channel `T`, every decision strategy available with B can be simulated from A.
+
+This is the established classical Blackwell/garbling order applied to detector outputs.
+
+If neither detector can be obtained from the other by allowed post-processing, they are incomparable and different tasks can legitimately prefer different detectors.
+
+**Conclusion:** the strongest universal detector comparison is a **partial order on complete detector channels**, not a scalar leaderboard.
+
+At the microscopic level the analogous object is a quantum channel
+
+```math
+\Phi_D:\rho_{\rm opt}\mapsto\rho_{\rm out},
+```
+
+with proper quantum post-processing/comparison conditions.
+
+Detailed derivation: `DETECTOR_CHANNEL_ORDERING.md`.
+
+---
+
+## Performance hierarchy reorganized
+
+The experiment now has a cleaner hierarchy:
+
+```text
+scalar conventional metric
+-> task-specific decision metric
+-> detector-channel partial order
+-> resource-constrained set of physically achievable detector channels.
+```
+
+This reframes the research program.
+
+Rather than inventing a generalized scalar `D*`, the next question is:
+
+> What resource constraints define the physically achievable set of detector channels?
+
+---
+
 ## Current strongest organizing picture
 
 ```text
-material constitution
+optical input family / task
+-> allowed operations + reference frames
 -> optical access / mode overlap
 -> mode-weighted interaction resource
 -> microscopic transduction
 -> acquisition/extraction versus loss
 -> persistent record
 -> complete conditional output process
--> timing / nuisance parameters
+-> timing / parallel-channel nuisance structure
 -> optimum decision
+-> detector-channel partial order
 -> record export / local reset
 -> source-inclusive information accounting
 -> nonequilibrium free-energy accounting if full cyclic thermodynamics is imposed.
@@ -727,11 +885,14 @@ Every attempted universal scalar/bound has exposed a missing coordinate:
 ```text
 atom count             -> interaction strength/time + mode overlap
 peak efficiency        -> bandwidth
+weak-coupling matching -> control range / precision
 more atoms             -> optical escape
 more absorber          -> downstream loss + dark events
 fixed-noise SNR        -> hypothesis-dependent statistics
 D*                     -> task spectrum / temporal response
 known-time score       -> timing-search complexity
+per-channel bound      -> parallel channel count
+unrestricted D         -> reference-frame / operation access
 local reset heat       -> external record capacity
 memory-global erasure  -> surviving source/side information
 positive cycle work    -> optical/pump nonequilibrium free energy.
@@ -741,20 +902,18 @@ positive cycle work    -> optical/pump nonequilibrium free energy.
 
 ## Current frontier
 
-Before proposing any universal resource-conversion theorem, try to break the current ledger using
+Do not propose another scalar metric or simple Landauer bound.
+
+Attack whether the present resource ledger is actually closed under
 
 ```text
-coherence / optical phase-reference resources;
-spatial mode count and parallel channels;
-clock / synchronization resources;
-finite control precision;
-catalysts that return locally unchanged but accumulate correlations;
-finite-size / single-shot work fluctuations;
-causal latency and maximum power constraints.
+correlating catalysts;
+finite-size / single-shot fluctuations;
+causal latency / maximum power;
+spatially distributed adaptive measurements;
+resource states that return locally unchanged but accumulate correlations.
 ```
 
-Candidate question:
-
-> Can detector performance be bounded by a closed resource ledger built from optical-state distinguishability, available nonequilibrium free energy, interaction time/bandwidth, side information, exported-record capacity, and target decision error—or does another missing resource still defeat it?
+Only after those attacks should a detector-channel resource-conversion theorem be attempted.
 
 A focused primary-source prior-art audit remains mandatory before novelty language.
