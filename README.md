@@ -20,20 +20,47 @@ The active result is a **Shockley-Ramo-aware spectral-depth closure hierarchy fo
 
 `experiments/02-photodetector-boundary/`
 
-**Status:** new exploratory first-principles experiment; no manuscript; priority unassessed; no novelty claim.
+**Status:** exploratory first-principles experiment; no manuscript; priority unassessed; no novelty claim.
 
 Starting question:
 
 > At what point does a simple collection of atoms become a photodetector?
 
-The current strongest formulation separates atomic-to-band, bound-to-mobile-carrier, information-encoding, record-formation, and useful-readout boundaries. Its operational core is the distinguishability between the accessible material states conditioned on zero versus one incident photon:
+The original atom-count question has evolved into a **detector-channel / resource-ledger problem**. There is no universal atom-count transition. A material system functions as a detector only relative to a declared optical input family, allowed operations and reference resources, accessible output process, temporal/noise environment, and decision criterion.
+
+At the microscopic binary level the unrestricted benchmark remains
 
 ```math
 \mathcal D_D
-=\frac12\left\|\rho_D^{(1)}-\rho_D^{(0)}\right\|_1.
+=\frac12\left\|\rho_D^{(1)}-\rho_D^{(0)}\right\|_1,
 ```
 
-The current organizing result is that **absorption is neither sufficient nor universally necessary for photodetection** under this definition. The open frontier is whether specified discrimination error, retention time, temperature, allowed optical disturbance, and reset requirements force a minimum physical resource for a robust photon-arrival record.
+but reference-frame restrictions can make globally distinct states operationally indistinguishable. At the classical level the more general object is the complete detector channel
+
+```math
+K_D(y|x)=P_D(Y=y|X=x).
+```
+
+If detector B is obtainable from A by hypothesis-independent post-processing,
+
+```math
+K_B=T\circ K_A,
+```
+
+then A is at least as informative for every decision problem in the declared class. If neither detector is a post-processing of the other, they are incomparable and task-dependent ranking is expected.
+
+The current hierarchy is therefore
+
+```text
+conventional scalar metric
+-> task-specific decision metric
+-> detector-channel partial order
+-> resource-constrained set of physically achievable detector channels.
+```
+
+The active resource ledger now includes mode-weighted coupling/optical depth, interaction time and bandwidth, optical escape and record trapping, control range/precision, parallel channel count, full noise statistics, timing knowledge, phase/time references, side information/exported records, and nonequilibrium optical/pump free energy.
+
+Thermodynamic erasure is not the definition of detection: detector-memory reset can be reversibly uncomputed if source side information survives, and even source-inclusive logical erasure need not require positive externally supplied work if optical or pump free energy is consumed. No fixed per-click Landauer cost has survived.
 
 Experiment 02 reading order:
 
@@ -193,4 +220,4 @@ Experimental/calibration feasibility, the exact closest-source priority audit, a
 
 ### Experiment 02
 
-Formalize the photon-to-record mapping as a constrained quantum/statistical decision problem, introduce finite-temperature false events and retention time, then adversarially test candidate minimum-resource bounds. Do **not** assume a universal atom count, mandatory absorption, or `k_B T ln 2` cost per detector click. Use Experiment 02 `CURRENT_STATE_LIVE.md`, `CLAIM_LEDGER.md`, and local `AGENTS.md` as the live frontier.
+Do **not** return to a universal scalar or simple Landauer bound. The live program is to characterize the resource-constrained set of physically achievable detector channels. The next adversarial attacks are correlating catalysts, finite-size/single-shot thermodynamics, causal latency/maximum power, and adaptive distributed measurements. Use Experiment 02 `CURRENT_STATE_LIVE.md`, `CLAIM_LEDGER.md`, `RESEARCH_LOG.md`, and local `AGENTS.md` as the authoritative frontier.
