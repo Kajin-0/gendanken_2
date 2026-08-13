@@ -20,55 +20,43 @@ The active result is a **Shockley-Ramo-aware spectral-depth closure hierarchy fo
 
 `experiments/02-photodetector-boundary/`
 
-**Status:** exploratory first-principles experiment; no manuscript; priority unassessed; no novelty claim.
+**Status:** exploratory first-principles experiment; provisional detector-process framework under adversarial audit; no manuscript; priority unassessed; no novelty claim.
 
 Starting question:
 
 > At what point does a simple collection of atoms become a photodetector?
 
-The original atom-count question has evolved into a **detector-channel / resource-ledger problem**. There is no universal atom-count transition. A material system functions as a detector only relative to a declared optical input family, allowed operations and reference resources, accessible output process, temporal/noise environment, and decision criterion.
+Current strongest formulation:
 
-At the microscopic binary level the unrestricted benchmark remains
+> **A photodetector is best characterized not by a universal material threshold or scalar figure of merit, but by the optical-to-accessible-output process it can realize under an explicit physical resource model. Detector performance is task dependent; universal detector superiority, when it exists, is a channel/process post-processing order; conventional detector metrics are task-specific projections.**
 
-```math
-\mathcal D_D
-=\frac12\left\|\rho_D^{(1)}-\rho_D^{(0)}\right\|_1,
-```
-
-but reference-frame restrictions can make globally distinct states operationally indistinguishable. At the classical level the more general object is the complete detector channel
+For detector implementation `D`, explicit resource model `R`, and allowed strategy `sigma`, the provisional capability region is
 
 ```math
-K_D(y|x)=P_D(Y=y|X=x).
+\mathfrak C_D(R)
+=\{K_{D,\sigma}^{(R)}:\sigma\in\Sigma_D(R)\}.
 ```
 
-If detector B is obtainable from A by hypothesis-independent post-processing,
+For decision problem `Pi`,
 
 ```math
-K_B=T\circ K_A,
+R_D^*(\Pi|R)
+=\inf_{K\in\mathfrak C_D(R)}\inf_\delta R(\delta,K;\Pi)
 ```
 
-then A is at least as informative for every decision problem in the declared class. If neither detector is a post-processing of the other, they are incomparable and task-dependent ranking is expected.
+subject to the declared resource/latency constraints.
 
-The current hierarchy is therefore
+This framework currently reproduces all accumulated Experiment-02 counterexamples at the organizing level, including nonabsorptive/QND detection, collective coupling and critical matching, semiconductor carrier collection, equal-`D*` temporal differences, signal-dependent noise, unknown timing, reference-frame restrictions, parallel channels, hidden memory/catalysts, one-shot tails, causal/precharged-energy effects, adaptive stopping, and source-inclusive thermodynamics. This is **not proof of completeness**.
 
-```text
-conventional scalar metric
--> task-specific decision metric
--> detector-channel partial order
--> resource-constrained set of physically achievable detector channels.
-```
-
-The active resource ledger now includes mode-weighted coupling/optical depth, interaction time and bandwidth, optical escape and record trapping, control range/precision, parallel channel count, full noise statistics, timing knowledge, phase/time references, side information/exported records, and nonequilibrium optical/pump free energy.
-
-Thermodynamic erasure is not the definition of detection: detector-memory reset can be reversibly uncomputed if source side information survives, and even source-inclusive logical erasure need not require positive externally supplied work if optical or pump free energy is consumed. No fixed per-click Landauer cost has survived.
-
-Experiment 02 reading order:
+Experiment 02 canonical reading order:
 
 1. [`AGENTS.md`](experiments/02-photodetector-boundary/AGENTS.md)
 2. [`CURRENT_STATE_LIVE.md`](experiments/02-photodetector-boundary/CURRENT_STATE_LIVE.md)
 3. [`CLAIM_LEDGER.md`](experiments/02-photodetector-boundary/CLAIM_LEDGER.md)
-4. [`RESEARCH_LOG.md`](experiments/02-photodetector-boundary/RESEARCH_LOG.md)
-5. [`README.md`](experiments/02-photodetector-boundary/README.md)
+4. [`CLAIM_LEDGER_PROCESS_ADDENDUM.md`](experiments/02-photodetector-boundary/CLAIM_LEDGER_PROCESS_ADDENDUM.md)
+5. [`RESEARCH_LOG.md`](experiments/02-photodetector-boundary/RESEARCH_LOG.md)
+6. [`PROVISIONAL_DETECTOR_PROCESS_FRAMEWORK.md`](experiments/02-photodetector-boundary/PROVISIONAL_DETECTOR_PROCESS_FRAMEWORK.md)
+7. dedicated derivation files cited there
 
 Experiment 01 remains the repository's manuscript-active line. Experiment 02 must not modify or reinterpret the canonical Rev. 9 manuscript unless a later explicit cross-experiment result justifies a separately reviewed change.
 
@@ -220,4 +208,4 @@ Experimental/calibration feasibility, the exact closest-source priority audit, a
 
 ### Experiment 02
 
-Do **not** return to a universal scalar or simple Landauer bound. The live program is to characterize the resource-constrained set of physically achievable detector channels. The next adversarial attacks are correlating catalysts, finite-size/single-shot thermodynamics, causal latency/maximum power, and adaptive distributed measurements. Use Experiment 02 `CURRENT_STATE_LIVE.md`, `CLAIM_LEDGER.md`, `RESEARCH_LOG.md`, and local `AGENTS.md` as the authoritative frontier.
+Stop adding resource coordinates by default. The live program is to adversarially audit the provisional detector-process framework against established mathematical decision/channel/process theories and remaining physical edge cases. Use Experiment 02 `CURRENT_STATE_LIVE.md`, `CLAIM_LEDGER.md`, `CLAIM_LEDGER_PROCESS_ADDENDUM.md`, `RESEARCH_LOG.md`, local `AGENTS.md`, and `PROVISIONAL_DETECTOR_PROCESS_FRAMEWORK.md` as the authoritative frontier. No manuscript or novelty claim should be attempted before those audits.
