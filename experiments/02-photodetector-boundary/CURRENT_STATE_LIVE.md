@@ -1,12 +1,12 @@
 # Current Live State — Experiment 02
 
 **Date:** 2026-08-12  
-**Status:** exploratory first-principles theory; microscopic-to-electrical decision chain now derived in minimal models  
+**Status:** exploratory first-principles theory; detector boundary now formulated from microscopic interaction through full output-distribution decision  
 **Priority:** unassessed; no novelty claim
 
-This is the current state pointer. `RESEARCH_LOG.md` preserves chronology; `CLAIM_LEDGER.md` is the epistemic boundary.
+This is the current state pointer. `CLAIM_LEDGER.md` is the epistemic boundary; `RESEARCH_LOG.md` preserves chronology and failed routes.
 
-Detailed active derivations:
+Detailed derivations:
 
 1. `INTERACTION_ACTION_LOWER_BOUND.md`
 2. `N_DIPOLE_SINGLE_MODE_MODEL.md`
@@ -15,35 +15,39 @@ Detailed active derivations:
 5. `MODE_WEIGHTED_OPTICAL_DEPTH.md`
 6. `SEMICONDUCTOR_DECISION_BRIDGE.md`
 7. `CONTINUOUS_GAUSSIAN_DECISION.md`
+8. `SIGNAL_DEPENDENT_NOISE.md`
+9. `UNKNOWN_ARRIVAL_TIME.md`
+10. `TASK_SPECIFIC_DETECTIVITY.md`
 
 ---
 
-## 1. Starting question and current answer
+## 1. Starting question and strongest current answer
 
 Starting question:
 
 > At what point does a simple collection of atoms become a photodetector?
 
-Current answer:
+Strongest current answer:
 
-> **There is no universal atom-count transition. A collection of matter functions as a detector only relative to a specified optical mode/task, interaction time or bandwidth, competing loss, record mechanism, dark/noise statistics, observation interval, and required decision error. Under explicit constraints, minimum effective atom numbers, optical depths, or rate ratios emerge.**
+> **There is no universal atom-count transition. Matter functions as a detector only relative to a specified optical task, accessible subsystem, interaction architecture, temporal/bandwidth constraints, loss and dark processes, persistent-record mechanism, and decision criterion. The most general boundary found so far is statistical distinguishability of the complete photon-conditioned output processes.**
 
-The project now separates
+The experiment has therefore moved from
 
 ```text
-atomic/band crossover
-optical access and mode overlap
-microscopic photon-matter coupling
-excitation / electron-hole generation
-competition with loss/recombination
-persistent record formation
-decision against dark/readout noise
-reset/reuse.
+How many atoms?
+```
+
+to
+
+```text
+How distinguishable are the complete accessible outputs
+under the competing optical hypotheses,
+under the allowed observation and decision rules?
 ```
 
 ---
 
-## 2. Operational spine
+## 2. Quantum-state operational spine
 
 For accessible detector states conditioned on no photon and one photon,
 
@@ -64,29 +68,27 @@ For equal priors,
 
 ```math
 \boxed{
-P_{e,\min}
-=\frac12(1-\mathcal D_D).
+P_{e,\min}=\frac12(1-\mathcal D_D).
 }
 ```
 
-This immediately kills absorption as the universal definition:
+Consequences preserved:
 
 ```text
-perfect absorption can coexist with no accessible record;
-nonabsorptive/dispersive interaction can produce a record.
+perfect absorption can coexist with no accessible detector record;
+nonabsorptive/dispersive coupling can encode photon presence;
+therefore absorption is neither sufficient nor universally necessary.
 ```
 
-Electron-hole creation, atom count, gain, and decoherence are likewise not complete detector definitions by themselves.
+Electron-hole creation, gain, atom count, and decoherence are likewise not complete detector definitions by themselves.
 
 ---
 
-## 3. Resource attack — final deposited energy fails
+## 3. Atom count reappears only after a resource constraint
 
-A degenerate two-state pointer can be conditionally rotated into an orthogonal state with zero final bare detector-energy change.
+A universal positive final deposited-energy cost failed: a degenerate pointer can become orthogonal with zero final bare-energy difference.
 
-Thus target discrimination alone does not imply a universal positive final deposited/dissipated energy.
-
-For a pure conditional-unitary detector, finite-time state separation instead obeys the conditional interaction-action bound
+For a pure conditional-unitary detector, finite-time state separation instead obeys the conditional interaction-action requirement
 
 ```math
 \boxed{
@@ -99,12 +101,8 @@ For a pure conditional-unitary detector, finite-time state separation instead ob
 Perfect discrimination requires
 
 ```math
-\boxed{
 \mathcal A_\Delta\ge\pi\hbar/2.
-}
 ```
-
-The underlying quantum-speed-limit geometry is established; no novelty claim is attached.
 
 If each constituent can supply at most action `a_max`, then
 
@@ -116,19 +114,19 @@ N
 \right\rceil.
 ```
 
-This is the first recovery of a constrained `N_min`.
+Thus a minimum `N` is a constrained resource result, not a detector phase transition.
 
 ---
 
-## 4. Explicit N-dipole acquisition model
+## 4. Explicit collective-coupling benchmark
 
-For identical resonant dipoles in one mode,
+For identical resonant dipoles in one optical mode,
 
 ```math
 \boxed{G=g\sqrt N.}
 ```
 
-The matter-only distinguishability is
+The matter-only trace distance in the one-excitation model is
 
 ```math
 \boxed{
@@ -136,33 +134,27 @@ The matter-only distinguishability is
 }
 ```
 
-Perfect transient transfer requires
+Perfect transient first-lobe transfer requires
 
 ```math
-\boxed{
 N_{\min}
-=
-\left\lceil
-\left(\frac{\pi}{2g\tau}\right)^2
-\right\rceil.
-}
+=\left\lceil\left(\frac{\pi}{2g\tau}\right)^2\right\rceil.
 ```
 
-This is standard collective-coupling physics used to show that a many-atom threshold can emerge from finite coupling/time without band formation.
+This is standard Dicke/Tavis--Cummings collective physics used as a detector-boundary benchmark, not claimed new.
 
-But the excitation Rabi-oscillates back, so coherent transfer is still not a persistent detector record.
+Coherent transfer is still not a persistent record because the excitation can return to the optical mode.
 
 ---
 
-## 5. Record formation is rate matched
+## 5. Persistent record formation is dynamically matched
 
-Adding optical loss `kappa`, unwanted matter loss `gamma`, and desired record trapping `Gamma` gives, for a photon initially inside the optical mode,
+With optical loss `kappa`, unwanted matter loss `gamma`, and desired matter-to-record trapping `Gamma`, for a photon initially inside the optical mode,
 
 ```math
 \boxed{
 P_R
-=
-\frac{4G^2\Gamma}
+=\frac{4G^2\Gamma}
 {(\kappa+\gamma+\Gamma)
 [4G^2+\kappa(\gamma+\Gamma)]}.
 }
@@ -173,107 +165,55 @@ The trapping optimum is finite:
 ```math
 \boxed{
 \Gamma_{\rm opt}
-=
-\sqrt{
-\frac{(\kappa+\gamma)(4G^2+\kappa\gamma)}{\kappa}
-}.
+=\sqrt{\frac{(\kappa+\gamma)(4G^2+\kappa\gamma)}{\kappa}}.
 }
 ```
 
-For `gamma=0`,
+For `gamma=0`, `Gamma_opt=2G`.
 
-```math
-\Gamma_{\rm opt}=2G.
-```
-
-Thus
+Therefore
 
 ```text
-more irreversible trapping != monotonically better detection.
+more irreversibility != monotonically better detection.
 ```
+
+Record formation must be matched to acquisition and competing loss.
 
 ---
 
-## 6. Traveling-wave capture changes the conclusion again
+## 6. Traveling-wave capture removes the apparent peak-efficiency N threshold
 
-For an actual incident photon with desired optical coupling `kappa_in`, parasitic optical loss, collective matter coupling `G`, matter loss `gamma`, and record rate `Gamma`, the resonant narrowband record efficiency is
+For an actual incident photon, the resonant narrowband record efficiency is
 
 ```math
 \boxed{
 \eta_R(0)
-=
-\frac{16\kappa_{\rm in}\Gamma G^2}
+=\frac{16\kappa_{\rm in}\Gamma G^2}
 {[\kappa(\gamma+\Gamma)+4G^2]^2}.
 }
 ```
 
-Equivalently,
-
-```math
-\eta_R(0)
-=
-\beta_R
-\frac{4\kappa_{\rm in}\kappa_m}
-{(\kappa+\kappa_m)^2},
-```
-
-with
-
-```math
-\kappa_m=4G^2/(\gamma+\Gamma),
-\qquad
-\beta_R=\Gamma/(\gamma+\Gamma).
-```
-
-This exposes optical critical coupling directly.
-
----
-
-## 7. Major counterexample — perfect peak efficiency can occur for arbitrarily weak nonzero coupling
-
 In the clean one-port limit,
 
-```text
-kappa_loss=0,
-gamma=0,
-```
-
-critical matching is
-
 ```math
 \boxed{
-\Gamma_{\rm match}=4G^2/\kappa.
+\Gamma_{\rm match}=\frac{4G^2}{\kappa}
 }
 ```
 
-At resonance,
+gives
 
 ```math
-r=0,
-\qquad
-\eta_R=1.
+r(0)=0,\qquad \eta_R(0)=1.
 ```
 
-This can occur for any nonzero `G` if slow/narrowband operation is allowed.
+This can occur for any nonzero `G` if sufficiently slow/narrowband operation is permitted.
 
-Therefore
+Hence:
 
-> **peak monochromatic efficiency alone does not imply a positive atom-count threshold. Weak coupling is paid for in bandwidth/time.**
+> **Peak monochromatic efficiency by itself imposes no positive atom-count threshold. Weak coupling is paid for in bandwidth/time.**
 
----
-
-## 8. External efficiency separates into optical escape and collective cooperativity
-
-Optimizing external capture gives
-
-```math
-\boxed{
-\Gamma_{\rm opt}
-=\gamma+\frac{4G^2}{\kappa}
-}
-```
-
-and
+Optimized external efficiency is
 
 ```math
 \boxed{
@@ -282,54 +222,30 @@ and
 }
 ```
 
-where
+with
 
 ```math
 \eta_{\rm esc}=\kappa_{\rm in}/\kappa,
-```
-
-and
-
-```math
-\boxed{
-C_N=\frac{4G^2}{\kappa\gamma}.
-}
-```
-
-Thus
-
-```text
-optical-access / parasitic-loss ceiling
-and
-collective-coupling / matter-loss ceiling
-```
-
-are independent. Increasing `N` cannot repair inaccessible optical escape.
-
-Finite incident bandwidth restores an `N_min`; in the clean matched bad-cavity Lorentzian benchmark,
-
-```math
-P_R=\frac{\Gamma}{\Gamma+B},
 \qquad
-\Gamma=4Ng^2/\kappa,
+C_N=4G^2/(\kappa\gamma).
 ```
 
-so
+Optical escape and matter-loss/cooperativity are independent ceilings.
+
+Finite photon bandwidth restores a constrained threshold; in the clean matched Lorentzian benchmark,
 
 ```math
-\boxed{
 N
 \ge
 \frac{\kappa B}{8g^2}
 \frac{1-2\epsilon}{\epsilon}.
-}
 ```
 
 ---
 
-## 9. Literal atom count is replaced by mode-weighted coupling
+## 7. Literal total atom count is not the microscopic invariant
 
-For unequal microscopic couplings,
+For unequal couplings,
 
 ```math
 \boxed{
@@ -337,11 +253,7 @@ G^2=\sum_j|g_j|^2.
 }
 ```
 
-Only one bright superposition couples directly to the ideal optical mode.
-
-Atoms outside the mode, at nodes, or poorly aligned with the field contribute little.
-
-Therefore the natural microscopic quantity is **mode-weighted oscillator strength**, not total physical atom count.
+Only the optically bright superposition contributes directly.
 
 In a dilute traveling-wave continuum this becomes optical depth,
 
@@ -358,17 +270,11 @@ with
 P_{\rm abs}=1-e^{-\mathrm{OD}}.
 ```
 
-For an ideal single-pass high-efficiency target,
-
-```math
-\boxed{
-\mathrm{OD}_{\min}=-\ln(2\epsilon).
-}
-```
+Thus mode-weighted oscillator strength / optical depth is more physical than total `N` in extended matter.
 
 ---
 
-## 10. Semiconductor bridge — electron-hole generation located precisely
+## 8. Semiconductor bridge — where electron-hole generation belongs
 
 For a minimal semiconductor slab,
 
@@ -383,7 +289,7 @@ P_{\rm read}.
 }
 ```
 
-With an independent extraction/recombination race,
+With independent extraction/recombination hazards,
 
 ```math
 \boxed{
@@ -393,51 +299,31 @@ P_{\rm col}
 }
 ```
 
-Therefore electron-hole generation is the semiconductor-specific **microscopic transduction/encoding stage**, not the complete detector boundary.
+Therefore electron-hole generation is the semiconductor-specific **microscopic transduction/encoding stage**. It is not the full detection event.
 
-The excitation must still survive, separate/collect, become an accessible record, and remain distinguishable from dark output.
+For independent Poisson dark clicks of rate `R_d` in window `tau`, binary click distinguishability is
+
+```math
+\boxed{
+\mathcal D_{\rm click}=\eta_s e^{-R_d\tau}.
+}
+```
+
+Target `P_e<=epsilon` requires the necessary dark condition
+
+```math
+\boxed{
+R_d\tau\le-\ln(1-2\epsilon).
+}
+```
+
+No amount of absorber thickness or atom count repairs a dark-event budget that already violates this condition.
 
 ---
 
-## 11. Binary dark-event decision boundary
+## 9. Equal-covariance Gaussian electrical readout
 
-For independent Poisson dark clicks of rate `R_d` over decision window `tau`, the exact binary click/no-click distinguishability is
-
-```math
-\boxed{
-\mathcal D_{\rm click}
-=\eta_s e^{-R_d\tau}.
-}
-```
-
-Hence
-
-```math
-\boxed{
-P_e
-=\frac12(1-\eta_s e^{-R_d\tau}).
-}
-```
-
-A necessary condition for target `P_e<=epsilon` is
-
-```math
-\boxed{
-R_d\tau
-\le
--\ln(1-2\epsilon).
-}
-```
-
-For small `epsilon`, `R_d tau` must be approximately `<=2 epsilon`.
-
-No amount of absorber thickness, atom number, or gain can repair a dark-event budget that already violates this condition.
-
----
-
-## 12. Continuous Gaussian electrical readout — current strongest bridge to engineering metrics
-
-Replace binary clicks with
+For
 
 ```math
 H_0:y(t)=n(t),
@@ -445,166 +331,253 @@ H_0:y(t)=n(t),
 H_1:y(t)=s(t)+n(t),
 ```
 
-where `n(t)` is zero-mean Gaussian noise with the same covariance under both hypotheses.
-
-The complete decision coordinate is the Mahalanobis / matched-filter distance
+with common Gaussian covariance `C`, the complete decision coordinate is
 
 ```math
 \boxed{
-d^2
-=\langle s,C^{-1}s\rangle.
+d^2=\langle s,C^{-1}s\rangle.
 }
 ```
 
-For stationary noise with two-sided PSD `S_n^{(2)}(f)`,
+For stationary noise,
 
 ```math
 \boxed{
 d^2
 =\int_{-\infty}^{\infty}
-\frac{|\tilde s(f)|^2}
-{S_n^{(2)}(f)}df.
+\frac{|\tilde s(f)|^2}{S_n^{(2)}(f)}df.
 }
 ```
 
-Equal-prior optimum error is
+and
 
 ```math
-\boxed{
-P_e
-=Q(d/2).
-}
+\boxed{P_e=Q(d/2).}
 ```
 
-Thus the practical detector boundary for Gaussian readout is the **noise-weighted distance between the entire photon and no-photon waveforms**.
-
----
-
-## 13. NEP and D* are projections of the decision distance
-
-If
-
-```math
-\tilde s(f)=\mathcal R(f)\tilde p(f),
-```
-
-then define input-referred two-sided optical noise
-
-```math
-S_P^{(2)}(f)
-=\frac{S_n^{(2)}(f)}{|\mathcal R(f)|^2}.
-```
-
-The decision distance becomes
+Input referring gives
 
 ```math
 \boxed{
 d^2
-=\int_{-\infty}^{\infty}
-\frac{|\tilde p(f)|^2}
-{S_P^{(2)}(f)}df
 =\int
-\frac{|\tilde p(f)|^2}
-{\mathrm{NEP}_2^2(f)}df.
+\frac{|\tilde p(f)|^2}{\mathrm{NEP}_2^2(f)}df.
 }
 ```
 
-A full frequency-dependent NEP or `D*(f)` can in principle feed this integral.
+Thus the practical detector coordinate is the full noise-weighted waveform distance, not one scalar `D*`.
 
-A single quoted `D*` at one frequency generally cannot.
-
----
-
-## 14. Equal D* fast-versus-slow counterexample
-
-For a one-pole detector
-
-```math
-h(t)=\frac1\tau e^{-t/\tau}u(t)
-```
-
-with DC responsivity `R_0`, a short optical pulse of energy `E`, and flat one-sided output-noise PSD `S_n^{(1)}` gives
+For a one-pole detector, white noise, and a short optical energy `E`,
 
 ```math
 \boxed{
 d^2
-=\frac{(R_0E)^2}{\tau S_n^{(1)}}
-=\frac{E^2}{\tau\,\mathrm{NEP}^2}.
-}
-```
-
-Using
-
-```math
-\mathrm{NEP}=\sqrt A/D^*,
-```
-
-```math
-\boxed{
-d^2
+=\frac{E^2}{\tau\,\mathrm{NEP}^2}
 =\frac{E^2D^{*2}}{A\tau}.
 }
 ```
 
-Therefore, at equal area and equal low-frequency white-noise `D*`,
-
-```math
-\boxed{d\propto\tau^{-1/2}.}
-```
-
-A faster detector discriminates a short fixed-energy optical event better in this model even though conventional `D*` is identical.
-
-This is a precise decision-theoretic counterexample to
-
-```text
-same D* -> same event-detection performance.
-```
-
-The result is conditional on the stated one-pole, white-noise, matched-filter assumptions.
+Hence two equal-area detectors with identical low-frequency `D*` can have different event-detection error solely because their response times differ.
 
 ---
 
-## 15. Finite decision time strengthens the temporal penalty
+## 10. Signal-dependent noise strengthens the full-distribution formulation
 
-For observation only over `0<t<T`,
+For Gaussian hypotheses
+
+```math
+H_i:y\sim\mathcal N(\mu_i,C_i),
+```
+
+with `C_0 != C_1`, the exact equal-prior likelihood ratio is quadratic:
 
 ```math
 \boxed{
-d^2(T)
-=\frac{E^2}{\tau\,\mathrm{NEP}^2}
-\left(1-e^{-2T/\tau}\right).
+\ell(y)
+=
+\frac12(y-\mu_0)^TC_0^{-1}(y-\mu_0)
+-
+\frac12(y-\mu_1)^TC_1^{-1}(y-\mu_1)
+-
+\frac12\ln\frac{\det C_1}{\det C_0}.
 }
 ```
 
-For `T<<tau`,
+Covariance changes can therefore carry photon-history information even if the mean is unchanged.
+
+For Poisson count hypotheses
 
 ```math
-d^2(T)
-\simeq
-\frac{2E^2T}{\tau^2\mathrm{NEP}^2}.
+K\sim\operatorname{Poisson}(\mu_i),
 ```
 
-A slow detector therefore pays an especially severe penalty under a strict decision deadline.
+the exact log-likelihood ratio is
+
+```math
+\boxed{
+\ell(K)
+=K\ln\frac{\mu_1}{\mu_0}
+-(\mu_1-\mu_0).
+}
+```
+
+The Poisson Bhattacharyya coefficient is
+
+```math
+\boxed{
+BC
+=\exp\left[-\frac12
+(\sqrt{\mu_1}-\sqrt{\mu_0})^2\right].
+}
+```
+
+Thus the natural count-statistics separation is built from square-root rates. Conventional background-shot-noise SNR is only the weak-signal expansion of this distribution geometry.
+
+In the zero-background case with signal count rate `lambda_s`,
+
+```math
+\boxed{
+P_e=\frac12e^{-\lambda_sT}.
+}
+```
+
+So one universal SNR law does not span both zero-background and background-dominated regimes.
 
 ---
 
-## 16. Strongest organizing result so far
+## 11. Unknown arrival time creates a temporal-search resource
 
-The detector boundary has evolved from
+If an event can occupy one of `M` independent temporal cells, with normalized matched-filter outputs `z_m`, the exact mixture likelihood is
 
-```text
-How many atoms?
+```math
+\boxed{
+\Lambda(z)
+=\frac1M\sum_{m=1}^M
+\exp(dz_m-d^2/2).
+}
 ```
 
-into
+For a max-threshold benchmark,
 
-```text
-For a specified optical task and observation window,
-how far apart are the photon/no-photon accessible output distributions
-in the physically relevant noise metric?
+```math
+\boxed{
+P_{\rm FA}=1-\Phi(\eta)^M,
+}
 ```
 
-The chain is now
+```math
+\boxed{
+P_{\rm miss}
+=\Phi(\eta-d)\Phi(\eta)^{M-1}.
+}
+```
+
+At fixed small false-alarm probability, the required threshold grows approximately as
+
+```math
+\sqrt{2\ln M}.
+```
+
+Real shifted templates are correlated; a rough effective-trial coordinate is
+
+```math
+M_{\rm eff}\sim T_{\rm search}B_{\rm eff}
+```
+
+up to order-unity/task-specific factors.
+
+Thus response bandwidth, search-window duration, and false-alarm budget are separate temporal resources.
+
+---
+
+## 12. Task-specific minimum event energy
+
+For a normalized known-time optical waveform
+
+```math
+p(t)=Eq(t),\qquad \int q(t)dt=1,
+```
+
+define
+
+```math
+\boxed{
+\mathcal K_D[q]
+=\int
+\frac{|\tilde q(f)|^2}
+{\mathrm{NEP}_{2,D}^2(f)}df.
+}
+```
+
+Then
+
+```math
+d^2=E^2\mathcal K_D[q].
+```
+
+For known timing and equal priors,
+
+```math
+\boxed{
+E_{\min}(q,\epsilon)
+=\frac{2Q^{-1}(\epsilon)}
+{\sqrt{\mathcal K_D[q]}}.
+}
+```
+
+This is an operational scalar **only after the task and decision target are fixed**.
+
+Trying to force `D*`-like units introduces another arbitrary time-scale convention for general waveforms, so `E_min` is the cleaner task-specific quantity.
+
+---
+
+## 13. No-universal-scalar-ranking result inside the Gaussian task class
+
+Define the detector spectral decision kernel
+
+```math
+\boxed{
+W_D(f)
+=\frac1{\mathrm{NEP}_{2,D}^2(f)}.
+}
+```
+
+Then
+
+```math
+\mathcal K_D[q]
+=\int |\tilde q(f)|^2W_D(f)df.
+```
+
+If
+
+```math
+W_A(f)\ge W_B(f)
+```
+
+for every allowed frequency, detector A is never worse than B for any known-time Gaussian waveform in that task class.
+
+But if `W_A-W_B` changes sign with frequency, there exist tasks concentrated in the A-favored region and tasks concentrated in the B-favored region. Therefore the ranking reverses.
+
+Hence
+
+```math
+\boxed{
+W_A-W_B\text{ changes sign}
+\Rightarrow
+\text{no task-independent scalar ranking can represent all waveform tasks.}
+}
+```
+
+This is a simple functional-ordering consequence, not claimed as a new theorem.
+
+The natural detector comparison is therefore often a **partial order**, not one universal score.
+
+---
+
+## 14. Strongest organizing result so far
+
+The complete chain is now
 
 ```text
 material constitution
@@ -613,45 +586,53 @@ material constitution
 -> microscopic excitation / electron-hole generation
 -> acquisition/extraction versus loss/recombination
 -> persistent record
--> electrical signal transfer R(f)
-   and noise PSD S_n(f)
--> noise-weighted waveform distance d
--> decision error.
+-> complete conditional electrical/output statistics
+-> nuisance parameters such as unknown timing
+-> optimum likelihood discrimination
+-> decision error
+-> reset/reuse.
 ```
 
-This suggests there may be **no architecture-independent scalar detector quality** unless the class of optical tasks is specified first.
-
-Conventional metrics are task-independent summaries of parts of this chain, not the fundamental boundary themselves.
-
----
-
-## 17. Current frontier
-
-The next strongest attacks are:
+Every attempted universal scalar has exposed a missing resource coordinate:
 
 ```text
-signal-dependent noise
--> shot / generation-recombination / gain noise
--> covariance differs under H0 and H1
-
-unknown photon arrival time
--> timing search / jitter / trials penalty
-
-then
--> ask whether a task-specific scalar detectivity can be defined
-   from optimum decision distance.
+atom count       -> interaction strength/time and mode overlap
+peak efficiency  -> bandwidth
+more atoms       -> optical escape ceiling
+more absorber    -> downstream collection and dark events
+fixed-noise SNR  -> signal-dependent distribution shape
+D*               -> temporal/spectral task structure
+known-time score -> arrival-time search complexity.
 ```
 
-Separately, a focused primary-source audit of the established components and nearest detector-specific formulations is required before novelty language.
+The strongest current conceptual statement is:
+
+> **Detection is a relation among the optical task, matter, accessible output process, and observer's decision problem. There is generally no architecture-independent scalar boundary or total ordering of detectors.**
 
 ---
 
-## 18. Mandatory caveats
+## 15. Current frontier
+
+The next phase should return to fundamental lower-bound attacks rather than add conventional metrics indefinitely.
+
+Candidate fronts:
+
+```text
+minimum reset/erasure cost for a reusable detector at fixed error and cycle time;
+record-stability versus reset-speed tradeoff;
+finite information acquisition rate per bounded interaction resource;
+which bounds survive exported records, reversible measurement, active reservoirs, and narrowband/long-time counterexamples.
+```
+
+A focused primary-source prior-art audit remains mandatory before any novelty language.
+
+---
+
+## 16. Mandatory caveats
 
 - Trace distance / Helstrom discrimination are established.
 - Quantum-speed-limit geometry is established.
-- Dicke/Tavis--Cummings collective coupling is established.
-- Cooperativity, input-output critical coupling, Beer-Lambert optical depth, Gaussian detection theory, and matched filtering are established structures.
-- The detector-boundary synthesis and conditional cross-stage laws have not yet undergone a focused prior-art audit.
-- Current models omit realistic complications including dephasing/disorder, multimode continua, full semiconductor bandstructure, signal-dependent noise, gain statistics, timing jitter, nonstationary drift, saturation, and reset.
+- Dicke/Tavis--Cummings coupling, critical coupling, cooperativity, Beer-Lambert optical depth, Gaussian/Poisson detection theory, likelihood ratios, matched filtering, and extreme-value/trials effects are established structures.
+- The detector-boundary synthesis and conditional cross-stage formulas have not yet undergone a focused prior-art audit.
+- Current models remain idealized and omit many realistic complications.
 - Experiment 01 remains separate and untouched.
