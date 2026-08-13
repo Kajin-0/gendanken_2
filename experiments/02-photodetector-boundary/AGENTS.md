@@ -4,9 +4,7 @@
 **Mode:** exploratory first-principles Gedanken experiment  
 **Priority:** unassessed; no novelty claim
 
-Read this file before extending Experiment 02.
-
-Root `AGENTS.md` remains authoritative for repository privacy, preservation, and general scientific-integrity rules. This file adds Experiment-02-specific locks.
+Root `AGENTS.md` remains authoritative for repository privacy/preservation. This file adds Experiment-02-specific scientific locks.
 
 ## 1. Canonical reading order
 
@@ -21,8 +19,12 @@ Root `AGENTS.md` remains authoritative for repository privacy, preservation, and
 9. `MODE_WEIGHTED_OPTICAL_DEPTH.md`
 10. `SEMICONDUCTOR_DECISION_BRIDGE.md`
 11. `CONTINUOUS_GAUSSIAN_DECISION.md`
+12. `SIGNAL_DEPENDENT_NOISE.md`
+13. `UNKNOWN_ARRIVAL_TIME.md`
+14. `TASK_SPECIFIC_DETECTIVITY.md`
+15. `RESET_AND_CYCLE_CLOSURE.md`
 
-Do not reconstruct the frontier from chat summaries when these files are available.
+Do not reconstruct the frontier from chat summaries when repository files are available.
 
 ## 2. Current research objective
 
@@ -30,75 +32,65 @@ Follow the strongest surviving consequence of:
 
 > At what point does a collection of atoms become a photodetector?
 
-Do not force a predetermined semiconductor answer, theorem, or paper.
-
-The current route is
+The current chain is
 
 ```text
 optical task
 -> optical access / mode overlap
--> mode-weighted photon-matter coupling
+-> mode-weighted interaction resource
 -> microscopic transduction
--> competition with loss / recombination
+-> acquisition/extraction versus loss
 -> persistent record
--> electrical signal transfer + noise statistics
--> optimum hypothesis discrimination
--> reset / reuse.
+-> complete conditional output process
+-> timing / nuisance parameters
+-> optimum decision
+-> local reset / record export
+-> optional global cycle closure.
 ```
 
-The strongest current conclusion is that the detector boundary is a **task-dependent multi-resource performance surface**, not a universal atom-count transition or one conventional scalar figure of merit.
+The strongest current conclusion is that detection is a **task-dependent multi-resource relation**, not a universal atom-count transition or one scalar detector score.
 
-## 3. Semantic locks — do not regress
+## 3. Permanent semantic locks
 
 ### Absorption is not the definition
 
-Absorption is neither sufficient nor universally necessary under the operational definition.
+Absorption is neither sufficient nor universally necessary for the operational detector criterion.
 
-### Re-emission and electron-hole generation are not mutually exclusive branches
+### Re-emission and electron-hole generation are not mutually exclusive
 
-Interband absorption can create an electron-hole excitation that later recombines radiatively.
+An interband electron-hole excitation can later recombine radiatively.
 
 ### No universal atom-count threshold
 
-Do not claim a critical `N_c` without explicit architecture/resource constraints.
+Do not claim `N_c` without explicit architecture/resource constraints.
 
-### Literal total N is usually not even the right constrained coordinate
+### Literal total N is usually the wrong constrained coordinate
 
-For unequal microscopic couplings,
+For unequal couplings,
 
 ```math
 G^2=\sum_j|g_j|^2.
 ```
 
-Only mode-coupled matter contributes appreciably. In extended absorbers, prefer mode-weighted oscillator strength, column density, or optical depth.
+Only optically participating matter contributes appreciably. Use mode-weighted oscillator strength, optical depth, or the appropriate overlap functional.
 
-### Electron-hole generation is not a complete detection event
+### Electron-hole generation is not a complete detector event
 
-Separate excitation generation from binding/dissociation, recombination, extraction/collection, record formation, and readout.
+Separate generation from dissociation, recombination, extraction/collection, persistent record, and readout.
 
-### Gain does not create the original hypothesis information
+### Gain does not create missing upstream information
 
-Treat gain as stabilization/enlargement of an existing distinction unless an explicit additional information-bearing resource enters.
+Treat gain as practical stabilization/enlargement unless an explicit additional information-bearing resource enters.
 
 ### Irreversibility must be qualified and rate matched
 
-Do not invoke irreversibility as a primitive threshold. In the current coherent models, overly strong trapping can reduce record probability by overdamping acquisition.
-
-### Landauer is not a per-click acquisition axiom
-
-Separate interaction, retention, readout, logical erasure, and reset.
+Do not use irreversibility as a primitive detector threshold. Overly strong trapping can reduce coherent acquisition in the current models.
 
 ### Peak monochromatic efficiency does not imply minimum N
 
-In the clean one-port external-capture model,
+Critical matching can give unit narrowband capture for arbitrarily weak nonzero coupling if arbitrarily long interaction time/narrow bandwidth is allowed.
 
-```math
-\Gamma=4G^2/\kappa
-```
-
-can give unit resonant narrowband capture for any nonzero `G`. Weak coupling is paid for in bandwidth/time.
-
-### Same D* does not imply same event-detection performance
+### Scalar D* is not the detector boundary
 
 In the one-pole white-noise benchmark,
 
@@ -106,43 +98,79 @@ In the one-pole white-noise benchmark,
 d^2=E^2D^{*2}/(A\tau).
 ```
 
-At equal area and equal low-frequency `D*`, different response times give different optimum pulse-discrimination error.
+Equal scalar `D*` can therefore hide different event performance.
 
-Do not treat scalar `D*` as the detector boundary.
+### Mean signal is not the complete output information
+
+If the photon history changes covariance or count statistics, the full conditional distribution matters. A fixed-noise matched filter is only a special case.
+
+### Known timing is a resource assumption
+
+Unknown arrival time creates a search/trials penalty. Never quote known-time `d` as a full event metric without stating timing knowledge.
+
+### No universal scalar detector ranking when spectral decision kernels cross
+
+Within the linear Gaussian waveform class, if
+
+```math
+W_A(f)-W_B(f)
+```
+
+changes sign, task waveforms can reverse the detector ranking.
+
+### Landauer is not a per-click acquisition or local-reset axiom
+
+A local detector can export its record. `k_B T ln2` applies only under much stronger logical-erasure conditions and for an unbiased bit. Distinguish local reset from global cycle closure.
+
+### Barrier height is not automatically dissipated work
+
+Activated retention/reset formulas produce conditional stability/control-range requirements, not universal heat bounds.
 
 ## 4. Mandatory system-boundary discipline
 
-For binary optical hypotheses, use an explicit accessible subsystem `D` and
+At the quantum level, specify the accessible subsystem `D` and use
 
 ```math
 \mathcal D_D
 =\frac12\|\rho_D^{(1)}-\rho_D^{(0)}\|_1.
 ```
 
-Do not say information is gone merely because it left `D`; it may remain in outgoing radiation or environment.
+At the classical output level, specify the complete conditional output distributions/processes and the allowed observation interval.
 
-At the classical electrical-output level, specify the complete output distributions and allowed observation interval.
+At the thermodynamic level, specify whether the accounting boundary includes
 
-## 5. Keep the boundaries separate
+```text
+detector memory
+controller
+readout register
+external record store
+optical/environmental degrees of freedom
+work reservoirs
+pumps
+bath.
+```
 
-Always distinguish at least:
+Never claim information or entropy has disappeared merely because it left one chosen subsystem.
+
+## 5. Keep these boundaries distinct
 
 ```text
 (1) finite atomic spectrum -> band-like spectrum
 (2) optical access / mode coupling
 (3) bound excitation -> mobile carriers
-(4) optical interaction -> encoded material information
-(5) encoded information -> persistent/metastable record
-(6) record -> electrical waveform
-(7) waveform -> useful decision under dark/readout noise
-(8) reset / reuse.
+(4) optical interaction -> encoded information
+(5) encoded information -> persistent record
+(6) record -> electrical/output process
+(7) output process -> decision under noise/timing uncertainty
+(8) local reset / record export
+(9) global cycle closure.
 ```
 
-A result about one boundary must not be promoted into another without derivation.
+A result at one boundary must not be promoted to another without derivation.
 
-## 6. Current resource coordinates
+## 6. Active resource coordinates
 
-Depending on architecture, useful coordinates include
+Depending on architecture, useful quantities include
 
 ```math
 \eta_{\rm esc}=\kappa_{\rm in}/\kappa,
@@ -172,20 +200,36 @@ B/(4G^2/\kappa),
 R_d\tau,
 ```
 
-and for Gaussian waveform decisions
-
 ```math
-\boxed{
-d^2
-=\int
-\frac{|\tilde s(f)|^2}
-{S_n^{(2)}(f)}df.
-}
+d^2=\int |\tilde s(f)|^2/S_n^{(2)}(f)\,df,
 ```
 
-Do not assume one scalar metric can replace the full resource ledger.
+```math
+M_{\rm eff}\text{ or the full timing prior},
+```
 
-## 7. Epistemic labels
+and for cyclic reset
+
+```math
+h(p),\quad H(M|R),\quad \tau_{\rm rec}/\tau_r,\quad p_d,\quad \epsilon_r.
+```
+
+Do not assume one scalar can replace the full resource ledger.
+
+## 7. Counterexample-first procedure
+
+Before accepting a universal lower bound:
+
+1. state the resource and all constraints mathematically;
+2. identify excluded degrees of freedom and reservoirs;
+3. attack with single-atom, dispersive, cavity/critical-coupling, narrowband/long-time, reversible-memory, exported-record, side-information, active-pump, external-reservoir, and task-change counterexamples where relevant;
+4. distinguish theorem failure from a missing resource coordinate;
+5. preserve the failed claim in `CLAIM_LEDGER.md` and `RESEARCH_LOG.md`;
+6. only then narrow the statement.
+
+Do not silently add assumptions after a counterexample appears.
+
+## 8. Epistemic labels
 
 Use explicitly:
 
@@ -201,104 +245,53 @@ Use explicitly:
 
 A negative literature search is not novelty evidence.
 
-## 8. Counterexample-first procedure
-
-Before accepting a universal detector limit:
-
-1. state the resource and all constraints mathematically;
-2. identify excluded systems/degrees of freedom;
-3. try single-atom, dispersive, cavity/critical-coupling, narrowband/long-time, reversible-memory, metastable-memory, external-reservoir, active-gain, exported-record, mode-overlap, and task-change counterexamples where relevant;
-4. distinguish theorem failure from a missing resource coordinate;
-5. preserve the failed claim and counterexample in `CLAIM_LEDGER.md` and `RESEARCH_LOG.md`;
-6. only then narrow the theorem or move to the next resource.
-
-Do not hide a failed universal bound by silently adding assumptions afterward.
-
-## 9. Quantitative performance variables
-
-Prefer explicit constraints:
-
-```text
-input ensemble / optical waveform
-prior probabilities
-false-alarm / miss or target P_e
-observation time / decision deadline
-record retention time
-operating temperature
-incident bandwidth / temporal mode
-optical port topology and mode overlap
-parasitic optical loss
-matter dephasing / recombination
-record trapping / extraction rate
-dark-event rate
-signal-dependent noise
-timing uncertainty / jitter
-reset requirement and cycle time
-available reservoirs / pumps / reference fields.
-```
-
-A lower bound without a complete resource ledger is provisional.
-
-## 10. Real-detector mapping rule
-
-For semiconductor mapping, preserve
-
-```text
-optical access
--> absorption / alpha L
--> electron-hole excitation
--> carrier survival/separation
--> persistent electrical record
--> waveform transfer R(f)
--> noise PSD / statistics
--> decision error.
-```
-
-Do not collapse this to `absorption = detection`, `pair generation = detection`, or `D* = detector quality`.
-
-## 11. Prior-art rule
+## 9. Prior-art rule
 
 Before novelty language, audit at minimum:
 
 ```text
-quantum photodetection / binary state discrimination
+quantum photodetection / state discrimination
 quantum speed limits
 Dicke / Tavis-Cummings collective coupling
-input-output theory / critical coupling
-cavity cooperativity / Purcell physics
-single-photon absorption / time-reversed emission
-Beer-Lambert / optical-depth physics
+input-output theory / critical coupling / cooperativity
+single-photon absorption / optical depth
 semiconductor carrier collection
-Gaussian detection theory / matched filtering
+detection theory / matched filtering / Poisson decisions
+timing-search statistics
 NEP / D* conventions
-signal-dependent detector noise
-measurement thermodynamics.
+Landauer erasure with side information
+measurement thermodynamics / reversible measurement.
 ```
 
-The ingredients are largely established. Candidate novelty, if any, is likely only in a narrowly constrained synthesis, bound, or cross-architecture result.
+Most ingredients are established. Candidate distinction, if any, is likely only in a narrowly constrained synthesis or cross-architecture statement.
 
-## 12. Documentation rule
+## 10. Documentation rule
 
 After every substantive step:
 
 - update `CURRENT_STATE_LIVE.md` when the frontier changes;
 - update `CLAIM_LEDGER.md` for new/invalidated/superseded claims;
 - update `RESEARCH_LOG.md` with why the direction changed;
-- add a dedicated result file when algebra/numerics/literature become too large for live state.
+- add a dedicated derivation file when algebra/numerics/literature become too large for live state.
 
-Never delete a failed branch merely because a stronger formulation exists.
+Never delete a failed route merely because a stronger formulation exists.
 
-## 13. Current next attack
+## 11. Current next attack
 
-The strongest next attack is
+Attack **global cycle closure** itself.
+
+Allow, one at a time:
 
 ```text
-signal-dependent noise
--> H0 and H1 have different covariances
--> shot / generation-recombination / avalanche-gain noise
--> optimum likelihood ratio beyond equal-covariance matched filtering.
+side information correlated with optical/environmental input;
+work extraction from the detected field;
+nonequilibrium reservoirs and active pumps;
+continuous reversible transduction with no explicit binary memory;
+external records retained indefinitely outside the accounting horizon.
 ```
 
-Then treat unknown photon arrival time / timing jitter and ask whether a **task-specific detectivity** can be defined from optimum decision distance.
+Goal:
 
-Separately, perform a focused primary-source prior-art audit before any novelty claim.
+> identify the weakest precise assumptions under which any nontrivial architecture-independent detector-cycle thermodynamic bound survives.
+
+Do not defend Landauer by assumption; try to break the bound first.
