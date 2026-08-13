@@ -14,48 +14,43 @@ Root `AGENTS.md` remains authoritative for repository privacy, preservation, and
 2. `CLAIM_LEDGER.md`
 3. `RESEARCH_LOG.md`
 4. `README.md`
-5. specialized derivations/results added later
+5. `INTERACTION_ACTION_LOWER_BOUND.md`
+6. `N_DIPOLE_SINGLE_MODE_MODEL.md`
+7. `COHERENT_CAPTURE_TO_RECORD.md`
+8. `TRAVELING_WAVE_CAPTURE.md`
+9. `MODE_WEIGHTED_OPTICAL_DEPTH.md`
+10. `SEMICONDUCTOR_DECISION_BRIDGE.md`
 
-Do not reconstruct the current frontier from chat summaries when the repository files are available.
+Do not reconstruct the current frontier from chat summaries when repository files are available.
 
 ## 2. Research objective
 
-Follow the strongest surviving consequence of the question:
+Follow the strongest surviving consequence of:
 
 > At what point does a collection of atoms become a photodetector?
 
 Do not force the project toward a predetermined semiconductor answer, theorem, or paper.
 
-The current operational route is
+The current route is
 
 ```text
 optical hypothesis
--> photon-matter interaction
+-> optical access / mode overlap
+-> photon-matter coupling
 -> accessible material-state distinguishability
--> persistence / metastability
--> readout under noise
+-> competition with optical / matter loss
+-> persistent record formation
+-> readout under dark/noisy conditions
 -> reset / reuse.
 ```
 
-The current deepest open problem is to determine whether explicit performance constraints imply a nontrivial minimum physical resource for a robust photon-arrival record.
+The strongest current conclusion is that the detector boundary is a **multi-resource dynamical performance surface**, not a universal atom-count transition.
 
 ## 3. Semantic locks — do not regress
 
 ### Absorption is not the definition
 
-Do not equate
-
-```text
-photon absorbed
-```
-
-with
-
-```text
-photon detected.
-```
-
-Absorption is neither sufficient nor universally necessary under the current operational definition.
+Do not equate photon absorption with photodetection. Absorption is neither sufficient nor universally necessary under the operational definition.
 
 ### Re-emission versus carrier generation
 
@@ -63,67 +58,122 @@ Do not describe photon re-emission and electron-hole generation as mutually excl
 
 ### No universal atom-count threshold
 
-Do not claim a critical `N_c` without first imposing explicit architecture/resource constraints. A finite-size electronic-structure crossover is not automatically a detector boundary.
+Do not claim a critical `N_c` without explicit architecture/resource constraints. Finite-size band formation is not the detector boundary.
+
+### Total atom count is usually not even the correct constrained coordinate
+
+For unequal microscopic couplings,
+
+```math
+G^2=\sum_j|g_j|^2.
+```
+
+Only matter coupled to the optical mode contributes. In extended absorbers, use mode-weighted oscillator strength, optical depth, or the relevant overlap integral rather than literal total atom number.
 
 ### Electron-hole generation is not the complete detection event
 
-Carrier creation must be separated from exciton dissociation, transport, collection, gain, retention, and readout.
+Carrier creation must be separated from binding/dissociation, recombination, extraction/collection, record formation, and readout.
 
 ### Gain does not create the original hypothesis information
 
-Treat gain as a mapping that can make an existing distinction robust against subsequent noise/readout limitations. If claiming an information increase, specify the system boundary and what additional correlated resource entered.
+Treat gain as stabilization/enlargement of an existing encoded distinction against later readout limitations unless an explicit additional information-bearing resource is introduced.
 
-### Irreversibility must be qualified
+### Irreversibility must be qualified and rate matched
 
-Do not invoke "irreversibility" as a primitive microscopic threshold. State whether the claim concerns a reduced subsystem, decoherence, environmental information dispersal, metastability, thermodynamic entropy production, or logical reset.
+Do not invoke irreversibility as a primitive microscopic threshold. In the current coherent-capture models, making the desired trapping rate arbitrarily large can reduce detection by overdamping acquisition. State the relevant subsystem, loss channels, trapping dynamics, and reset model.
 
 ### Landauer is not a per-click axiom
 
-Do not assert `k_B T ln 2` as the minimum energy dissipated by every photon-detection event. Separate measurement interaction, memory stabilization, logical erasure/reset, and cycle requirements.
+Do not assert `k_B T ln 2` as the minimum acquisition energy of every detection event. Separate interaction, retention, readout, logical erasure, and reset.
+
+### Peak monochromatic efficiency does not imply a minimum N
+
+In the clean one-port external-capture model, any nonzero `G` can reach unit resonant narrowband conversion by critical matching,
+
+```math
+\Gamma=4G^2/\kappa.
+```
+
+Weak coupling is paid for in bandwidth/time. Any `N_min` inferred from efficiency alone must therefore be attacked with this counterexample.
 
 ## 4. Mandatory system-boundary discipline
 
 Every information-theoretic statement must specify what is accessible.
 
-For the binary optical hypotheses, use
+For binary optical hypotheses,
 
 ```math
 \rho_D^{(n)}
-=
-\operatorname{Tr}_{\overline D}
+=\operatorname{Tr}_{\overline D}
 \left[
-U( |n\rangle\langle n|\otimes\rho_D )U^\dagger
+U(|n\rangle\langle n|\otimes\rho_D)U^\dagger
 \right].
 ```
 
-The trace distance
+Use
 
 ```math
 \mathcal D_D
-=\frac12\|\rho_D^{(1)}-\rho_D^{(0)}\|_1
+=\frac12\|\rho_D^{(1)}-\rho_D^{(0)}\|_1.
 ```
 
-is meaningful only relative to the chosen subsystem `D` and allowed measurement class.
+Do not say information is gone merely because it is absent from `D`; it may reside in outgoing light or the environment.
 
-Do not say "the information is gone" merely because it is absent from `D`; it may reside in the outgoing optical field or environment.
+## 5. Separate the boundaries
 
-## 5. Separate the five boundaries
-
-Always distinguish:
+Always distinguish at least:
 
 ```text
 (1) finite atomic spectrum -> band-like spectrum
-(2) bound excitation -> mobile carriers
-(3) optical interaction -> encoded material information
-(4) encoded information -> persistent/metastable record
-(5) record -> useful decision under noise
+(2) optical access / mode coupling
+(3) bound excitation -> mobile carriers
+(4) optical interaction -> encoded material information
+(5) encoded information -> persistent/metastable record
+(6) record -> useful decision under dark/noisy output
+(7) reset / reuse.
 ```
 
-A result about one boundary must not be promoted into a statement about another without derivation.
+A result about one boundary must not be promoted into another without derivation.
 
-## 6. Epistemic labels
+## 6. Current active resource coordinates
 
-Use the root vocabulary explicitly:
+Depending on architecture, useful dimensionless coordinates now include
+
+```math
+\eta_{\rm esc}=\kappa_{\rm in}/\kappa,
+```
+
+```math
+C_N=4G^2/(\kappa\gamma),
+```
+
+```math
+\Gamma/(4G^2/\kappa),
+```
+
+```math
+B/(4G^2/\kappa),
+```
+
+```math
+\alpha L,
+```
+
+```math
+\Gamma_{\rm ext}/\Gamma_{\rm rec},
+```
+
+and
+
+```math
+R_d\tau.
+```
+
+Do not assume one scalar metric can replace the full resource ledger.
+
+## 7. Epistemic labels
+
+Use explicitly:
 
 - **KNOWN**
 - **DERIVED**
@@ -137,98 +187,101 @@ Use the root vocabulary explicitly:
 
 A negative literature search is not novelty evidence.
 
-## 7. Counterexample-first procedure
+## 8. Counterexample-first procedure
 
-Before accepting a proposed universal detector limit:
+Before accepting a universal detector limit:
 
 1. state the resource and all constraints mathematically;
-2. identify what systems/degrees of freedom are excluded;
-3. try a single atom, cavity/dispersive interaction, reversible memory, metastable memory, external reservoir, active gain, and exported record as adversarial counterexamples where relevant;
-4. distinguish a failure of the theorem from a missing resource coordinate;
-5. preserve the failed claim and the counterexample in `CLAIM_LEDGER.md` and `RESEARCH_LOG.md`;
+2. identify excluded systems/degrees of freedom;
+3. try single-atom, dispersive, cavity/critical-coupling, reversible-memory, metastable-memory, external-reservoir, active-gain, exported-record, and narrowband/long-time counterexamples where relevant;
+4. distinguish theorem failure from a missing resource coordinate;
+5. preserve the failed claim and counterexample in `CLAIM_LEDGER.md` and `RESEARCH_LOG.md`;
 6. only then narrow the theorem or move to the next resource.
 
-Do not hide a failed universal bound by silently adding assumptions after the fact.
+Do not hide a failed universal bound by silently adding assumptions afterward.
 
-## 8. Quantitative performance variables for the next phase
+## 9. Quantitative performance variables
 
-Prefer explicit constraints such as
+Prefer explicit constraints:
 
 ```text
 input ensemble / photon-number distribution
 prior probabilities
-P_false / P_miss or target P_e
-observation time tau_obs
+false-alarm / miss or target P_e
+observation time tau
 record retention time tau_rec
 operating temperature T
-bandwidth
-allowed optical disturbance
-reset requirement
-cycle time
-system dimension / number of controlled degrees of freedom
-available reservoirs / pumps / reference fields
+incident bandwidth / temporal mode
+optical port topology and mode overlap
+parasitic optical loss
+matter dephasing / recombination
+record trapping / extraction rate
+dark-event rate
+reset requirement and cycle time
+available reservoirs / pumps / reference fields.
 ```
 
-A lower bound without a complete resource ledger should be treated as provisional.
+A lower bound without a complete resource ledger is provisional.
 
-## 9. Real-detector mapping rule
+## 10. Real-detector mapping rule
 
-Do not specialize to HgCdTe or another semiconductor too early.
+Do not specialize to HgCdTe so early that the general boundary is lost. Once an abstract statement survives counterexamples, test representative architectures separately.
 
-Once an abstract statement survives counterexamples, test it separately against representative architectures:
+For semiconductor mapping, preserve the hierarchy
 
 ```text
-photoconductor
-photovoltaic photodiode
-APD / SPAD
-photomultiplier-like gain chain
-bolometer / calorimetric detector
-superconducting single-photon detector
-nonabsorptive / dispersive photon-number measurement.
+optical access
+-> absorption / alpha L
+-> electron-hole excitation
+-> carrier survival and separation
+-> persistent electrical record
+-> discrimination against dark/noisy output.
 ```
 
-The purpose is to find the true scope of the statement, not to force all architectures into semiconductor carrier language.
+Do not collapse this into `absorption = detection` or `pair generation = detection`.
 
-## 10. Prior-art rule
+## 11. Prior-art rule
 
 Before novelty language, audit at minimum:
 
 ```text
-quantum photodetection theory
-binary quantum-state discrimination
-POVM / measurement-channel formulations
-quantum nondemolition photon measurement
-data-processing / trace-distance contractivity
-decoherence and pointer-state formation
-metastable detector models
-measurement thermodynamics and Landauer reset
-finite-system atomic-to-band crossover
-semiconductor exciton/free-carrier physics.
+quantum photodetection / binary state discrimination
+quantum speed limits
+Dicke / Tavis-Cummings collective coupling
+input-output theory and critical coupling
+cavity cooperativity / Purcell physics
+single-photon absorption and time-reversed emission
+Beer-Lambert / optical-depth limits
+semiconductor absorption and carrier collection
+detector thermodynamics / metastable records
+noise and decision theory.
 ```
 
-Established mathematical or conceptual results must be attributed. Candidate novelty, if any, will likely lie in a narrowly constrained detector-specific synthesis or bound, not in trace distance, Helstrom discrimination, QND measurement, decoherence, or semiconductor band formation themselves.
+The ingredients are largely established. Candidate novelty, if any, is likely to lie only in a narrowly defined detector-boundary synthesis, constrained bound, or cross-architecture result.
 
-## 11. Documentation rule
+## 12. Documentation rule
 
 After every substantive step:
 
-- update `CURRENT_STATE_LIVE.md` if the frontier changed;
-- update `CLAIM_LEDGER.md` for new/invalidated/superseded claims;
-- append `RESEARCH_LOG.md` with the reasoning path and why direction changed;
-- add a dedicated result file when algebra, numerics, or literature detail becomes too large for the live-state file.
+- update `CURRENT_STATE_LIVE.md` when the frontier changes;
+- update `CLAIM_LEDGER.md` for new, invalidated, or superseded claims;
+- append/revise `RESEARCH_LOG.md` to preserve why the direction changed;
+- add a dedicated derivation file when algebra, numerics, or literature detail becomes too large for live state.
 
-Never delete a failed branch merely because a better formulation exists.
+Never delete a failed branch merely because a stronger formulation exists.
 
-## 12. Current next attack
+## 13. Current next attack
 
-Formalize a constrained record-formation problem:
+The discrete-emitter, traveling-wave, optical-depth, and binary semiconductor-click bridges now exist.
+
+The next strongest attack is:
 
 ```text
-Given target discrimination performance epsilon
-and retention interval tau_rec
-at temperature T,
-with specified allowed optical disturbance and reset requirements,
-what resources are unavoidable?
+continuous noisy electrical output
+-> likelihood-ratio / Gaussian discrimination
+-> integration time and bandwidth
+-> responsivity / noise PSD / NEP / D*
+-> identify what conventional detector metrics preserve or hide about photon-hypothesis distinguishability.
 ```
 
-Start with the weakest possible assumptions. Try to kill proposed bounds before strengthening them.
+Separately, perform a primary-source prior-art audit before calling any exact matching law or synthesis distinct.
