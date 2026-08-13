@@ -1,10 +1,10 @@
 # Claim Ledger — Experiment 02
 
 **Updated:** 2026-08-12  
-**Status:** exploratory; optical-to-decision-to-source-inclusive-resource-closure chain active  
+**Status:** exploratory; detector-channel / resource-ledger formulation active  
 **Priority:** unassessed; no novelty claim
 
-This is the epistemic boundary. `CURRENT_STATE_LIVE.md` is the operational front door; `RESEARCH_LOG.md` preserves chronology. Dedicated result files preserve detailed derivations.
+This is the epistemic boundary. `CURRENT_STATE_LIVE.md` is the operational front door; `RESEARCH_LOG.md` preserves chronology; dedicated result files preserve detailed derivations.
 
 ## Status vocabulary
 
@@ -50,7 +50,7 @@ Generation must be separated from dissociation, recombination, extraction, persi
 ### H6 — gain creates the original photon-arrival information
 **Status:** INVALIDATED AS STATED
 
-Gain can improve practical robustness but cannot manufacture missing upstream information under hypothesis-independent downstream processing.
+Gain can improve robustness but cannot manufacture missing upstream information under hypothesis-independent downstream processing.
 
 ### H7 — microscopic irreversibility occurs at one definite atom count
 **Status:** INVALIDATED / REFRAMED
@@ -70,7 +70,7 @@ A degenerate pointer can become orthogonal with zero final bare-energy differenc
 ### H10 — target discrimination implies a universal positive deposited-energy cost
 **Status:** INVALIDATED IN GENERAL
 
-Interaction action survives in the stated pure/unitary finite-time model; final deposited energy does not.
+Interaction action survives conditionally; final deposited energy does not.
 
 ### H11 — atom count itself is the fundamental microscopic resource
 **Status:** INVALIDATED / SUPERSEDED
@@ -90,12 +90,12 @@ Excessive trapping can overdamp acquisition.
 ### H14 — high monochromatic efficiency implies a positive minimum atom count
 **Status:** INVALIDATED IN CLEAN ONE-PORT MODEL
 
-Any nonzero coupling can reach unit resonant narrowband conversion under critical matching if arbitrarily slow/narrowband operation is allowed.
+Any nonzero coupling can reach unit resonant narrowband conversion under ideal matching if arbitrarily slow/narrowband operation is allowed.
 
 ### H15 — arbitrarily many atoms always overcome parasitic optical loss
 **Status:** INVALIDATED IN CURRENT ONE-PORT MODEL
 
-The optical escape factor `eta_esc` creates an independent ceiling.
+Optical escape creates an independent ceiling.
 
 ### H16 — literal total atom count is the relevant `N` in extended matter
 **Status:** INVALIDATED
@@ -110,7 +110,7 @@ Collection/readout ceilings and dark events can make the target impossible even 
 ### H18 — same scalar `D*` implies same event-detection performance
 **Status:** INVALIDATED IN ONE-POLE WHITE-NOISE BENCHMARK
 
-`d^2=E^2D*^2/(A tau)` for a short event, so response time matters at fixed area and low-frequency `D*`.
+`d^2=E^2D*^2/(A tau)` for a short event, so response time matters.
 
 ### H19 — no mean signal means no detector information
 **Status:** INVALIDATED
@@ -125,80 +125,87 @@ Poisson decision geometry changes qualitatively between those limits.
 ### H21 — known-time matched-filter performance transfers unchanged to unknown arrival time
 **Status:** INVALIDATED
 
-Unknown timing creates a nuisance-parameter search / trials penalty.
+Unknown timing creates a nuisance-parameter search/trials penalty.
 
 ### H22 — one scalar detector ranking can represent every waveform task
-**Status:** INVALIDATED WHEN GAUSSIAN SPECTRAL DECISION KERNELS CROSS
+**Status:** INVALIDATED
 
-Crossing kernels imply task-dependent ranking reversal.
+Crossing decision kernels produce task-dependent ranking reversal.
 
 ### H23 — a reusable local detector necessarily dissipates `k_B T ln 2` locally per click
 **Status:** INVALIDATED
 
-A detector can export its record to an external register and use that side information for local reset. The information is moved, not erased.
+Record export and conditional reset provide a counterexample.
 
 ### H24 — record barrier height is automatically dissipated each reset
 **Status:** INVALIDATED GENERALIZATION
 
-Barrier height / modulation amplitude is a stability-control resource, not by itself a lower bound on irreversible work.
+Barrier height / modulation amplitude is a stability-control resource, not by itself irreversible work.
 
-### H25 — resetting detector + controller + record memories and leaving no detector-side output necessarily forces `k_B T h(p)` erasure
-**Status:** INVALIDATED / SUPERSEDES EARLIER R5
+### H25 — resetting detector + controller + record memories and leaving no detector-side record necessarily forces `k_B T h(p)` erasure
+**Status:** INVALIDATED / SUPERSEDED
 
-A nondestructive measurement can be reversibly uncomputed using the surviving optical/source variable as side information:
+A surviving source/reference variable can enable reversible uncomputation.
 
-```math
-|x\rangle_S|0\rangle_M
-\to
-|x\rangle_S|x\rangle_M
-\to
-|x\rangle_S|0\rangle_M.
-```
-
-Detector-side closure is therefore not source-inclusive informational closure.
-
-### H26 — source-inclusive logical erasure implies a positive externally supplied work per detection event
+### H26 — source-inclusive logical erasure implies positive externally supplied work per event
 **Status:** INVALIDATED AS A UNIVERSAL STATEMENT
 
-Consumed optical nonequilibrium free energy, bias/pump free energy, or other resource-state free energy can pay the information-processing cost. Net external work can therefore be zero or negative in principle under suitable resource accounting.
+Optical or pump nonequilibrium free energy can subsidize the information-processing work.
 
-### H27 — a latched binary memory is a necessary thermodynamic stage of photodetection
+### H27 — a latched binary memory is a necessary thermodynamic stage of detection
 **Status:** INVALIDATED
 
-Continuous reversible transduction can encode the optical history in a continuous pointer/output without a binary latch. Erasure cost attaches only when information is actually discarded.
+Continuous reversible transduction can carry the record without a binary latch.
+
+### H28 — unrestricted trace distance always equals achievable detector distinguishability
+**Status:** INVALIDATED UNDER OPERATION / SYMMETRY RESTRICTIONS
+
+Without the needed reference frame, globally distinct states can become operationally indistinguishable.
+
+### H29 — the `G -> 0` critical-coupling counterexample remains achievable under arbitrary physical control constraints
+**Status:** INVALIDATED
+
+A nonzero minimum trapping rate or finite control resolution restores a positive constrained coupling / `N` threshold.
+
+### H30 — a per-channel lower bound automatically gives a system-level detector bound
+**Status:** INVALIDATED
+
+Independent evidence can accumulate across arbitrarily many parallel channels unless total channel capacity is bounded.
 
 ---
 
-# 2. Core operational statements
+# 2. Core detector statements
 
-### I1 — accessible quantum-state distinguishability is the minimal current microscopic criterion
+### I1 — unrestricted microscopic binary distinguishability
 **Status:** DERIVED FROM CHOSEN OPERATIONAL DEFINITION
 
 ```math
-\mathcal D_D=\frac12\|\rho_D^{(1)}-\rho_D^{(0)}\|_1.
+\mathcal D_D=\frac12\|\rho_D^{(1)}-\rho_D^{(0)}\|_1,
+\qquad
+P_{e,\min}=\frac12(1-\mathcal D_D)
 ```
 
-For equal priors, `P_e,min=(1-D_D)/2`.
+when all POVMs are allowed.
 
-### I2 — detector boundary depends on the accessible subsystem
-**Status:** DERIVED
+### I2 — allowed operations / reference resources modify operational distinguishability
+**Status:** DERIVED / KNOWN SYMMETRY-RESOURCE STRUCTURE
 
-Information absent from the chosen detector subsystem may remain in outgoing light or environment.
+For a symmetry-twirling map `G`, symmetry-invariant measurement access is represented by the corresponding restricted states/measurement class. A phase/time reference can restore otherwise hidden information.
 
 ### I3 — persistence is distinct from momentary encoding
 **Status:** DERIVED ORGANIZING STATEMENT
 
-### I4 — the general classical decision object is the complete conditional output distribution/process
+### I4 — the general classical detector object is the complete conditional output process
 **Status:** DERIVED ORGANIZING STATEMENT
 
-Mean response divided by one fixed noise PSD is a special case.
+Mean response plus one noise PSD is a special case.
 
 ### I5 — detector is a functional relation, not a phase-of-matter label
 **Status:** DERIVED ORGANIZING STATEMENT / PRIORITY UNASSESSED
 
 ---
 
-# 3. Microscopic interaction and record formation
+# 3. Microscopic coupling / record formation
 
 ### B1 — finite-time pure-state separation requires conditional interaction action
 **Status:** DERIVED FROM ESTABLISHED QUANTUM-SPEED-LIMIT GEOMETRY / CONDITIONAL
@@ -207,27 +214,24 @@ Mean response divided by one fixed noise PSD is a special case.
 \mathcal A_\Delta\ge\hbar\arcsin(1-2\epsilon).
 ```
 
-### B2 — per-constituent action cap gives a conditional atom-count law
+### B2 — per-constituent action cap gives conditional `N_min`
 **Status:** DERIVED / CONDITIONAL
 
 ```math
 N\ge\left\lceil\hbar\arcsin(1-2\epsilon)/a_{\max}\right\rceil.
 ```
 
-### B3 — identical resonant dipoles have `G=g sqrt(N)` collective bright-state coupling
+### B3 — identical resonant dipoles have `G=g sqrt(N)`
 **Status:** KNOWN / DERIVED IN STATED TAVIS--CUMMINGS SECTOR
 
-### B4 — coherent excitation alone is not persistent record
-**Status:** DERIVED IN BENCHMARK
-
-### B5 — record trapping has a finite matching optimum
+### B4 — record trapping has a finite matching optimum
 **Status:** DERIVED / CHECKED
 
-In the clean initial-in-mode limit, `Gamma_opt=2G`.
+Clean initial-in-mode limit: `Gamma_opt=2G`.
 
 ---
 
-# 4. External capture and optical resources
+# 4. External capture / optical resources
 
 ### X1 — clean one-port critical matching can give unit narrowband capture for any nonzero `G`
 **Status:** DERIVED / CONDITIONAL
@@ -236,7 +240,7 @@ In the clean initial-in-mode limit, `Gamma_opt=2G`.
 \Gamma_{\rm match}=4G^2/\kappa.
 ```
 
-### X2 — optimized external efficiency separates optical escape and collective cooperativity
+### X2 — optimized external efficiency separates optical escape and cooperativity
 **Status:** DERIVED
 
 ```math
@@ -254,12 +258,38 @@ In the clean initial-in-mode limit, `Gamma_opt=2G`.
 
 ```math
 \mathrm{OD}=n\sigma L,
-\qquad P_{\rm abs}=1-e^{-\mathrm{OD}}.
+\qquad
+P_{\rm abs}=1-e^{-\mathrm{OD}}.
 ```
+
+### X6 — exact clean critical-matching mismatch law
+**Status:** DERIVED
+
+With `x=Gamma/Gamma_match`,
+
+```math
+\eta_R=\frac{4x}{(1+x)^2},
+\qquad
+1-\eta_R=\left(\frac{x-1}{x+1}\right)^2.
+```
+
+### X7 — nonzero rate floor restores constrained coupling threshold
+**Status:** DERIVED / CONDITIONAL
+
+For target `eta_R>=1-epsilon`,
+
+```math
+G^2
+\ge
+\frac{\kappa\Gamma_{\rm floor}}{4}
+\frac{1-\sqrt\epsilon}{1+\sqrt\epsilon}.
+```
+
+Thus control range/precision is an independent detector resource.
 
 ---
 
-# 5. Semiconductor decision bridge
+# 5. Semiconductor / electrical decision bridge
 
 ### S1 — minimal signal-record factorization
 **Status:** CONDITIONAL
@@ -278,328 +308,304 @@ P_{\rm col}=\Gamma_{\rm ext}/(\Gamma_{\rm ext}+\Gamma_{\rm rec}).
 ### S3 — electron-hole generation is a microscopic transduction stage, not the complete detector boundary
 **Status:** DERIVED ORGANIZING STATEMENT
 
-### S4 — binary click distinguishability with independent Poisson dark events
+### S4 — dark-event ceiling
 **Status:** DERIVED / CONDITIONAL
 
 ```math
-\mathcal D_{\rm click}=\eta_s e^{-R_d\tau}.
-```
-
-### S5 — dark-event impossibility condition
-**Status:** DERIVED / CONDITIONAL
-
-```math
+\mathcal D_{\rm click}=\eta_s e^{-R_d\tau},
+\qquad
 R_d\tau\le-\ln(1-2\epsilon).
 ```
 
 ---
 
-# 6. Electrical-output decision geometry
+# 6. Output-distribution geometry
 
-### G1 — equal-covariance Gaussian optimum coordinate is Mahalanobis / matched-filter distance
-**Status:** KNOWN DETECTION-THEORY STRUCTURE / APPLIED HERE
-
-```math
-d^2=\langle s,C^{-1}s\rangle
-=\int |\tilde s(f)|^2/S_n^{(2)}(f)\,df.
-```
-
-### G2 — equal-prior Gaussian error is `P_e=Q(d/2)`
-**Status:** KNOWN / DERIVED IN STATED MODEL
-
-### G3 — input-referred decision distance is an NEP-weighted waveform integral
-**Status:** DERIVED
+### G1 — equal-covariance Gaussian decision distance
+**Status:** KNOWN / APPLIED HERE
 
 ```math
-d^2=\int |\tilde p(f)|^2/\mathrm{NEP}_2^2(f)\,df.
+d^2
+=\int |\tilde s(f)|^2/S_n^{(2)}(f)\,df
+=\int |\tilde p(f)|^2/\mathrm{NEP}_2^2(f)\,df.
 ```
 
-### G4 — one-pole white-noise short-pulse benchmark gives `d^2=E^2D*^2/(A tau)`
+### G2 — equal-prior Gaussian error
+**Status:** KNOWN / CONDITIONAL
+
+```math
+P_e=Q(d/2).
+```
+
+### G3 — one-pole white-noise short-pulse benchmark
 **Status:** DERIVED / CONDITIONAL
 
-### G5 — unequal-covariance Gaussian optimum statistic is quadratic
-**Status:** KNOWN LIKELIHOOD STRUCTURE / APPLIED HERE
+```math
+d^2=E^2D^{*2}/(A\tau).
+```
 
-### G6 — covariance change alone can carry detection information
-**Status:** DERIVED / KNOWN STATISTICAL CONSEQUENCE
+### G4 — unequal-covariance Gaussian optimum statistic is quadratic
+**Status:** KNOWN / APPLIED HERE
 
-### G7 — Poisson overlap is controlled by square-root count separation
-**Status:** DERIVED / KNOWN STATISTICAL STRUCTURE
+### G5 — covariance change alone can carry detection information
+**Status:** DERIVED
+
+### G6 — Poisson square-root separation
+**Status:** KNOWN / DERIVED
 
 ```math
 BC=\exp[-(\sqrt{\mu_1}-\sqrt{\mu_0})^2/2].
 ```
 
-### G8 — zero-background count error is `P_e=(1/2)e^{-lambda_s T}`
+### G7 — zero-background count error
 **Status:** DERIVED / CONDITIONAL
+
+```math
+P_e=(1/2)e^{-\lambda_sT}.
+```
 
 ---
 
-# 7. Timing and task dependence
+# 7. Timing / parallelism / task dependence
 
-### T1 — unknown arrival time makes the event hypothesis a mixture over shifted templates
+### T1 — unknown arrival time is a mixture over shifted templates
 **Status:** DERIVED / KNOWN NUISANCE-PARAMETER STRUCTURE
 
-### T2 — independent-bin benchmark likelihood is a log-sum-exp over matched filters
+### T2 — independent-bin benchmark
 **Status:** DERIVED / CONDITIONAL
 
 ```math
 \Lambda=(1/M)\sum_m e^{dz_m-d^2/2}.
 ```
 
-### T3 — max-threshold false-alarm and miss probabilities
-**Status:** DERIVED / CONDITIONAL
-
-```math
-P_{\rm FA}=1-\Phi(\eta)^M,
-```
-
-```math
-P_{\rm miss}=\Phi(\eta-d)\Phi(\eta)^{M-1}.
-```
-
-### T4 — temporal-search threshold scales approximately as `sqrt(2 ln M)` for large independent trial count
+### T3 — temporal-search threshold scales approximately as `sqrt(2 ln M)`
 **Status:** DERIVED ASYMPTOTIC / CONDITIONAL
 
-### T5 — `M_eff ~ T_search B_eff` is a heuristic time-bandwidth organizing coordinate
-**Status:** HEURISTIC / CONDITIONAL
-
----
-
-# 8. Task-specific sensitivity and detector ordering
-
-### Q1 — Gaussian task functional
+### T4 — task-specific Gaussian sensitivity functional
 **Status:** DERIVED
 
 ```math
-\mathcal K_D[q]
-=\int |\tilde q(f)|^2/\mathrm{NEP}_{2,D}^2(f)\,df.
+\mathcal K_D[q]=\int |\tilde q(f)|^2/\mathrm{NEP}_{2,D}^2(f)\,df.
 ```
 
-### Q2 — known-time decision-equivalent minimum event energy
+### T5 — known-time minimum event energy
 **Status:** DERIVED / CONDITIONAL
 
 ```math
-E_{\min}(q,\epsilon)
-=2Q^{-1}(\epsilon)/\sqrt{\mathcal K_D[q]}.
+E_{\min}=2Q^{-1}(\epsilon)/\sqrt{\mathcal K_D[q]}.
 ```
 
-### Q3 — task-specific `E_min` is not detector-only
+### T6 — independent Gaussian evidence adds across channels
+**Status:** DERIVED / KNOWN
+
+```math
+d_{\rm tot}^2=\sum_jd_j^2.
+```
+
+### T7 — independent Poisson separation exponents add across channels
+**Status:** DERIVED / KNOWN
+
+The total Bhattacharyya exponent is the sum of channel square-root-count separations.
+
+### T8 — unknown active channel creates a spatial trials penalty
 **Status:** DERIVED ORGANIZING STATEMENT
 
-### Q4 — pointwise spectral decision-kernel dominance gives universal ordering within the Gaussian waveform class
-**Status:** DERIVED
-
-### Q5 — crossing spectral kernels imply task-dependent ranking reversal
-**Status:** DERIVED / CONDITIONAL
-
-### Q6 — detector comparison is naturally a partial order for unrestricted waveform classes
+### T9 — parallel channel count is an independent resource
 **Status:** DERIVED ORGANIZING STATEMENT
 
 ---
 
-# 9. Reset, source closure, and thermodynamic resource accounting
+# 8. Reference-frame / allowed-operation claims
 
-### R1 — binary record entropy depends on event prior
+### A1 — globally orthogonal optical states can be reference-free indistinguishable
+**Status:** DERIVED / KNOWN SYMMETRY STRUCTURE
+
+For
+
+```math
+|\psi_\pm\rangle=(|0\rangle\pm|1\rangle)/\sqrt2,
+```
+
+`U(1)` twirling without a phase reference gives identical mixed states.
+
+### A2 — reference-frame quality is not reducible to mean energy alone
+**Status:** KNOWN RESOURCE-THEORY PRINCIPLE / ORGANIZING STATEMENT
+
+Coherence/asymmetry relative to the constrained symmetry is an independent operational resource.
+
+### A3 — clock quality is the timing analogue of optical phase-reference quality
+**Status:** DERIVED ORGANIZING STATEMENT
+
+---
+
+# 9. Detector-channel ordering
+
+### C1 — classical detector channel
+**Status:** DERIVED ORGANIZING DEFINITION
+
+```math
+K_D(y|x)=P_D(Y=y|X=x).
+```
+
+### C2 — post-processing dominance
+**Status:** KNOWN BLACKWELL / GARBLING STRUCTURE APPLIED TO DETECTORS
+
+If
+
+```math
+K_B=T\circ K_A
+```
+
+with hypothesis-independent `T`, every decision rule achievable with B can be simulated from A.
+
+### C3 — detector comparison is generally a partial order
+**Status:** DERIVED / KNOWN CONSEQUENCE
+
+If neither channel is a post-processing of the other, different tasks can legitimately prefer different detectors.
+
+### C4 — one binary error probability or one scalar metric does not determine channel equivalence
+**Status:** DERIVED ORGANIZING STATEMENT
+
+### C5 — quantum detector comparison uses channel post-processing under proper quantum conditions
+**Status:** KNOWN / REQUIRES DEDICATED QUANTUM PRIOR-ART AUDIT
+
+```math
+\Phi_D:\rho_{\rm opt}\mapsto\rho_{\rm out}.
+```
+
+If `Phi_B=Lambda o Phi_A`, A can simulate B's downstream measurements.
+
+### C6 — current performance hierarchy
+**Status:** DERIVED ORGANIZING STATEMENT
+
+```text
+scalar metric
+-> task-specific decision metric
+-> detector-channel partial order
+-> resource-constrained achievable-channel set.
+```
+
+---
+
+# 10. Reset / source closure / thermodynamics
+
+### R1 — binary record entropy depends on prior
 **Status:** KNOWN
 
 ```math
 h(p)=-p\ln p-(1-p)\ln(1-p).
 ```
 
-`ln2` occurs only for an unbiased record.
+### R2 — ideal degenerate-memory erasure with no side information has scale `k_B T h(p)`
+**Status:** KNOWN / CONDITIONAL
 
-### R2 — ideal exact erasure of a degenerate binary memory with no retained side information has scale `k_B T h(p)`
-**Status:** KNOWN / CONDITIONAL INFORMATION-THERMODYNAMIC RESULT
+### R3 — exported side information can remove universal local reset cost
+**Status:** KNOWN / DERIVED COUNTEREXAMPLE
 
-Applies under the stated quasistatic isothermal/degenerate-memory assumptions.
-
-### R3 — imperfect reset changes the entropy-reduction scale
-**Status:** DERIVED / CONDITIONAL
-
-For final logical error `delta`, the entropy term is `k_B T[h(p)-h(delta)]` when positive and when other free-energy changes vanish.
-
-### R4 — exported side information can remove a universal local reset cost
-**Status:** KNOWN PRINCIPLE / DERIVED COUNTEREXAMPLE
-
-Local erasure cost can depend on conditional entropy `H(M|R)`. A perfect external copy can make `H(M|R)=0` while the record remains in `R`.
-
-### R5 — detector/controller/record-memory closure alone restores a `k_B T h(p)` erasure problem
-**Status:** SUPERSEDED BY R11 / INVALIDATED AS A GENERAL CLOSURE CONDITION
-
-The original optical/source variable may remain available as side information and permit reversible uncomputation. See `SOURCE_INCLUSIVE_THERMODYNAMIC_CLOSURE.md`.
-
-### R6 — rare-event records do not carry a universal `k_B T ln2` average cycle cost
-**Status:** DERIVED / CONDITIONAL
-
-For `p<<1`, `h(p)~p ln(1/p)+p`.
-
-### R7 — activated record retention gives a conditional barrier requirement
-**Status:** DERIVED / CONDITIONAL
-
-```math
-E_b
-\ge
-k_BT\ln[\nu_0\tau_{\rm rec}/(-\ln(1-p_d))].
-```
-
-### R8 — retention plus fast reset gives a conditional landscape-modulation requirement
-**Status:** DERIVED / CONDITIONAL
-
-```math
-\Delta E
-\ge
-k_BT\ln\left[
-\frac{\tau_{\rm rec}\ln(1/\epsilon_r)}
-{\tau_r[-\ln(1-p_d)]}
-\right]
-```
-
-when positive and within the common activated-rate model.
-
-### R9 — the stability/reset relation is a control-range bound, not a universal heat bound
-**Status:** DERIVED ORGANIZING STATEMENT
-
-### R10 — external record capacity is a resource that can trade against local reset dissipation
-**Status:** DERIVED ORGANIZING STATEMENT
-
-### R11 — source-inclusive informational closure is required before a true erasure statement can be made
-**Status:** DERIVED ORGANIZING STATEMENT
-
-All usable degrees of freedom correlated with the optical hypothesis, including source/reference systems, must either be included in the closure boundary or explicitly treated as retained side information.
-
-### R12 — reversible measurement can be uncomputed when the source variable survives
-**Status:** DERIVED COUNTEREXAMPLE / KNOWN REVERSIBLE-COMPUTATION STRUCTURE
+### R4 — detector-memory closure is not source-inclusive informational closure
+**Status:** DERIVED COUNTEREXAMPLE
 
 ```math
 |x\rangle_S|0\rangle_M
-\to
-|x\rangle_S|x\rangle_M
-\to
-|x\rangle_S|0\rangle_M.
+\to|x\rangle_S|x\rangle_M
+\to|x\rangle_S|0\rangle_M.
 ```
 
-Thus local/global detector-memory reset is not synonymous with logical erasure of `X`.
-
-### R13 — erasure cost is governed by discarded information conditional on retained outputs/side information
+### R5 — erasure cost depends on discarded information conditional on retained side information
 **Status:** KNOWN INFORMATION-THERMODYNAMIC PRINCIPLE / CONDITIONAL
 
-Classical and quantum side information can reduce the cost. Quantum conditional entropy can be negative, allowing work extraction while consuming correlation resources; restoring those resources closes the thermodynamic cycle.
+Quantum conditional entropy can be negative; correlation restoration closes the cycle.
 
-### R14 — optical or pump free energy can subsidize cycle closure
+### R6 — optical/pump free energy can subsidize cycle closure
 **Status:** DERIVED ORGANIZING RESOURCE BALANCE / CONDITIONAL
 
-A schematic isothermal ledger is
+No positive externally supplied detector work is universal when other nonequilibrium resources may be consumed.
 
-```math
-W_{\rm ext}
-\gtrsim
-W_{\rm info}
--\Delta F_{\rm opt}^{\rm avail}
--\Delta F_{\rm other}^{\rm avail}.
-```
-
-The exact free-energy functional and inequality depend on regime/allowed operations. The robust conclusion is that no positive externally supplied detector work is universal when other nonequilibrium resources may be consumed.
-
-### R15 — raw photon energy is not automatically equal to usable reset work
+### R7 — raw `h nu` is not automatically usable reset work
 **Status:** DERIVED ORGANIZING STATEMENT
 
-The relevant subsidy is available nonequilibrium free-energy decrease, not `h nu` alone.
+Available nonequilibrium free-energy decrease is the disciplined resource.
 
-### R16 — continuous reversible transduction need not contain a binary erasure stage
-**Status:** DERIVED COUNTEREXAMPLE / ORGANIZING STATEMENT
+### R8 — continuous reversible transduction need not contain a binary erasure stage
+**Status:** DERIVED COUNTEREXAMPLE
 
-If information is reversibly correlated and later uncomputed, no logical erasure occurs. If the output persists, it is the record; if it is later discarded, the cost attaches there.
-
-### R17 — the strongest surviving thermodynamic constraint is a source-inclusive generalized resource balance, not a fixed detector heat quantum
-**Status:** DERIVED ORGANIZING STATEMENT / PRIORITY UNASSESSED
-
-```text
-information conservation
--> identify actually discarded information
--> include all retained side information
--> include all consumed free-energy resources
--> apply the appropriate second-law / work-cost relation.
-```
-
-No architecture-independent positive heat or external-work cost per photon event has survived the allowed-resource counterexamples.
+### R9 — activated retention/reset relation is a control-range bound, not a universal heat bound
+**Status:** DERIVED / CONDITIONAL
 
 ---
 
-# 10. Current organizing statement
+# 11. Current organizing statement
 
-### O1 — detector boundary is a task-dependent multi-resource performance surface
+### O1 — detector boundary is a resource-dependent channel-performance surface
 **Status:** DERIVED ORGANIZING STATEMENT / PRIORITY UNASSESSED
 
 ```text
-optical task / hypothesis ensemble
+optical input family / task
+-> allowed operations + phase/time references
 -> optical access / mode overlap
--> microscopic interaction resource
--> transduction
--> acquisition/extraction versus loss
--> persistent record
--> complete conditional output statistics
--> timing / nuisance parameters
+-> microscopic coupling / interaction action
+-> time / bandwidth
+-> loss / trapping / retention
+-> control range / precision
+-> parallel channel capacity
+-> complete output statistics
+-> timing / nuisance structure
 -> optimum decision
--> record export / local reset
--> source-inclusive information/resource accounting if cyclic thermodynamics is imposed.
+-> detector-channel ordering
+-> side information / record export
+-> source-inclusive free-energy accounting if cyclic thermodynamics is imposed.
 ```
 
-There is generally no architecture-independent scalar detector boundary, total detector ranking, or fixed thermodynamic cost per event.
+No architecture-independent scalar detector boundary or fixed thermodynamic cost per event has survived.
 
 ---
 
-# 11. Open fronts
+# 12. Open fronts
 
-### F1 — completeness of the source-inclusive detector resource ledger
+### F1 — correlating catalysts
 **Status:** OPEN / CURRENT FRONTIER
 
-Try to break the current resource set with
+Test resources that return with the same local marginal but accumulate correlations with detector/source degrees of freedom.
 
-```text
-coherence / phase-reference resources;
-spatial mode count / channel capacity;
-clock and synchronization resources;
-finite control precision;
-catalysts that return locally unchanged but become correlated;
-finite-size / single-shot fluctuations;
-causal latency and maximum power.
-```
-
-### F2 — resource-conversion formulation
+### F2 — finite-size / single-shot thermodynamics
 **Status:** OPEN
 
-Determine whether optical-state distinguishability, nonequilibrium free energy, interaction time/bandwidth, side information, exported-record capacity, and decision error can be assembled into a useful constrained resource-conversion theorem without hiding another free resource.
+Average Shannon/von-Neumann entropy need not characterize worst-case or finite-copy work fluctuations.
 
-### F3 — information acquisition rate under bounded interaction resource
+### F3 — causal latency / maximum power
 **Status:** OPEN
 
-Seek a rate form that survives open-system and cyclic architectures.
+Test whether finite power/control-speed limits restore stronger detector resource bounds than integrated action/free energy alone.
 
-### F4 — stability versus reuse in non-activated memories
+### F4 — adaptive distributed measurements
 **Status:** OPEN
 
-Determine which parts of the current barrier/reset tradeoff survive beyond simple Arrhenius dynamics.
+Test whether spatially distributed feedforward/adaptive control defeats channel/resource bounds that assume fixed parallel processing.
 
-### F5 — prior-art audit
+### F5 — resource-constrained detector-channel theorem
+**Status:** OPEN
+
+Only after F1-F4 should an achievable-channel/resource-conversion theorem be attempted.
+
+### F6 — prior-art audit
 **Status:** OPEN AND REQUIRED BEFORE NOVELTY LANGUAGE
 
-Audit measurement/photodetection theory, quantum speed limits, collective coupling, critical coupling, optical depth, semiconductor collection, Gaussian/Poisson decision theory, timing search, detector figures of merit, reversible information processing, conditional erasure, and nonequilibrium quantum thermodynamics.
+Audit photodetection theory, quantum/statistical channel comparison, reference-frame resource theory, critical coupling/control sensitivity, detection theory, and information thermodynamics.
 
 ---
 
-# 12. Explicit non-claims
+# 13. Explicit non-claims
 
 - **NON-CLAIM:** there is a universal atom count at which a detector appears.
 - **NON-CLAIM:** total physical atom count is the correct resource in extended matter.
 - **NON-CLAIM:** absorption is required for all photodetection.
 - **NON-CLAIM:** electron-hole generation alone is a complete detection event.
-- **NON-CLAIM:** every click dissipates `k_B T ln2` at acquisition or locally during reset.
-- **NON-CLAIM:** detector/controller/memory closure alone forces `k_B T h(p)` if the source/reference variable remains available.
-- **NON-CLAIM:** source-inclusive logical erasure requires positive externally supplied work when optical/pump free energy may be consumed.
-- **NON-CLAIM:** record barrier height equals dissipated reset work.
-- **NON-CLAIM:** high monochromatic efficiency implies large oscillator count.
-- **NON-CLAIM:** scalar `D*` is useless; it is incomplete for general time-dependent decision tasks.
-- **NON-CLAIM:** one matched-filter SNR applies to signal-dependent/non-Gaussian noise.
-- **NON-CLAIM:** the task-specific energy threshold or partial-order framing is novel.
+- **NON-CLAIM:** unrestricted trace distance is always operationally attainable without reference resources.
+- **NON-CLAIM:** arbitrary weak coupling can attain perfect efficiency under finite control constraints.
+- **NON-CLAIM:** per-channel bounds automatically extend to systems with unbounded parallelism.
+- **NON-CLAIM:** every click dissipates `k_B T ln2`.
+- **NON-CLAIM:** detector/controller/memory closure alone forces `k_B T h(p)` if source side information remains.
+- **NON-CLAIM:** source-inclusive erasure requires positive external work when optical/pump free energy may be consumed.
+- **NON-CLAIM:** scalar `D*` is useless; it remains useful for its stated conventional task/normalization but is incomplete generally.
+- **NON-CLAIM:** Blackwell ordering or quantum channel comparison is novel.
 - **NON-CLAIM:** the current experiment has established a publishable new theorem.
