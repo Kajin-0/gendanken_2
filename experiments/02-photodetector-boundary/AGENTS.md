@@ -28,35 +28,45 @@ Root `AGENTS.md` remains authoritative for repository privacy/preservation. This
 18. `CRITICAL_MATCHING_CONTROL_PRECISION.md`
 19. `PARALLEL_CHANNEL_RESOURCE.md`
 20. `DETECTOR_CHANNEL_ORDERING.md`
+21. `CORRELATING_CATALYSTS.md`
+22. `SINGLE_SHOT_RESOURCE_CLOSURE.md`
+23. `CAUSAL_LATENCY_AND_CONTROL_STRENGTH.md`
 
 Do not reconstruct the frontier from chat summaries when repository files are available.
 
 ## 2. Current research objective
 
-Follow the strongest surviving consequence of:
+The original question was:
 
 > At what point does a collection of atoms become a photodetector?
 
-The live chain is
+The live formulation is now:
+
+> **What detector channels/processes are physically achievable under a closed, explicitly stated resource model, and when does one detector process universally dominate another for the declared optical task family?**
+
+Current chain:
 
 ```text
-optical task / hypothesis family
--> allowed operations + reference resources
+optical input family / task
+-> allowed operations + phase/time references
 -> optical access / mode overlap
--> mode-weighted interaction resource
--> microscopic transduction
+-> microscopic coupling / interaction action
+-> interaction time / bandwidth
+-> control range / precision
 -> acquisition/extraction versus loss
 -> persistent record
 -> complete conditional output process
--> timing / nuisance parameters
+-> timing / parallel-channel structure
 -> optimum decision
--> detector-channel / statistical-experiment ordering
+-> detector-channel / process ordering
 -> record export / local reset
 -> source-inclusive information accounting
--> nonequilibrium free-energy accounting when cyclic thermodynamics is imposed.
+-> correlation/catalyst accounting
+-> one-shot resource guarantees
+-> causal/control/power accounting for finite latency.
 ```
 
-The strongest current conclusion is that detection is a **task- and resource-dependent channel relation**, not a universal atom-count transition, one scalar detector score, or one fixed thermodynamic cost.
+The strongest current conclusion is that detection is a **task- and resource-dependent channel/process relation**, not a universal atom-count transition, one scalar score, or one fixed thermodynamic cost.
 
 ## 3. Permanent semantic locks
 
@@ -80,7 +90,7 @@ For unequal couplings,
 G^2=\sum_j|g_j|^2.
 ```
 
-Only optically participating matter contributes appreciably. Use mode-weighted oscillator strength, optical depth, or the appropriate overlap functional.
+Use mode-weighted oscillator strength, optical depth, or the appropriate overlap functional.
 
 ### Electron-hole generation is not a complete detector event
 
@@ -92,13 +102,13 @@ Treat gain as practical stabilization/enlargement unless an explicit additional 
 
 ### Irreversibility must be qualified and rate matched
 
-Do not use irreversibility as a primitive detector threshold. Overly strong trapping can reduce coherent acquisition in the current models.
+Do not use irreversibility as a primitive detector threshold. Overly strong trapping can reduce coherent acquisition in current models.
 
-### Peak monochromatic efficiency does not imply minimum N without control/time constraints
+### Peak monochromatic efficiency does not imply minimum N without time/control constraints
 
 Critical matching can give unit narrowband capture for arbitrarily weak nonzero coupling only if arbitrarily slow and sufficiently precise matched dynamics are allowed.
 
-A nonzero `Gamma_floor` or finite control resolution can restore a positive constrained `N_min`.
+A nonzero `Gamma_floor`, finite bandwidth, or finite control resolution can restore a positive constrained `N_min`.
 
 ### Scalar D* is not the detector boundary
 
@@ -108,164 +118,107 @@ In the one-pole white-noise benchmark,
 d^2=E^2D^{*2}/(A\tau).
 ```
 
-Equal scalar `D*` can therefore hide different event performance.
+Equal scalar `D*` can hide different event performance.
 
 ### Mean signal is not the complete output information
 
-If the photon history changes covariance or count statistics, the full conditional distribution matters. A fixed-noise matched filter is only a special case.
+If the optical history changes covariance or count statistics, the full conditional distribution matters.
 
 ### Known timing is a resource assumption
 
-Unknown arrival time creates a search/trials penalty. Never quote known-time `d` as a full event metric without stating timing knowledge.
+Unknown arrival time creates a search/trials penalty.
 
-### Unlimited parallel channel count is not free
+### Unlimited parallelism is not free
 
-Independent evidence can add across channels, but unknown active-channel identity creates a trials penalty. Any per-channel theorem must state whether total channel count/capacity is bounded.
+Independent evidence can add across channels, while unknown active-channel identity creates a trials penalty. Bound total channel capacity explicitly.
 
 ### Unrestricted trace distance assumes unrestricted measurement access
 
-If allowed operations obey a symmetry and no phase/time reference is available, globally distinct optical states can become operationally indistinguishable.
-
-State detector performance as distinguishability under the **allowed measurement operations and available reference frames**.
+Symmetry-restricted measurements without an adequate phase/time reference can make globally distinct states operationally indistinguishable.
 
 ### No universal scalar detector ranking
 
-Within the Gaussian waveform class, crossing spectral decision kernels already cause task-dependent ranking reversal.
+Use complete detector statistical/quantum channels. Universal dominance is a hypothesis-independent post-processing / degradation partial order.
 
-More generally, treat the detector as a statistical/quantum channel. Universal dominance is a **channel post-processing / degradation partial order**, not a scalar leaderboard.
+### Marginal catalyst return is not strict cyclic return
+
+A catalyst can return with the same local state while becoming correlated with source/detector/output systems. If strict reuse is required, demand decoupling or explicitly bound/charge residual correlations.
+
+### One-shot guarantees are not determined by averages
+
+Mean entropy, free energy, work, latency, or power do not determine finite-cycle tails. State resource-overrun/error tolerance and whether the claim is average, quantile, or worst case.
+
+### Power is not interaction strength
+
+A strong hypothesis-dependent Hamiltonian can generate fast state separation with little net energy deposition. Do not infer a universal speed limit from watts alone.
+
+### Precharged energy must be accounted separately
+
+Fast triggered output can be powered by energy stored before the event. Distinguish event-window power, stored free energy, recharge power, and average cycle power.
+
+### Causal latency requires output geometry
+
+A size-only `L/c` claim is incomplete unless event locations, output locations/ports, and allowed local decisions are specified.
 
 ### Landauer is not a per-click acquisition or local-reset axiom
 
-A local detector can export its record. `k_B T ln2` applies only under stronger logical-erasure conditions and for an unbiased bit.
-
-### Detector-memory closure is not source-inclusive closure
-
-A surviving source/reference variable can allow reversible uncomputation of the detector memory. Include all usable side information before claiming erasure.
+Record export, source side information, reversible uncomputation, and optical/pump free energy all matter.
 
 ### Source-inclusive erasure does not imply positive external detector work
 
-Optical or pump nonequilibrium free energy can pay the information-processing cost. Account available free-energy decrease before asserting a positive work bound.
+Account all consumed nonequilibrium free-energy resources before asserting a positive work bound.
 
 ### Barrier height is not automatically dissipated work
 
-Activated retention/reset formulas produce conditional stability/control-range requirements, not universal heat bounds.
+Activated retention/reset formulas give stability/control-range requirements, not universal heat costs.
 
-## 4. Mandatory system-boundary and operation-set discipline
+## 4. Mandatory system/resource boundary discipline
 
-At the quantum level, specify
-
-```text
-accessible subsystem;
-allowed POVMs / channels;
-reference frames / clocks;
-ancillas / side information.
-```
-
-Unrestricted trace distance
-
-```math
-\mathcal D_D
-=\frac12\|\rho_D^{(1)}-\rho_D^{(0)}\|_1
-```
-
-is the all-POVM benchmark, not automatically the achievable distance under symmetry/control restrictions.
-
-At the classical output level, specify the complete conditional output distributions/processes and observation interval.
-
-At the thermodynamic level, specify whether the accounting boundary includes
+Every theorem must state:
 
 ```text
-detector memory
-controller
-readout register
-external record store
-optical source/reference
-outgoing optical/environmental degrees of freedom
-work reservoirs / bias / pumps
-bath
-correlation / coherence resources.
+input hypothesis/state family and priors;
+accessible detector/output subsystem;
+allowed measurements / channels / feedback operations;
+phase/time reference resources and ancillas;
+spatial modes / channel count / output locations;
+interaction-strength and time/bandwidth limits;
+control range / precision;
+noise and dark-event process;
+record-retention/reset requirements;
+side information / exported records;
+catalysts and whether correlated return is allowed;
+mean versus one-shot/worst-case resource guarantee;
+stored free energy, work reservoirs, pumps, and bath;
+causal communication constraints.
 ```
 
-Never claim information or entropy has disappeared merely because it left one chosen subsystem.
+Never claim information, entropy, or resource state is restored merely because one local marginal returned to its initial value.
 
 ## 5. Keep these boundaries distinct
 
 ```text
 (1) finite atomic spectrum -> band-like spectrum
-(2) reference/operation access
+(2) allowed-operation / reference access
 (3) optical access / mode coupling
 (4) bound excitation -> mobile carriers
 (5) optical interaction -> encoded information
 (6) encoded information -> persistent record
 (7) record -> electrical/output process
 (8) output process -> decision under noise/timing uncertainty
-(9) detector-channel comparison / task ordering
+(9) detector-channel / detector-process comparison
 (10) local reset / record export
-(11) source-inclusive resource closure.
+(11) source-inclusive information/free-energy closure
+(12) repeated-use correlation / catalyst closure
+(13) one-shot resource guarantee
+(14) finite-latency causal/control closure.
 ```
 
 A result at one boundary must not be promoted to another without derivation.
 
-## 6. Active resource coordinates
+## 6. Detector-channel / process ordering rule
 
-Depending on architecture, useful quantities include
-
-```math
-\eta_{\rm esc}=\kappa_{\rm in}/\kappa,
-```
-
-```math
-C_N=4G^2/(\kappa\gamma),
-```
-
-```math
-\Gamma/(4G^2/\kappa),
-```
-
-```math
-B/(4G^2/\kappa),
-```
-
-```math
-\alpha L,
-```
-
-```math
-\Gamma_{\rm ext}/\Gamma_{\rm rec},
-```
-
-```math
-R_d\tau,
-```
-
-```math
-d^2=\int |\tilde s(f)|^2/S_n^{(2)}(f)\,df,
-```
-
-```math
-M_{\rm eff}\text{ or the full timing prior},
-```
-
-and for cyclic/resource accounting
-
-```math
-h(p),\quad H(M|R),\quad \Delta F_{\rm opt}^{\rm avail},\quad \Delta F_{\rm pump}^{\rm avail}.
-```
-
-Also state explicitly
-
-```text
-reference-frame quality;
-control-rate floor / precision;
-parallel channel count and occupancy knowledge;
-exported-record capacity.
-```
-
-Do not assume one scalar can replace the full resource ledger.
-
-## 7. Detector-channel ordering rule
-
-For a declared input family `X`, treat a classical detector as
+For a memoryless classical detector,
 
 ```math
 K_D(y|x)=P_D(Y=y|X=x).
@@ -277,32 +230,40 @@ If
 K_B=T\circ K_A
 ```
 
-for hypothesis-independent post-processing `T`, then A can reproduce every decision strategy available to B.
+for hypothesis-independent post-processing `T`, A can reproduce every decision strategy available to B.
 
-Use this as the strongest current meaning of
+If neither channel is a post-processing of the other, expect task-dependent incomparability rather than forcing a scalar score.
 
-```text
-A is universally at least as informative as B.
+For repeated operation with hidden/catalytic memory, use the full process
+
+```math
+P(y_1,\ldots,y_n|x_1,\ldots,x_n)
 ```
 
-If neither channel is a post-processing of the other, expect task-dependent ranking/incomparability rather than forcing a scalar score.
+rather than assuming
 
-At the quantum level, analogous post-processing/channel-comparison statements require their proper quantum conditions and ancillary-resource discipline.
+```math
+\prod_kK_D(y_k|x_k).
+```
 
-## 8. Counterexample-first procedure
+At the quantum level use the proper quantum channel/process comparison framework and ancillary-resource discipline.
+
+## 7. Counterexample-first procedure
 
 Before accepting a universal lower bound:
 
 1. state the resource and all constraints mathematically;
-2. identify excluded degrees of freedom, references, channels, controls, and reservoirs;
-3. attack with single-atom, dispersive, cavity/critical-coupling, narrowband/long-time, reference-frame, parallel-channel, reversible-memory, exported-record, source-side-information, active-pump, external-reservoir, and task-change counterexamples where relevant;
-4. distinguish theorem failure from a missing resource coordinate;
-5. preserve the failed claim in `CLAIM_LEDGER.md` and `RESEARCH_LOG.md`;
-6. only then narrow the statement.
+2. identify excluded degrees of freedom, references, channels, controls, memories, and reservoirs;
+3. attack with single-atom, dispersive, cavity/critical-coupling, narrowband/long-time, reference-frame, parallel-channel, correlated-catalyst, reversible-memory, exported-record, source-side-information, active-pump, precharged-energy, and task-change counterexamples where relevant;
+4. test average-resource claims against rare-event/single-shot tails;
+5. test latency claims against stored energy, local outputs, and spatial parallelism;
+6. distinguish theorem failure from a missing resource coordinate;
+7. preserve the failed claim in `CLAIM_LEDGER.md` and `RESEARCH_LOG.md`;
+8. only then narrow the statement.
 
 Do not silently add assumptions after a counterexample appears.
 
-## 9. Epistemic labels
+## 8. Epistemic labels
 
 Use explicitly:
 
@@ -318,7 +279,7 @@ Use explicitly:
 
 A negative literature search is not novelty evidence.
 
-## 10. Prior-art rule
+## 9. Prior-art rule
 
 Before novelty language, audit at minimum:
 
@@ -333,60 +294,46 @@ detection theory / matched filtering / Poisson decisions
 timing-search statistics
 NEP / D* conventions
 Blackwell comparison / statistical experiments
-quantum channel comparison / deficiency
+quantum channel/process comparison
 reference-frame / asymmetry resource theory
+correlated catalytic transformations / channel memory
 reversible information processing
 Landauer erasure with classical/quantum side information
+one-shot / finite-size information thermodynamics
 nonequilibrium work/free-energy resource theories.
 ```
 
-Most ingredients are established. Candidate distinction, if any, is likely only in a narrowly constrained detector-specific synthesis or resource theorem.
+Most ingredients are established. Candidate distinction, if any, is likely a narrowly constrained detector-specific synthesis or resource theorem.
 
-## 11. Documentation rule
+## 10. Documentation rule
 
-After every substantive step:
+After every substantive batch:
 
 - update `CURRENT_STATE_LIVE.md` when the frontier changes;
 - update `CLAIM_LEDGER.md` for new/invalidated/superseded claims;
 - update `RESEARCH_LOG.md` with why the direction changed;
 - add a dedicated derivation file when algebra/numerics/literature become too large for live state;
-- keep `README.md` and the draft PR summary aligned at major frontier changes.
+- keep `README.md`, root README, and draft PR summary aligned at major frontier changes.
+
+`CURRENT_STATE_LIVE.md` should remain concise; detailed derivations and failed routes belong in their dedicated files and chronology/ledger.
 
 Never delete a failed route merely because a stronger formulation exists.
 
-## 12. Current next attack
+## 11. Current next attack
 
-Do **not** return to a universal scalar or simple Landauer bound.
+The live next question is **adaptive distributed measurement**:
 
-The live question is:
+> Does adaptivity create a genuinely new detector resource coordinate, or is it fully captured by the general detector-process framework once communication latency, controller memory, references, and feedback operations are charged?
 
-> Can the physically achievable detector channels be characterized by a resource ledger that remains closed under counterexamples?
-
-The current candidate resources are
+Attack protocols with
 
 ```text
-optical-state input family / distinguishability
-allowed operations + phase/time references
-mode overlap / optical access
-interaction action / coupling
-interaction time / bandwidth
-control range / precision
-parallel channel count
-noise / dark-event statistics
-timing prior / synchronization
-side information / exported-record capacity
-nonequilibrium free energy / pumps
-retention / reset requirements.
+sequential measurement + feedback;
+spatially distributed partial measurements;
+dynamic reallocation of reference resources;
+measurement-dependent stopping times;
+pre-shared correlations / entanglement;
+local versus centralized decisions.
 ```
 
-Attack this ledger next with
-
-```text
-correlating catalysts;
-finite-size / single-shot fluctuations;
-causal latency / maximum power;
-spatially distributed adaptive measurement;
-resource states that return locally unchanged but degrade through correlations.
-```
-
-Only after those attacks should a resource-conversion theorem be attempted.
+After that, reassess whether the resource ledger is sufficiently closed to attempt a detector-process resource-conversion theorem.
