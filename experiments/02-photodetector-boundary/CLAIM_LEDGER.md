@@ -1,7 +1,7 @@
 # Claim Ledger — Experiment 02
 
 **Updated:** 2026-08-12  
-**Status:** exploratory; optical-to-decision-to-reset detector-boundary chain active  
+**Status:** exploratory; optical-to-decision-to-source-inclusive-resource-closure chain active  
 **Priority:** unassessed; no novelty claim
 
 This is the epistemic boundary. `CURRENT_STATE_LIVE.md` is the operational front door; `RESEARCH_LOG.md` preserves chronology. Dedicated result files preserve detailed derivations.
@@ -141,6 +141,31 @@ A detector can export its record to an external register and use that side infor
 **Status:** INVALIDATED GENERALIZATION
 
 Barrier height / modulation amplitude is a stability-control resource, not by itself a lower bound on irreversible work.
+
+### H25 — resetting detector + controller + record memories and leaving no detector-side output necessarily forces `k_B T h(p)` erasure
+**Status:** INVALIDATED / SUPERSEDES EARLIER R5
+
+A nondestructive measurement can be reversibly uncomputed using the surviving optical/source variable as side information:
+
+```math
+|x\rangle_S|0\rangle_M
+\to
+|x\rangle_S|x\rangle_M
+\to
+|x\rangle_S|0\rangle_M.
+```
+
+Detector-side closure is therefore not source-inclusive informational closure.
+
+### H26 — source-inclusive logical erasure implies a positive externally supplied work per detection event
+**Status:** INVALIDATED AS A UNIVERSAL STATEMENT
+
+Consumed optical nonequilibrium free energy, bias/pump free energy, or other resource-state free energy can pay the information-processing cost. Net external work can therefore be zero or negative in principle under suitable resource accounting.
+
+### H27 — a latched binary memory is a necessary thermodynamic stage of photodetection
+**Status:** INVALIDATED
+
+Continuous reversible transduction can encode the optical history in a continuous pointer/output without a binary latch. Erasure cost attaches only when information is actually discarded.
 
 ---
 
@@ -373,7 +398,7 @@ E_{\min}(q,\epsilon)
 
 ---
 
-# 9. Reset and cycle-closure thermodynamics
+# 9. Reset, source closure, and thermodynamic resource accounting
 
 ### R1 — binary record entropy depends on event prior
 **Status:** KNOWN
@@ -399,10 +424,10 @@ For final logical error `delta`, the entropy term is `k_B T[h(p)-h(delta)]` when
 
 Local erasure cost can depend on conditional entropy `H(M|R)`. A perfect external copy can make `H(M|R)=0` while the record remains in `R`.
 
-### R5 — global cycle closure restores an eventual record-erasure problem
-**Status:** CONDITIONAL ORGANIZING STATEMENT
+### R5 — detector/controller/record-memory closure alone restores a `k_B T h(p)` erasure problem
+**Status:** SUPERSEDED BY R11 / INVALIDATED AS A GENERAL CLOSURE CONDITION
 
-If detector + controller + record stores must all return to standard states and no record copy may remain outside the accounting boundary, the stored record entropy must eventually be removed somewhere under standard thermodynamic assumptions.
+The original optical/source variable may remain available as side information and permit reversible uncomputation. See `SOURCE_INCLUSIVE_THERMODYNAMIC_CLOSURE.md`.
 
 ### R6 — rare-event records do not carry a universal `k_B T ln2` average cycle cost
 **Status:** DERIVED / CONDITIONAL
@@ -438,6 +463,67 @@ when positive and within the common activated-rate model.
 ### R10 — external record capacity is a resource that can trade against local reset dissipation
 **Status:** DERIVED ORGANIZING STATEMENT
 
+### R11 — source-inclusive informational closure is required before a true erasure statement can be made
+**Status:** DERIVED ORGANIZING STATEMENT
+
+All usable degrees of freedom correlated with the optical hypothesis, including source/reference systems, must either be included in the closure boundary or explicitly treated as retained side information.
+
+### R12 — reversible measurement can be uncomputed when the source variable survives
+**Status:** DERIVED COUNTEREXAMPLE / KNOWN REVERSIBLE-COMPUTATION STRUCTURE
+
+```math
+|x\rangle_S|0\rangle_M
+\to
+|x\rangle_S|x\rangle_M
+\to
+|x\rangle_S|0\rangle_M.
+```
+
+Thus local/global detector-memory reset is not synonymous with logical erasure of `X`.
+
+### R13 — erasure cost is governed by discarded information conditional on retained outputs/side information
+**Status:** KNOWN INFORMATION-THERMODYNAMIC PRINCIPLE / CONDITIONAL
+
+Classical and quantum side information can reduce the cost. Quantum conditional entropy can be negative, allowing work extraction while consuming correlation resources; restoring those resources closes the thermodynamic cycle.
+
+### R14 — optical or pump free energy can subsidize cycle closure
+**Status:** DERIVED ORGANIZING RESOURCE BALANCE / CONDITIONAL
+
+A schematic isothermal ledger is
+
+```math
+W_{\rm ext}
+\gtrsim
+W_{\rm info}
+-\Delta F_{\rm opt}^{\rm avail}
+-\Delta F_{\rm other}^{\rm avail}.
+```
+
+The exact free-energy functional and inequality depend on regime/allowed operations. The robust conclusion is that no positive externally supplied detector work is universal when other nonequilibrium resources may be consumed.
+
+### R15 — raw photon energy is not automatically equal to usable reset work
+**Status:** DERIVED ORGANIZING STATEMENT
+
+The relevant subsidy is available nonequilibrium free-energy decrease, not `h nu` alone.
+
+### R16 — continuous reversible transduction need not contain a binary erasure stage
+**Status:** DERIVED COUNTEREXAMPLE / ORGANIZING STATEMENT
+
+If information is reversibly correlated and later uncomputed, no logical erasure occurs. If the output persists, it is the record; if it is later discarded, the cost attaches there.
+
+### R17 — the strongest surviving thermodynamic constraint is a source-inclusive generalized resource balance, not a fixed detector heat quantum
+**Status:** DERIVED ORGANIZING STATEMENT / PRIORITY UNASSESSED
+
+```text
+information conservation
+-> identify actually discarded information
+-> include all retained side information
+-> include all consumed free-energy resources
+-> apply the appropriate second-law / work-cost relation.
+```
+
+No architecture-independent positive heat or external-work cost per photon event has survived the allowed-resource counterexamples.
+
 ---
 
 # 10. Current organizing statement
@@ -446,7 +532,7 @@ when positive and within the common activated-rate model.
 **Status:** DERIVED ORGANIZING STATEMENT / PRIORITY UNASSESSED
 
 ```text
-optical task
+optical task / hypothesis ensemble
 -> optical access / mode overlap
 -> microscopic interaction resource
 -> transduction
@@ -455,35 +541,50 @@ optical task
 -> complete conditional output statistics
 -> timing / nuisance parameters
 -> optimum decision
--> local reset / record export
--> optional global cycle closure.
+-> record export / local reset
+-> source-inclusive information/resource accounting if cyclic thermodynamics is imposed.
 ```
 
-There is generally no architecture-independent scalar detector boundary or total detector ranking.
+There is generally no architecture-independent scalar detector boundary, total detector ranking, or fixed thermodynamic cost per event.
 
 ---
 
 # 11. Open fronts
 
-### F1 — global cycle-closure lower bound under broader resources
+### F1 — completeness of the source-inclusive detector resource ledger
 **Status:** OPEN / CURRENT FRONTIER
 
-Test correlations with input/environment, work extraction from detected fields, nonequilibrium reservoirs, active pumps, continuous reversible transduction, and records retained outside the accounting horizon.
+Try to break the current resource set with
 
-### F2 — information acquisition rate under bounded interaction resource
+```text
+coherence / phase-reference resources;
+spatial mode count / channel capacity;
+clock and synchronization resources;
+finite control precision;
+catalysts that return locally unchanged but become correlated;
+finite-size / single-shot fluctuations;
+causal latency and maximum power.
+```
+
+### F2 — resource-conversion formulation
+**Status:** OPEN
+
+Determine whether optical-state distinguishability, nonequilibrium free energy, interaction time/bandwidth, side information, exported-record capacity, and decision error can be assembled into a useful constrained resource-conversion theorem without hiding another free resource.
+
+### F3 — information acquisition rate under bounded interaction resource
 **Status:** OPEN
 
 Seek a rate form that survives open-system and cyclic architectures.
 
-### F3 — stability versus reuse in non-activated memories
+### F4 — stability versus reuse in non-activated memories
 **Status:** OPEN
 
 Determine which parts of the current barrier/reset tradeoff survive beyond simple Arrhenius dynamics.
 
-### F4 — prior-art audit
+### F5 — prior-art audit
 **Status:** OPEN AND REQUIRED BEFORE NOVELTY LANGUAGE
 
-Audit measurement/photodetection theory, quantum speed limits, collective coupling, critical coupling, optical depth, semiconductor collection, Gaussian/Poisson decision theory, timing search, detector figures of merit, and information thermodynamics.
+Audit measurement/photodetection theory, quantum speed limits, collective coupling, critical coupling, optical depth, semiconductor collection, Gaussian/Poisson decision theory, timing search, detector figures of merit, reversible information processing, conditional erasure, and nonequilibrium quantum thermodynamics.
 
 ---
 
@@ -494,6 +595,8 @@ Audit measurement/photodetection theory, quantum speed limits, collective coupli
 - **NON-CLAIM:** absorption is required for all photodetection.
 - **NON-CLAIM:** electron-hole generation alone is a complete detection event.
 - **NON-CLAIM:** every click dissipates `k_B T ln2` at acquisition or locally during reset.
+- **NON-CLAIM:** detector/controller/memory closure alone forces `k_B T h(p)` if the source/reference variable remains available.
+- **NON-CLAIM:** source-inclusive logical erasure requires positive externally supplied work when optical/pump free energy may be consumed.
 - **NON-CLAIM:** record barrier height equals dissipated reset work.
 - **NON-CLAIM:** high monochromatic efficiency implies large oscillator count.
 - **NON-CLAIM:** scalar `D*` is useless; it is incomplete for general time-dependent decision tasks.
