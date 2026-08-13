@@ -1,57 +1,95 @@
-# Manuscript Status - AJP Revision 3 Addendum
+# Manuscript Status Addendum — Current AJP Revision 5
 
 **Date:** 2026-08-13  
-**Status:** science frozen; two adversarial review cycles incorporated; AJP submission package production complete
+**Current status:** Revision 5 is the authoritative pre-submission manuscript state. Science is frozen pending a fresh adversarial review and external editorial/referee feedback.
 
-This addendum supersedes the workflow status in the older `MANUSCRIPT_STATUS.md` without deleting that history.
+This file preserves the earlier Revision-3/4 route while updating the repository pointer. The detailed current Revision-5 state is recorded in `MANUSCRIPT_AJP_REV5_STATUS.md`.
 
-Current authoritative review stack:
+## Current authoritative manuscript direction
 
-- scientific base: `MANUSCRIPT_REV2.md`
-- internal Rev. 3 review: `MANUSCRIPT_REVIEW_ROUND3.md`
-- venue/final qualification: `MANUSCRIPT_REV3_FINAL_REVIEW.md`
-- first external AJP-review disposition: `MANUSCRIPT_AJP_REV2_REVIEW_DISPOSITION.md`
-- fresh AJP Rev. 3 review: `MANUSCRIPT_AJP_REV3_FRESH_REVIEW.md`
+Revision 5 is a structural rewrite rather than a patch. Its principal pedagogical hierarchy is
 
-The external review first strengthened the embedding argument from preserve/discard to the partial-replacement family
+```text
+material -> device -> readout -> task
+```
+
+The central claim is deliberately narrow:
+
+> Intrinsic material properties alone do not determine end-to-end photodetection performance across all measurement embeddings.
+
+Revision 5 does not attempt to define which component deserves the ordinary device-physics noun `photodetector`. It distinguishes material response, device transduction, readout accessibility, and task-level performance.
+
+The manuscript now uses `P_e < 1/2` only to mean that an accessible output is informative about an optical hypothesis. Detector-performance pass/fail statements require an explicit task criterion such as `P_e <= epsilon`.
+
+## Mandatory mathematical correction incorporated in Revision 5
+
+The earlier Tavis-Cummings perfect-discrimination ceiling formula was incorrect. Revision 5 removes it.
+
+For
+
+```math
+P_e(\tau)=\frac12\cos^2(g\tau\sqrt N),
+```
+
+a first-lobe finite-error requirement gives the integer candidate
+
+```math
+N_c=\left\lceil
+\left[
+\frac{\arcsin\sqrt{1-2\epsilon}}{g\tau}
+\right]^2
+\right\rceil,
+```
+
+only when
+
+```math
+g\tau\sqrt{N_c}\le\frac{\pi}{2}.
+```
+
+Otherwise no integer first-lobe solution exists. Exact perfect discrimination requires the exact phase condition
+
+```math
+g\tau\sqrt N=\frac{(2k+1)\pi}{2},
+```
+
+and cannot be obtained by rounding an arbitrary real-valued `N` upward.
+
+## Other Revision-5 corrections
+
+- The controlled object is the fixed front-end/device channel, not bare material alone.
+- Restricted physically allowed measurements are distinguished from unrestricted Helstrom-optimal measurements.
+- Data-processing language is restricted to deterministic hypothesis-independent CPTP processing; postselection must include success probability and the full outcome record.
+- Absorption/QND wording is narrowed to obtaining distinguishable optical-hypothesis outcomes rather than legislating the word `photodetection`.
+- Persistent-memory claims explicitly refer to persistent local memory in the light-sensitive element.
+- The one-pole `D*` benchmark explicitly states that `d ~ tau^(-1/2)` is not universal when signal and dominant noise share the same transfer function or when the noise spectrum changes with lifetime/bandwidth.
+- Foundational photodetection references were broadened to include Glauber and Kelley-Kleiner.
+- Main review-format manuscript length was compressed from 18 pages to 12 pages; the semiconductor geometry example remains supplementary.
+
+## Preserved earlier review path
+
+The prior files remain part of the research record and should not be deleted:
+
+- `MANUSCRIPT_REV2.md`
+- `MANUSCRIPT_REVIEW_ROUND3.md`
+- `MANUSCRIPT_REV3_FINAL_REVIEW.md`
+- `MANUSCRIPT_AJP_REV2_REVIEW_DISPOSITION.md`
+- `MANUSCRIPT_AJP_REV3_FRESH_REVIEW.md`
+- `MANUSCRIPT_AJP_REV4_FINAL_DISPOSITION.md`
+- `MANUSCRIPT_AJP_REV5_STATUS.md`
+
+Earlier partial-replacement work remains valid as an illustrative readout example:
 
 ```math
 \mathcal T_\lambda(\rho)=\lambda\rho+(1-\lambda)\sigma_0,
-```
-
-with
-
-```math
+\qquad
 \mathcal D_\lambda=\lambda\mathcal D_Q,
 \qquad
 P_e(\lambda)=\frac12(1-\lambda\mathcal D_Q).
 ```
 
-A fresh adversarial review then identified a residual precision issue: under the minimal criterion `P_e < 1/2`, every `lambda > 0` remains nontrivially informative. AJP Revision 3 therefore uses a declared task requirement. For `D_Q=0.30` and `P_e <= 0.40`,
+However, Revision 5 no longer presents this as the manuscript's principal theoretical result. It is one demonstration inside the broader material/device/readout/task teaching framework.
 
-```math
-\lambda_c=\frac23.
-```
+## Repository controls
 
-Two nondegenerate embeddings now lie on opposite sides of the same task threshold:
-
-```text
-lambda = 0.80 -> P_e = 0.38 -> PASS
-lambda = 0.50 -> P_e = 0.425 -> FAIL
-```
-
-Both preserve nonzero optical-hypothesis information; the active material and microscopic transduction channel are identical. The argument therefore no longer relies on complete erasure or a disconnected readout.
-
-AJP-specific compression in Revision 3:
-
-- main manuscript reduced to about 4,725 words and 18 review-format pages;
-- `architecture-dependence proposition` rhetoric replaced by `same-material embedding argument/result`;
-- `lambda` explicitly identified as a channel mixing weight / trace-distance contraction factor, not a universal fraction of information;
-- first-transfer-lobe caveat added to the Tavis-Cummings `N_min` example;
-- Blackwell/Buscemi/Jencova/quantum-network comparison material removed from the main AJP article but retained in the internal prior-art audit;
-- reduced semiconductor geometry example moved to one-page supplementary material;
-- abstract and subtitle simplified for a broad AJP audience.
-
-Scope lock remains unchanged: no claim of a new POVM/instrument formalism, universal detector theory, universal atom-number bound, universal per-click thermodynamic cost, solution to the measurement problem, or replacement scalar for standard detector figures of merit.
-
-No further Experiment-02 physics is recommended before external editorial/referee feedback.
+Experiment 01 remains untouched. Experiment 02 remains isolated on draft PR #17. Do not merge PR #17 without explicit user instruction.
