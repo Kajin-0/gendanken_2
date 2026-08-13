@@ -853,67 +853,347 @@ scalar conventional metric
 -> resource-constrained set of physically achievable detector channels.
 ```
 
-This reframes the research program.
-
-Rather than inventing a generalized scalar `D*`, the next question is:
-
-> What resource constraints define the physically achievable set of detector channels?
+This reframed the research program from inventing a generalized scalar `D*` toward characterizing physically achievable detector channels/processes.
 
 ---
 
-## Current strongest organizing picture
+## Correlating catalysts exposed a hidden repeated-use resource
 
-```text
-optical input family / task
--> allowed operations + reference frames
--> optical access / mode overlap
--> mode-weighted interaction resource
--> microscopic transduction
--> acquisition/extraction versus loss
--> persistent record
--> complete conditional output process
--> timing / parallel-channel nuisance structure
--> optimum decision
--> detector-channel partial order
--> record export / local reset
--> source-inclusive information accounting
--> nonequilibrium free-energy accounting if full cyclic thermodynamics is imposed.
+A helper/catalyst can return with the same local state
+
+```math
+\rho'_C=\rho_C
 ```
 
-Every attempted universal scalar/bound has exposed a missing coordinate:
+while becoming correlated with the detector/source/output history:
+
+```math
+I(C:R)>0.
+```
+
+Thus local return is not strict cyclic return.
+
+A strict reusable resource requires decoupling such as
+
+```math
+\rho'_{CR}=\rho_C\otimes\rho'_R
+```
+
+or an explicit residual-correlation budget.
+
+**Conclusion:** a resource theorem that checks only local catalyst marginals can admit hidden correlation-assisted power.
+
+**Missing coordinate:** catalyst correlation/decoupling tolerance and repeated-use memory.
+
+Correlated-catalytic thermodynamics is established prior art; the detector-specific lesson is the resource bookkeeping requirement.
+
+Detailed derivation: `CORRELATING_CATALYSTS.md`.
+
+---
+
+## Memoryless detector channel generalized to a detector process
+
+If hidden/catalytic memory persists between cycles, repeated outputs need not factorize:
+
+```math
+P(y_1,\ldots,y_n|x_1,\ldots,x_n)
+\ne
+\prod_k K_D(y_k|x_k).
+```
+
+**Conclusion:** repeated photodetection may require a process/channel-with-memory description rather than one-use detector metrics.
+
+This provides an information-theoretic analogue of practical history effects such as trapping, afterpulsing, and correlated noise without equating those mechanisms literally.
+
+---
+
+## Average resource closure — killed at the single-event level
+
+A resource cost `W` can have small mean but a large rare tail.
+
+Define an `epsilon`-guaranteed resource quantile
+
+```math
+W_\epsilon
+=\inf\{w:\Pr(W>w)\le\epsilon\}.
+```
+
+In general
+
+```math
+\langle W\rangle
+```
+
+does not determine `W_epsilon`.
+
+Established one-shot thermodynamics similarly uses fluctuation-sensitive smooth quantities for finite logical processes; ordinary entropy/free-energy rates emerge in appropriate many-copy limits.
+
+**Conclusion:** average entropy/free energy/work does not guarantee one detector cycle.
+
+**Missing coordinates:** resource-overrun tolerance, worst-case versus average input, finite-copy tails, and inter-cycle correlation assumptions.
+
+Detailed derivation: `SINGLE_SHOT_RESOURCE_CLOSURE.md`.
+
+---
+
+## Maximum power as universal detector speed limit — killed
+
+The interaction-action result gives, under an explicit generator-strength bound,
+
+```math
+\tau
+\ge
+\frac{\hbar\arcsin(1-2\epsilon)}{V_{\max}}.
+```
+
+But a strong conditional Hamiltonian can rotate a degenerate pointer quickly with little net energy deposition.
+
+Therefore watts alone do not universally control distinguishability-generation speed.
+
+A separate conditional energetic relation
+
+```math
+\tau\ge W_\epsilon/P_{\max}
+```
+
+requires a positive one-shot work requirement in the same charged resource channel.
+
+**Conclusion:** interaction strength, work flow, stored free energy, and power are distinct.
+
+Detailed derivation: `CAUSAL_LATENCY_AND_CONTROL_STRENGTH.md`.
+
+---
+
+## Precharged energy exposed another time-resource trade
+
+A detector can store free energy before the photon arrives and release it rapidly after a trigger.
+
+Thus event-window external power can be small while event response is fast.
+
+Steady operation then pays through recharge/storage resources.
+
+**Conclusion:** event latency, stored energy, peak power, average recharge power, and event rate must be separated.
+
+---
+
+## Detector size as universal L/c bound — narrowed by output geometry
+
+If an event at `r` must influence a specified output at `r_o`, causality gives
+
+```math
+\tau_{\rm causal}(r)
+\ge
+|\mathbf r-\mathbf r_o|/v_c.
+```
+
+But local decisions, multiple output ports, limited illuminated regions, or spatial parallelism can reduce the relevant communication distance.
+
+**Conclusion:** causality gives a geometry/output-location constraint, not a bare detector-size scalar limit.
+
+---
+
+## Adaptive measurement tested with an exact stopping-time model
+
+A three-outcome observation was constructed with conclusive `+/-` outcomes of probability `q` and ambiguous `?` outcome of probability `1-q`.
+
+Stopping as soon as a conclusive result appears gives equal-prior error after at most `n` observations
+
+```math
+P_e
+=\frac12(1-q)^n,
+```
+
+but expected sample count
+
+```math
+\mathbb E[N]
+=\frac{1-(1-q)^n}{q}.
+```
+
+As `n` grows, expected samples approach `1/q` while the worst-case remains `n`.
+
+**Conclusion:** adaptivity can greatly reduce expected resource/latency without reducing the same worst-case capacity requirement.
+
+Detailed derivation: `ADAPTIVE_DISTRIBUTED_MEASUREMENT.md`.
+
+---
+
+## Adaptivity reinterpreted as strategy, not primitive scalar resource
+
+An adaptive detector uses early evidence to choose later actions.
+
+The physical resources are
 
 ```text
-atom count             -> interaction strength/time + mode overlap
-peak efficiency        -> bandwidth
-weak-coupling matching -> control range / precision
-more atoms             -> optical escape
-more absorber          -> downstream loss + dark events
-fixed-noise SNR        -> hypothesis-dependent statistics
-D*                     -> task spectrum / temporal response
-known-time score       -> timing-search complexity
-per-channel bound      -> parallel channel count
-unrestricted D         -> reference-frame / operation access
-local reset heat       -> external record capacity
-memory-global erasure  -> surviving source/side information
-positive cycle work    -> optical/pump nonequilibrium free energy.
+controller memory;
+sequential interaction opportunities;
+communication latency;
+control strength/precision;
+reference resources;
+pre-shared correlations;
+stopping-time freedom.
+```
+
+When those are included, `adaptivity` itself can be treated as optimization over an allowed strategy set rather than another scalar resource.
+
+Established quantum-comb/network theory provides the corresponding multi-round process structure.
+
+**Conclusion:** the framework must move from channels to resource-constrained detector processes/strategies.
+
+---
+
+## First provisional detector-process framework constructed
+
+After the main resource loopholes were attacked individually, the project attempted a unifying structure.
+
+For detector hardware `D`, resource model `R`, and allowed strategy `sigma`, define an accessible joint process schematically as
+
+```math
+K_{D,\sigma}^{(R)}(dy\,dt\,dc|x),
+```
+
+where
+
+```text
+y = accessible record;
+t = decision/completion timing;
+c = resource-consumption vector.
+```
+
+Define the capability region
+
+```math
+\mathfrak C_D(R)
+=
+\{K_{D,\sigma}^{(R)}:\sigma\in\Sigma_D(R)\}.
+```
+
+A decision problem `Pi` then has optimum risk
+
+```math
+R_D^*(\Pi|R)
+=
+\inf_{K\in\mathfrak C_D(R)}
+\inf_\delta
+R(\delta,K;\Pi)
+```
+
+subject to the task's latency/resource constraints.
+
+Detailed synthesis: `PROVISIONAL_DETECTOR_PROCESS_FRAMEWORK.md`.
+
+---
+
+## Provisional detector framework passed all accumulated counterexamples at organizing level
+
+The framework was explicitly checked against:
+
+```text
+perfect absorber with no record;
+nonabsorptive/QND detection;
+single atom versus collective N-dipole capture;
+weak coupling + long narrowband critical matching;
+semiconductor electron-hole generation/collection;
+equal D* but different response time;
+signal-dependent noise;
+unknown arrival time;
+missing phase reference;
+parallel channels;
+correlated catalyst/detector memory;
+one-shot resource tails;
+causal latency / precharged energy;
+adaptive stopping;
+source-inclusive thermodynamics.
+```
+
+Each previous result is representable by changing either
+
+```text
+the physical detector process;
+the allowed resource/strategy set;
+the task/decision problem;
+or the resource/latency constraint.
+```
+
+**Conclusion:** no known Experiment-02 counterexample currently forces another primitive layer beyond the detector-process/resource model.
+
+**Important:** this is not proof of completeness.
+
+---
+
+## No-universal-scalar result generalized
+
+If two detectors A and B satisfy
+
+```math
+R_A^*(\Pi_1)<R_B^*(\Pi_1)
+```
+
+for one admissible task but
+
+```math
+R_B^*(\Pi_2)<R_A^*(\Pi_2)
+```
+
+for another, then they are operationally incomparable.
+
+Any scalar that insists on a strict total ranking must misrepresent at least one task; assigning equality hides a real operational difference.
+
+**Conclusion:** a complete universal detector ranking cannot generally be represented by one real scalar unless the relevant detector class happens to be totally ordered under the universal decision relation.
+
+This is a decision-theory consequence, not a novelty claim.
+
+---
+
+## Current strongest candidate principle
+
+The Gedanken path now supports the provisional organizing statement:
+
+> **A photodetector is best characterized not by a universal material threshold or scalar figure of merit, but by the optical-to-accessible-output process it can realize under an explicit physical resource model. Detector performance for a task is the optimum decision performance achievable from that process; universal detector superiority is a process/channel post-processing order; conventional figures of merit are task-specific projections.**
+
+This is deeper than the earlier statement `photodetection is information transfer` because it also specifies
+
+```text
+which optical alternatives matter;
+which operations/references are available;
+which temporal/noise process is observed;
+which resources enable the mapping;
+how repeated uses correlate;
+which decision task is optimized;
+how universal detector comparison is defined.
 ```
 
 ---
 
-## Current frontier
+## Current frontier — stop adding resources and attack the synthesis
 
-Do not propose another scalar metric or simple Landauer bound.
+The next move is twofold.
 
-Attack whether the present resource ledger is actually closed under
+### Mathematical / prior-art audit
+
+Directly compare the provisional framework against
 
 ```text
-correlating catalysts;
-finite-size / single-shot fluctuations;
-causal latency / maximum power;
-spatially distributed adaptive measurements;
-resource states that return locally unchanged but accumulate correlations.
+Blackwell statistical experiments;
+Le Cam comparison/deficiency;
+quantum statistical experiments/channel comparison;
+quantum combs/testers/process tensors;
+classical/quantum decision theory;
+photodetection POVM/instrument theory.
 ```
 
-Only after those attacks should a detector-channel resource-conversion theorem be attempted.
+Determine whether the detector-process language is merely a straightforward restatement or whether the resource-constrained detector synthesis offers a distinct useful contribution.
 
-A focused primary-source prior-art audit remains mandatory before novelty language.
+### Physical closure attack
+
+Try edge cases not yet fully treated:
+
+```text
+indefinite causal order;
+unbounded-dimensional references/catalysts;
+continuous quantum fields;
+computationally bounded observers;
+nonstationary/adversarial source processes.
+```
+
+No manuscript or novelty claim should be attempted before these audits.
