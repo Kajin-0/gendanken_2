@@ -540,9 +540,9 @@ The local uncertainty becomes `H(M|R)`; for a perfect external copy it can vanis
 
 ---
 
-## Global cycle closure restores an erasure problem
+## Global detector-memory closure appeared to restore erasure
 
-Strengthen the requirement:
+The requirement was strengthened to
 
 ```text
 detector + controller + all record memories
@@ -550,11 +550,11 @@ must return to standard states,
 and no event copy may remain outside the accounting boundary.
 ```
 
-Then the record entropy cannot be exported indefinitely.
+At that stage it appeared that a `k_BT h(p)`-scale erasure problem returned.
 
-**Conclusion:** a Landauer-like bound can reappear at the global cycle level under standard thermodynamic assumptions, with scale `k_BT h(p)` for an ideal binary record rather than universally `k_BT ln2`.
+**Provisional conclusion at this point:** a Landauer-like bound might live at global cycle closure rather than at photon absorption.
 
-This is a cycle-closure statement, not a photon-absorption statement.
+This provisional statement is retained here because the next attack killed it in this form.
 
 ---
 
@@ -587,6 +587,124 @@ when positive in the common activated-rate model.
 
 ---
 
+## Detector-memory global closure — killed by surviving source side information
+
+The previous closure still omitted the original optical/source variable.
+
+For a nondestructive measurement,
+
+```math
+|x\rangle_S|0\rangle_M
+\xrightarrow{U_{\rm meas}}
+|x\rangle_S|x\rangle_M
+\xrightarrow{U_{\rm meas}^{\dagger}}
+|x\rangle_S|0\rangle_M.
+```
+
+The detector memory is exactly reset and no detector record remains, but no logical erasure occurred because `S` still carries `x` and enables reversible uncomputation.
+
+**Conclusion:**
+
+```text
+detector/controller/record-memory closure
+!=
+source-inclusive informational closure.
+```
+
+**Missing resource:** surviving source/reference side information.
+
+Detailed correction: `SOURCE_INCLUSIVE_THERMODYNAMIC_CLOSURE.md`.
+
+---
+
+## Closure boundary strengthened to include the information source itself
+
+A true erasure statement now requires that every usable degree of freedom correlated with `X` either
+
+```text
+be included in the closure boundary;
+be explicitly retained as side information;
+or be identified as an environment/resource that changes.
+```
+
+If two orthogonal global histories are both required to end in one identical complete state, closed unitary dynamics alone cannot do it. Distinguishability must be exported or discarded somewhere.
+
+**Conclusion:** logical irreversibility begins only when distinguishability is actually destroyed from the controlled description, not merely when a detector pointer is reset.
+
+---
+
+## Positive external work under source-inclusive closure — killed by optical free energy
+
+Even if information is genuinely discarded, the detected optical field can carry usable nonequilibrium free energy.
+
+Schematic resource balance:
+
+```math
+W_{\rm ext}
+\gtrsim
+W_{\rm info}
+-\Delta F_{\rm opt}^{\rm avail}
+-\Delta F_{\rm other}^{\rm avail}.
+```
+
+The exact inequality depends on regime and allowed operations; the robust point is the resource trade.
+
+**Conclusion:** source-inclusive erasure does not imply positive externally supplied detector work.
+
+**Missing resource:** optical free energy.
+
+Do not replace `Delta F_opt^avail` by raw `h nu` automatically; usable nonequilibrium free energy is the disciplined resource.
+
+---
+
+## Active pump / bias reservoir kills detector-only energetic bounds
+
+A photon can trigger release of much larger energy from a bias or pump reservoir.
+
+The same reservoir can also pay record-processing/reset work.
+
+**Conclusion:** if arbitrary nonequilibrium reservoirs are allowed but not charged, no positive architecture-independent detector work bound can survive.
+
+**Missing resource:** pump/bias free-energy consumption.
+
+---
+
+## Binary-memory assumption — killed by continuous reversible transduction
+
+A detector can correlate the optical state with a continuous pointer or output coordinate without a latched bit.
+
+If later uncomputed, no logical erasure is required.
+
+If retained, the output is the record.
+
+If later discarded, thermodynamic cost attaches at the discard stage.
+
+**Conclusion:** thermodynamic cost is tied to discarded information in the full process, not to a mandatory binary detector memory.
+
+---
+
+## Quantum side information makes the closure lesson stronger
+
+Established quantum information thermodynamics allows conditional entropy to become negative for entangled side information. Erasure can then yield work while consuming correlations.
+
+Restoring those correlations closes the resource cycle and restores second-law accounting.
+
+**Conclusion:** even the sign of an erasure-work contribution is conditional on what side information/resources are available.
+
+---
+
+## Current strongest thermodynamic conclusion
+
+The attempt to find a universal heat/work quantum for photodetection has failed repeatedly.
+
+The strongest surviving statement is now:
+
+> **No architecture-independent positive heat or external-work cost per photon event survives when arbitrary side information, optical free energy, nonequilibrium pumps, reversible transduction, or exported records are allowed. A nontrivial thermodynamic constraint appears only after every information-bearing and free-energy-bearing resource is included in the accounting boundary. The surviving law is a generalized resource/second-law balance, not a fixed detector Landauer cost.**
+
+This is not a novelty claim; the information-thermodynamic ingredients are established. The value of the Gedanken path is the detector-specific resource accounting and the sequence of failed boundaries.
+
+---
+
 ## Current strongest organizing picture
 
 ```text
@@ -599,39 +717,44 @@ material constitution
 -> complete conditional output process
 -> timing / nuisance parameters
 -> optimum decision
--> local reset / record export
--> optional global cycle closure.
+-> record export / local reset
+-> source-inclusive information accounting
+-> nonequilibrium free-energy accounting if full cyclic thermodynamics is imposed.
 ```
 
-Every attempted universal scalar has exposed a missing coordinate:
+Every attempted universal scalar/bound has exposed a missing coordinate:
 
 ```text
-atom count       -> interaction strength/time + mode overlap
-peak efficiency  -> bandwidth
-more atoms       -> optical escape
-more absorber    -> downstream loss + dark events
-fixed-noise SNR  -> hypothesis-dependent statistics
-D*               -> task spectrum / temporal response
-known-time score -> timing-search complexity
-local reset heat -> external record capacity.
+atom count             -> interaction strength/time + mode overlap
+peak efficiency        -> bandwidth
+more atoms             -> optical escape
+more absorber          -> downstream loss + dark events
+fixed-noise SNR        -> hypothesis-dependent statistics
+D*                     -> task spectrum / temporal response
+known-time score       -> timing-search complexity
+local reset heat       -> external record capacity
+memory-global erasure  -> surviving source/side information
+positive cycle work    -> optical/pump nonequilibrium free energy.
 ```
 
 ---
 
 ## Current frontier
 
-Attack the global cycle-closure bound itself.
-
-Allow:
+Before proposing any universal resource-conversion theorem, try to break the current ledger using
 
 ```text
-side information correlated with the incident optical/environmental state;
-work extraction from the detected field;
-nonequilibrium reservoirs / active pumps;
-continuous reversible transduction with no explicit binary memory;
-external records retained indefinitely outside the chosen horizon.
+coherence / optical phase-reference resources;
+spatial mode count and parallel channels;
+clock / synchronization resources;
+finite control precision;
+catalysts that return locally unchanged but accumulate correlations;
+finite-size / single-shot work fluctuations;
+causal latency and maximum power constraints.
 ```
 
-The goal is to identify the weakest precise assumptions under which any universal detector-cycle thermodynamic bound actually survives.
+Candidate question:
 
-A focused prior-art audit remains mandatory before novelty language.
+> Can detector performance be bounded by a closed resource ledger built from optical-state distinguishability, available nonequilibrium free energy, interaction time/bandwidth, side information, exported-record capacity, and target decision error—or does another missing resource still defeat it?
+
+A focused primary-source prior-art audit remains mandatory before novelty language.
