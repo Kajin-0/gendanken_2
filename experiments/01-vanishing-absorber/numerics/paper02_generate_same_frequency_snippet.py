@@ -51,9 +51,9 @@ def run(args):
     )
     lines.append("")
     lines.append(
-        "We retain the independent equal real/imaginary quadrature-noise model used below and define $S=\sqrt{\langle |J_m|^2\rangle}/\sigma_{\rm q}$. "
-        "For the one-mode test, the deterministic post-fit channel residual supplies the noncentral alternative. "
-        "For positive-$D$ detectability, the full $12\times6$ channel Jacobian is propagated through the fitted complex root and then through $D(\gamma)$; an idealized one-sided Gaussian $D>0$ test is evaluated at the same $\alpha=0.0027$ and 90\% power."
+        r"We retain the independent equal real/imaginary quadrature-noise model used below and define $S=\sqrt{\langle |J_m|^2\rangle}/\sigma_{\rm q}$. "
+        r"For the one-mode test, the deterministic post-fit channel residual supplies the noncentral alternative. "
+        r"For positive-$D$ detectability, the full $12\times6$ channel Jacobian is propagated through the fitted complex root and then through $D(\gamma)$; an idealized one-sided Gaussian $D>0$ test is evaluated at the same $\alpha=0.0027$ and 90\% power."
     )
     lines.append("")
     lines.append(r"\begin{table}[t]")
@@ -69,7 +69,7 @@ def run(args):
             f"{row['frequency_hz']/1e6:.0f} MHz & "
             f"{row['D_eff_m2_per_s']:.3e} & "
             f"{row['snr_required_positive_D_db']:.2f} & "
-            f"{row['snr_required_one_mode_rejection_db']:.2f}\\"
+            f"{row['snr_required_one_mode_rejection_db']:.2f}\\\\"
         )
     lines.append(r"\bottomrule")
     lines.append(r"\end{tabular}")
@@ -78,7 +78,7 @@ def run(args):
     lines.append(ordering)
     lines.append("")
     lines.append(
-        "This comparison also clarifies the role of the deterministic full-vector residual quoted elsewhere in the paper: it is a descriptive approximation error, whereas Table~\ref{tab:samefreq} is the corresponding covariance-aware model-selection statement for the reference noise model."
+        r"This comparison also clarifies the role of the deterministic full-vector residual quoted elsewhere in the paper: it is a descriptive approximation error, whereas Table~\ref{tab:samefreq} is the corresponding covariance-aware model-selection statement for the reference noise model."
     )
 
     Path(args.output).write_text("\n".join(lines) + "\n", encoding="utf-8")
