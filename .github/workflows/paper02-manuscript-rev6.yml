@@ -106,6 +106,8 @@ jobs:
           assert 'monotonic downstream acceleration gives a positive quadratic apparent-diffusion coefficient' in main
           assert 'The effect is sign controlled by deterministic acceleration' not in main
           assert 'reported processed thickness near' not in main
+          assert 'uses thickness and internal-field scales independently reported' not in main
+          assert 'compared only against independently reported graded-HgCdTe field and timing scales' in main
           assert r'\section{Post-hoc exact planar continuum cross-check}' in supp
           assert r'\phi_w(z)=\frac{z}{L}' in supp
           assert 'not fitted to, or claimed as a calibration of' in supp
@@ -124,6 +126,57 @@ jobs:
 
           print('PASS: Rev6 scope / privacy / epistemic guards')
           PY
+
+      - name: Persist corrected Rev6 sources safely
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          branch='agent/publication-mining-roadmap'
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "${branch}"
+            git reset --hard "origin/${branch}"
+
+            (
+              cd experiments/01-vanishing-absorber
+              python tools/build_paper02_rev6.py
+            )
+
+            git add \
+              experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex \
+              experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex
+
+            if git diff --cached --quiet; then
+              echo 'Corrected Rev6 sources already current.'
+              break
+            fi
+
+            git commit -m 'Build Paper 02 Rev6 exact continuum hardening'
+            if git push origin "HEAD:${branch}"; then
+              echo 'Corrected Rev6 sources persisted.'
+              break
+            fi
+
+            if [ "${attempt}" -eq 5 ]; then
+              echo 'Unable to persist corrected Rev6 after five rebuild-from-head attempts.'
+              exit 1
+            fi
+            echo "Push attempt ${attempt} lost a branch race; rebuilding from the new remote head."
+          done
+
+          # Rebuild one final time from the now-current working tree so all
+          # later compilation and packaging steps use exactly the persisted source.
+          (
+            cd experiments/01-vanishing-absorber
+            python tools/build_paper02_rev6.py
+          )
+          if ! git diff --quiet -- \
+            experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex \
+            experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex; then
+            echo 'Persisted Rev6 sources differ from deterministic rebuild.'
+            exit 1
+          fi
 
       - name: Install TeX and PDF tools
         run: |
@@ -180,31 +233,6 @@ jobs:
           sha256sum \
             PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.pdf \
             PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.pdf
-
-      - name: Persist Rev6 source and supplement
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add \
-            experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex \
-            experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex
-          if git diff --cached --quiet; then
-            echo 'Rev6 sources already current.'
-            exit 0
-          fi
-          git commit -m 'Build Paper 02 Rev6 exact continuum hardening'
-          branch='agent/publication-mining-roadmap'
-          for attempt in 1 2 3 4 5; do
-            if git push origin "HEAD:${branch}"; then
-              exit 0
-            fi
-            echo "Push attempt ${attempt} lost a branch race; rebasing onto origin/${branch}."
-            git fetch origin "${branch}"
-            git rebase "origin/${branch}"
-          done
-          echo 'Unable to persist Rev6 after five push attempts.'
-          exit 1
 
       - name: Upload Rev6 manuscript package
         uses: actions/upload-artifact@v4
