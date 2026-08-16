@@ -24,6 +24,9 @@ covariance.  The minimized Mahalanobis distance is the alternative
 noncentrality at S=1.  We then solve for the SNR required to obtain 90% power at
 alpha=0.0027 using the corresponding noncentral chi-square distribution.
 
+The forward solve includes DC only so that the existing exact Ramo-consistency
+diagnostic remains meaningful.  DC is not included in the RF statistical fit.
+
 This is a model-based theoretical design example, not an instrument claim.
 """
 
@@ -49,6 +52,7 @@ FREQUENCIES = np.asarray(
     (100e6, 200e6, 300e6, 500e6, 750e6, 1e9, 1.5e9, 2e9, 3e9),
     dtype=float,
 )
+FORWARD_FREQUENCIES = np.concatenate((np.asarray((0.0,)), FREQUENCIES))
 ALPHA = 0.0027
 POWER = 0.90
 
@@ -82,7 +86,6 @@ def root_covariance_at_snr1(J):
     sigma_quad = rms_channel  # definition of SNR=1
     cov_param = sigma_quad**2 * np.linalg.inv(G.T @ G)
     cov_r = cov_param[4:6, 4:6]
-    # gamma=-r; covariance unchanged under sign reversal
     gamma = -r
     return gamma, cov_r, {
         "rms_channel": rms_channel,
@@ -163,7 +166,7 @@ def lambda_required(nu, alpha=ALPHA, power=POWER):
 
 def run(args):
     old_freq = base.FREQUENCIES
-    base.FREQUENCIES = FREQUENCIES.copy()
+    base.FREQUENCIES = FORWARD_FREQUENCIES.copy()
     base.V_BIAS = float(args.bias_v)
     base.X_EXTENT_UM = float(args.x_extent_um)
 
@@ -177,7 +180,8 @@ def run(args):
     scenario = base.Scenario("planar_depletion", 1.0, 3.0, 0.05)
 
     try:
-        J, diag = sweep.currents_with_beam(scenario, 2.0, 0.0, **numerical)
+        J_forward, diag = sweep.currents_with_beam(scenario, 2.0, 0.0, **numerical)
+        J = J_forward[1:]
         gammas = []
         covs = []
         per_frequency = []
