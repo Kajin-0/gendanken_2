@@ -137,19 +137,18 @@ The full-contact central case admits an additional check that eliminates the two
 \begin{equation}
 \phi_w(z)=\frac{z}{L}.
 \end{equation}
-Using the same saturated-drift law, define the cumulative deterministic travel time
+Using the same saturated-drift law, define
 \begin{equation}
 T(z)=\int_0^z\frac{du}{v(u)}.
 \end{equation}
-The exact planar point-source terminal transfer is then evaluated as
+The exact planar point-source terminal transfer is
 \begin{equation}
-H(z,\omega)=\frac{e^{i\omega T(z)}}{L}
-\int_z^L e^{-i\omega T(x)}\,dx,
+H(z,\omega)=\frac{e^{i\omega T(z)}}{L}\int_z^L e^{-i\omega T(x)}\,dx,
 \end{equation}
-which obeys $H(z,0)=1-z/L$.  The same six theoretical optical kernels are averaged against this transfer and the same kernel-aware homogeneous inverse is applied.
+which obeys $H(z,0)=1-z/L$.  The same six theoretical optical kernels and the same kernel-aware homogeneous inverse are then used.
 
 \begin{table}[h]
-\caption{Fresh numerical baseline compared with the post-hoc exact-planar continuum calculation.  The relative difference is $|D_{\rm num}-D_{\rm exact}|/|D_{\rm exact}|$.}
+\caption{Fresh numerical baseline compared with the post-hoc exact-planar continuum calculation.}
 \centering
 \begin{tabular}{cccc}
 \toprule
@@ -165,7 +164,7 @@ RF & Numerical $D_{\rm eff}$ & Exact $D_{\rm eff}$ & Relative difference\\
 
 The exact-continuum low-band joint fit gives $D_{\rm eff}=2.610344\times10^{-3}\,\mathrm{m^2/s}$ and $w_{\rm eff}=2.569862\times10^4\,\mathrm{m/s}$.  The 100-MHz-anchored homogeneous-law residual at 1 GHz is $8.9163\times10^{-3}$, differing from the numerical baseline by only $3.11\times10^{-5}$ absolute.  The maximum one-mode finite-kernel fit residual through 1 GHz differs by $3.00\times10^{-7}$ absolute.
 
-The causal split is also retained without the field mesh.  The exact upstream point-source sequence gives $D_{\rm eff}=4.49\times10^{-11}\,\mathrm{m^2/s}$, whereas the exact sequence inside the nonuniform region gives $D_{\rm eff}=4.870586\times10^{-3}\,\mathrm{m^2/s}$.  The continuum comparison satisfies every previously declared numerical-convergence tolerance scale, but this agreement is reported only as a post-hoc cross-check because its design followed inspection of the mesh-refinement result.
+The causal split is also retained without the field mesh.  The exact upstream point-source sequence gives $D_{\rm eff}=4.49\times10^{-11}\,\mathrm{m^2/s}$, whereas the exact sequence inside the nonuniform region gives $D_{\rm eff}=4.870586\times10^{-3}\,\mathrm{m^2/s}$.  The continuum comparison satisfies every previously declared numerical-convergence tolerance scale, but the agreement remains explicitly post-hoc because this check was designed after inspection of the mesh-refinement result.
 
 \section{Reproduction record}
 
