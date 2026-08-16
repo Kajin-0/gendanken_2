@@ -1,0 +1,49 @@
+name: Paper 02 covariance geometry stress
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_covariance_geometry_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_same_frequency_hidden_risk.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_end_to_end_rejection_snr.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_bias_bound_linearization.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_aware_depletion_frequency_law.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_parameter_sweep.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - '.github/workflows/paper02-covariance-geometry-stress.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  covariance-stress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Syntax check
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python -m py_compile paper02_covariance_geometry_stress.py
+      - name: Run covariance geometry stress
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_covariance_geometry_stress.py
+      - name: Print summary
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: cat paper02_covariance_geometry_summary.json
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-covariance-geometry-stress
+          path: |
+            experiments/01-vanishing-absorber/numerics/paper02_covariance_geometry_same_frequency.csv
+            experiments/01-vanishing-absorber/numerics/paper02_covariance_geometry_multi_frequency.csv
+            experiments/01-vanishing-absorber/numerics/paper02_covariance_geometry_summary.json
+          if-no-files-found: error
