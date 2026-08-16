@@ -6,6 +6,7 @@ on:
       - agent/publication-mining-roadmap
     paths:
       - 'experiments/01-vanishing-absorber/tools/build_paper02_rev2.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_generate_same_frequency_snippet.py'
       - 'experiments/01-vanishing-absorber/PAPER02_REFERENCES_REV2.bib'
       - 'experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex'
       - '.github/workflows/paper02-manuscript-rev2.yml'
@@ -60,7 +61,7 @@ jobs:
       - name: Persist Rev2 source and same-frequency evidence
         run: |
           git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.email '41898282+Kajin-0@users.noreply.github.com'
           git add experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex
           git add experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex
           git add experiments/01-vanishing-absorber/numerics/results/paper02_same_frequency_hidden_risk.csv
