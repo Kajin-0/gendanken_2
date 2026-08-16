@@ -2,9 +2,9 @@
 
 **Status:** **CHECKED UNDER EXPLICIT THEORETICAL NOISE MODEL**
 
-## Verdict: **SAME-FREQUENCY HIDDEN-RISK ORDERING FAILED UNDER THE REFERENCE NOISE MODEL**
+## Verdict: **FREQUENCY-DEPENDENT SAME-FREQUENCY HIDDEN-RISK ORDERING**
 
-At 100 MHz, the six-channel one-mode model is rejectable at an RMS-channel SNR no greater than that required to establish positive apparent diffusion.  The current example therefore does not support a claim that a statistically established positive diffusion coefficient is hidden from the same-frequency spectral model check.  The paper must retain the result as an effective-parameter bias / low-frequency dispersion alias and avoid claiming same-frequency statistical stealth for this case.
+The ordering is not uniform across RF.  At the tested low-frequency point(s), the spectral-model check self-announces first (100 MHz: one-mode rejection 102.290 dB, positive-D detection 111.863 dB).  At the other tested point(s), positive apparent diffusion reaches the stated 90% detection power before the one-mode manifold reaches 90% rejection power, leaving finite RMS-channel-SNR hidden-risk windows (500 MHz: 70.044--88.192 dB; 1 GHz: 52.413--81.804 dB).  The example therefore supports conditional same-frequency hidden risk at those RF points but not a universal stealth claim.
 
 ## Reference noise/test model
 
@@ -25,15 +25,9 @@ one-mode residual dof = 6
 | 500 MHz | 2.548603e-03 | 70.044 | 88.192 | YES |
 | 1000 MHz | 2.348945e-03 | 52.413 | 81.804 | YES |
 
-At 100 MHz:
-
-```text
-SNR_D          = 391859.924
-SNR_1mode      = 130167.969
-SNR_1mode/SNR_D= 0.332179844
-```
-
 ## Interpretation rule
+
+A hidden-risk window at one RF point means only that, under the stated covariance and power criterion, positive apparent diffusion reaches the chosen detection power before the same-frequency one-mode goodness-of-fit test reaches the chosen rejection power.  It is not a statement of universal model indistinguishability.
 
 The deterministic full-vector residual `||J-J_fit||/||J||` remains useful as an approximation metric but must not be substituted for this covariance-aware model-selection result.
 
