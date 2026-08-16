@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'experiments/01-vanishing-absorber/numerics/paper02_inference_convergence_gate.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_inference_convergence_runner.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_aware_depletion_frequency_law.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_point_vs_kernel_causal_test.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_parameter_sweep.py'
@@ -16,6 +17,7 @@ on:
       - agent/publication-mining-roadmap
     paths:
       - 'experiments/01-vanishing-absorber/numerics/paper02_inference_convergence_gate.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_inference_convergence_runner.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_aware_depletion_frequency_law.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_point_vs_kernel_causal_test.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_parameter_sweep.py'
@@ -49,6 +51,7 @@ jobs:
         run: |
           python -m py_compile \
             paper02_inference_convergence_gate.py \
+            paper02_inference_convergence_runner.py \
             paper02_kernel_aware_depletion_frequency_law.py \
             paper02_point_vs_kernel_causal_test.py \
             paper02_geometry_parameter_sweep.py \
@@ -58,7 +61,7 @@ jobs:
       - name: Run inferential convergence gate
         working-directory: experiments/01-vanishing-absorber/numerics
         run: |
-          python paper02_inference_convergence_gate.py \
+          python paper02_inference_convergence_runner.py \
             --output-summary results/paper02_inference_convergence_summary.json \
             --output-csv results/paper02_inference_convergence.csv \
             --output-markdown results/PAPER02_INFERENCE_CONVERGENCE.md
@@ -80,4 +83,4 @@ jobs:
             experiments/01-vanishing-absorber/numerics/results/paper02_inference_convergence_summary.json
             experiments/01-vanishing-absorber/numerics/results/paper02_inference_convergence.csv
             experiments/01-vanishing-absorber/numerics/results/PAPER02_INFERENCE_CONVERGENCE.md
-          if-no-files-found: warn
+          if-no-files-found: error
