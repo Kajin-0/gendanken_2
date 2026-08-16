@@ -1,0 +1,123 @@
+name: Paper 02 manuscript Rev8 full gate
+
+on:
+  push:
+    branches: [agent/publication-mining-roadmap]
+    paths:
+      - 'experiments/01-vanishing-absorber/tools/build_paper02_rev8.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_two_carrier_exact_continuum.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_two_carrier_known_countercarrier.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_full_channel_rejection.py'
+      - '.github/workflows/paper02-manuscript-rev8.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  full-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/publication-mining-roadmap
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib
+      - name: Recompute claim-affecting Rev8 science
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python paper02_exact_planar_continuum_crosscheck.py
+          python paper02_two_carrier_exact_continuum.py
+          python paper02_two_carrier_known_countercarrier.py
+          python paper02_full_channel_rejection.py
+      - name: Validate Rev8 scientific invariants
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          e=json.load(open('results/paper02_exact_planar_continuum_crosscheck_summary.json'))
+          assert abs(e['exact_continuum']['probe']['100000000']['D_eff_m2_per_s']-0.0026181645345283023)<1e-12
+          p=json.load(open('results/paper02_two_carrier_exact_continuum_summary.json'))
+          assert p['dc_pair_identity_max_abs_error']<=1e-12 and p['uniform_core_gate_pass']
+          k=json.load(open('results/paper02_two_carrier_known_countercarrier_summary.json'))
+          assert k['uniform_core_gate_pass'] and k['positive_D_core_rows']==1 and k['core_rows']==21
+          f=json.load(open('results/paper02_full_channel_rejection_summary.json'))
+          a=f['through_1ghz']; b=f['through_3ghz']
+          assert abs(a['root_required_snr_db']-90.37011593664973)<1e-6
+          assert abs(a['full_required_snr_db']-81.51110245352142)<1e-6
+          assert abs(b['root_required_snr_db']-64.21043428895433)<1e-6
+          assert abs(b['full_required_snr_db']-65.00182889058803)<1e-6
+          PY
+      - name: Build Rev8 from frozen Rev7
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          python -m py_compile tools/build_paper02_rev8.py
+          python tools/build_paper02_rev8.py
+      - name: Guard scope and submission-facing cleanup
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          m=Path('PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.tex').read_text(); s=Path('PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.tex').read_text(); t=m+s
+          assert m.count(r'\author{Anonymous}')==1 and s.count(r'\author{Anonymous}')==1
+          assert 'single-mobile-carrier' in m and 'unipolar' in m
+          assert 'eq:upstreambridge' in m and '81.51' in m and '90.37' in m
+          assert 'Two-carrier scope audit' in s
+          assert 'hostile review' not in t.lower()
+          assert 'failed in the reporting layer' not in t.lower()
+          assert 'S_{\rm dB}=20\log_{10}S' in m
+          for q in ('first-ever','for the first time','universal false diffusion','fundamental new mechanism'):
+              assert q.lower() not in t.lower()
+          PY
+      - name: Install TeX tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq latexmk texlive-latex-extra texlive-publishers texlive-science poppler-utils
+      - name: Compile main and supplement
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.tex
+          latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.tex
+          for log in PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.log PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.log; do
+            if grep -E "LaTeX Warning: (Citation|Reference).*undefined|There were undefined references|There were undefined citations" "$log"; then exit 1; fi
+          done
+          pdfinfo PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.pdf | grep Pages
+          pdfinfo PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.pdf | grep Pages
+          sha256sum PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.pdf PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.pdf
+      - name: Persist deterministic Rev8 sources
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          branch='agent/publication-mining-roadmap'
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "$branch"
+            git reset --hard "origin/$branch"
+            (cd experiments/01-vanishing-absorber && python tools/build_paper02_rev8.py)
+            git add experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.tex experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.tex
+            if git diff --cached --quiet; then break; fi
+            git commit -m 'Build Paper 02 Rev8 adversarial-response manuscript'
+            if git push origin "HEAD:$branch"; then break; fi
+            if [ "$attempt" -eq 5 ]; then exit 1; fi
+          done
+      - name: Upload Rev8 package
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-manuscript-rev8-package
+          path: |
+            experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.pdf
+            experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.pdf
+            experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.tex
+            experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.tex
+            experiments/01-vanishing-absorber/PAPER02_REFERENCES_REV7.bib
+            experiments/01-vanishing-absorber/numerics/paper02_two_carrier_exact_continuum.py
+            experiments/01-vanishing-absorber/numerics/paper02_two_carrier_known_countercarrier.py
+            experiments/01-vanishing-absorber/numerics/paper02_full_channel_rejection.py
+            experiments/01-vanishing-absorber/numerics/results/paper02_two_carrier_exact_continuum_summary.json
+            experiments/01-vanishing-absorber/numerics/results/paper02_two_carrier_known_countercarrier_summary.json
+            experiments/01-vanishing-absorber/numerics/results/paper02_full_channel_rejection_summary.json
+          if-no-files-found: error
