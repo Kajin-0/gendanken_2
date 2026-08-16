@@ -1,0 +1,51 @@
+name: Paper 02 known-countercarrier pair follow-up
+
+on:
+  push:
+    branches: [agent/publication-mining-roadmap]
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER02_TWO_CARRIER_FOLLOWUP_2026-08-16.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_two_carrier_known_countercarrier.py'
+      - '.github/workflows/paper02-two-carrier-known-countercarrier.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/publication-mining-roadmap
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib
+      - name: Execute known-countercarrier stress
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile paper02_two_carrier_known_countercarrier.py
+          python paper02_two_carrier_known_countercarrier.py
+      - name: Check uniform pair null only
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('results/paper02_two_carrier_known_countercarrier_summary.json'))
+          assert x['uniform_core_gate_pass'], x
+          print('all identifiable core positive D:',x['all_identifiable_core_positive_D'])
+          print('positive/core:',x['positive_D_core_rows'],x['core_rows'])
+          print('D range:',x['min_core_D'],x['max_core_D'])
+          print('max relative shift:',x['max_core_relative_D_shift_from_single'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper02-two-carrier-known-countercarrier
+          path: |
+            experiments/01-vanishing-absorber/numerics/results/paper02_two_carrier_known_countercarrier_summary.json
+            experiments/01-vanishing-absorber/numerics/results/paper02_two_carrier_known_countercarrier_rows.csv
+          if-no-files-found: error
