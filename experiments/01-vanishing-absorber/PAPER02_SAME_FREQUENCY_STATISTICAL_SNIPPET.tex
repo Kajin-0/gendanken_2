@@ -19,6 +19,6 @@ RF & $D_{\rm eff}$ (m$^2$/s) & $S_D$ (dB) & $S_{1\mathrm{m}}$ (dB)\\
 \end{tabular}
 \end{table}
 
-Under this reference covariance, the six-channel one-mode manifold becomes rejectable no later than the positive apparent diffusion becomes statistically detectable.  The present example therefore does not support a claim that the same-frequency spectral model hides a statistically established diffusion coefficient.  The stronger identifiability issue remains the low-frequency dispersion alias and the need for nuisance-aware attribution.
+Under this reference covariance, the ordering is frequency dependent.  At the tested point(s) 100 MHz: $S_{1\mathrm{m}}=102.29$ dB before $S_D=111.86$ dB, so the spectral-model check self-announces before positive apparent diffusion reaches the stated 90\% detection power.  At the remaining tested point(s), positive apparent diffusion reaches 90\% power first, leaving finite RMS-channel-SNR windows (500 MHz: $70.04$--$88.19$ dB; 1 GHz: $52.41$--$81.80$ dB) in which $D>0$ has reached the stated detection power while rejection of the same-frequency one-mode manifold has not.  The example therefore supports conditional same-frequency hidden-risk windows at those RF points, not a universal stealth claim.
 
 This comparison also clarifies the role of the deterministic full-vector residual quoted elsewhere in the paper: it is a descriptive approximation error, whereas Table~\ref{tab:samefreq} is the corresponding covariance-aware model-selection statement for the reference noise model.
