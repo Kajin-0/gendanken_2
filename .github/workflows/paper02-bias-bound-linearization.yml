@@ -1,0 +1,41 @@
+name: Paper 02 bias-law linearization
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_bias_bound_linearization.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_aware_depletion_frequency_law.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - '.github/workflows/paper02-bias-bound-linearization.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linearization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Run bias-law validation
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_bias_bound_linearization.py
+      - name: Print summary
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: cat paper02_bias_bound_linearization_summary.json
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-bias-bound-linearization
+          path: |
+            experiments/01-vanishing-absorber/numerics/paper02_bias_bound_linearization.csv
+            experiments/01-vanishing-absorber/numerics/paper02_bias_bound_linearization_summary.json
+          if-no-files-found: error
