@@ -1,0 +1,83 @@
+name: Paper 02 inference convergence
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_inference_convergence_gate.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_aware_depletion_frequency_law.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_point_vs_kernel_causal_test.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_parameter_sweep.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_factorial_decomposition.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper02-inference-convergence.yml'
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_inference_convergence_gate.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_aware_depletion_frequency_law.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_point_vs_kernel_causal_test.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_parameter_sweep.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_factorial_decomposition.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper02-inference-convergence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  convergence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out candidate branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Syntax check convergence chain
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile \
+            paper02_inference_convergence_gate.py \
+            paper02_kernel_aware_depletion_frequency_law.py \
+            paper02_point_vs_kernel_causal_test.py \
+            paper02_geometry_parameter_sweep.py \
+            paper02_geometry_factorial_decomposition.py \
+            realistic_geometry_closure_stress.py
+
+      - name: Run inferential convergence gate
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python paper02_inference_convergence_gate.py \
+            --output-summary results/paper02_inference_convergence_summary.json \
+            --output-csv results/paper02_inference_convergence.csv \
+            --output-markdown results/PAPER02_INFERENCE_CONVERGENCE.md
+
+      - name: Print convergence report
+        if: always()
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          if [ -f results/PAPER02_INFERENCE_CONVERGENCE.md ]; then
+            cat results/PAPER02_INFERENCE_CONVERGENCE.md
+          fi
+
+      - name: Upload convergence outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-inference-convergence
+          path: |
+            experiments/01-vanishing-absorber/numerics/results/paper02_inference_convergence_summary.json
+            experiments/01-vanishing-absorber/numerics/results/paper02_inference_convergence.csv
+            experiments/01-vanishing-absorber/numerics/results/PAPER02_INFERENCE_CONVERGENCE.md
+          if-no-files-found: warn
