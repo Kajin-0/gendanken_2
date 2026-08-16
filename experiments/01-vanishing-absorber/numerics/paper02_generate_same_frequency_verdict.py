@@ -7,33 +7,69 @@ import json
 from pathlib import Path
 
 
+def fmt_freq(row):
+    mhz = row["frequency_hz"] / 1e6
+    if abs(mhz - 1000.0) < 1e-9:
+        return "1 GHz"
+    if mhz >= 1000.0 and abs(mhz % 1000.0) < 1e-9:
+        return f"{mhz / 1000.0:.0f} GHz"
+    return f"{mhz:.0f} MHz"
+
+
 def run(args):
     d = json.loads(Path(args.input).read_text(encoding="utf-8"))
     rows = d["rows"]
-    r100 = rows[0]
-    first = bool(r100["positive_D_detectable_before_one_mode_rejection"])
-    ratio = float(r100["hidden_risk_ratio_Sreject_over_SD"])
+    hidden_rows = [
+        row for row in rows
+        if bool(row["positive_D_detectable_before_one_mode_rejection"])
+    ]
+    announced_rows = [
+        row for row in rows
+        if not bool(row["positive_D_detectable_before_one_mode_rejection"])
+    ]
 
-    if first:
-        decision = "SAME-FREQUENCY HIDDEN-RISK ORDERING PASSED UNDER THE REFERENCE NOISE MODEL"
+    if hidden_rows and announced_rows:
+        decision = "FREQUENCY-DEPENDENT SAME-FREQUENCY HIDDEN-RISK ORDERING"
+        hidden_text = "; ".join(
+            f"{fmt_freq(row)}: {row['snr_required_positive_D_db']:.3f}--"
+            f"{row['snr_required_one_mode_rejection_db']:.3f} dB"
+            for row in hidden_rows
+        )
+        announced_text = "; ".join(
+            f"{fmt_freq(row)}: one-mode rejection {row['snr_required_one_mode_rejection_db']:.3f} dB, "
+            f"positive-D detection {row['snr_required_positive_D_db']:.3f} dB"
+            for row in announced_rows
+        )
         consequence = (
-            "At 100 MHz, statistically significant positive apparent diffusion is reached "
-            "at a lower RMS-channel SNR than is required to reject the six-channel one-mode "
-            "model.  There is therefore a finite SNR interval in which the wrong homogeneous "
-            "material attribution is statistically significant while the same-frequency "
-            "spectral model remains non-rejectable.  This is conditional on the stated "
-            "independent equal-quadrature noise model and is not a universal ordering."
+            "The ordering is not uniform across RF.  At the tested low-frequency point(s), "
+            f"the spectral-model check self-announces first ({announced_text}).  At the other "
+            "tested point(s), positive apparent diffusion reaches the stated 90% detection "
+            f"power before the one-mode manifold reaches 90% rejection power, leaving finite "
+            f"RMS-channel-SNR hidden-risk windows ({hidden_text}).  The example therefore "
+            "supports conditional same-frequency hidden risk at those RF points but not a "
+            "universal stealth claim."
+        )
+    elif hidden_rows:
+        decision = "SAME-FREQUENCY HIDDEN-RISK ORDERING PRESENT AT ALL TESTED RF POINTS"
+        hidden_text = "; ".join(
+            f"{fmt_freq(row)}: {row['snr_required_positive_D_db']:.3f}--"
+            f"{row['snr_required_one_mode_rejection_db']:.3f} dB"
+            for row in hidden_rows
+        )
+        consequence = (
+            "At every tested RF point, statistically significant positive apparent diffusion "
+            "reaches the stated 90% detection power at a lower RMS-channel SNR than is required "
+            "for 90% rejection power against the six-channel one-mode model.  The finite "
+            f"hidden-risk windows are {hidden_text}.  This conclusion remains conditional on "
+            "the stated theoretical covariance model."
         )
     else:
-        decision = "SAME-FREQUENCY HIDDEN-RISK ORDERING FAILED UNDER THE REFERENCE NOISE MODEL"
+        decision = "SAME-FREQUENCY HIDDEN-RISK ORDERING ABSENT AT ALL TESTED RF POINTS"
         consequence = (
-            "At 100 MHz, the six-channel one-mode model is rejectable at an RMS-channel SNR "
-            "no greater than that required to establish positive apparent diffusion.  The "
-            "current example therefore does not support a claim that a statistically "
-            "established positive diffusion coefficient is hidden from the same-frequency "
-            "spectral model check.  The paper must retain the result as an effective-parameter "
-            "bias / low-frequency dispersion alias and avoid claiming same-frequency statistical "
-            "stealth for this case."
+            "At every tested RF point, the six-channel one-mode model reaches the stated 90% "
+            "rejection power no later than positive apparent diffusion reaches 90% detection "
+            "power.  This example therefore does not support same-frequency statistical hidden "
+            "risk under the stated theoretical covariance model."
         )
 
     lines = [
@@ -68,17 +104,12 @@ def run(args):
             f"{r['snr_required_one_mode_rejection_db']:.3f} | "
             f"{'YES' if r['positive_D_detectable_before_one_mode_rejection'] else 'NO'} |"
         )
+
     lines += [
         "",
-        "At 100 MHz:",
-        "",
-        "```text",
-        f"SNR_D          = {r100['snr_required_positive_D']:.9g}",
-        f"SNR_1mode      = {r100['snr_required_one_mode_rejection']:.9g}",
-        f"SNR_1mode/SNR_D= {ratio:.9g}",
-        "```",
-        "",
         "## Interpretation rule",
+        "",
+        "A hidden-risk window at one RF point means only that, under the stated covariance and power criterion, positive apparent diffusion reaches the chosen detection power before the same-frequency one-mode goodness-of-fit test reaches the chosen rejection power.  It is not a statement of universal model indistinguishability.",
         "",
         "The deterministic full-vector residual `||J-J_fit||/||J||` remains useful as an approximation metric but must not be substituted for this covariance-aware model-selection result.",
         "",
