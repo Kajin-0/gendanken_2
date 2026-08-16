@@ -1,0 +1,224 @@
+name: Paper 02 manuscript Rev6 exact-continuum gate
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV5_ANON_2026-08-16.tex'
+      - 'experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV5_ANON_2026-08-16.tex'
+      - 'experiments/01-vanishing-absorber/PAPER02_REFERENCES_REV4.bib'
+      - 'experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex'
+      - 'experiments/01-vanishing-absorber/tools/build_paper02_rev6.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_exact_planar_continuum_crosscheck.py'
+      - 'experiments/01-vanishing-absorber/numerics/results/paper02_exact_planar_continuum_crosscheck_summary.json'
+      - 'experiments/01-vanishing-absorber/numerics/results/paper02_inference_convergence_summary.json'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_build_figure_bundle.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_independent_velocity_profiles.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_tail_ablation.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_bias_bound_linearization.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_end_to_end_rejection_snr.py'
+      - '.github/workflows/paper02-manuscript-rev6.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-compile-review-guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Check out candidate branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/publication-mining-roadmap
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical and plotting dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib
+
+      - name: Verify predeclared convergence record
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x = json.loads(Path('numerics/results/paper02_inference_convergence_summary.json').read_text())
+          assert x['convergence']['overall_pass'] is True
+          print(x['status'])
+          PY
+
+      - name: Re-execute post-hoc exact continuum cross-check
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile paper02_exact_planar_continuum_crosscheck.py
+          python paper02_exact_planar_continuum_crosscheck.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x = json.loads(Path('results/paper02_exact_planar_continuum_crosscheck_summary.json').read_text())
+          assert x['comparison']['overall_pass_against_existing_tolerances'] is True
+          assert 'POST-HOC' in x['status']
+          assert abs(x['point_controls']['outside_depletion']['D_eff_m2_per_s']) < 1e-7
+          assert x['point_controls']['inside_depletion']['D_eff_m2_per_s'] > 0
+          print(x['status'])
+          PY
+
+      - name: Regenerate canonical figure data
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python paper02_independent_velocity_profiles.py
+          python paper02_kernel_tail_ablation.py
+          python paper02_bias_bound_linearization.py
+          python paper02_end_to_end_rejection_snr.py
+          python paper02_build_figure_bundle.py
+
+      - name: Build Rev6 from frozen Rev5 blobs
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          python -m py_compile tools/build_paper02_rev6.py
+          python tools/build_paper02_rev6.py
+
+      - name: Guard Rev6 scope, anonymity, and epistemic labels
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          main = Path('PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex').read_text()
+          supp = Path('PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex').read_text()
+          snippet = Path('PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex').read_text()
+
+          assert main.count(r'\author{Anonymous}') == 1
+          assert supp.count(r'\author{Anonymous}') == 1
+          assert 'post-hoc exact full-contact planar continuum calculation' in main
+          assert r'2.6182\times10^{-3}' in main
+          assert r'2.5508\times10^{-3}' in main
+          assert r'2.3506\times10^{-3}' in main
+          assert 'This refinement sequence is a stability test' in main
+          assert 'monotonic downstream acceleration gives a positive quadratic apparent-diffusion coefficient' in main
+          assert 'The effect is sign controlled by deterministic acceleration' not in main
+          assert 'reported processed thickness near' not in main
+          assert r'\section{Post-hoc exact planar continuum cross-check}' in supp
+          assert r'\phi_w(z)=\frac{z}{L}' in supp
+          assert 'not fitted to, or claimed as a calibration of' in supp
+          assert '31951040229' in supp and '9264645817' in supp
+          assert 'No experimental kernel calibration is performed here' in main
+          assert '500' in snippet and '1000' in snippet and '100' in snippet
+
+          for pat in (
+              r'for the first time',
+              r'first-ever',
+              r'fundamental new mechanism',
+              r'universal false diffusion',
+          ):
+              assert not re.search(pat, main, re.I), pat
+              assert not re.search(pat, supp, re.I), pat
+
+          print('PASS: Rev6 scope / privacy / epistemic guards')
+          PY
+
+      - name: Install TeX and PDF tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq latexmk texlive-latex-extra texlive-publishers texlive-science poppler-utils
+
+      - name: Compile Rev6 main manuscript
+        working-directory: experiments/01-vanishing-absorber
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex
+
+      - name: Compile Rev6 Supplemental Material
+        working-directory: experiments/01-vanishing-absorber
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex
+
+      - name: Check unresolved references and citations
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          for log in PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.log PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.log; do
+            if grep -E "LaTeX Warning: (Citation|Reference).*undefined|There were undefined references|There were undefined citations" "$log"; then
+              echo "Unresolved citation/reference detected in $log"
+              exit 1
+            fi
+          done
+
+      - name: Verify uploaded Rev6 source package is independently compilable
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          set -euo pipefail
+          pkg="$(mktemp -d)"
+          mkdir -p "$pkg/numerics/paper02_figures"
+          cp PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex "$pkg/"
+          cp PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex "$pkg/"
+          cp PAPER02_REFERENCES_REV4.bib "$pkg/"
+          cp PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex "$pkg/"
+          cp numerics/paper02_figures/*.pdf "$pkg/numerics/paper02_figures/"
+          (
+            cd "$pkg"
+            latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex
+            latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex
+            for log in PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.log PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.log; do
+              if grep -E "LaTeX Warning: (Citation|Reference).*undefined|There were undefined references|There were undefined citations" "$log"; then
+                echo "Packaged source has unresolved citation/reference in $log"
+                exit 1
+              fi
+            done
+          )
+          echo 'PASS: uploaded Rev6 source package is independently compilable'
+
+      - name: Report compiled artifacts
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          pdfinfo PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.pdf | grep -E 'Pages|Title|Author' || true
+          pdfinfo PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.pdf | grep -E 'Pages|Title|Author' || true
+          sha256sum \
+            PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.pdf \
+            PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.pdf
+
+      - name: Persist Rev6 source and supplement
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex \
+            experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex
+          if git diff --cached --quiet; then
+            echo 'Rev6 sources already current.'
+            exit 0
+          fi
+          git commit -m 'Build Paper 02 Rev6 exact continuum hardening'
+          branch='agent/publication-mining-roadmap'
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${branch}"; then
+              exit 0
+            fi
+            echo "Push attempt ${attempt} lost a branch race; rebasing onto origin/${branch}."
+            git fetch origin "${branch}"
+            git rebase "origin/${branch}"
+          done
+          echo 'Unable to persist Rev6 after five push attempts.'
+          exit 1
+
+      - name: Upload Rev6 manuscript package
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-manuscript-rev6-package
+          path: |
+            experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.pdf
+            experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.pdf
+            experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV6_ANON_2026-08-16.tex
+            experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV6_ANON_2026-08-16.tex
+            experiments/01-vanishing-absorber/PAPER02_REFERENCES_REV4.bib
+            experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex
+            experiments/01-vanishing-absorber/numerics/results/PAPER02_INFERENCE_CONVERGENCE.md
+            experiments/01-vanishing-absorber/numerics/results/PAPER02_EXACT_PLANAR_CONTINUUM_CROSSCHECK.md
+            experiments/01-vanishing-absorber/numerics/results/paper02_exact_planar_continuum_crosscheck_summary.json
+            experiments/01-vanishing-absorber/numerics/paper02_figures/*.pdf
+          if-no-files-found: error
