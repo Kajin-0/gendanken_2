@@ -1,0 +1,79 @@
+name: Paper 02 manuscript Rev2
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/tools/build_paper02_rev2.py'
+      - 'experiments/01-vanishing-absorber/PAPER02_REFERENCES_REV2.bib'
+      - 'experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex'
+      - '.github/workflows/paper02-manuscript-rev2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies if same-frequency result must be regenerated
+        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Ensure same-frequency result and generated snippet exist
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          mkdir -p results
+          if [ ! -f results/paper02_same_frequency_hidden_risk_summary.json ]; then
+            python paper02_same_frequency_hidden_risk.py \
+              --output-csv results/paper02_same_frequency_hidden_risk.csv \
+              --output-summary results/paper02_same_frequency_hidden_risk_summary.json
+          fi
+          python paper02_generate_same_frequency_snippet.py
+      - name: Build Rev2 from frozen Rev1
+        working-directory: experiments/01-vanishing-absorber
+        run: python tools/build_paper02_rev2.py
+      - name: Install TeX
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq latexmk texlive-latex-extra texlive-publishers texlive-science poppler-utils
+      - name: Compile Rev2
+        working-directory: experiments/01-vanishing-absorber
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex
+      - name: Check unresolved references
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          if grep -E "LaTeX Warning: (Citation|Reference).*undefined|There were undefined references" PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.log; then
+            echo 'Unresolved citation/reference detected.'
+            exit 1
+          fi
+      - name: Record PDF metadata and digest
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          pdfinfo PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.pdf | grep -E 'Pages|Title|Author' || true
+          sha256sum PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.pdf
+      - name: Persist Rev2 source and same-frequency evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex
+          git add experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex
+          git add experiments/01-vanishing-absorber/numerics/results/paper02_same_frequency_hidden_risk.csv
+          git add experiments/01-vanishing-absorber/numerics/results/paper02_same_frequency_hidden_risk_summary.json
+          if git diff --cached --quiet; then
+            echo 'Rev2 source and evidence already current.'
+          else
+            git commit -m 'Revise Paper 02 after adversarial review'
+            git push
+          fi
+      - name: Upload Rev2 PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-manuscript-rev2
+          path: experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.pdf
+          if-no-files-found: error
