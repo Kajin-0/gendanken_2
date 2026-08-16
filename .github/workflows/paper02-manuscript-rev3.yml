@@ -7,6 +7,7 @@ on:
     paths:
       - 'experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex'
       - 'experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex'
+      - 'experiments/01-vanishing-absorber/PAPER02_REFERENCES_REV2.bib'
       - 'experiments/01-vanishing-absorber/tools/build_paper02_rev3.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_build_figure_bundle.py'
       - '.github/workflows/paper02-manuscript-rev3.yml'
@@ -65,7 +66,17 @@ jobs:
             echo 'Rev3 source already current.'
           else
             git commit -m 'Integrate canonical figures into Paper 02 Rev3'
-            git push
+            branch='agent/publication-mining-roadmap'
+            for attempt in 1 2 3; do
+              if git push origin "HEAD:${branch}"; then
+                exit 0
+              fi
+              echo "Push attempt ${attempt} lost a branch race; rebasing onto origin/${branch}."
+              git fetch origin "${branch}"
+              git rebase "origin/${branch}"
+            done
+            echo 'Unable to persist Rev3 after three push attempts.'
+            exit 1
           fi
       - name: Upload manuscript and figure bundle
         uses: actions/upload-artifact@v4
