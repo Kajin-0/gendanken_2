@@ -2,7 +2,7 @@
 
 A small deterministic fit residual relative to the full channel vector is not by itself a statistical model-acceptance statement. We therefore place the same-frequency one-mode goodness-of-fit test and the positive-$D$ test on the same explicit theoretical noise scale. At one RF frequency the six complex channels provide 12 real observations, while the complex $(C,K,r)$ one-mode model has six real fitted parameters, leaving six local residual degrees of freedom.
 
-We retain the independent equal real/imaginary quadrature-noise model used below and define $S=\sqrt{\langle |J_m|^2angle}/\sigma_{m q}$. For the one-mode test, the deterministic post-fit channel residual supplies the noncentral alternative. For positive-$D$ detectability, the full $12	imes6$ channel Jacobian is propagated through the fitted complex root and then through $D(\gamma)$; an idealized one-sided Gaussian $D>0$ test is evaluated at the same $lpha=0.0027$ and 90\% power.
+We retain the independent equal real/imaginary quadrature-noise model used below and define $S=\sqrt{\langle |J_m|^2\rangle}/\sigma_{\rm q}$. For the one-mode test, the deterministic post-fit channel residual supplies the noncentral alternative. For positive-$D$ detectability, the full $12\times6$ channel Jacobian is propagated through the fitted complex root and then through $D(\gamma)$; an idealized one-sided Gaussian $D>0$ test is evaluated at the same $\alpha=0.0027$ and 90\% power.
 
 \begin{table}[t]
 \caption{Same-frequency statistical ordering under the reference independent-quadrature noise model. $S_D$ is the RMS-channel SNR required for 90\% power to establish positive apparent diffusion; $S_{1\mathrm{m}}$ is the SNR required for 90\% power to reject the six-channel one-mode manifold, both at $\alpha=0.0027$.}
@@ -12,13 +12,13 @@ We retain the independent equal real/imaginary quadrature-noise model used below
 \toprule
 RF & $D_{\rm eff}$ (m$^2$/s) & $S_D$ (dB) & $S_{1\mathrm{m}}$ (dB)\\
 \midrule
-100 MHz & 2.610e-03 & 111.86 & 102.29\
-500 MHz & 2.549e-03 & 70.04 & 88.19\
-1000 MHz & 2.349e-03 & 52.41 & 81.80\
+100 MHz & 2.610e-03 & 111.86 & 102.29\\
+500 MHz & 2.549e-03 & 70.04 & 88.19\\
+1000 MHz & 2.349e-03 & 52.41 & 81.80\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Under this reference covariance, the six-channel one-mode manifold becomes rejectable no later than the positive apparent diffusion becomes statistically detectable.  The present example therefore does not support a claim that the same-frequency spectral model hides a statistically established diffusion coefficient.  The stronger identifiability issue remains the low-frequency dispersion alias and the need for nuisance-aware attribution.
 
-This comparison also clarifies the role of the deterministic full-vector residual quoted elsewhere in the paper: it is a descriptive approximation error, whereas Table~ef{tab:samefreq} is the corresponding covariance-aware model-selection statement for the reference noise model.
+This comparison also clarifies the role of the deterministic full-vector residual quoted elsewhere in the paper: it is a descriptive approximation error, whereas Table~\ref{tab:samefreq} is the corresponding covariance-aware model-selection statement for the reference noise model.
