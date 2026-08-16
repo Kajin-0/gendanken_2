@@ -1,6 +1,12 @@
 name: Paper 02 geometry quick sweep
 
 on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_parameter_sweep.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper02-geometry-quick.yml'
   push:
     branches:
       - agent/publication-mining-roadmap
