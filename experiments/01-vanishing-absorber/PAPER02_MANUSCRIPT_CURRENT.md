@@ -1,66 +1,40 @@
-# Paper 02 — Canonical Working Manuscript
+# Paper 02 — Canonical Manuscript
 
 **Date:** 2026-08-16  
-**Status:** **ANONYMOUS REV. 5 PROMOTED / NUMERICALLY CONVERGED / COMPILED / HOSTILE REVIEW PASSED / NOT SUBMISSION-READY**
+**Status:** **ANONYMOUS REV. 7 PROMOTED / SCIENTIFICALLY SUBMISSION-READY / TARGET-JOURNAL FORMATTING ONLY**
 
-## Canonical source
-
-```text
-PAPER02_MANUSCRIPT_REV5_ANON_2026-08-16.tex
-```
-
-Source blob at promotion:
+## Canonical package
 
 ```text
-d61023ee44b7a8b365cf15f6dce579dff4f8a045
+PAPER02_MANUSCRIPT_REV7_ANON_2026-08-16.tex
+blob 85e56d36d320e0012b28a6742f2b48d8c268af91
+
+PAPER02_SUPPLEMENT_REV7_ANON_2026-08-16.tex
+blob 947641ca95bcda1319b6b5ef322404ee14fba027
+
+PAPER02_REFERENCES_REV7.bib
+blob 3aef882d23cf81973b4091b7d5964d90ec4e53e2
 ```
 
-Canonical supplement:
+Build identity:
 
 ```text
-PAPER02_SUPPLEMENT_REV5_ANON_2026-08-16.tex
+GitHub Actions run 31955139692
+job 95184522376
+artifact paper02-manuscript-rev7-v2-package
+artifact id 9265784989
+artifact SHA-256 b9f1087918e34e8b644f7c4039abf351ef08337a1381a7523d8f771566bac813
 ```
 
-Supplement blob at promotion:
+Compiled PDFs:
 
 ```text
-5b6499c24be70164ea25791e19d143f61197195b
+main: 10 pages
+SHA-256 622ef57e9c0f1a542fbe85215d0188f787c80f11f60081cd71401ef8fcf4d555
+
+supplement: 5 pages
+SHA-256 7791d4d639af311ba08b4f5c413ac05b4928ea4535878ad06f7991fec190f86b
 ```
-
-Bibliography:
-
-```text
-PAPER02_REFERENCES_REV4.bib
-```
-
-Rev. 1–Rev. 4 remain frozen provenance. Rev. 4 compiled successfully but was intentionally not promoted after hostile review identified an overly literal interpretation of the planar Poisson-curvature parameter; Rev. 5 is the corrected successor.
-
-## Build identity
-
-GitHub Actions run:
-
-```text
-31949546540
-```
-
-Artifact:
-
-```text
-paper02-manuscript-rev5-package
-artifact id 9264292338
-```
-
-Compiled PDF fingerprints:
-
-```text
-main manuscript: 9 pages
-SHA-256 041f818b43f9cd2062690400cd03e69a56c8f7e36663af690c7556ea69a3451e
-
-supplement: 3 pages
-SHA-256 eefd607ee9171ce987b3454cf37efac9ca2f03576d032a2410e0a4da94e4ce6a
-```
-
-The final build passed numerical-input, figure-regeneration, semantic/privacy/priority/statistical, LaTeX, bibliography/reference-resolution, persistence, and rendered hostile-review gates.
 
 ## Scientific identity
 
@@ -74,32 +48,63 @@ Author default:
 Anonymous
 ```
 
-Central claim boundary:
+Central physical counterexample:
 
-> In deterministic zero-microscopic-diffusion photodetector models, finite wavelength-dependent generation kernels that are treated as known by the inverse and overlap spatial velocity heterogeneity can produce a positive effective diffusion coefficient when the resulting Shockley–Ramo terminal-current response is interpreted through a homogeneous drift–diffusion model. The paper develops causal-support controls, tangent-space/local bias theory, and covariance-aware same- and multi-frequency rejection tests for this attribution failure.
+> In deterministic zero-microscopic-diffusion photodetector models, finite wavelength-dependent generation kernels that overlap spatial velocity heterogeneity can produce a positive effective diffusion coefficient when the resulting Shockley–Ramo terminal-current response is interpreted through a homogeneous drift–diffusion model.
 
-The optical kernels are **theoretical wavelength-dependent generation kernels supplied exactly to the inverse**. No experimental kernel calibration is performed or claimed.
+The central velocity-heterogeneity counterexample uses **theoretical wavelength-dependent generation kernels supplied exactly to the inverse**. Rev. 7 separately relaxes the exact-kernel assumption as an attribution/model-uncertainty stress; do not conflate that stress with experimental calibration.
 
-Priority posture:
+The exact planar continuum central result is approximately:
 
 ```text
-DISTINCT COMBINATION SUPPORTED BY FOCUSED AUDIT
-NO SUPERLATIVE PRIORITY CLAIM
+D_eff(100 MHz) = 2.618164535e-3 m^2/s
+D_eff(500 MHz) = 2.550830551e-3 m^2/s
+D_eff(1 GHz)   = 2.350617904e-3 m^2/s
 ```
 
-Do not introduce `first`, `first-ever`, `fundamental`, `universal`, or equivalent priority language without an explicit later priority upgrade.
+## Locked attribution boundaries
+
+### Exact-known-kernel statistical ordering
+
+```text
+100 MHz: one-mode rejection occurs before positive-D detection
+500 MHz: positive-D detection occurs before one-mode rejection
+1 GHz:  positive-D detection occurs before one-mode rejection
+```
+
+The same qualitative ordering survives all twelve tested structured covariance metrics, but this is not an arbitrary-covariance theorem.
+
+### Metric dependence
+
+Under model misspecification the pseudo-true effective coefficient can depend on the weighting/covariance metric. In the tested covariance family the same 100-MHz deterministic response gives roughly
+
+```text
+D_eff = 1.66e-3 to 2.61e-3 m^2/s.
+```
+
+Do not describe the effective coefficient as a metric-independent material observable when the inverse family is misspecified.
+
+### Optical-kernel uncertainty
+
+A pure affine depth-coordinate error cannot create positive diffusion from exact `D=0`; the exact continuum affine control retains `|D_eff| < 4.7e-14 m^2/s` even with kernel-mean shifts up to 18 nm.
+
+Non-affine, channel-dependent optical-model error can project onto the transport-root tangent. The signed wavelength-to-kernel nuisance tests demonstrate positive apparent diffusion in an exact uniform-velocity `D_micro=0` null.
+
+The sub-nanometer nuisance amplitudes in Rev. 7 are **theoretical sensitivity coordinates**, not wavelength-meter specifications, measured calibration errors, or empirical detector error bars.
+
+Thus exact kernel knowledge is a load-bearing condition for interpreting the fitted `D_eff` magnitude as a material parameter. It is not required for the logical existence of the separately established deterministic velocity-heterogeneity mechanism under its declared exact-kernel conditions.
 
 ## Locked physical interpretation of the planar stress
 
-The collector-side parameter `Delta = 0.05 V` is defined through
+The collector-side parameter `Delta = 0.05 V` is defined by
 
 ```text
 V'' = 2 Delta / W_d^2
 ```
 
-with fixed endpoint potentials. It is a Poisson-curvature parameter, **not** an independently added 0.05-V terminal voltage.
+with fixed endpoint potentials. It is a Poisson-curvature parameter, not an independently added terminal voltage.
 
-For the canonical stress the exact planar solution gives approximately:
+Canonical exact planar field interpretation:
 
 ```text
 Delta/W_d                         166.7 V/cm  characteristic curvature-field scale
@@ -110,60 +115,46 @@ regional mean-field increment     100.9 V/cm
 extra regional potential drop     0.030263 V
 ```
 
-Do not regress to the superseded phrases “adds an electrostatic drop,” “average added field,” or equivalent wording.
+Do not regress to superseded “added 0.05-V drop” or equivalent language.
 
-## Checked inferential convergence
+## Priority posture
 
-The inference-level convergence gate independently refined field mesh, source/kernel quadrature, and deterministic trajectory step. It reported `overall_pass=true` under predeclared tolerances.
+Rev. 7 explicitly cites direct prior art showing that optical-model inputs can bias diffusion extraction from wavelength-dependent photodiode response. Generic optical-model sensitivity, inhomogeneous-field transport bias, wavelength-dependent RF photodiode phase, generalized least squares, nuisance projection, covariance propagation, and Schur complements are not claimed as new.
 
-The field mesh is the limiting tested coordinate. Baseline-to-fine changes in same-frequency inferred `D_eff` are:
-
-```text
-100 MHz  1.648%
-500 MHz  1.641%
-1 GHz    1.633%
-```
-
-Source-quadrature and trajectory-step effects are much smaller. The upstream point-source null remains numerical-zero scale and the inside-nonuniform-region positive control remains near `4.87e-3 m^2/s`.
-
-This is a numerical-stability result for the declared surrogate/inverse, not experimental validation.
-
-## Locked same-frequency statistical ordering
+Current posture:
 
 ```text
-100 MHz: one-mode rejection occurs before positive-D detection
-500 MHz: positive-D detection occurs before one-mode rejection
-1 GHz:  positive-D detection occurs before one-mode rejection
+DISTINCT DETECTOR-SPECIFIC COMBINATION PLAUSIBLE AFTER FOCUSED COLLISION AUDIT
+BROAD INGREDIENTS ARE ESTABLISHED PRIOR ART
+PRIORITY UNPROVEN
+NO SUPERLATIVE PRIORITY CLAIM
 ```
 
-Under the explicit reference covariance, there is no same-frequency hidden-risk interval at 100 MHz, while conditional hidden-risk intervals exist at 500 MHz and 1 GHz.
+Do not introduce `first`, `first-ever`, `fundamental`, `universal`, or equivalent priority language without a new explicit priority gate.
+
+## Preservation history
+
+- Rev. 5: previous promoted canonical manuscript; frozen.
+- Rev. 6: compile-valid exact-continuum intermediate; intentionally never promoted; frozen.
+- Rev. 7 v1 builder/workflow: scientific reruns passed, source transformation failed due brittle text anchoring; preserved as failed development provenance.
+- Rev. 7 v2: full science, source, reference, independent compile, and rendered hostile-review gates passed; current canonical manuscript.
+
+No earlier source should be deleted or silently rewritten.
 
 ## Current state record
 
 Read next:
 
 ```text
-PAPER02_CURRENT_STATE_REV5_2026-08-16.md
+PAPER02_CURRENT_STATE_REV7_2026-08-16.md
 ```
 
-That record contains the Rev. 5 hostile-review disposition, build hashes, convergence scope, and remaining scientific blockers.
+That record contains build hashes, convergence/covariance/model-uncertainty scope, priority boundary, hostile-review disposition, and submission-readiness decision.
 
-## Required reading before future manuscript edits
+## Future edits
 
-Follow `PAPER02_MANUSCRIPT_PRESERVATION_PROTOCOL.md`.
+Follow `PAPER02_MANUSCRIPT_PRESERVATION_PROTOCOL.md` and root `PRIVACY_PROTOCOL.md`.
 
-At minimum read:
+Rev. 7 is frozen. Any material scientific correction must create a new numbered revision and pass applicable numerical, compilation, reference, anonymity, priority, and hostile-review gates.
 
-1. root `PRIVACY_PROTOCOL.md`;
-2. this file;
-3. `PAPER02_CURRENT_STATE_REV5_2026-08-16.md`;
-4. `PAPER02_INFERENCE_CONVERGENCE_GATE_2026-08-16.md`;
-5. `PAPER02_PRIORITY_CHECKPOINT_2026-08-15.md`;
-6. `PAPER02_EXACT_PRIORITY_MATRIX_2026-08-15.md`;
-7. exact theorem/result files only as needed.
-
-## Preservation rule
-
-Rev. 5 is frozen as the canonical working manuscript.
-
-Any material scientific correction must create a new numbered source rather than editing Rev. 5 in place. Do not advance the current pointer again until the new source has independently passed its applicable scientific, numerical, compilation, reference-resolution, anonymity, and hostile-review gates.
+Editorial target-journal formatting may be developed separately, but do not add author identity without explicit user authorization.
