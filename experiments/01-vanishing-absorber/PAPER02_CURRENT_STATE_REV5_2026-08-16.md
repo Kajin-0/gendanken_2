@@ -1,7 +1,7 @@
 # Paper 02 — Current State Rev. 5
 
 **Date:** 2026-08-16  
-**Status:** **ANONYMOUS REV. 5 PROMOTED / NUMERICALLY CONVERGED / COMPILED / HOSTILE REVIEW PASSED / NOT SUBMISSION-READY**  
+**Status:** **ANONYMOUS REV. 5 PROMOTED / NUMERICALLY CONVERGED / COMPILED / HOSTILE REVIEW PASSED / FOCUSED EXACT-COLLISION AUDIT COMPLETE / NOT SUBMISSION-READY**  
 **Supersedes for navigation:** `PAPER02_CURRENT_STATE_REV4_2026-08-16.md`  
 **Preservation rule:** all earlier manuscript/state revisions remain frozen provenance.
 
@@ -96,10 +96,11 @@ Required optical-kernel wording:
 
 No experimental kernel calibration is claimed.
 
-Required priority posture:
+Required priority posture after the focused Rev. 5 collision audit:
 
 ```text
-DISTINCT COMBINATION SUPPORTED BY FOCUSED AUDIT
+DISTINCT COMBINATION PLAUSIBLE AFTER FOCUSED EXACT-COLLISION SEARCH
+PRIORITY UNPROVEN
 NO SUPERLATIVE PRIORITY CLAIM
 ```
 
@@ -135,11 +136,30 @@ Passed checks:
 
 **Disposition: PASS for promotion to canonical working manuscript.**
 
-## 7. What remains open
+## 7. Focused exact closest-collision audit
+
+Read:
+
+```text
+PAPER02_EXACT_CLOSEST_COLLISION_AUDIT_REV5_2026-08-16.md
+```
+
+The strongest neighboring source families found are:
+
+1. OED work (Glasser 2021; Dutta 2024; Kassa et al. 2026), which establishes wavelength-dependent absorption/transport RF phase and modern multi-frequency photodiode inversion;
+2. Emelianova et al. 2006, which explicitly shows that an inhomogeneous semiconductor field can cause a homogeneous TOF interpretation to return incorrect material transport information;
+3. Hawks et al. 2015, which rigorously separates externally measured transient current from microscopic carrier motion and shows how conventional extraction can return an apparent material quantity;
+4. realistic coupled photodiode forward-model literature such as Hu et al. 2015.
+
+No source found in the focused search closes those ingredients into the exact Rev. 5 construction: finite spectral kernels + deterministic heterogeneity + `D_micro=0` + fitted homogeneous `D_eff>0` + causal support controls + covariance-aware attribution/rejection hierarchy.
+
+This is **not** proof of priority. The audit explicitly forbids novelty claims on OED, wavelength-dependent transit delay, field-dependent photodiode response, inhomogeneous-field transport-extraction bias, Shockley–Ramo theory, or coupled forward device physics.
+
+## 8. What remains open
 
 Rev. 5 is reviewable but **not submission-ready**. The remaining highest-value work is not another cosmetic revision. It is:
 
-1. a final exact prior-art / closest-collision audit focused on the combined attribution framework;
+1. citation-chaining/full-text follow-up around the strongest exact-collision families, especially papers that may hide an equivalent inverse target outside their abstracts;
 2. a stronger experimental-feasibility discussion or independent public-data confrontation if a defensible dataset can be found;
 3. covariance/model-uncertainty stress beyond the intentionally simple equal-quadrature reference model;
 4. optional independent numerical implementation / solver cross-check of the planar counterexample;
