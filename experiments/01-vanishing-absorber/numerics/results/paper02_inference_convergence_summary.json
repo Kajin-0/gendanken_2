@@ -1,0 +1,1196 @@
+{
+  "baseline": {
+    "ds_um": 0.02,
+    "nx": 121,
+    "nx_src": 13,
+    "nz": 91,
+    "nz_src": 41
+  },
+  "configurations": {
+    "baseline": {
+      "ds_um": 0.02,
+      "nx": 121,
+      "nx_src": 13,
+      "nz": 91,
+      "nz_src": 41
+    },
+    "mesh_coarse": {
+      "ds_um": 0.02,
+      "nx": 81,
+      "nx_src": 13,
+      "nz": 61,
+      "nz_src": 41
+    },
+    "mesh_fine": {
+      "ds_um": 0.02,
+      "nx": 161,
+      "nx_src": 13,
+      "nz": 121,
+      "nz_src": 41
+    },
+    "quadrature_coarse": {
+      "ds_um": 0.02,
+      "nx": 121,
+      "nx_src": 9,
+      "nz": 91,
+      "nz_src": 31
+    },
+    "quadrature_fine": {
+      "ds_um": 0.02,
+      "nx": 121,
+      "nx_src": 17,
+      "nz": 91,
+      "nz_src": 61
+    },
+    "step_coarse": {
+      "ds_um": 0.035,
+      "nx": 121,
+      "nx_src": 13,
+      "nz": 91,
+      "nz_src": 41
+    },
+    "step_fine": {
+      "ds_um": 0.0125,
+      "nx": 121,
+      "nx_src": 13,
+      "nz": 91,
+      "nz_src": 41
+    }
+  },
+  "convergence": {
+    "axes": {
+      "field_mesh": [
+        {
+          "baseline": 0.002609795073433014,
+          "baseline_to_fine_change": 0.01648437180606748,
+          "change_mode": "relative",
+          "coarse": 0.0025265150365936405,
+          "coarse_to_baseline_change": 0.03191056557932113,
+          "fine": 0.0026535369633378177,
+          "metric": "D_100",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 0.0025486032227585954,
+          "baseline_to_fine_change": 0.016410000047711842,
+          "change_mode": "relative",
+          "coarse": 0.0024676836143807984,
+          "coarse_to_baseline_change": 0.031750571314984835,
+          "fine": 0.002591123560510195,
+          "metric": "D_500",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 0.0023489448907497135,
+          "baseline_to_fine_change": 0.01633353464986115,
+          "change_mode": "relative",
+          "coarse": 0.0022748093132495596,
+          "coarse_to_baseline_change": 0.031561224697992836,
+          "fine": 0.002387948530819946,
+          "metric": "D_1000",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 25700.98361598991,
+          "baseline_to_fine_change": 0.0018017110412861148,
+          "change_mode": "relative",
+          "coarse": 25791.595476595787,
+          "coarse_to_baseline_change": 0.003525618394990254,
+          "fine": 25654.76114956518,
+          "metric": "w_100",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 25757.75760109195,
+          "baseline_to_fine_change": 0.0017575201007671507,
+          "change_mode": "relative",
+          "coarse": 25846.39333856657,
+          "coarse_to_baseline_change": 0.0034411278670803615,
+          "fine": 25712.567247312472,
+          "metric": "w_500",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 25924.052412698074,
+          "baseline_to_fine_change": 0.001630005678040336,
+          "change_mode": "relative",
+          "coarse": 26006.944816603384,
+          "coarse_to_baseline_change": 0.003197509501435309,
+          "fine": 25881.864826073303,
+          "metric": "w_1000",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 0.0026063033282766315,
+          "baseline_to_fine_change": 0.016447180304125453,
+          "change_mode": "relative",
+          "coarse": 0.0025233311876680874,
+          "coarse_to_baseline_change": 0.03183518192543146,
+          "fine": 0.0026498864891491333,
+          "metric": "D_low",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 25706.288826170523,
+          "baseline_to_fine_change": 0.0017975688301792524,
+          "change_mode": "relative",
+          "coarse": 25796.715769692397,
+          "coarse_to_baseline_change": 0.003517697328204526,
+          "fine": 25660.162917133362,
+          "metric": "w_low",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 0.008885176173377037,
+          "baseline_to_fine_change": 0.00017520399136009349,
+          "change_mode": "absolute",
+          "coarse": 0.008550547974757738,
+          "coarse_to_baseline_change": 0.0003346281986192981,
+          "fine": 0.00906038016473713,
+          "metric": "law_residual_1ghz",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.002
+        },
+        {
+          "baseline": 0.0001738486963945905,
+          "baseline_to_fine_change": 3.361045356449564e-06,
+          "change_mode": "absolute",
+          "coarse": 0.00016742979312769137,
+          "coarse_to_baseline_change": 6.418903266899135e-06,
+          "fine": 0.00017720974175104007,
+          "metric": "max_kernel_fit_1ghz",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 2e-05
+        },
+        {
+          "baseline": 1.7349943154531403e-12,
+          "baseline_to_fine_change": 2.803295282852889e-09,
+          "change_mode": "scaled_absolute",
+          "coarse": -2.7236799932148167e-12,
+          "coarse_to_baseline_change": 1.6802759374640487e-09,
+          "fine": 9.173641967653824e-12,
+          "metric": "D_out",
+          "pass": true,
+          "refinement_trend_improved": false,
+          "tolerance": 0.01
+        },
+        {
+          "baseline": 0.0048710536227474285,
+          "baseline_to_fine_change": 0.0004834656699796802,
+          "change_mode": "relative",
+          "coarse": 0.004875711312547092,
+          "coarse_to_baseline_change": 0.0009561976033095711,
+          "fine": 0.0048686997735494794,
+          "metric": "D_in",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        }
+      ],
+      "source_quadrature": [
+        {
+          "baseline": 0.002609795073433014,
+          "baseline_to_fine_change": 3.33225216449367e-05,
+          "change_mode": "relative",
+          "coarse": 0.002610030022834949,
+          "coarse_to_baseline_change": 9.00259964189619e-05,
+          "fine": 0.0026097081113779855,
+          "metric": "D_100",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 0.0025486032227585954,
+          "baseline_to_fine_change": 3.4258819874168186e-05,
+          "change_mode": "relative",
+          "coarse": 0.002548838369932329,
+          "coarse_to_baseline_change": 9.22651166857926e-05,
+          "fine": 0.0025485159136109646,
+          "metric": "D_500",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 0.0023489448907497135,
+          "baseline_to_fine_change": 3.757510770994029e-05,
+          "change_mode": "relative",
+          "coarse": 0.0023491798915096715,
+          "coarse_to_baseline_change": 0.00010004524196519947,
+          "fine": 0.002348856632208763,
+          "metric": "D_1000",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 25700.98361598991,
+          "baseline_to_fine_change": 2.029129032448764e-06,
+          "change_mode": "relative",
+          "coarse": 25700.860359343093,
+          "coarse_to_baseline_change": 4.795794925932012e-06,
+          "fine": 25701.035766707748,
+          "metric": "w_100",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 25757.75760109195,
+          "baseline_to_fine_change": 1.998908381260782e-06,
+          "change_mode": "relative",
+          "coarse": 25757.636750740323,
+          "coarse_to_baseline_change": 4.691804057627082e-06,
+          "fine": 25757.80908859242,
+          "metric": "w_500",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 25924.052412698074,
+          "baseline_to_fine_change": 1.8962709259357699e-06,
+          "change_mode": "relative",
+          "coarse": 25923.93957095975,
+          "coarse_to_baseline_change": 4.352781599485763e-06,
+          "fine": 25924.101571818166,
+          "metric": "w_1000",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 0.0026063033282766315,
+          "baseline_to_fine_change": 3.335068141932656e-05,
+          "change_mode": "relative",
+          "coarse": 0.00260653825579809,
+          "coarse_to_baseline_change": 9.013821181506491e-05,
+          "fine": 0.002606216409183459,
+          "metric": "D_low",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 25706.288826170523,
+          "baseline_to_fine_change": 2.0261071221187927e-06,
+          "change_mode": "relative",
+          "coarse": 25706.165788696337,
+          "coarse_to_baseline_change": 4.786279148198812e-06,
+          "fine": 25706.340909970924,
+          "metric": "w_low",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 0.008885176173377037,
+          "baseline_to_fine_change": 1.2316185358726695e-07,
+          "change_mode": "absolute",
+          "coarse": 0.008885596415428429,
+          "coarse_to_baseline_change": 4.202420513920585e-07,
+          "fine": 0.00888505301152345,
+          "metric": "law_residual_1ghz",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.002
+        },
+        {
+          "baseline": 0.0001738486963945905,
+          "baseline_to_fine_change": 8.673364259578287e-09,
+          "change_mode": "absolute",
+          "coarse": 0.0001738624125890823,
+          "coarse_to_baseline_change": 1.371619449180221e-08,
+          "fine": 0.00017384002303033093,
+          "metric": "max_kernel_fit_1ghz",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 2e-05
+        },
+        {
+          "baseline": 1.7349943154531403e-12,
+          "baseline_to_fine_change": 0.0,
+          "change_mode": "scaled_absolute",
+          "coarse": 1.7349943154531403e-12,
+          "coarse_to_baseline_change": 0.0,
+          "fine": 1.7349943154531403e-12,
+          "metric": "D_out",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.01
+        },
+        {
+          "baseline": 0.0048710536227474285,
+          "baseline_to_fine_change": 0.0,
+          "change_mode": "relative",
+          "coarse": 0.0048710536227474285,
+          "coarse_to_baseline_change": 0.0,
+          "fine": 0.0048710536227474285,
+          "metric": "D_in",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        }
+      ],
+      "trajectory_step": [
+        {
+          "baseline": 0.002609795073433014,
+          "baseline_to_fine_change": 4.994779469031745e-06,
+          "change_mode": "relative",
+          "coarse": 0.0026098230676955686,
+          "coarse_to_baseline_change": 1.0726613303757006e-05,
+          "fine": 0.002609808108848974,
+          "metric": "D_100",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 0.0025486032227585954,
+          "baseline_to_fine_change": 5.73805705415392e-06,
+          "change_mode": "relative",
+          "coarse": 0.002548625362590558,
+          "coarse_to_baseline_change": 8.687045423485274e-06,
+          "fine": 0.00254861784687321,
+          "metric": "D_500",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 0.0023489448907497135,
+          "baseline_to_fine_change": 8.208062974252811e-06,
+          "change_mode": "relative",
+          "coarse": 0.0023489507974758786,
+          "coarse_to_baseline_change": 2.5146295208126434e-06,
+          "fine": 0.002348964171195555,
+          "metric": "D_1000",
+          "pass": true,
+          "refinement_trend_improved": false,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 25700.98361598991,
+          "baseline_to_fine_change": 8.429617005903225e-07,
+          "change_mode": "relative",
+          "coarse": 25700.95091088553,
+          "coarse_to_baseline_change": 1.2725234515283223e-06,
+          "fine": 25700.961951063317,
+          "metric": "w_100",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 25757.75760109195,
+          "baseline_to_fine_change": 8.588116976130592e-07,
+          "change_mode": "relative",
+          "coarse": 25757.727561283165,
+          "coarse_to_baseline_change": 1.166243166462044e-06,
+          "fine": 25757.735480047417,
+          "metric": "w_500",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 25924.052412698074,
+          "baseline_to_fine_change": 8.990112923295446e-07,
+          "change_mode": "relative",
+          "coarse": 25924.02899010893,
+          "coarse_to_baseline_change": 9.035080152869857e-07,
+          "fine": 25924.029106703165,
+          "metric": "w_1000",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 0.0026063033282766315,
+          "baseline_to_fine_change": 5.061978790390806e-06,
+          "change_mode": "relative",
+          "coarse": 0.002606330644944863,
+          "coarse_to_baseline_change": 1.0481001169472471e-05,
+          "fine": 0.002606316521395584,
+          "metric": "D_low",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        },
+        {
+          "baseline": 25706.288826170523,
+          "baseline_to_fine_change": 8.44627407932119e-07,
+          "change_mode": "relative",
+          "coarse": 25706.25637353246,
+          "coarse_to_baseline_change": 1.262439642066521e-06,
+          "fine": 25706.267113952763,
+          "metric": "w_low",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.005
+        },
+        {
+          "baseline": 0.008885176173377037,
+          "baseline_to_fine_change": 6.768898806915058e-08,
+          "change_mode": "absolute",
+          "coarse": 0.008885580730527058,
+          "coarse_to_baseline_change": 4.045571500212869e-07,
+          "fine": 0.008885108484388967,
+          "metric": "law_residual_1ghz",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.002
+        },
+        {
+          "baseline": 0.0001738486963945905,
+          "baseline_to_fine_change": 1.4702875013945967e-09,
+          "change_mode": "absolute",
+          "coarse": 0.00017383143619658062,
+          "coarse_to_baseline_change": 1.7260198009890447e-08,
+          "fine": 0.0001738501666820919,
+          "metric": "max_kernel_fit_1ghz",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 2e-05
+        },
+        {
+          "baseline": 1.7349943154531403e-12,
+          "baseline_to_fine_change": 8.52593741295828e-11,
+          "change_mode": "scaled_absolute",
+          "coarse": 1.0849752942930935e-08,
+          "coarse_to_baseline_change": 4.156634317992014e-06,
+          "fine": 1.5124837094943667e-12,
+          "metric": "D_out",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.01
+        },
+        {
+          "baseline": 0.0048710536227474285,
+          "baseline_to_fine_change": 1.5245874521591657e-06,
+          "change_mode": "relative",
+          "coarse": 0.004871081023479939,
+          "coarse_to_baseline_change": 5.625216766707282e-06,
+          "fine": 0.0048710461964115185,
+          "metric": "D_in",
+          "pass": true,
+          "refinement_trend_improved": true,
+          "tolerance": 0.02
+        }
+      ]
+    },
+    "integrity": [
+      {
+        "checks": {
+          "finite_kernel_collection": true,
+          "finite_kernel_dc_ramo": true,
+          "inside_point_dc_ramo": true,
+          "inside_points_reached": true,
+          "outside_point_dc_ramo": true,
+          "outside_points_reached": true
+        },
+        "configuration": "baseline",
+        "pass": true
+      },
+      {
+        "checks": {
+          "finite_kernel_collection": true,
+          "finite_kernel_dc_ramo": true,
+          "inside_point_dc_ramo": true,
+          "inside_points_reached": true,
+          "outside_point_dc_ramo": true,
+          "outside_points_reached": true
+        },
+        "configuration": "mesh_coarse",
+        "pass": true
+      },
+      {
+        "checks": {
+          "finite_kernel_collection": true,
+          "finite_kernel_dc_ramo": true,
+          "inside_point_dc_ramo": true,
+          "inside_points_reached": true,
+          "outside_point_dc_ramo": true,
+          "outside_points_reached": true
+        },
+        "configuration": "mesh_fine",
+        "pass": true
+      },
+      {
+        "checks": {
+          "finite_kernel_collection": true,
+          "finite_kernel_dc_ramo": true,
+          "inside_point_dc_ramo": true,
+          "inside_points_reached": true,
+          "outside_point_dc_ramo": true,
+          "outside_points_reached": true
+        },
+        "configuration": "quadrature_coarse",
+        "pass": true
+      },
+      {
+        "checks": {
+          "finite_kernel_collection": true,
+          "finite_kernel_dc_ramo": true,
+          "inside_point_dc_ramo": true,
+          "inside_points_reached": true,
+          "outside_point_dc_ramo": true,
+          "outside_points_reached": true
+        },
+        "configuration": "quadrature_fine",
+        "pass": true
+      },
+      {
+        "checks": {
+          "finite_kernel_collection": true,
+          "finite_kernel_dc_ramo": true,
+          "inside_point_dc_ramo": true,
+          "inside_points_reached": true,
+          "outside_point_dc_ramo": true,
+          "outside_points_reached": true
+        },
+        "configuration": "step_coarse",
+        "pass": true
+      },
+      {
+        "checks": {
+          "finite_kernel_collection": true,
+          "finite_kernel_dc_ramo": true,
+          "inside_point_dc_ramo": true,
+          "inside_points_reached": true,
+          "outside_point_dc_ramo": true,
+          "outside_points_reached": true
+        },
+        "configuration": "step_fine",
+        "pass": true
+      }
+    ],
+    "overall_pass": true,
+    "positive_D_sign_stability": [
+      {
+        "axis": "field_mesh",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_100",
+        "pass": true
+      },
+      {
+        "axis": "field_mesh",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_500",
+        "pass": true
+      },
+      {
+        "axis": "field_mesh",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_1000",
+        "pass": true
+      },
+      {
+        "axis": "field_mesh",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_in",
+        "pass": true
+      },
+      {
+        "axis": "source_quadrature",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_100",
+        "pass": true
+      },
+      {
+        "axis": "source_quadrature",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_500",
+        "pass": true
+      },
+      {
+        "axis": "source_quadrature",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_1000",
+        "pass": true
+      },
+      {
+        "axis": "source_quadrature",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_in",
+        "pass": true
+      },
+      {
+        "axis": "trajectory_step",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_100",
+        "pass": true
+      },
+      {
+        "axis": "trajectory_step",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_500",
+        "pass": true
+      },
+      {
+        "axis": "trajectory_step",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_1000",
+        "pass": true
+      },
+      {
+        "axis": "trajectory_step",
+        "baseline_positive": true,
+        "fine_positive": true,
+        "metric": "D_in",
+        "pass": true
+      }
+    ]
+  },
+  "model_scope": {
+    "bias_v": 0.3,
+    "contact_fraction": 1.0,
+    "depletion_width_um": 3.0,
+    "kernel_status": "theoretical wavelength-dependent generation kernels supplied exactly to the inverse",
+    "microscopic_diffusion_m2_per_s": 0.0,
+    "recombination": 0.0,
+    "space_charge_drop_v": 0.05
+  },
+  "results": {
+    "baseline": {
+      "causal_point_controls": {
+        "inside_depletion": {
+          "D_eff_m2_per_s": 0.0048710536227474285,
+          "D_over_finite_kernel_D100": 1.8664506161167198,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -22640.998337791938,
+          "gamma_real_per_m": 89.97805885532429,
+          "rank1_fit_rel": 0.0016770104133349353,
+          "w_eff_m_per_s": 27750.484973789306
+        },
+        "outside_depletion": {
+          "D_eff_m2_per_s": 1.7349943154531403e-12,
+          "abs_D_over_finite_kernel_D100": 6.648009773314766e-10,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -23659.761023009585,
+          "gamma_real_per_m": 3.657204529086973e-08,
+          "rank1_fit_rel": 5.927744692836196e-15,
+          "w_eff_m_per_s": 26556.419150088048
+        }
+      },
+      "finite_kernel": {
+        "diagnostics": {
+          "collection_fraction": 1.0,
+          "dc_ramo_error": 1.1102230246251565e-16,
+          "max_trajectory_ps": 259.2390608810137
+        },
+        "frequency_law": {
+          "anchored_at_hz": 100000000.0,
+          "max_kernel_fit_rel_through_1ghz": 0.0001738486963945905,
+          "max_relative_residual_through_1ghz": 0.008885176173377037,
+          "relative_residual_1ghz": 0.008885176173377037
+        },
+        "low_band": {
+          "D_eff_m2_per_s": 0.0026063033282766315,
+          "w_eff_m_per_s": 25706.288826170523
+        },
+        "probe": {
+          "100000000": {
+            "D_eff_m2_per_s": 0.002609795073433014,
+            "gamma_imag_per_m": -24446.954876019656,
+            "gamma_real_per_m": 60.688098139895985,
+            "kernel_fit_rel": 1.643839016951999e-05,
+            "w_eff_m_per_s": 25700.98361598991
+          },
+          "1000000000": {
+            "D_eff_m2_per_s": 0.0023489448907497135,
+            "gamma_imag_per_m": -242135.95701348045,
+            "gamma_real_per_m": 5309.81774562405,
+            "kernel_fit_rel": 0.0001738486963945905,
+            "w_eff_m_per_s": 25924.052412698074
+          },
+          "500000000": {
+            "D_eff_m2_per_s": 0.0025486032227585954,
+            "gamma_imag_per_m": -121931.36409602486,
+            "gamma_real_per_m": 1470.8278419132619,
+            "kernel_fit_rel": 8.3324916108225e-05,
+            "w_eff_m_per_s": 25757.75760109195
+          }
+        }
+      },
+      "numerical": {
+        "ds_um": 0.02,
+        "nx": 121,
+        "nx_src": 13,
+        "nz": 91,
+        "nz_src": 41
+      }
+    },
+    "mesh_coarse": {
+      "causal_point_controls": {
+        "inside_depletion": {
+          "D_eff_m2_per_s": 0.004875711312547092,
+          "D_over_finite_kernel_D100": 1.929816859162945,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -22710.821396114876,
+          "gamma_real_per_m": 90.89994032129893,
+          "rank1_fit_rel": 0.001690262934514833,
+          "w_eff_m_per_s": 27665.15524923014
+        },
+        "outside_depletion": {
+          "D_eff_m2_per_s": -2.7236799932148167e-12,
+          "abs_D_over_finite_kernel_D100": 1.0780383072198148e-09,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -23605.68329653252,
+          "gamma_real_per_m": -5.701983297606167e-08,
+          "rank1_fit_rel": 1.4317434511437221e-15,
+          "w_eff_m_per_s": 26617.25665065808
+        }
+      },
+      "finite_kernel": {
+        "diagnostics": {
+          "collection_fraction": 1.0,
+          "dc_ramo_error": 1.1102230246251565e-16,
+          "max_trajectory_ps": 259.0085074948659
+        },
+        "frequency_law": {
+          "anchored_at_hz": 100000000.0,
+          "max_kernel_fit_rel_through_1ghz": 0.00016742979312769137,
+          "max_relative_residual_through_1ghz": 0.008550547974757738,
+          "relative_residual_1ghz": 0.008550547974757738
+        },
+        "low_band": {
+          "D_eff_m2_per_s": 0.0025233311876680874,
+          "w_eff_m_per_s": 25796.715769692397
+        },
+        "probe": {
+          "100000000": {
+            "D_eff_m2_per_s": 0.0025265150365936405,
+            "gamma_imag_per_m": -24361.089839347263,
+            "gamma_real_per_m": 58.13459245795873,
+            "kernel_fit_rel": 1.5835169185276903e-05,
+            "w_eff_m_per_s": 25791.595476595787
+          },
+          "1000000000": {
+            "D_eff_m2_per_s": 0.0022748093132495596,
+            "gamma_imag_per_m": -241381.33177992093,
+            "gamma_real_per_m": 5094.124443406271,
+            "kernel_fit_rel": 0.00016742979312769137,
+            "w_eff_m_per_s": 26006.944816603384
+          },
+          "500000000": {
+            "D_eff_m2_per_s": 0.0024676836143807984,
+            "gamma_imag_per_m": -121515.88180579974,
+            "gamma_real_per_m": 1409.6041491418455,
+            "kernel_fit_rel": 8.026197099861089e-05,
+            "w_eff_m_per_s": 25846.39333856657
+          }
+        }
+      },
+      "numerical": {
+        "ds_um": 0.02,
+        "nx": 81,
+        "nx_src": 13,
+        "nz": 61,
+        "nz_src": 41
+      }
+    },
+    "mesh_fine": {
+      "causal_point_controls": {
+        "inside_depletion": {
+          "D_eff_m2_per_s": 0.0048686997735494794,
+          "D_over_finite_kernel_D100": 1.8347962891857605,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -22606.30878416166,
+          "gamma_real_per_m": 89.52182005500914,
+          "rank1_fit_rel": 0.0016704373447432297,
+          "w_eff_m_per_s": 27793.074516385743
+        },
+        "outside_depletion": {
+          "D_eff_m2_per_s": 9.173641967653824e-12,
+          "abs_D_over_finite_kernel_D100": 3.4571374336969963e-09,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -23686.927075019248,
+          "gamma_real_per_m": 1.9403857963569853e-07,
+          "rank1_fit_rel": 1.385792717388622e-14,
+          "w_eff_m_per_s": 26525.962136329497
+        }
+      },
+      "finite_kernel": {
+        "diagnostics": {
+          "collection_fraction": 1.0,
+          "dc_ramo_error": 1.1102230246251565e-16,
+          "max_trajectory_ps": 259.3524595992896
+        },
+        "frequency_law": {
+          "anchored_at_hz": 100000000.0,
+          "max_kernel_fit_rel_through_1ghz": 0.00017720974175104007,
+          "max_relative_residual_through_1ghz": 0.00906038016473713,
+          "relative_residual_1ghz": 0.00906038016473713
+        },
+        "low_band": {
+          "D_eff_m2_per_s": 0.0026498864891491333,
+          "w_eff_m_per_s": 25660.162917133362
+        },
+        "probe": {
+          "100000000": {
+            "D_eff_m2_per_s": 0.0026535369633378177,
+            "gamma_imag_per_m": -24490.98876673559,
+            "gamma_real_per_m": 62.03931835160982,
+            "kernel_fit_rel": 1.6754031810755845e-05,
+            "w_eff_m_per_s": 25654.76114956518
+          },
+          "1000000000": {
+            "D_eff_m2_per_s": 0.002387948530819946,
+            "gamma_imag_per_m": -242521.28193703917,
+            "gamma_real_per_m": 5423.901937800144,
+            "kernel_fit_rel": 0.00017720974175104007,
+            "w_eff_m_per_s": 25881.864826073303
+          },
+          "500000000": {
+            "D_eff_m2_per_s": 0.002591123560510195,
+            "gamma_imag_per_m": -122144.20725684382,
+            "gamma_real_per_m": 1503.2203611375955,
+            "kernel_fit_rel": 8.49279347595882e-05,
+            "w_eff_m_per_s": 25712.567247312472
+          }
+        }
+      },
+      "numerical": {
+        "ds_um": 0.02,
+        "nx": 161,
+        "nx_src": 13,
+        "nz": 121,
+        "nz_src": 41
+      }
+    },
+    "quadrature_coarse": {
+      "causal_point_controls": {
+        "inside_depletion": {
+          "D_eff_m2_per_s": 0.0048710536227474285,
+          "D_over_finite_kernel_D100": 1.8662826021658603,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -22640.998337791938,
+          "gamma_real_per_m": 89.97805885532429,
+          "rank1_fit_rel": 0.0016770104133349353,
+          "w_eff_m_per_s": 27750.484973789306
+        },
+        "outside_depletion": {
+          "D_eff_m2_per_s": 1.7349943154531403e-12,
+          "abs_D_over_finite_kernel_D100": 6.647411333485862e-10,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -23659.761023009585,
+          "gamma_real_per_m": 3.657204529086973e-08,
+          "rank1_fit_rel": 5.927744692836196e-15,
+          "w_eff_m_per_s": 26556.419150088048
+        }
+      },
+      "finite_kernel": {
+        "diagnostics": {
+          "collection_fraction": 1.0,
+          "dc_ramo_error": 1.1102230246251565e-16,
+          "max_trajectory_ps": 259.23906088101364
+        },
+        "frequency_law": {
+          "anchored_at_hz": 100000000.0,
+          "max_kernel_fit_rel_through_1ghz": 0.0001738624125890823,
+          "max_relative_residual_through_1ghz": 0.008885596415428429,
+          "relative_residual_1ghz": 0.008885596415428429
+        },
+        "low_band": {
+          "D_eff_m2_per_s": 0.00260653825579809,
+          "w_eff_m_per_s": 25706.165788696337
+        },
+        "probe": {
+          "100000000": {
+            "D_eff_m2_per_s": 0.002610030022834949,
+            "gamma_imag_per_m": -24447.072059131082,
+            "gamma_real_per_m": 60.69443450379404,
+            "kernel_fit_rel": 1.6439685244765247e-05,
+            "w_eff_m_per_s": 25700.860359343093
+          },
+          "1000000000": {
+            "D_eff_m2_per_s": 0.0023491798915096715,
+            "gamma_imag_per_m": -242136.96047387036,
+            "gamma_real_per_m": 5310.415542982949,
+            "kernel_fit_rel": 0.0001738624125890823,
+            "w_eff_m_per_s": 25923.93957095975
+          },
+          "500000000": {
+            "D_eff_m2_per_s": 0.002548838369932329,
+            "gamma_imag_per_m": -121931.92896870486,
+            "gamma_real_per_m": 1470.9840352268254,
+            "kernel_fit_rel": 8.333148443213903e-05,
+            "w_eff_m_per_s": 25757.636750740323
+          }
+        }
+      },
+      "numerical": {
+        "ds_um": 0.02,
+        "nx": 121,
+        "nx_src": 9,
+        "nz": 91,
+        "nz_src": 31
+      }
+    },
+    "quadrature_fine": {
+      "causal_point_controls": {
+        "inside_depletion": {
+          "D_eff_m2_per_s": 0.0048710536227474285,
+          "D_over_finite_kernel_D100": 1.8665128109577744,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -22640.998337791938,
+          "gamma_real_per_m": 89.97805885532429,
+          "rank1_fit_rel": 0.0016770104133349353,
+          "w_eff_m_per_s": 27750.484973789306
+        },
+        "outside_depletion": {
+          "D_eff_m2_per_s": 1.7349943154531403e-12,
+          "abs_D_over_finite_kernel_D100": 6.648231301764333e-10,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -23659.761023009585,
+          "gamma_real_per_m": 3.657204529086973e-08,
+          "rank1_fit_rel": 5.927744692836196e-15,
+          "w_eff_m_per_s": 26556.419150088048
+        }
+      },
+      "finite_kernel": {
+        "diagnostics": {
+          "collection_fraction": 1.0,
+          "dc_ramo_error": 1.1102230246251565e-16,
+          "max_trajectory_ps": 259.23906088101376
+        },
+        "frequency_law": {
+          "anchored_at_hz": 100000000.0,
+          "max_kernel_fit_rel_through_1ghz": 0.00017384002303033093,
+          "max_relative_residual_through_1ghz": 0.00888505301152345,
+          "relative_residual_1ghz": 0.00888505301152345
+        },
+        "low_band": {
+          "D_eff_m2_per_s": 0.002606216409183459,
+          "w_eff_m_per_s": 25706.340909970924
+        },
+        "probe": {
+          "100000000": {
+            "D_eff_m2_per_s": 0.0026097081113779855,
+            "gamma_imag_per_m": -24446.905292518048,
+            "gamma_real_per_m": 60.685706647714305,
+            "kernel_fit_rel": 1.643742616892785e-05,
+            "w_eff_m_per_s": 25701.035766707748
+          },
+          "1000000000": {
+            "D_eff_m2_per_s": 0.002348856632208763,
+            "gamma_imag_per_m": -242135.51706881297,
+            "gamma_real_per_m": 5309.589084020593,
+            "kernel_fit_rel": 0.00017384002303033093,
+            "w_eff_m_per_s": 25924.101571818166
+          },
+          "500000000": {
+            "D_eff_m2_per_s": 0.0025485159136109646,
+            "gamma_imag_per_m": -121931.123078913,
+            "gamma_real_per_m": 1470.7687167830557,
+            "kernel_fit_rel": 8.332020994567315e-05,
+            "w_eff_m_per_s": 25757.80908859242
+          }
+        }
+      },
+      "numerical": {
+        "ds_um": 0.02,
+        "nx": 121,
+        "nx_src": 17,
+        "nz": 91,
+        "nz_src": 61
+      }
+    },
+    "step_coarse": {
+      "causal_point_controls": {
+        "inside_depletion": {
+          "D_eff_m2_per_s": 0.004871081023479939,
+          "D_over_finite_kernel_D100": 1.8664410947141425,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -22640.76534116116,
+          "gamma_real_per_m": 89.97578710170211,
+          "rank1_fit_rel": 0.0016769624715117207,
+          "w_eff_m_per_s": 27750.7705808827
+        },
+        "outside_depletion": {
+          "D_eff_m2_per_s": 1.0849752942930935e-08,
+          "abs_D_over_finite_kernel_D100": 4.157275287060395e-06,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -23659.776050652607,
+          "gamma_real_per_m": 0.00022870300413975283,
+          "rank1_fit_rel": 8.449325979616181e-07,
+          "w_eff_m_per_s": 26556.402282625477
+        }
+      },
+      "finite_kernel": {
+        "diagnostics": {
+          "collection_fraction": 1.0,
+          "dc_ramo_error": 1.1102230246251565e-16,
+          "max_trajectory_ps": 259.2389669685025
+        },
+        "frequency_law": {
+          "anchored_at_hz": 100000000.0,
+          "max_kernel_fit_rel_through_1ghz": 0.00017383143619658062,
+          "max_relative_residual_through_1ghz": 0.008885580730527058,
+          "relative_residual_1ghz": 0.008885580730527058
+        },
+        "low_band": {
+          "D_eff_m2_per_s": 0.002606330644944863,
+          "w_eff_m_per_s": 25706.25637353246
+        },
+        "probe": {
+          "100000000": {
+            "D_eff_m2_per_s": 0.0026098230676955686,
+            "gamma_imag_per_m": -24446.98597738511,
+            "gamma_real_per_m": 60.6889807521818,
+            "kernel_fit_rel": 1.643657289705379e-05,
+            "w_eff_m_per_s": 25700.95091088553
+          },
+          "1000000000": {
+            "D_eff_m2_per_s": 0.0023489507974758786,
+            "gamma_imag_per_m": -242136.17377839895,
+            "gamma_real_per_m": 5309.845380256054,
+            "kernel_fit_rel": 0.00017383143619658062,
+            "w_eff_m_per_s": 25924.02899010893
+          },
+          "500000000": {
+            "D_eff_m2_per_s": 0.002548625362590558,
+            "gamma_imag_per_m": -121931.50551644176,
+            "gamma_real_per_m": 1470.8457415824007,
+            "kernel_fit_rel": 8.331593943867376e-05,
+            "w_eff_m_per_s": 25757.727561283165
+          }
+        }
+      },
+      "numerical": {
+        "ds_um": 0.035,
+        "nx": 121,
+        "nx_src": 13,
+        "nz": 91,
+        "nz_src": 41
+      }
+    },
+    "step_fine": {
+      "causal_point_controls": {
+        "inside_depletion": {
+          "D_eff_m2_per_s": 0.0048710461964115185,
+          "D_over_finite_kernel_D100": 1.8664384480588643,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 0.0,
+          "gamma_imag_per_m": -22641.067021246083,
+          "gamma_real_per_m": 89.97874055925942,
+          "rank1_fit_rel": 0.0016770241373323621,
+          "w_eff_m_per_s": 27750.40078255074
+        },
+        "outside_depletion": {
+          "D_eff_m2_per_s": 1.5124837094943667e-12,
+          "abs_D_over_finite_kernel_D100": 5.795382826676212e-10,
+          "all_trajectories_reached": true,
+          "dc_ramo_error": 1.1102230246251565e-16,
+          "gamma_imag_per_m": -23659.76102301187,
+          "gamma_real_per_m": 3.188173138820904e-08,
+          "rank1_fit_rel": 8.346511839126239e-15,
+          "w_eff_m_per_s": 26556.419150085487
+        }
+      },
+      "finite_kernel": {
+        "diagnostics": {
+          "collection_fraction": 1.0,
+          "dc_ramo_error": 1.1102230246251565e-16,
+          "max_trajectory_ps": 259.2388335381937
+        },
+        "frequency_law": {
+          "anchored_at_hz": 100000000.0,
+          "max_kernel_fit_rel_through_1ghz": 0.0001738501666820919,
+          "max_relative_residual_through_1ghz": 0.008885108484388967,
+          "relative_residual_1ghz": 0.008885108484388967
+        },
+        "low_band": {
+          "D_eff_m2_per_s": 0.002606316521395584,
+          "w_eff_m_per_s": 25706.267113952763
+        },
+        "probe": {
+          "100000000": {
+            "D_eff_m2_per_s": 0.002609808108848974,
+            "gamma_imag_per_m": -24446.97547984051,
+            "gamma_real_per_m": 60.68855471421508,
+            "kernel_fit_rel": 1.6438519501716457e-05,
+            "w_eff_m_per_s": 25700.961951063317
+          },
+          "1000000000": {
+            "D_eff_m2_per_s": 0.002348964171195555,
+            "gamma_imag_per_m": -242136.17004937332,
+            "gamma_real_per_m": 5309.875395397241,
+            "kernel_fit_rel": 0.0001738501666820919,
+            "w_eff_m_per_s": 25924.029106703165
+          },
+          "500000000": {
+            "D_eff_m2_per_s": 0.00254861784687321,
+            "gamma_imag_per_m": -121931.46828344106,
+            "gamma_real_per_m": 1470.840055229742,
+            "kernel_fit_rel": 8.332558274647655e-05,
+            "w_eff_m_per_s": 25757.735480047417
+          }
+        }
+      },
+      "numerical": {
+        "ds_um": 0.0125,
+        "nx": 121,
+        "nx_src": 13,
+        "nz": 91,
+        "nz_src": 41
+      }
+    }
+  },
+  "status": "CHECKED numerical convergence gate passed",
+  "tolerances": {
+    "D_eff_probe_relative": 0.02,
+    "dc_ramo_error_absolute_max": 1e-10,
+    "inside_point_D_relative": 0.02,
+    "law_residual_1ghz_absolute": 0.002,
+    "low_band_D_relative": 0.02,
+    "low_band_w_relative": 0.005,
+    "max_kernel_fit_through_1ghz_absolute": 2e-05,
+    "minimum_collection_fraction": 0.999,
+    "outside_point_D_change_over_finite_D100": 0.01,
+    "w_eff_probe_relative": 0.005
+  }
+}
