@@ -28,7 +28,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   convergence:
@@ -37,6 +37,9 @@ jobs:
     steps:
       - name: Check out candidate branch
         uses: actions/checkout@v4
+        with:
+          ref: agent/publication-mining-roadmap
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -73,6 +76,32 @@ jobs:
           if [ -f results/PAPER02_INFERENCE_CONVERGENCE.md ]; then
             cat results/PAPER02_INFERENCE_CONVERGENCE.md
           fi
+
+      - name: Persist checked outputs to candidate branch
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            experiments/01-vanishing-absorber/numerics/results/paper02_inference_convergence_summary.json \
+            experiments/01-vanishing-absorber/numerics/results/paper02_inference_convergence.csv \
+            experiments/01-vanishing-absorber/numerics/results/PAPER02_INFERENCE_CONVERGENCE.md
+          if git diff --cached --quiet; then
+            echo "Checked convergence outputs already persisted."
+            exit 0
+          fi
+          git commit -m "Persist checked Paper 02 inference convergence"
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:agent/publication-mining-roadmap; then
+              exit 0
+            fi
+            echo "Push raced with another branch update; rebasing attempt ${attempt}."
+            git fetch origin agent/publication-mining-roadmap
+            git rebase origin/agent/publication-mining-roadmap
+          done
+          echo "Failed to persist convergence outputs after retries." >&2
+          exit 1
 
       - name: Upload convergence outputs
         if: always()
