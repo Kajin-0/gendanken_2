@@ -70,7 +70,17 @@ jobs:
             echo 'Rev2 source and evidence already current.'
           else
             git commit -m 'Revise Paper 02 after adversarial review'
-            git push
+            branch='agent/publication-mining-roadmap'
+            for attempt in 1 2 3; do
+              if git push origin "HEAD:${branch}"; then
+                exit 0
+              fi
+              echo "Push attempt ${attempt} lost a branch race; rebasing onto origin/${branch}."
+              git fetch origin "${branch}"
+              git rebase "origin/${branch}"
+            done
+            echo 'Unable to persist Rev2 after three push attempts.'
+            exit 1
           fi
       - name: Upload Rev2 PDF
         uses: actions/upload-artifact@v4
