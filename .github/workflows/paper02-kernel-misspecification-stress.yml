@@ -36,11 +36,7 @@ jobs:
         run: python paper02_kernel_misspecification_stress.py
       - name: Print compact summary
         working-directory: experiments/01-vanishing-absorber/numerics
-        run: python - <<'PY'
-          import json
-          p=json.load(open('paper02_kernel_misspecification_stress_summary.json'))
-          print(json.dumps(p['summary'], indent=2, sort_keys=True))
-          PY
+        run: python -c "import json; p=json.load(open('paper02_kernel_misspecification_stress_summary.json')); print(json.dumps(p['summary'], indent=2, sort_keys=True))"
       - name: Upload outputs
         uses: actions/upload-artifact@v4
         with:
