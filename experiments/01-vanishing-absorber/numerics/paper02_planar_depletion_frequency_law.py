@@ -131,8 +131,8 @@ def run(args):
     gamma_depleted = []
 
     for jf, f in enumerate(FREQUENCIES):
-        _, qp, fitp = best_rank_one(np.diff(Jp[jf]))
-        _, qd, fitd = best_rank_one(np.diff(Jd[jf]))
+        _, qp, _, fitp = best_rank_one(np.diff(Jp[jf]))
+        _, qd, _, fitd = best_rank_one(np.diff(Jd[jf]))
         gp = gamma_from_q(qp)
         gd = gamma_from_q(qd)
         gamma_planar.append(gp)
