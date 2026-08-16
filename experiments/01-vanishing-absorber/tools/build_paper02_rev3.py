@@ -32,8 +32,11 @@ replace_once(
 )
 replace_once(
     r"\placeholderfigure{Working Fig.~3: apparent $D_{\rm eff}$ versus remote tail-weight scale, with an adjacent panel for physical overlap probability and the mean-preserving zero-overlap control.}",
-    r"\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig3_tail_ablation.pdf}\\[2pt]%
-\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig3b_remote_overlap.pdf}",
+    (
+        r"\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig3_tail_ablation.pdf}\\[2pt]%"
+        "\n"
+        r"\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig3b_remote_overlap.pdf}"
+    ),
 )
 replace_once(
     r"\placeholderfigure{Working Fig.~4: first-order predicted $\Delta D$ versus independently refitted $\Delta D$ for weak linear and exponential velocity perturbations.}",
@@ -41,8 +44,11 @@ replace_once(
 )
 replace_once(
     r"\placeholderfigure{Working Fig.~5: required RMS-channel SNR versus maximum RF frequency, paired with the re-fitted homogeneous $D$ versus bandwidth.}",
-    r"\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig5_required_snr_vs_bandwidth.pdf}\\[2pt]%
-\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig5b_refitted_diffusion_vs_bandwidth.pdf}",
+    (
+        r"\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig5_required_snr_vs_bandwidth.pdf}\\[2pt]%"
+        "\n"
+        r"\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig5b_refitted_diffusion_vs_bandwidth.pdf}"
+    ),
 )
 
 needle = "The framework has several limitations. The main numerical stress treats deterministic one-carrier transport"
