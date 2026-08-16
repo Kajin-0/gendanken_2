@@ -139,6 +139,30 @@ jobs:
             fi
           done
 
+      - name: Verify uploaded Rev5 source package is independently compilable
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          set -euo pipefail
+          pkg="$(mktemp -d)"
+          mkdir -p "$pkg/numerics/paper02_figures"
+          cp PAPER02_MANUSCRIPT_REV5_ANON_2026-08-16.tex "$pkg/"
+          cp PAPER02_SUPPLEMENT_REV5_ANON_2026-08-16.tex "$pkg/"
+          cp PAPER02_REFERENCES_REV4.bib "$pkg/"
+          cp PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex "$pkg/"
+          cp numerics/paper02_figures/*.pdf "$pkg/numerics/paper02_figures/"
+          (
+            cd "$pkg"
+            latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_MANUSCRIPT_REV5_ANON_2026-08-16.tex
+            latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_SUPPLEMENT_REV5_ANON_2026-08-16.tex
+            for log in PAPER02_MANUSCRIPT_REV5_ANON_2026-08-16.log PAPER02_SUPPLEMENT_REV5_ANON_2026-08-16.log; do
+              if grep -E "LaTeX Warning: (Citation|Reference).*undefined|There were undefined references|There were undefined citations" "$log"; then
+                echo "Packaged source has unresolved citation/reference in $log"
+                exit 1
+              fi
+            done
+          )
+          echo 'PASS: uploaded Rev5 source package is independently compilable'
+
       - name: Report compiled artifacts
         working-directory: experiments/01-vanishing-absorber
         run: |
@@ -183,6 +207,7 @@ jobs:
             experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV5_ANON_2026-08-16.tex
             experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV5_ANON_2026-08-16.tex
             experiments/01-vanishing-absorber/PAPER02_REFERENCES_REV4.bib
+            experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex
             experiments/01-vanishing-absorber/numerics/results/PAPER02_INFERENCE_CONVERGENCE.md
             experiments/01-vanishing-absorber/numerics/paper02_figures/*.pdf
           if-no-files-found: error
