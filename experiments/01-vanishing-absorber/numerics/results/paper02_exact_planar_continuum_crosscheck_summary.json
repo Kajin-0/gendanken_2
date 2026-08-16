@@ -1,0 +1,196 @@
+{
+  "comparison": {
+    "basis": "Existing predeclared numerical-convergence tolerance scales reused only as post-hoc agreement scales.",
+    "overall_pass_against_existing_tolerances": true,
+    "rows": [
+      {
+        "comparison_tolerance": 0.02,
+        "exact_continuum": 0.0026181645345283023,
+        "metric": "D_eff_m2_per_s_100MHz",
+        "numerical_baseline": 0.002609795073433014,
+        "pass_against_existing_tolerance": true,
+        "relative_difference": 0.00319669027095594
+      },
+      {
+        "comparison_tolerance": 0.005,
+        "exact_continuum": 25693.305622605993,
+        "metric": "w_eff_m_per_s_100MHz",
+        "numerical_baseline": 25700.98361598991,
+        "pass_against_existing_tolerance": true,
+        "relative_difference": 0.00029883244673513913
+      },
+      {
+        "comparison_tolerance": 0.02,
+        "exact_continuum": 0.00255083055084397,
+        "metric": "D_eff_m2_per_s_500MHz",
+        "numerical_baseline": 0.0025486032227585954,
+        "pass_against_existing_tolerance": true,
+        "relative_difference": 0.0008731775948964997
+      },
+      {
+        "comparison_tolerance": 0.005,
+        "exact_continuum": 25750.16910206805,
+        "metric": "w_eff_m_per_s_500MHz",
+        "numerical_baseline": 25757.75760109195,
+        "pass_against_existing_tolerance": true,
+        "relative_difference": 0.00029469705592315485
+      },
+      {
+        "comparison_tolerance": 0.02,
+        "exact_continuum": 0.002350617904435172,
+        "metric": "D_eff_m2_per_s_1000MHz",
+        "numerical_baseline": 0.0023489448907497135,
+        "pass_against_existing_tolerance": true,
+        "relative_difference": 0.0007117335753725438
+      },
+      {
+        "comparison_tolerance": 0.005,
+        "exact_continuum": 25916.711842956658,
+        "metric": "w_eff_m_per_s_1000MHz",
+        "numerical_baseline": 25924.052412698074,
+        "pass_against_existing_tolerance": true,
+        "relative_difference": 0.0002832369239545848
+      },
+      {
+        "comparison_tolerance": 0.02,
+        "exact_continuum": 0.0026103439758112636,
+        "metric": "low_band_D_eff_m2_per_s",
+        "numerical_baseline": 0.0026063033282766315,
+        "pass_against_existing_tolerance": true,
+        "relative_difference": 0.0015479368129544407
+      },
+      {
+        "comparison_tolerance": 0.005,
+        "exact_continuum": 25698.61929247453,
+        "metric": "low_band_w_eff_m_per_s",
+        "numerical_baseline": 25706.288826170523,
+        "pass_against_existing_tolerance": true,
+        "relative_difference": 0.00029844146911965733
+      },
+      {
+        "absolute_difference": 3.1121183169812924e-05,
+        "comparison_tolerance": 0.002,
+        "exact_continuum": 0.00891629735654685,
+        "metric": "law_residual_1ghz",
+        "numerical_baseline": 0.008885176173377037,
+        "pass_against_existing_tolerance": true
+      },
+      {
+        "absolute_difference": 3.002473435885164e-07,
+        "comparison_tolerance": 2e-05,
+        "exact_continuum": 0.00017414894373817902,
+        "metric": "max_kernel_fit_rel_through_1ghz",
+        "numerical_baseline": 0.0001738486963945905,
+        "pass_against_existing_tolerance": true
+      }
+    ]
+  },
+  "epistemic_note": "Designed after the numerical mesh-refinement result was known; not a predeclared convergence gate.",
+  "exact_continuum": {
+    "frequency_law": {
+      "anchored_at_hz": 100000000.0,
+      "max_kernel_fit_rel_through_1ghz": 0.00017414894373817902,
+      "relative_residual_1ghz": 0.00891629735654685
+    },
+    "low_band": {
+      "D_eff_m2_per_s": 0.0026103439758112636,
+      "w_eff_m_per_s": 25698.61929247453
+    },
+    "probe": {
+      "100000000": {
+        "D_eff_m2_per_s": 0.0026181645345283023,
+        "gamma_imag_per_m": -24454.25812045891,
+        "gamma_real_per_m": 60.937304531348666,
+        "kernel_fit_rel": 1.646618714496403e-05,
+        "w_eff_m_per_s": 25693.305622605993
+      },
+      "1000000000": {
+        "D_eff_m2_per_s": 0.002350617904435172,
+        "gamma_imag_per_m": -242203.94423191345,
+        "gamma_real_per_m": 5318.083270908064,
+        "kernel_fit_rel": 0.00017414894373817902,
+        "w_eff_m_per_s": 25916.711842956658
+      },
+      "500000000": {
+        "D_eff_m2_per_s": 0.00255083055084397,
+        "gamma_imag_per_m": -121967.19300036637,
+        "gamma_real_per_m": 1473.411985869007,
+        "kernel_fit_rel": 8.346657243666406e-05,
+        "w_eff_m_per_s": 25750.16910206805
+      }
+    }
+  },
+  "exact_field": {
+    "characteristic_curvature_field_v_per_cm": 166.66666666666669,
+    "collector_edge_field_v_per_cm": 662.280701754386,
+    "upstream_field_v_per_cm": 328.94736842105266
+  },
+  "model_truth": {
+    "absorber_thickness_um": 7.6,
+    "bias_v": 0.3,
+    "depletion_width_um": 3.0,
+    "full_contact_planar_weighting_potential": true,
+    "microscopic_diffusion_m2_per_s": 0.0,
+    "mobility_m2_per_v_s": 0.9,
+    "poisson_curvature_parameter_delta_v": 0.05,
+    "recombination": 0.0,
+    "v_sat_m_per_s": 60000.0
+  },
+  "numerical_baseline": {
+    "diagnostics": {
+      "collection_fraction": 1.0,
+      "dc_ramo_error": 1.1102230246251565e-16,
+      "max_trajectory_ps": 259.2390608810137
+    },
+    "frequency_law": {
+      "anchored_at_hz": 100000000.0,
+      "max_kernel_fit_rel_through_1ghz": 0.0001738486963945905,
+      "max_relative_residual_through_1ghz": 0.008885176173377037,
+      "relative_residual_1ghz": 0.008885176173377037
+    },
+    "low_band": {
+      "D_eff_m2_per_s": 0.0026063033282766315,
+      "w_eff_m_per_s": 25706.288826170523
+    },
+    "probe": {
+      "100000000": {
+        "D_eff_m2_per_s": 0.002609795073433014,
+        "gamma_imag_per_m": -24446.954876019656,
+        "gamma_real_per_m": 60.688098139895985,
+        "kernel_fit_rel": 1.643839016951999e-05,
+        "w_eff_m_per_s": 25700.98361598991
+      },
+      "1000000000": {
+        "D_eff_m2_per_s": 0.0023489448907497135,
+        "gamma_imag_per_m": -242135.95701348045,
+        "gamma_real_per_m": 5309.81774562405,
+        "kernel_fit_rel": 0.0001738486963945905,
+        "w_eff_m_per_s": 25924.052412698074
+      },
+      "500000000": {
+        "D_eff_m2_per_s": 0.0025486032227585954,
+        "gamma_imag_per_m": -121931.36409602486,
+        "gamma_real_per_m": 1470.8278419132619,
+        "kernel_fit_rel": 8.3324916108225e-05,
+        "w_eff_m_per_s": 25757.75760109195
+      }
+    }
+  },
+  "point_controls": {
+    "inside_depletion": {
+      "D_eff_m2_per_s": 0.004870585772041709,
+      "gamma_imag_per_m": -22634.372516971038,
+      "gamma_real_per_m": 89.89045005441655,
+      "rank1_fit_rel": 0.0016757548188521855,
+      "w_eff_m_per_s": 27758.609642194682
+    },
+    "outside_depletion": {
+      "D_eff_m2_per_s": 4.491894823440722e-11,
+      "gamma_imag_per_m": -23666.14947898521,
+      "gamma_real_per_m": 9.476162951848385e-07,
+      "rank1_fit_rel": 7.867889659379714e-10,
+      "w_eff_m_per_s": 26549.250492814026
+    }
+  },
+  "status": "CHECKED POST-HOC exact planar continuum cross-check"
+}
