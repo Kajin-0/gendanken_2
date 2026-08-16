@@ -1,0 +1,168 @@
+name: Paper 02 Rev2 canonicalization gate
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex'
+      - 'experiments/01-vanishing-absorber/PAPER02_REFERENCES_REV2.bib'
+      - 'experiments/01-vanishing-absorber/PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET.tex'
+      - '.github/workflows/paper02-rev2-canonicalize.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-canonicalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX and PDF tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq latexmk texlive-latex-extra texlive-publishers texlive-science poppler-utils
+      - name: Compile Rev2
+        working-directory: experiments/01-vanishing-absorber
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex
+      - name: Check unresolved references
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          if grep -E "LaTeX Warning: (Citation|Reference).*undefined|There were undefined references" PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.log; then
+            echo 'Unresolved citation/reference detected.'
+            exit 1
+          fi
+      - name: Write compile report and current pointer
+        working-directory: experiments/01-vanishing-absorber
+        shell: bash
+        run: |
+          PAGES=$(pdfinfo PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.pdf | awk -F: '/^Pages/{gsub(/ /,"",$2);print $2}')
+          PDFSHA=$(sha256sum PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.pdf | awk '{print $1}')
+          SRCSHA=$(sha256sum PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex | awk '{print $1}')
+          BIBSHA=$(sha256sum PAPER02_REFERENCES_REV2.bib | awk '{print $1}')
+          cat > PAPER02_MANUSCRIPT_REV2_COMPILE_REPORT_2026-08-15.md <<EOF
+          # Paper 02 — Rev. 2 Compile Report
+
+          **Date:** 2026-08-15  
+          **Status:** **COMPILE PASSED / REFERENCES RESOLVED / CANONICALIZATION GATE PASSED**
+
+          Source:
+
+          \`\`\`text
+          PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex
+          \`\`\`
+
+          Bibliography:
+
+          \`\`\`text
+          PAPER02_REFERENCES_REV2.bib
+          \`\`\`
+
+          Validation:
+
+          \`\`\`text
+          GitHub Actions run       $GITHUB_RUN_ID
+          workflow commit          $GITHUB_SHA
+          compiled pages           $PAGES
+          source SHA-256           $SRCSHA
+          bibliography SHA-256     $BIBSHA
+          compiled PDF SHA-256     $PDFSHA
+          \`\`\`
+
+          The manuscript compiled under \`latexmk -pdf -interaction=nonstopmode -halt-on-error\` and the explicit unresolved citation/reference gate passed.
+
+          Rev. 2 was generated from frozen Rev. 1 only through the corrections recorded in \`PAPER02_REV1_ADVERSARIAL_REVIEW_2026-08-15.md\`.  The same-frequency statistical subsection is generated from the version-controlled numerical result rather than manually transcribed.
+
+          The PDF is an Actions artifact and is not committed to the research branch.
+          EOF
+
+          cat > PAPER02_MANUSCRIPT_CURRENT.md <<EOF
+          # Paper 02 — Canonical Working Manuscript
+
+          **Date:** 2026-08-15  
+          **Status:** **ANONYMOUS REV. 2 / ADVERSARIALLY REPAIRED / COMPILE-VALIDATED / NOT YET SUBMISSION-READY**
+
+          ## Canonical source
+
+          \`\`\`text
+          PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.tex
+          \`\`\`
+
+          Bibliography:
+
+          \`\`\`text
+          PAPER02_REFERENCES_REV2.bib
+          \`\`\`
+
+          Compiled pages: **$PAGES**
+
+          Source SHA-256:
+
+          \`\`\`text
+          $SRCSHA
+          \`\`\`
+
+          Compile report:
+
+          \`\`\`text
+          PAPER02_MANUSCRIPT_REV2_COMPILE_REPORT_2026-08-15.md
+          \`\`\`
+
+          Validation run:
+
+          \`\`\`text
+          $GITHUB_RUN_ID
+          \`\`\`
+
+          ## Revision boundary
+
+          Rev. 1 remains frozen provenance. Rev. 2 repairs the major issues identified in the Rev. 1 adversarial review, including:
+
+          - explicit connection from the Shockley–Ramo source derivative to the local spatial exponent;
+          - covariance-aware same-frequency one-mode rejection versus positive-D detectability;
+          - narrower causal language for mean depth versus finite support;
+          - explicit statement that the mean-preserving kernels are mathematical causal controls;
+          - clearer distinction between theoretically known kernels and experimental calibration;
+          - harder HgCdTe scale caveats;
+          - expanded Shockley–Ramo citation basis;
+          - a title aligned with the checked deterministic-velocity theorem.
+
+          ## Priority posture
+
+          \`\`\`text
+          DISTINCT COMBINATION SUPPORTED BY FOCUSED AUDIT
+          NO SUPERLATIVE PRIORITY CLAIM
+          \`\`\`
+
+          Do not add \`first\`, \`fundamental\`, \`universal\`, or equivalent chronological/superlative language without an explicit later priority upgrade.
+
+          ## Required reading before edits
+
+          Follow \`PAPER02_MANUSCRIPT_PRESERVATION_PROTOCOL.md\` and the latest Paper-02 current-state file.
+
+          ## Next gate
+
+          Perform an adversarial review of **Rev. 2 itself**, with particular attention to the actual same-frequency statistical ordering, the local-to-finite-kernel theorem boundary, bibliographic completeness, and whether any remaining prose overstates the HgCdTe example.
+
+          Any material correction after this point must create Rev. 3 rather than overwrite Rev. 2.
+          EOF
+      - name: Persist canonicalization records
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV2_COMPILE_REPORT_2026-08-15.md
+          git add experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_CURRENT.md
+          if git diff --cached --quiet; then
+            echo 'Canonicalization records already current.'
+          else
+            git commit -m 'Canonicalize Paper 02 Rev2'
+            git push
+          fi
+      - name: Upload Rev2 PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-manuscript-rev2-canonical
+          path: experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV2_ANON_2026-08-15.pdf
+          if-no-files-found: error
