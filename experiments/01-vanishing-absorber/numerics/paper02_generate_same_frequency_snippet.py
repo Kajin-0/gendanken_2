@@ -1,7 +1,7 @@
 """Generate a LaTeX snippet from the persisted same-frequency hidden-risk result.
 
-The wording is selected from the actual statistical ordering rather than being
-hard-coded into the manuscript before the test result is known.
+The wording is selected from the actual row-by-row statistical ordering rather
+than inferred from a single RF point.
 """
 
 from __future__ import annotations
@@ -17,28 +17,67 @@ def fmt_sci(x):
     return f"{x:.3g}"
 
 
+def fmt_freq(row):
+    mhz = row["frequency_hz"] / 1e6
+    if abs(mhz - 1000.0) < 1e-9:
+        return "1 GHz"
+    if mhz >= 1000.0 and abs(mhz % 1000.0) < 1e-9:
+        return f"{mhz / 1000.0:.0f} GHz"
+    return f"{mhz:.0f} MHz"
+
+
 def run(args):
     data = json.loads(Path(args.input).read_text(encoding="utf-8"))
     rows = data["rows"]
-    r100 = rows[0]
-    d_first = bool(r100["positive_D_detectable_before_one_mode_rejection"])
+    hidden_rows = [
+        row for row in rows
+        if bool(row["positive_D_detectable_before_one_mode_rejection"])
+    ]
+    announced_rows = [
+        row for row in rows
+        if not bool(row["positive_D_detectable_before_one_mode_rejection"])
+    ]
 
-    if d_first:
+    if hidden_rows and announced_rows:
+        announced = "; ".join(
+            f"{fmt_freq(row)}: $S_{{1\\mathrm{{m}}}}={row['snr_required_one_mode_rejection_db']:.2f}$ dB "
+            f"before $S_D={row['snr_required_positive_D_db']:.2f}$ dB"
+            for row in announced_rows
+        )
+        hidden = "; ".join(
+            f"{fmt_freq(row)}: ${row['snr_required_positive_D_db']:.2f}$--"
+            f"${row['snr_required_one_mode_rejection_db']:.2f}$ dB"
+            for row in hidden_rows
+        )
         ordering = (
-            "Under this reference covariance, the positive apparent diffusion becomes "
-            "statistically detectable before the same-frequency six-channel one-mode "
-            "manifold becomes rejectable.  The nuisance is therefore hidden with respect "
-            "to the same-frequency model check over a finite SNR interval; this statement "
-            "is conditional on the stated noise model rather than a universal property."
+            "Under this reference covariance, the ordering is frequency dependent.  "
+            f"At the tested point(s) {announced}, so the spectral-model check self-announces "
+            "before positive apparent diffusion reaches the stated 90\\% detection power.  "
+            f"At the remaining tested point(s), positive apparent diffusion reaches 90\\% "
+            f"power first, leaving finite RMS-channel-SNR windows ({hidden}) in which "
+            "$D>0$ has reached the stated detection power while rejection of the same-frequency "
+            "one-mode manifold has not.  The example therefore supports conditional "
+            "same-frequency hidden-risk windows at those RF points, not a universal stealth claim."
+        )
+    elif hidden_rows:
+        hidden = "; ".join(
+            f"{fmt_freq(row)}: ${row['snr_required_positive_D_db']:.2f}$--"
+            f"${row['snr_required_one_mode_rejection_db']:.2f}$ dB"
+            for row in hidden_rows
+        )
+        ordering = (
+            "Under this reference covariance, positive apparent diffusion reaches the stated "
+            "90\\% detection power before the same-frequency six-channel one-mode manifold "
+            f"reaches 90\\% rejection power at every tested RF point.  The corresponding "
+            f"RMS-channel-SNR windows are {hidden}.  This is conditional on the stated noise "
+            "model and does not establish universal statistical stealth."
         )
     else:
         ordering = (
-            "Under this reference covariance, the six-channel one-mode manifold becomes "
-            "rejectable no later than the positive apparent diffusion becomes statistically "
-            "detectable.  The present example therefore does not support a claim that the "
-            "same-frequency spectral model hides a statistically established diffusion "
-            "coefficient.  The stronger identifiability issue remains the low-frequency "
-            "dispersion alias and the need for nuisance-aware attribution."
+            "Under this reference covariance, the six-channel one-mode manifold reaches the "
+            "stated 90\\% rejection power no later than positive apparent diffusion reaches "
+            "90\\% detection power at every tested RF point.  The present example therefore "
+            "does not support same-frequency statistical hidden risk under this noise model."
         )
 
     lines = []
