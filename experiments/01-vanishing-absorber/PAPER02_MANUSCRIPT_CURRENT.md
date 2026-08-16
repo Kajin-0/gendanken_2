@@ -36,6 +36,12 @@ supplement: 5 pages
 SHA-256 7791d4d639af311ba08b4f5c413ac05b4928ea4535878ad06f7991fec190f86b
 ```
 
+A convenience delivery copy joining main plus supplement is not a canonical repository artifact; its local delivery SHA-256 is
+
+```text
+6fe059741d3c2546820e075a7aa51d4ee9a8bb4958f8f6faff31c8a31e161aa1
+```
+
 ## Scientific identity
 
 Working title:
