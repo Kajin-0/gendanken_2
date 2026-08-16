@@ -1,0 +1,45 @@
+name: Paper 02 signed kernel mode thresholds
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_signed_kernel_mode_thresholds.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_misspecification_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_exact_planar_continuum_crosscheck.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_same_frequency_hidden_risk.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_aware_depletion_frequency_law.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper02-signed-kernel-mode-thresholds.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  signed-thresholds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Syntax check
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python -m py_compile paper02_signed_kernel_mode_thresholds.py
+      - name: Run signed mode thresholds
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_signed_kernel_mode_thresholds.py
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-signed-kernel-mode-thresholds
+          path: |
+            experiments/01-vanishing-absorber/numerics/paper02_signed_kernel_mode_thresholds.csv
+            experiments/01-vanishing-absorber/numerics/paper02_signed_kernel_mode_thresholds_summary.json
+          if-no-files-found: error
