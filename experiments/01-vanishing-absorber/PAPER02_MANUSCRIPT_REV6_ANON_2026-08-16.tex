@@ -1,0 +1,501 @@
+\documentclass[aps,pra,twocolumn,superscriptaddress,nofootinbib]{revtex4-2}
+
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,citecolor=blue,urlcolor=blue,linkcolor=blue}
+\sisetup{detect-all}
+
+\newcommand{\Deff}{D_{\mathrm{eff}}}
+\newcommand{\Dmicro}{D_{\mathrm{micro}}}
+\newcommand{\gammac}{\gamma}
+\newcommand{\Rregion}{\mathcal{R}}
+\newcommand{\placeholderfigure}[1]{%
+  \fbox{\parbox[c][1.45in][c]{0.94\columnwidth}{\centering\small #1}}}
+
+\begin{document}
+
+\title{Apparent diffusion from deterministic velocity gradients in wavelength-resolved photodetectors}
+
+\author{Anonymous}
+
+\date{August 16, 2026}
+
+\begin{abstract}
+Wavelength-dependent photogeneration can encode internal carrier transport in a photodetector response, but extracting material parameters from that dependence requires separating microscopic transport from device-level electrostatics sampled by finite generation profiles. We study this attribution problem in deterministic models with zero microscopic diffusion. Finite generation-depth kernels that are treated as known by the inverse and overlap a spatially nonuniform velocity region can yield a positive effective diffusion coefficient when the resulting Shockley--Ramo terminal-current response is fit with a homogeneous drift--diffusion model. The effect disappears when generation support in the heterogeneous region is removed, even when every channel's original mean generation depth is preserved. We derive an exact remote-region leakage relation, a local parameter-bias law after profiling optical amplitude and offset, and a low-frequency equivalence showing why a heterogeneous deterministic response can remain tangent to a homogeneous diffusion model through quadratic order in frequency. Independent linear and exponential velocity profiles give positive apparent diffusion for downstream acceleration, zero diffusion for uniform velocity, and negative apparent diffusion for deceleration. A post-hoc exact full-contact planar continuum calculation removes the electrostatic mesh and trajectory stepping from the central stress and reproduces the numerical-baseline $D_{\rm eff}$ within $0.32\%$ at $100\,\mathrm{MHz}$ and below $0.1\%$ at $500\,\mathrm{MHz}$ and $1\,\mathrm{GHz}$. A covariance-aware multi-frequency test shows that practical rejection of the wrong homogeneous model is controlled by bandwidth and inverse conditioning rather than structural overdetermination alone. A conditional HgCdTe stress uses thickness and internal-field scales independently reported for graded HgCdTe devices. The result provides an attribution framework for distinguishing microscopic diffusion from finite-kernel coupling to deterministic device heterogeneity in wavelength-resolved transport measurements.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The temporal response of a photodetector depends not only on microscopic carrier parameters but also on where photocarriers are generated, the electric field they encounter, and how their motion is weighted by the measurement electrodes. In high-speed photodiodes, finite absorption depth, depleted and undepleted transport regions, drift, diffusion, and device electrostatics have therefore long been treated together in forward response models \cite{hu2015pda}. Related work on photodiode optoelectronic chromatic dispersion (OED) has made the wavelength dependence of this internal transport response an observable in its own right: wavelength-dependent absorption changes the distribution of carrier transit and diffusion delays and consequently changes the radio-frequency (RF) phase and amplitude measured from a photodiode \cite{glasser2021oed,liokumovitch2021germanium,liokumovitch2022femtometer,dutta2024pin,mudgal2024pn}. Multi-frequency OED features have recently also been used as an inverse data space for spectral reconstruction \cite{kassa2026spectroscopy}.
+
+Those established results motivate a different inverse question. Suppose wavelength is used not primarily to infer the optical spectrum, but to program a family of internal generation profiles from which a material transport parameter is inferred. When is a fitted diffusion coefficient attributable to microscopic diffusion rather than to deterministic device-level heterogeneity sampled differently by the finite optical kernels?
+
+This distinction is not guaranteed by a good fit to a spatially simple transport model. Semiconductor time-of-flight analyses already show that inhomogeneous electric fields can bias transport extraction when a homogeneous-field model is imposed \cite{emelianova2006tof}, and electrostatic assumptions can bias diffusion-related quantities in other photocarrier inverse methods \cite{hattori1992sspg}. More generally, terminal current is an electrode-weighted observable rather than a direct readout of one microscopic carrier coordinate; consistent transient-current theory therefore requires the device electrostatics and observation operator to be distinguished from internal carrier motion \cite{hawks2015current}.
+
+Here we isolate a specific material-attribution failure mode in a wavelength-resolved Shockley--Ramo measurement \cite{shockley1938,ramo1939}. The forward systems used for the central counterexamples have
+\begin{equation}
+\Dmicro=0,
+\qquad
+\kappa=0,
+\end{equation}
+so all carrier trajectories are deterministic. Nevertheless, when finite generation kernels treated as known by the inverse overlap a downstream region of nonuniform deterministic velocity, fitting the resulting terminal-current response with a homogeneous drift--diffusion model returns
+\begin{equation}
+\Deff>0.
+\end{equation}
+The fitted parameter is mathematically valid as an effective parameter of the wrong homogeneous model; the error is interpreting it as microscopic material diffusion.
+
+We establish four results. First, deterministic downstream acceleration generates the same low-frequency real spatial exponent that a homogeneous inverse associates with positive diffusion. Second, the coupling can be spatially remote: all nominal mean generation depths may lie outside the nonuniform region while finite kernel support inside that region drives the bias. Removing that support collapses the apparent diffusion even if every channel mean is restored exactly. Third, the parameter bias and the same-frequency model residual are different projections of the channel discrepancy; a nuisance can therefore move the recovered root while producing little model-rejection signal. Fourth, additional RF frequencies reject the wrong model only when the covariance-weighted departure from the homogeneous dispersion manifold becomes statistically resolvable. This separates structural overdetermination from practical falsification.
+
+The analysis is intentionally framed as a systematic-error and identifiability theory, not as a claim that wavelength-dependent RF photodiode response, field-dependent carrier transport, or effective-parameter bias are individually new phenomena. The contribution is the detector-specific combination of finite generation kernels supplied exactly to the inverse, deterministic velocity heterogeneity, Shockley--Ramo terminal-current inversion, a true-zero-diffusion control, causal support ablations, and quantitative attribution and rejection criteria.
+
+\section{Measurement model and attribution problem}
+\label{sec:model}
+
+\subsection{Point-source terminal response}
+
+Consider a planar absorber with coordinate
+\begin{equation}
+0\le z\le L,
+\end{equation}
+where the collecting electrode is at $z=L$. We use the Fourier convention $e^{-i\omega t}$. Let $H(z,\omega)$ denote the complex terminal-current transfer generated by a point source at depth $z$.
+
+For deterministic downstream velocity $v(z)>0$, zero microscopic diffusion, zero recombination, and the planar weighting potential $\phi_w=z/L$, the Shockley--Ramo path integral \cite{shockley1938,ramo1939} can be written
+\begin{equation}
+H(z,\omega)
+=\frac{1}{L}\int_z^L
+\exp\left[-i\omega\tau(x;z)\right]dx,
+\label{eq:Hpath}
+\end{equation}
+with
+\begin{equation}
+\tau(x;z)=\int_z^x\frac{du}{v(u)}.
+\end{equation}
+Differentiation with respect to source coordinate gives the exact source-response equation
+\begin{equation}
+\boxed{
+\frac{\partial H}{\partial z}
+=-\frac{1}{L}+\frac{i\omega}{v(z)}H,
+\qquad H(L,\omega)=0.
+}
+\label{eq:ramoode}
+\end{equation}
+The affine offset in $H$ means that the local spatial exponential is carried by the source derivative rather than by $H$ itself. Define
+\begin{equation}
+P(z,\omega)=\frac{\partial H}{\partial z}
+\end{equation}
+and the infinitesimal point-source spatial exponent
+\begin{equation}
+\boxed{
+\gamma_{\rm loc}(z,\omega)
+=-\frac{\partial}{\partial z}
+\ln[-L P(z,\omega)].
+}
+\label{eq:gammaloc}
+\end{equation}
+For a finite source-coordinate step $h$, the corresponding local difference exponent is
+\begin{equation}
+\gamma_h(z,\omega)
+=-\frac{1}{h}
+\ln\!\left[\frac{P(z+h,\omega)}{P(z,\omega)}\right],
+\end{equation}
+which approaches Eq.~\eqref{eq:gammaloc} as $h\rightarrow0$.  This is the point-source limit of the first-difference exponential structure used by the spectral inverse.  The finite-kernel results below do not follow by evaluating $\gamma_{\rm loc}$ at a kernel mean; they require the separate kernel averaging in Eq.~\eqref{eq:channel}.
+
+For constant velocity, the source-coordinate difference response is one exact spatial exponential. A velocity gradient changes the source-coordinate law even though every trajectory remains deterministic.
+
+\subsection{Finite generation kernels treated as known by the inverse}
+
+Let $g_m(z)$ be the normalized generation kernel of spectral channel $m$,
+\begin{equation}
+\int_0^L g_m(z)\,dz=1,
+\end{equation}
+and define its mean generation depth
+\begin{equation}
+\bar z_m=\int_0^L z g_m(z)\,dz.
+\end{equation}
+The measured complex channel is
+\begin{equation}
+\boxed{
+J_m(\omega)=\int_0^L g_m(z)H(z,\omega)\,dz.
+}
+\label{eq:channel}
+\end{equation}
+We emphasize the distinction between the full kernel $g_m$ and the scalar mean $\bar z_m$. The former, not the latter, determines which device regions contribute to the channel.
+
+The kernel-aware one-mode inverse is written in the numerically stable form
+\begin{equation}
+J_m=C+K F_m(r),
+\label{eq:onemode}
+\end{equation}
+where
+\begin{equation}
+F_m(r)=\int_0^L g_m(z)
+\frac{e^{r(z-z_{\rm ref})}-1}{r}\,dz
+\end{equation}
+with its continuous affine limit at $r=0$. The physical transport exponent used below is
+\begin{equation}
+\gamma=-r.
+\end{equation}
+This form retains the independently specified channel shapes rather than replacing them with delta functions or assuming rigid translations.  Throughout this work, a kernel treated as ``known'' means that the same theoretically specified $g_m(z)$ is supplied to the forward average and to the inverse.  No experimental kernel calibration is performed here, and optical-model uncertainty is deliberately excluded from the central counterexample.
+
+For the conditional HgCdTe numerical example we use six normalized finite kernels generated by a monotonic graded-HgCdTe optical model using the Hansen band-gap relation and the Moazzami above-bandgap absorption parameterization \cite{hansen1982gap,moazzami2005absorption}.  The wavelength of each channel is chosen numerically so that the resulting normalized kernel has mean depth $2.0$, $2.5$, $3.0$, $3.5$, $4.0$, or $4.5\,\mu\mathrm{m}$ in the $7.6\,\mu\mathrm{m}$ absorber.  These theoretical kernels are used exactly in both the forward average and the kernel-aware inverse.  Their purpose is to provide a physically motivated finite-support family for the identifiability stress, not to represent measured optical kernels from a specific detector.  Uncertainty in the kernel model, optical interference, and experimental calibration error are not included in the central counterexample and are discussed as additional nuisances below.
+
+\subsection{Homogeneous inverse model}
+
+For homogeneous drift--diffusion--recombination under the present Fourier convention, the spatial exponent satisfies
+\begin{equation}
+D\gamma^2+w\gamma=\kappa-i\omega.
+\label{eq:ddlaw}
+\end{equation}
+The central counterexample asks whether a heterogeneous deterministic forward response with $\Dmicro=0$ can nevertheless produce fitted roots that are well represented by Eq.~\eqref{eq:ddlaw} with $D=\Deff>0$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig1_generation_kernels.pdf}
+\caption{Measurement geometry and finite generation support. All six mean generation depths in the conditional HgCdTe stress lie upstream of the nonuniform region, but the theoretical kernels retain finite probability inside it.}
+\label{fig:kernels}
+\end{figure}
+
+\section{Deterministic heterogeneity can appear diffusive}
+\label{sec:deterministic}
+
+\subsection{Low-frequency equivalence}
+
+Let the recovered spatial exponent be analytic near dc and write
+\begin{equation}
+\delta\gamma(\omega)
+\equiv\gamma(\omega)-\gamma_0
+=-ia_1\omega+a_2\omega^2+ia_3\omega^3+O(\omega^4).
+\label{eq:gammaexpansion}
+\end{equation}
+For the homogeneous law, define
+\begin{equation}
+V_*=w+2D\gamma_0.
+\end{equation}
+After subtracting the dc equation, Eq.~\eqref{eq:ddlaw} becomes
+\begin{equation}
+D(\delta\gamma)^2+V_*\delta\gamma=-i\omega.
+\end{equation}
+The physical root has expansion
+\begin{equation}
+\delta\gamma_{\rm DD}
+=-\frac{i\omega}{V_*}
++\frac{D\omega^2}{V_*^3}
++\frac{2iD^2\omega^3}{V_*^5}
++O(\omega^4).
+\label{eq:ddexpansion}
+\end{equation}
+Consequently, any recovered response with $a_1>0$ and $a_2>0$ admits an effective homogeneous model matching it through quadratic order,
+\begin{equation}
+\boxed{
+V_{*,\rm eff}=\frac{1}{a_1},
+\qquad
+\Deff=\frac{a_2}{a_1^3}.
+}
+\label{eq:effectiveD}
+\end{equation}
+The first locally non-adjustable coefficient is cubic: the homogeneous model predicts $a_3=2a_2^2/a_1$. Thus an additional low-frequency point is structurally overdetermining without necessarily being practically discriminating; a wrong mechanism can be tangent to the homogeneous model family through $O(\omega^2)$.
+
+\subsection{Deterministic field-gradient contribution}
+
+The connection to the local exponent is obtained by expanding the source derivative $P=\partial_zH$.  From Eq.~\eqref{eq:ramoode}, write
+\begin{equation}
+F(z)=\frac{L-z}{v(z)},
+\qquad
+I(z)=\int_z^L\frac{L-u}{v(u)}du.
+\end{equation}
+Then
+\begin{equation}
+-LP(z,\omega)
+=1-i\omega F(z)-\omega^2\frac{I(z)}{v(z)}+O(\omega^3).
+\end{equation}
+Expanding $\ln[-LP]$ in Eq.~\eqref{eq:gammaloc} therefore gives the point-source coefficients quoted below.  This derivation applies to the local first-difference limit; finite optical kernels are treated separately in Sec.~\ref{sec:kernels}.
+
+Expanding Eq.~\eqref{eq:Hpath} gives
+\begin{equation}
+H(z,\omega)=\frac{L-z}{L}
+-\frac{i\omega}{L}I(z)+O(\omega^2),
+\end{equation}
+where
+\begin{equation}
+I(z)=\int_z^L\frac{L-u}{v(u)}du.
+\end{equation}
+For infinitesimally spaced point-source measurements, the quadratic coefficient of the apparent spatial exponent is
+\begin{equation}
+\boxed{
+a_2(z)=
+\frac{v'(z)}{v(z)^2}
+\left[
+\frac{(L-z)^2}{v(z)}-
+\int_z^L\frac{L-u}{v(u)}du
+\right].
+}
+\label{eq:a2field}
+\end{equation}
+If velocity increases monotonically downstream, $v'(z)>0$ and $v(u)\ge v(z)$ for $u\ge z$. Then
+\begin{equation}
+I(z)\le\frac{(L-z)^2}{2v(z)},
+\end{equation}
+so Eq.~\eqref{eq:a2field} gives $a_2(z)>0$. A deterministic accelerating carrier can therefore acquire a positive apparent homogeneous diffusion coefficient even though its microscopic trajectory contains no random walk.
+
+In the weak-gradient limit,
+\begin{equation}
+\boxed{
+\Deff(z)\simeq\frac{1}{2}(L-z)^2v'(z).
+}
+\label{eq:weakgradient}
+\end{equation}
+Equation~\eqref{eq:weakgradient} is an apparent-parameter relation defined by the chosen homogeneous inverse; it is not a replacement for microscopic diffusion physics.
+
+\subsection{Independent profile test}
+
+To separate this effect from any particular electrostatic solver, we solve Eq.~\eqref{eq:ramoode} for prescribed one-dimensional velocity profiles. The upstream region has common velocity $v_0$ and the downstream region follows either a linear or exponential profile whose endpoint ratio is $R=v(L)/v_0$. The optical kernels and inverse procedure are held fixed while $\Dmicro=0$ for every case.
+
+The result is sign controlled. Uniform velocity gives $\Deff\simeq0$; every tested accelerating profile ($R>1$) gives $\Deff>0$; and every tested decelerating profile ($R<1$) gives $\Deff<0$. For example, $R=2$ yields $\Deff=3.30\times10^{-3}\,\mathrm{m^2/s}$ for the linear family and $2.69\times10^{-3}\,\mathrm{m^2/s}$ for the exponential family, whereas $R=0.5$ yields negative values of comparable scale. The deterministic full-channel relative residual remains of order $10^{-4}$ for the accelerating examples.  Because that normalization includes fitted offset and amplitude components, we do not treat it as a statistical acceptance criterion; the covariance-aware same-frequency test is given in Sec.~\ref{sec:bias}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig2_apparent_diffusion_velocity_profiles.pdf}
+\caption{Sign-controlled apparent diffusion from deterministic velocity heterogeneity. The forward model has $\Dmicro=0$ for every point. Uniform velocity gives $\Deff\simeq0$, acceleration gives $\Deff>0$, and deceleration gives $\Deff<0$.}
+\label{fig:profiles}
+\end{figure}
+
+\section{Finite kernels couple remote device regions into the inverse}
+\label{sec:kernels}
+
+\subsection{Exact remote-region leakage}
+
+Let a reference point-source response be
+\begin{equation}
+H_0(z)=A+B e^{rz},
+\end{equation}
+and suppose the true response differs only in a nuisance region $\Rregion$,
+\begin{equation}
+H(z)=H_0(z)+\delta H(z),
+\qquad
+\delta H(z)=0\quad z\notin\Rregion.
+\end{equation}
+Then the kernel-averaged channel is exactly
+\begin{equation}
+J_m=A+B M_m(r)+E_m,
+\end{equation}
+with
+\begin{equation}
+\boxed{
+E_m=\int_{\Rregion}g_m(z)\delta H(z)\,dz.
+}
+\label{eq:leakage}
+\end{equation}
+Define the restricted generation probability
+\begin{equation}
+p_{m,\Rregion}=\int_{\Rregion}g_m(z)\,dz.
+\end{equation}
+If $p_{m,\Rregion}=0$ for every channel, then $E_m=0$ exactly regardless of the complexity of the response inside $\Rregion$. For normalized nonnegative kernels,
+\begin{equation}
+\boxed{
+|E_m|\le p_{m,\Rregion}H_{\Rregion},
+\qquad
+H_{\Rregion}=\sup_{z\in\Rregion}|\delta H(z)|.
+}
+\label{eq:leakbound}
+\end{equation}
+The mean generation depth does not appear in this zero-overlap condition.
+
+\subsection{Point-source and mean-preserving controls}
+
+The conditional HgCdTe stress uses $L=7.6\,\mu\mathrm{m}$ and a collector-side nonuniform region beginning at $z_d=4.6\,\mu\mathrm{m}$. The six nominal mean source coordinates span $2.0$--$4.5\,\mu\mathrm{m}$, so all means lie upstream.
+
+Ideal point sources at those coordinates give
+\begin{equation}
+\Deff=1.7\times10^{-12}\,\mathrm{m^2/s},
+\end{equation}
+numerically zero on the relevant scale. Point sources placed inside the nonuniform region instead give $\Deff=4.87\times10^{-3}\,\mathrm{m^2/s}$.
+
+The physical finite kernels centered at the original upstream means give
+\begin{equation}
+\Deff=2.6098\times10^{-3}\,\mathrm{m^2/s}.
+\label{eq:hgcdteD}
+\end{equation}
+This is the value at the canonical manuscript baseline discretization.  Refining only the two-dimensional field mesh changes the $100\,\mathrm{MHz}$ result to $2.6535\times10^{-3}\,\mathrm{m^2/s}$, a $1.648\%$ shift, while preserving its positive sign and the causal controls.
+Their probabilities inside the remote nonuniform region increase from approximately $0.60\%$ for the shallowest channel to $38.89\%$ for the deepest channel.
+
+A direct causal ablation removes all generation support inside the nonuniform region. Because simple truncation also shifts the channel means, we apply a stronger control: after removing all remote support, the surviving upstream density of each channel is exponentially tilted until its original mean depth is restored. The maximum mean-depth error is $9.3\times10^{-15}\,\mu\mathrm{m}$, while the recovered diffusion collapses to
+\begin{equation}
+\Deff=-7.7\times10^{-8}\,\mathrm{m^2/s}\simeq0.
+\end{equation}
+The exponentially tilted zero-overlap profiles are mathematical causal controls, not a claim that those modified kernel shapes correspond to a realizable optical spectrum or material structure.  Their role is to hold the scalar mean fixed while removing all direct sampling of the nuisance region.
+Thus the controls establish that mean generation depth alone is insufficient and that support inside the nuisance region is a causal contributor to the material-attribution bias.  The exact leakage relation in Eq.~\eqref{eq:leakage} further shows that the detailed kernel shape within the nuisance region can matter in addition to the total overlap probability.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig3_tail_ablation.pdf}\\[2pt]%
+\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig3b_remote_overlap.pdf}
+\caption{Remote generation support is the causal optical variable. Scaling only the generation weight inside the nonuniform region produces a monotonic change in $\Deff$. Removing that support collapses the result even when every original mean generation depth is restored.}
+\label{fig:ablation}
+\end{figure}
+
+\section{Parameter bias and model rejection}
+\label{sec:bias}
+
+\subsection{Profiled root-bias law}
+
+At a fixed RF frequency, collect the specified finite-kernel channels into
+\begin{equation}
+\bm y=\bm f(C,K,r)+\bm E+\bm n,
+\end{equation}
+with
+\begin{equation}
+\bm f(C,K,r)=C\bm 1+K\bm F(r).
+\end{equation}
+Let $W$ be the positive-definite measurement weight. Define
+\begin{equation}
+X=\begin{bmatrix}\bm 1 & \bm F\end{bmatrix}
+\end{equation}
+and its weighted projector
+\begin{equation}
+P_X=X(X^\dagger W X)^{-1}X^\dagger W.
+\end{equation}
+The raw root-sensitivity direction is $\bm h=K\bm F_r$. After profiling the linear offset and amplitude,
+\begin{equation}
+\bm h_\perp=(I-P_X)\bm h.
+\end{equation}
+The first-order fitted-root bias is
+\begin{equation}
+\boxed{
+\delta r=
+\frac{\bm h_\perp^\dagger W\bm E}
+{\bm h_\perp^\dagger W\bm h_\perp}.
+}
+\label{eq:rootbias}
+\end{equation}
+Equation~\eqref{eq:rootbias} makes explicit why parameter bias and model residual need not track one another. The component of $\bm E$ tangent to the kernel-aware one-mode manifold moves fitted parameters; only its normal component appears as first-order goodness-of-fit error.
+
+Combining Eq.~\eqref{eq:rootbias} with the remote-support bound gives
+\begin{equation}
+\boxed{
+|\delta r|
+\le H_{\Rregion}
+\frac{\left(\sum_m w_m p_{m,\Rregion}^2\right)^{1/2}}
+{\|\bm h_\perp\|_W}
+}
+\label{eq:rootbound}
+\end{equation}
+for diagonal weights, to first order in the nuisance response.
+
+Near a pure-drift baseline, $\gamma=a+ib$ has $|a|\ll|b|$ and $b\simeq-\omega/w$. Solving Eq.~\eqref{eq:ddlaw} for $D$ at $\kappa=0$ gives
+\begin{equation}
+D=-\frac{\omega a}{b(a^2+b^2)},
+\end{equation}
+so
+\begin{equation}
+\boxed{
+D_{\rm app}\simeq\frac{w^3}{\omega^2}\Re\gamma.
+}
+\label{eq:driftsusceptibility}
+\end{equation}
+A small nuisance-induced real spatial exponent can therefore be interpreted as a substantial diffusion coefficient at low RF.
+
+\subsection{Numerical validation of the bias law}
+
+We validate Eq.~\eqref{eq:rootbias} at the exact uniform, zero-diffusion baseline using small positive and negative linear and exponential velocity perturbations while keeping the six theoretical optical kernels fixed. For $|\epsilon|\le0.002$, the projected first-order expression predicts the independently refitted complex root shift with maximum relative error $2.65\times10^{-6}$ and the propagated diffusion bias with maximum relative error $3.53\times10^{-4}$. For $|\epsilon|\le0.01$, the diffusion linearization error remains $1.77\times10^{-3}$.
+
+Only about $3.44\times10^{-3}$ of the weak-gradient nuisance-vector amplitude norm lies outside the local kernel-aware one-mode tangent in this test, corresponding to a normal residual energy fraction of order $1.2\times10^{-5}$. The nuisance is therefore capable of moving the fitted material parameter far more efficiently than it produces a same-frequency rejection signal.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig4_bias_law_validation.pdf}
+\caption{Validation of the local parameter-bias law. The first-order tangent-space prediction closely follows the nonlinear kernel-aware inverse for both independent velocity families.}
+\label{fig:biasvalidation}
+\end{figure}
+
+\input{PAPER02_SAME_FREQUENCY_STATISTICAL_SNIPPET}
+
+\subsection{Covariance-aware multi-frequency rejection}
+
+Additional RF frequencies test whether the recovered roots belong to the homogeneous dispersion family. Let the real-stacked multi-frequency root vector be $\bm x$, its covariance be $C_\gamma$, and the homogeneous model prediction be $\bm m(\bm p)$. The generalized least-squares rejection statistic is
+\begin{equation}
+\boxed{
+T=\min_{\bm p}
+[\bm x-\bm m(\bm p)]^T
+C_\gamma^{-1}
+[\bm x-\bm m(\bm p)].
+}
+\label{eq:teststat}
+\end{equation}
+Let $\bm d$ be the deterministic discrepancy from the closest homogeneous-model point and $J_p$ the model Jacobian. The covariance-weighted precision projected normal to the fitted-model tangent is
+\begin{equation}
+Q_\perp=C_\gamma^{-1}
+-C_\gamma^{-1}J_p
+(J_p^TC_\gamma^{-1}J_p)^{-1}
+J_p^TC_\gamma^{-1},
+\end{equation}
+with alternative noncentrality
+\begin{equation}
+\boxed{
+\Lambda=\bm d^TQ_\perp\bm d.
+}
+\label{eq:lambda}
+\end{equation}
+Practical discrimination is governed by $\Lambda$, not by the raw percent residual of one later frequency.
+
+To illustrate the scale, we adopt an explicit theoretical noise model: six complex channels per RF frequency, independent equal Gaussian real and imaginary quadrature noise, equal RMS-channel SNR at each included RF, and no cross-frequency correlation. The channel covariance is propagated through the kernel-aware one-mode root fit. At every cumulative RF bandwidth, the wrong homogeneous $D,w$ model is then re-fit jointly before its noncentral distance is evaluated.
+
+For false-rejection probability $\alpha=0.0027$ and $90\%$ power, the conditional planar-depletion nuisance requires approximately $90.4\,\mathrm{dB}$ RMS-channel SNR through $1\,\mathrm{GHz}$, $79.9\,\mathrm{dB}$ through $1.5\,\mathrm{GHz}$, $73.2\,\mathrm{dB}$ through $2\,\mathrm{GHz}$, and $64.2\,\mathrm{dB}$ through $3\,\mathrm{GHz}$. These are values under the stated theoretical covariance model, not universal instrument requirements.
+
+The wrong model does not fail abruptly. Its best-fit diffusion decreases from $2.61\times10^{-3}\,\mathrm{m^2/s}$ over the lowest band to approximately $1.03\times10^{-3}\,\mathrm{m^2/s}$ when the fit extends through $3\,\mathrm{GHz}$. The homogeneous model continuously sacrifices parameter consistency to remain near the heterogeneous response. The profiled manifold distance in Eq.~\eqref{eq:teststat} is therefore the relevant rejection quantity.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig5_required_snr_vs_bandwidth.pdf}\\[2pt]%
+\includegraphics[width=\columnwidth]{numerics/paper02_figures/fig5b_refitted_diffusion_vs_bandwidth.pdf}
+\caption{Practical discrimination of the deterministic nuisance from homogeneous diffusion. Increasing usable RF bandwidth substantially reduces the channel SNR required for a fixed rejection power because the first unmatched frequency terms grow beyond the low-frequency tangent regime.}
+\label{fig:snr}
+\end{figure}
+
+\section{HgCdTe scale example and implications}
+\label{sec:hgcdte}
+
+The preceding results do not depend on HgCdTe specifically.  This section checks only whether the effective-field and timing scales used by the conditional stress have independent precedent in HgCdTe; it does not validate the modeled velocity profile or the predicted $D_{\rm eff}$ for any published detector.  We use the existing theoretical HgCdTe kernel construction as a scale example because independently published graded HgCdTe studies provide relevant field and timing benchmarks.
+
+The planar stress uses $L=7.6\,\mu\mathrm{m}$, fixed terminal bias $V_{\rm bias}=0.30\,\mathrm{V}$, and a collector-side Poisson-curvature region of width $W_d=3.0\,\mu\mathrm{m}$ with parameter $\Delta=0.05\,\mathrm{V}$, defined in the full-contact planar limit by $V''=2\Delta/W_d^2$.  Thus $\Delta/W_d=166.7\,\mathrm{V/cm}$ is a characteristic curvature-field scale, not an independently added terminal field.  With the endpoint potentials held fixed, the exact planar field magnitude spans approximately $328.9$--$662.3\,\mathrm{V/cm}$ across the curved region.  Its regional mean is $495.6\,\mathrm{V/cm}$, compared with $394.7\,\mathrm{V/cm}$ for the corresponding uniform-bias profile, so the mean field increment is $100.9\,\mathrm{V/cm}$. A published compositionally graded HgCdTe study reports calculated composition-gradient built-in fields of approximately $100$--$200\,\mathrm{V/cm}$ in the linear graded region, with stronger local surface fields when a nonlinear composition region is retained \cite{xu2023graded}. Separately, a graded-bandgap room-temperature HgCdTe photodetector has demonstrated a response near $1.33\,\mathrm{ns}$, corresponding to a frequency response around $750\,\mathrm{MHz}$, with the faster response attributed to the composition-gradient built-in field \cite{sang2022graded}.
+
+These comparisons do not calibrate the conditional stress to either published detector. The optical kernels, exact field profiles, junction electrostatics, readout covariance, and excitation conditions differ.  The comparison is only one of scale: the exact mean field increment of $100.9\,\mathrm{V/cm}$ in the planar stress lies within the cited $100$--$200\,\mathrm{V/cm}$ composition-gradient range, while the modeled profile itself is not taken from the published device.  The literature therefore supports physical plausibility of the field scale, not validation of the predicted $D_{\rm eff}$ for a real detector.
+
+The scale comparison also highlights the practical attribution problem. The physical heterogeneity can be relevant in a detector family whose usable response bandwidth remains in a regime where the wrong homogeneous model is difficult to reject under the reference covariance. Independent electrostatic constraints can therefore be as important as increasing low-frequency measurement precision.
+
+More generally, the design implication is not that every spectral-depth experiment requires zero overlap with all nonuniform regions. Rather, the full supplied generation kernels should be evaluated against known device-level nuisance regions. If a bound on the point-response discrepancy $H_{\Rregion}$ is available, Eq.~\eqref{eq:rootbound} converts kernel exposure and inverse conditioning into a systematic root-bias bound. A microscopic diffusion attribution should exceed that bound and should remain consistent with a multi-frequency dispersion test whose covariance-weighted power is explicitly quantified.
+
+\section{Discussion}
+
+The present result is an inverse-model statement. Deterministic velocity heterogeneity is real transport physics; the word ``apparent'' refers to assigning its terminal-current signature to a homogeneous microscopic diffusion coefficient. That distinction matters because many practical detector models intentionally use effective parameters. If the scientific objective is only to compress a device response into a compact empirical model, $\Deff$ may be useful. If the objective is to infer a material diffusion coefficient, the same fitted value can be misleading.
+
+Three aspects make the attribution problem particularly severe. First, supplying the exact theoretical optical kernels removes optical-model uncertainty from the controlled inverse but cannot make the underlying point-source transport homogeneous. Exact knowledge of $g_m(z)$ therefore does not by itself eliminate Eq.~\eqref{eq:leakage}. Second, same-frequency model residual and parameter bias probe different directions in channel space. A nuisance nearly tangent to the kernel-aware model can strongly move the root while producing a very small fit residual. Third, the low-frequency homogeneous diffusion family itself has enough freedom to reproduce the first two frequency coefficients of a different analytic response. Practical rejection therefore begins with higher-order frequency structure and can require substantially more bandwidth than an identification calculation alone would suggest.
+
+The Supplemental Material accompanying this revision specifies the theoretical optical-kernel construction, six channel wavelengths and moments, the separate planar-depletion deterministic transport stress, the predeclared inferential convergence gate, the post-hoc exact-planar continuum cross-check, and executable workflow provenance.  The optical-kernel and transport-stress models are documented separately because the former supplies theoretical generation profiles whereas the latter generates the apparent $D_{\rm eff}$ counterexample.
+
+The nonlinear inference was first subjected to an independent predeclared numerical-convergence gate rather than relying only on the earlier raw closure-phase check.  Around the manuscript baseline, the two-dimensional electrostatic/weighting mesh, source-kernel quadrature, and trajectory step were refined one at a time.  The field mesh was the limiting coordinate: baseline-to-fine changes in $D_{\rm eff}$ were $1.648\%$, $1.641\%$, and $1.633\%$ at $100\,\mathrm{MHz}$, $500\,\mathrm{MHz}$, and $1\,\mathrm{GHz}$, respectively, all below the predeclared $2\%$ stability gate.  Source-quadrature and trajectory-step changes were much smaller, and the upstream/inside-region causal split survived every refinement.  This refinement sequence is a stability test and should not itself be interpreted as a monotone extrapolation to the continuum.
+
+Because the central case has a full-width contact, a later hostile review identified a stronger mesh-free check: the planar electrostatic potential has the exact piecewise solution given in the Supplemental Material and $\phi_w=z/L$.  A deliberately labeled post-hoc continuum calculation therefore evaluates the same deterministic Shockley--Ramo transfer and kernel-aware inverse without the two-dimensional field mesh or trajectory stepping.  It gives $D_{\rm eff}=2.6182\times10^{-3}$, $2.5508\times10^{-3}$, and $2.3506\times10^{-3}\,\mathrm{m^2/s}$ at $100\,\mathrm{MHz}$, $500\,\mathrm{MHz}$, and $1\,\mathrm{GHz}$.  The corresponding numerical-baseline values differ by only $0.320\%$, $0.087\%$, and $0.071\%$; the inferred drift scales differ by about $0.03\%$.  The exact upstream point-source sequence remains at numerical-zero scale ($4.5\times10^{-11}\,\mathrm{m^2/s}$), while the exact inside-region control is $4.8706\times10^{-3}\,\mathrm{m^2/s}$.  This post-hoc cross-check strengthens numerical attribution inside the stated deterministic surrogate; it does not convert the synthetic model into an experimentally calibrated device or establish uniqueness in a real detector.
+
+The framework has several limitations. The main numerical stress treats deterministic one-carrier transport and omits microscopic diffusion specifically so that the source of $\Deff$ is unambiguous.  The optical kernels are likewise treated as known exactly; uncertainty in absorption, composition, interference, wavelength calibration, or the inferred kernel shapes would generate additional channel-space tangent and normal errors and must be propagated in an experiment. A real detector can contain both true diffusion and deterministic heterogeneity, in which case the inverse bias adds to rather than replaces the material contribution. The first-order bound assumes a locally regular, uniquely identified one-mode solution and does not yet propagate uncertainty in the supplied optical kernels or electrostatic model itself. The statistical example uses an intentionally simple independent equal-quadrature noise model. Frequency-dependent electronic noise, parasitics, correlated calibration errors, and optimized measurement-time allocation will change the quantitative SNR requirement.
+
+These limitations suggest direct extensions. A nuisance-aware joint model could include parameterized electrostatic profiles and compare their Fisher directions with those of microscopic diffusion. Wavelengths could be selected not only for depth separation but also to minimize restricted overlap with poorly characterized device regions or to maximize the normal distance between competing transport models. Multi-frequency experimental design could likewise allocate information where the heterogeneous and homogeneous dispersion manifolds diverge most strongly rather than uniformly increasing precision at all frequencies.
+
+\section{Conclusion}
+
+A positive diffusion coefficient obtained from wavelength-resolved photodetector transport data need not be a unique signature of microscopic diffusion. In deterministic zero-diffusion models, finite generation kernels that overlap a region of spatially varying carrier velocity can produce a terminal-current response that a homogeneous drift--diffusion inverse interprets as $\Deff>0$.  At the point-source level, monotonic downstream acceleration gives a positive quadratic apparent-diffusion coefficient; in the tested linear and exponential finite-kernel families the fitted sign follows the velocity-gradient direction.  The positive accelerating cases survive exact finite-kernel fitting and can remain close to the homogeneous low-RF dispersion law over a finite bandwidth.
+
+The decisive optical variable is finite support in the heterogeneous region, not the nominal mean generation depth. Removing that support collapses the apparent diffusion even when the channel means are preserved. Locally, the nuisance-induced root bias is determined by its projection onto the kernel-aware model tangent, while the model-rejection residual is the complementary normal projection. This separation explains how an apparently excellent one-mode fit can coexist with a materially wrong diffusion attribution.
+
+Additional RF frequencies provide a falsification route, but structural overdetermination is not equivalent to statistical power. A covariance-weighted manifold test shows that bandwidth can provide substantially more nuisance discrimination than extreme precision confined to the low-frequency tangent regime. Together, the support bound, parameter-bias law, and multi-frequency rejection criterion provide a framework for separating microscopic material diffusion from deterministic device heterogeneity in wavelength-resolved photodetector transport measurements.
+
+\bibliographystyle{apsrev4-2}
+\bibliography{PAPER02_REFERENCES_REV4}
+
+\end{document}
