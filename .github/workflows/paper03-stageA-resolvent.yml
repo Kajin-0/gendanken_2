@@ -1,0 +1,79 @@
+name: Paper 03 Stage A deterministic resolvent
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_combined_physics_challenge.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - '.github/workflows/paper03-stageA-resolvent.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_combined_physics_challenge.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - '.github/workflows/paper03-stageA-resolvent.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  resolvent-grid-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out candidate branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Syntax check Stage-A solvers
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile \
+            paper03_combined_physics_challenge.py \
+            paper03_stageA_resolvent.py \
+            realistic_geometry_closure_stress.py
+
+      - name: Run deterministic backward-resolvent grid gate
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python paper03_stageA_resolvent.py \
+            --tier quick \
+            --output paper03_stageA_resolvent_grid_gate.json
+
+      - name: Verify invariants and non-claim status
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          r = json.loads(Path('paper03_stageA_resolvent_grid_gate.json').read_text())
+          assert r['science_interpretation_ready'] is False
+          assert r['formulation']['stage_B_self_consistent_semiconductor'] is False
+          assert len(r['cases']) == 3
+          for case in r['cases']:
+              d = case['solver_diagnostics']
+              assert d['max_linear_relative_residual'] < 1e-8
+              assert d['committor_relative_residual'] < 1e-8
+              assert d['dc_committor_ramo_max_abs_error'] < 1e-8
+          print(json.dumps(r['initial_grid_precision_gate'], indent=2))
+          print(json.dumps(r['grid_pairs'], indent=2))
+          PY
+
+      - name: Upload deterministic grid record
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-stageA-resolvent-grid-gate
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent_grid_gate.json
+          if-no-files-found: error
