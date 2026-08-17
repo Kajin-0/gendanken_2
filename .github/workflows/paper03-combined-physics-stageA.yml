@@ -1,0 +1,67 @@
+name: Paper 03 combined-physics Stage A
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_COMBINED_PHYSICS_CHALLENGE_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_combined_physics_challenge.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper03-combined-physics-stageA.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_COMBINED_PHYSICS_CHALLENGE_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_combined_physics_challenge.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper03-combined-physics-stageA.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage-a-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out candidate branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Run Stage-A stochastic invariant gate
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python paper03_combined_physics_challenge.py \
+            --mode smoke \
+            --output paper03_combined_physics_stageA_smoke.json
+
+      - name: Assert non-claim status in generated record
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('paper03_combined_physics_stageA_smoke.json')
+          r = json.loads(p.read_text())
+          assert r['gate']['science_interpretation_ready'] is False
+          assert r['gate']['dc_endpoint_ramo_invariant_passed'] is True
+          assert r['gate']['deterministic_recovery_delegates_to_checked_solver'] is True
+          print(json.dumps(r['gate'], indent=2))
+          PY
+
+      - name: Upload Stage-A smoke record
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-combined-physics-stageA-smoke
+          path: experiments/01-vanishing-absorber/numerics/paper03_combined_physics_stageA_smoke.json
+          if-no-files-found: error
