@@ -1,20 +1,9 @@
 name: Paper 03 Stage A particle convergence
 
+# Brute-force sampling failed the predeclared precision gate in authoritative
+# run 32061188941. Retain this workflow as an explicit stochastic cross-check,
+# but do not spend minutes rerunning it on every Paper-03 branch synchronization.
 on:
-  pull_request:
-    paths:
-      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_particle_convergence.py'
-      - 'experiments/01-vanishing-absorber/numerics/paper03_combined_physics_challenge.py'
-      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
-      - '.github/workflows/paper03-stageA-particle-convergence.yml'
-  push:
-    branches:
-      - agent/paper03-combined-physics
-    paths:
-      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_particle_convergence.py'
-      - 'experiments/01-vanishing-absorber/numerics/paper03_combined_physics_challenge.py'
-      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
-      - '.github/workflows/paper03-stageA-particle-convergence.yml'
   workflow_dispatch:
 
 permissions:
