@@ -1,8 +1,8 @@
 """Deterministic backward-resolvent solver for Paper 03 Stage A.
 
-This is an independent numerical formulation of the same fixed-field
+This is an independent numerical formulation of the same fixed-field,
 single-carrier diffusion/recombination problem sampled by
-``paper03_combined_physics_challenge.py``.  It is NOT the Stage-B
+``paper03_combined_physics_challenge.py``. It is NOT the Stage-B
 self-consistent semiconductor Poisson/drift-diffusion model.
 
 For the stopped diffusion
@@ -14,26 +14,26 @@ Shockley--Ramo response
 
     H(x; omega) = E_x[ integral exp(-i omega t) d phi_w(X_t) ].
 
-The backward generator L gives the resolvent problem
+The backward generator L gives
 
     (kappa + i omega - L) H = L phi_w,
 
-with H=0 on absorbing electrical contacts and reflecting conditions on the
-sidewalls / uncontacted top surface.  A positive nearest-neighbour,
-Scharfetter--Gummel-like Markov generator discretizes L.  The discrete source
-is defined as L_h phi_w itself, rather than a separately differentiated field,
-so the dc Ramo/committor identity
+with H=0 on absorbing electrical contacts and reflection on sidewalls and the
+uncontacted top surface. A positive nearest-neighbour,
+Scharfetter--Gummel-like Markov generator discretizes L.
 
-    H(0) = p_selected - phi_w
+The discrete Ramo source is L_h phi_w itself. Therefore, at zero frequency and
+infinite lifetime, the same discrete operator obeys the exact algebraic check
 
-is an exact algebraic invariant of the discrete model up to the sparse-solver
-residual.  This is a strong implementation check and avoids Monte-Carlo noise
-in small closure observables.
+    H(0) = p_selected - phi_w,
 
-The existing stochastic calculation remains valuable as an independent
-cross-formulation validation.  No output from this script is a physics claim
-until grid convergence, Monte-Carlo cross-check, and the kernel-aware blind
-inverse gates are passed.
+where p_selected is the selected-contact committor. This is a numerical
+invariant, not a detector-physics claim.
+
+The stochastic solver remains an independent cross-formulation validation.
+No small closure observable is scientifically interpreted until deterministic
+grid convergence, stochastic cross-check, the calibrated kernel-aware blind
+inverse, and Stage-B semiconductor validation are complete.
 """
 
 from __future__ import annotations
@@ -46,7 +46,7 @@ from typing import Any
 
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator
-from scipy.sparse import csr_matrix, lil_matrix
+from scipy.sparse import csr_matrix, identity, lil_matrix
 from scipy.sparse.linalg import spsolve
 
 import paper03_combined_physics_challenge as stage
@@ -79,41 +79,32 @@ class DiscreteGenerator:
 
 
 def bernoulli(x: float) -> float:
-    """Stable B(x)=x/(exp(x)-1), positive for real x."""
+    """Stable Bernoulli function B(x)=x/(exp(x)-1)."""
     ax = abs(x)
     if ax < 1e-6:
-        # 1 - x/2 + x^2/12 - x^4/720
         x2 = x * x
         return 1.0 - 0.5 * x + x2 / 12.0 - x2 * x2 / 720.0
     if x > 50.0:
-        return x * np.exp(-x)
+        return float(x * np.exp(-x))
     if x < -50.0:
-        return -x
-    return x / np.expm1(x)
+        return float(-x)
+    return float(x / np.expm1(x))
 
 
 def directional_rates(v: float, h: float, D: float) -> tuple[float, float, float]:
-    """Return positive (+,-) jump rates and |cell Peclet|.
-
-    For D>0 the exponentially fitted rates satisfy
-
-        (r_plus-r_minus) h -> v
-
-    and recover centered diffusion as Pe->0.  For D=0 the Markov upwind limit
-    is returned, although scientific D=0 recovery is delegated to the checked
-    deterministic trajectory solver elsewhere.
-    """
-    if h <= 0:
+    """Positive (+,-) jump rates and absolute cell Peclet number."""
+    if h <= 0.0:
         raise ValueError("grid spacing must be positive")
-    if D < 0:
+    if D < 0.0:
         raise ValueError("diffusion coefficient must be nonnegative")
     if D == 0.0:
-        return max(v, 0.0) / h, max(-v, 0.0) / h, float("inf") if v else 0.0
+        pe = float("inf") if v else 0.0
+        return max(v, 0.0) / h, max(-v, 0.0) / h, pe
     pe = v * h / D
     rp = D / h**2 * bernoulli(-pe)
     rm = D / h**2 * bernoulli(pe)
     if rp < 0.0 or rm < 0.0:
-        raise AssertionError("negative jump rate")
+        raise AssertionError("negative Markov jump rate")
     return float(rp), float(rm), float(abs(pe))
 
 
@@ -126,8 +117,8 @@ def build_generator(scenario: base.Scenario, cfg: ResolventConfig) -> DiscreteGe
     dx, dz = float(xs[1] - xs[0]), float(zs[1] - zs[0])
     D = float(cfg.diffusion_m2_s)
 
-    W = float(xs[-1] - xs[0])
-    half = scenario.contact_fraction * W / 2.0
+    width = float(xs[-1] - xs[0])
+    half = scenario.contact_fraction * width / 2.0
     selected = np.zeros((nz, nx), dtype=bool)
     bottom = np.zeros((nz, nx), dtype=bool)
     bottom[0, :] = True
@@ -149,16 +140,14 @@ def build_generator(scenario: base.Scenario, cfg: ResolventConfig) -> DiscreteGe
         if rate <= 0.0:
             return
         flat_n = jn * nx + inn
-        phi_i = phi_grid[j, i]
-        phi_n = phi_grid[jn, inn]
         Q[row, row] -= rate
-        q[row] += rate * (phi_n - phi_i)
+        q[row] += rate * (phi_grid[jn, inn] - phi_grid[j, i])
         if selected[jn, inn]:
             b_selected[row] += rate
         elif bottom[jn, inn]:
             pass
         else:
-            col = flat_to_transient[flat_n]
+            col = int(flat_to_transient[flat_n])
             if col < 0:
                 raise AssertionError("transient-neighbour map failure")
             Q[row, col] += rate
@@ -166,12 +155,14 @@ def build_generator(scenario: base.Scenario, cfg: ResolventConfig) -> DiscreteGe
     for flat in transient_flat:
         j, i = divmod(int(flat), nx)
         row = int(flat_to_transient[flat])
-        vx, vz, _ = base.velocity(float(g["dVdx"][j, i]), float(g["dVdz"][j, i]))
+        vx, vz, _ = base.velocity(
+            float(g["dVdx"][j, i]), float(g["dVdz"][j, i])
+        )
         rxp, rxm, pex = directional_rates(vx, dx, D)
         rzp, rzm, pez = directional_rates(vz, dz, D)
         max_pe = max(max_pe, pex, pez)
 
-        # Missing neighbours are reflecting boundaries: no jump crosses them.
+        # A missing grid neighbour is a reflecting boundary: no jump exits.
         if i + 1 < nx:
             add_jump(row, j, i, j, i + 1, rxp)
         if i - 1 >= 0:
@@ -182,11 +173,11 @@ def build_generator(scenario: base.Scenario, cfg: ResolventConfig) -> DiscreteGe
             add_jump(row, j, i, j - 1, i, rzm)
 
     Q = Q.tocsr()
-    # q was assembled from the exact same jump rates.  Verify against Q phi+b.
-    q_matrix = Q @ phi + b_selected
-    q_identity = float(np.max(np.abs(q - q_matrix))) if len(q) else 0.0
-    if q_identity > 1e-8 * max(1.0, float(np.max(np.abs(q)))):
-        raise AssertionError(f"discrete Ramo source identity failed: {q_identity}")
+    q_from_matrix = Q @ phi + b_selected
+    source_scale = max(1.0, float(np.max(np.abs(q))))
+    source_identity = float(np.max(np.abs(q - q_from_matrix)))
+    if source_identity > 1e-8 * source_scale:
+        raise AssertionError(f"discrete Ramo source identity failed: {source_identity}")
 
     return DiscreteGenerator(
         Q=Q,
@@ -204,17 +195,19 @@ def build_generator(scenario: base.Scenario, cfg: ResolventConfig) -> DiscreteGe
     )
 
 
-def solve_resolvent(gen: DiscreteGenerator, cfg: ResolventConfig) -> tuple[np.ndarray, dict[str, Any]]:
-    """Solve all RF resolvents and the independent dc committor check."""
+def solve_resolvent(
+    gen: DiscreteGenerator, cfg: ResolventConfig
+) -> tuple[np.ndarray, dict[str, Any]]:
+    """Solve all RF resolvents plus the independent dc committor check."""
     n = gen.Q.shape[0]
     if n == 0:
         raise ValueError("no transient grid nodes")
     if not (np.isinf(cfg.lifetime_s) or cfg.lifetime_s > 0.0):
         raise ValueError("lifetime must be positive or infinity")
-    kappa = 0.0 if np.isinf(cfg.lifetime_s) else 1.0 / cfg.lifetime_s
-    I = csr_matrix(np.eye(n))
 
-    # Selected-contact hitting probability for the no-recombination dc identity.
+    kappa = 0.0 if np.isinf(cfg.lifetime_s) else 1.0 / cfg.lifetime_s
+    I = identity(n, format="csr", dtype=complex)
+
     p = spsolve((-gen.Q).tocsc(), gen.b_selected)
     committor_res = -gen.Q @ p - gen.b_selected
     committor_rel = float(
@@ -223,7 +216,7 @@ def solve_resolvent(gen: DiscreteGenerator, cfg: ResolventConfig) -> tuple[np.nd
     )
 
     U = np.zeros((len(base.FREQUENCIES), n), dtype=complex)
-    residuals = []
+    residuals: list[float] = []
     for kf, f in enumerate(base.FREQUENCIES):
         s = kappa + 1j * 2.0 * np.pi * float(f)
         A = (s * I - gen.Q).tocsc()
@@ -238,47 +231,45 @@ def solve_resolvent(gen: DiscreteGenerator, cfg: ResolventConfig) -> tuple[np.nd
         )
 
     if kappa == 0.0:
-        dc_identity_error = float(np.max(np.abs(U[0].real - (p - gen.phi))))
-        dc_imag_max = float(np.max(np.abs(U[0].imag)))
+        dc_identity_error: float | None = float(
+            np.max(np.abs(U[0].real - (p - gen.phi)))
+        )
     else:
-        # The simple committor identity is specifically the infinite-lifetime
-        # check.  The killed resolvent still uses the same discrete Ramo source.
         dc_identity_error = None
-        dc_imag_max = float(np.max(np.abs(U[0].imag)))
 
     return U, {
         "max_linear_relative_residual": float(max(residuals)),
         "linear_relative_residual_by_frequency": residuals,
         "committor_relative_residual": committor_rel,
         "dc_committor_ramo_max_abs_error": dc_identity_error,
-        "dc_max_imaginary_part": dc_imag_max,
+        "dc_max_imaginary_part": float(np.max(np.abs(U[0].imag))),
         "max_cell_peclet": gen.max_cell_peclet,
         "transient_nodes": int(n),
     }
 
 
 def full_grid(gen: DiscreteGenerator, u: np.ndarray) -> np.ndarray:
-    """Embed a transient-state solution in the physical grid with zero future response on contacts."""
+    """Embed transient values; contacts have zero future response."""
     out = np.zeros(len(gen.xs) * len(gen.zs), dtype=complex)
     out[gen.transient_flat] = np.asarray(u, complex)
     return out.reshape(len(gen.zs), len(gen.xs))
 
 
-def integrate_currents(gen: DiscreteGenerator, U: np.ndarray, cfg: ResolventConfig) -> np.ndarray:
-    """Integrate the resolvent over the inherited lateral and spectral kernels."""
+def integrate_currents(
+    gen: DiscreteGenerator, U: np.ndarray, cfg: ResolventConfig
+) -> np.ndarray:
+    """Integrate the resolvent over inherited lateral and optical kernels."""
     xq_um, wx = base.gauss(-base.X_EXTENT_UM, base.X_EXTENT_UM, cfg.nx_src)
     beam = np.exp(-0.5 * (xq_um / base.X_SIGMA_UM) ** 2)
     beam /= np.sum(wx * beam)
 
-    # Match the checked trajectory integration support: avoid evaluating source
-    # exactly on absorbing contacts.
     mask = (base.OPT_Z_UM >= 0.01) & (base.OPT_Z_UM <= base.L_UM - 0.01)
     zd_um = np.asarray(base.OPT_Z_UM[mask], float)
     points = np.column_stack(
-        [
+        (
             np.repeat(zd_um * 1e-6, len(xq_um)),
             np.tile(xq_um * 1e-6, len(zd_um)),
-        ]
+        )
     )
 
     J = np.zeros((len(base.FREQUENCIES), len(base.DEPTHS)), dtype=complex)
@@ -320,11 +311,19 @@ def run_case(scenario: base.Scenario, cfg: ResolventConfig) -> dict[str, Any]:
     gen = build_generator(scenario, cfg)
     U, diag = solve_resolvent(gen, cfg)
     J = integrate_currents(gen, U, cfg)
-    assert np.all(np.isfinite(J.real)) and np.all(np.isfinite(J.imag))
-    assert diag["max_linear_relative_residual"] < 1e-8
-    assert diag["committor_relative_residual"] < 1e-8
+
+    if not np.all(np.isfinite(J.real)) or not np.all(np.isfinite(J.imag)):
+        raise AssertionError("non-finite resolvent current")
+    if diag["max_linear_relative_residual"] >= 1e-8:
+        raise AssertionError("RF linear residual gate failed")
+    if diag["committor_relative_residual"] >= 1e-8:
+        raise AssertionError("committor residual gate failed")
     if np.isinf(cfg.lifetime_s):
-        assert diag["dc_committor_ramo_max_abs_error"] < 1e-8
+        if diag["dc_committor_ramo_max_abs_error"] is None:
+            raise AssertionError("missing dc identity")
+        if diag["dc_committor_ramo_max_abs_error"] >= 1e-8:
+            raise AssertionError("dc committor/Ramo identity gate failed")
+
     return {
         "mode": "deterministic_backward_resolvent_stage_A",
         "config": cfg.__dict__,
@@ -349,8 +348,10 @@ def metric_by_frequency(case: dict[str, Any]) -> dict[float, dict[str, Any]]:
 def convergence_pair(coarse: dict[str, Any], fine: dict[str, Any]) -> dict[str, Any]:
     Jc, Jf = complex_currents(coarse), complex_currents(fine)
     dc, df = np.diff(Jc, axis=1), np.diff(Jf, axis=1)
-    scale = np.linalg.norm(df)
-    step_rel = float(np.linalg.norm(df - dc) / max(scale, np.finfo(float).tiny))
+    first_difference_change = float(
+        np.linalg.norm(df - dc)
+        / max(np.linalg.norm(df), np.finfo(float).tiny)
+    )
 
     mc, mf = metric_by_frequency(coarse), metric_by_frequency(fine)
     phase_rows = []
@@ -366,12 +367,13 @@ def convergence_pair(coarse: dict[str, Any], fine: dict[str, Any]) -> dict[str, 
                 "frequency_hz": f,
                 "coarse_phase_deg": pc,
                 "fine_phase_deg": pf,
-                "absolute_phase_change_deg": abs(pf - pc),
-                "phase_change_fraction_of_frozen_target": abs(pf - pc) / target,
+                "absolute_phase_change_deg": float(abs(pf - pc)),
+                "phase_change_fraction_of_frozen_target": float(abs(pf - pc) / target),
             }
         )
+
     return {
-        "first_difference_relative_change": step_rel,
+        "first_difference_relative_change": first_difference_change,
         "rf_phase_rows": phase_rows,
         "worst_phase_change_fraction_of_frozen_target": float(
             max(r["phase_change_fraction_of_frozen_target"] for r in phase_rows)
@@ -429,13 +431,12 @@ def run_grid_gate(tier: str) -> dict[str, Any]:
             }
         )
 
-    # Predeclared numerical-readiness coordinate for this deterministic solver.
-    # The finest available pair must change the raw four-color phase by <=2%
-    # of the frozen transport target at every nonzero RF.  This is stricter
-    # than the initial Monte-Carlo 5% readiness coordinate and is not a physics
-    # significance threshold.
+    # Numerical-readiness coordinate, not a physical significance threshold.
+    # Predeclared before reading this deterministic solver's result.
     threshold = 0.02
-    finest_pass = pairs[-1]["worst_phase_change_fraction_of_frozen_target"] <= threshold
+    finest_pass = (
+        pairs[-1]["worst_phase_change_fraction_of_frozen_target"] <= threshold
+    )
 
     return {
         "schema": "paper03-stageA-resolvent-grid-gate-v1",
@@ -458,16 +459,16 @@ def run_grid_gate(tier: str) -> dict[str, Any]:
             "finest_pair_passed": bool(finest_pass),
         },
         "blind_analysis_scope": (
-            "The stored closure/Hankel/root quantities are inherited raw geometry "
-            "diagnostics only.  The full calibrated arbitrary-kernel one-mode "
+            "Stored closure/Hankel/root quantities are inherited raw geometry "
+            "diagnostics only. The full calibrated arbitrary-kernel one-mode "
             "consistency inverse and branch-controlled physical root test remain "
             "a separate required gate."
         ),
         "science_interpretation_ready": False,
         "remaining_before_interpretation": [
-            "cross-check the deterministic resolvent against independent stochastic sampling",
-            "pass/refine the deterministic grid precision gate",
-            "implement the kernel-aware blind consistency inverse",
+            "cross-check deterministic resolvent against independent stochastic sampling",
+            "pass/refine deterministic grid precision gate",
+            "implement kernel-aware blind consistency inverse",
             "implement and independently validate Stage-B self-consistent semiconductor physics",
         ],
     }
@@ -484,8 +485,10 @@ def main() -> None:
     args = p.parse_args()
 
     result = run_grid_gate(args.tier)
-    safe = json_safe(result)
-    args.output.write_text(json.dumps(safe, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    args.output.write_text(
+        json.dumps(json_safe(result), indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
 
     for case in result["cases"]:
         d = case["solver_diagnostics"]
