@@ -5,6 +5,7 @@ on:
     branches: [agent/publication-mining-roadmap]
     paths:
       - 'experiments/01-vanishing-absorber/tools/build_paper02_rev8.py'
+      - 'experiments/01-vanishing-absorber/tools/finalize_paper02_rev8_submission.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_two_carrier_exact_continuum.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_two_carrier_known_countercarrier.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_full_channel_rejection.py'
@@ -60,8 +61,9 @@ jobs:
       - name: Build Rev8 from frozen Rev7
         working-directory: experiments/01-vanishing-absorber
         run: |
-          python -m py_compile tools/build_paper02_rev8.py
+          python -m py_compile tools/build_paper02_rev8.py tools/finalize_paper02_rev8_submission.py
           python tools/build_paper02_rev8.py
+          python tools/finalize_paper02_rev8_submission.py
       - name: Guard scope and submission-facing cleanup
         working-directory: experiments/01-vanishing-absorber
         run: |
@@ -77,6 +79,8 @@ jobs:
           assert r'S_{\rm dB}=20\log_{10}S' in m
           for q in ('first-ever','for the first time','universal false diffusion','fundamental new mechanism'):
               assert q.lower() not in t.lower()
+          for q in ('31953328287','31953612225','31953979410','31954048251','31954087223','validation helper','Historically it was introduced'):
+              assert q not in t
           PY
       - name: Regenerate canonical figure bundle
         working-directory: experiments/01-vanishing-absorber/numerics
@@ -111,7 +115,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch origin "$branch"
             git reset --hard "origin/$branch"
-            (cd experiments/01-vanishing-absorber && python tools/build_paper02_rev8.py)
+            (cd experiments/01-vanishing-absorber && python tools/build_paper02_rev8.py && python tools/finalize_paper02_rev8_submission.py)
             git add experiments/01-vanishing-absorber/PAPER02_MANUSCRIPT_REV8_ANON_2026-08-16.tex experiments/01-vanishing-absorber/PAPER02_SUPPLEMENT_REV8_ANON_2026-08-16.tex
             if git diff --cached --quiet; then break; fi
             git commit -m 'Build Paper 02 Rev8 adversarial-response manuscript'
