@@ -21,7 +21,7 @@ uncontacted top = reflecting
 sidewalls = reflecting
 ```
 
-The continuous stochastic calculation uses the existing Euler--Maruyama path implementation with exact discrete Shockley--Ramo weighting-potential increments.
+The continuous stochastic calculation uses the existing Euler--Maruyama path implementation with exact discrete Shockley--Ramo weighting-potential increments. Its interpolated electrostatic and weighting-potential fields are fixed to the `201 x 151` geometry grid before execution.
 
 The deterministic calculation uses the exponentially fitted nearest-neighbor backward Markov generator and the resolvent
 
