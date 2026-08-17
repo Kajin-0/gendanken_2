@@ -1,0 +1,98 @@
+name: Paper 02 exact planar continuum cross-check
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_exact_planar_continuum_crosscheck.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_inference_convergence_gate.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_aware_depletion_frequency_law.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper02-exact-planar-continuum-crosscheck.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  exact-planar-crosscheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out candidate branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/publication-mining-roadmap
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib
+
+      - name: Syntax check
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python -m py_compile paper02_exact_planar_continuum_crosscheck.py
+
+      - name: Run exact planar continuum cross-check
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_exact_planar_continuum_crosscheck.py
+
+      - name: Verify epistemic label and pass status
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('results/paper02_exact_planar_continuum_crosscheck_summary.json')
+          x = json.loads(p.read_text())
+          assert x['comparison']['overall_pass_against_existing_tolerances'] is True
+          assert 'POST-HOC' in x['status']
+          assert 'not a predeclared convergence gate' in x['epistemic_note']
+          d100 = x['exact_continuum']['probe'][str(int(100e6))]['D_eff_m2_per_s']
+          d500 = x['exact_continuum']['probe'][str(int(500e6))]['D_eff_m2_per_s']
+          d1000 = x['exact_continuum']['probe'][str(int(1e9))]['D_eff_m2_per_s']
+          assert d100 > 0 and d500 > 0 and d1000 > 0
+          assert abs(x['point_controls']['outside_depletion']['D_eff_m2_per_s']) < 1e-7
+          assert x['point_controls']['inside_depletion']['D_eff_m2_per_s'] > 0
+          print(x['status'])
+          PY
+
+      - name: Persist exact-continuum result record
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            experiments/01-vanishing-absorber/numerics/results/paper02_exact_planar_continuum_crosscheck_summary.json \
+            experiments/01-vanishing-absorber/numerics/results/PAPER02_EXACT_PLANAR_CONTINUUM_CROSSCHECK.md
+          if git diff --cached --quiet; then
+            echo 'Exact-continuum result record already current.'
+            exit 0
+          fi
+          git commit -m 'Persist Paper 02 exact continuum cross-check'
+          branch='agent/publication-mining-roadmap'
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${branch}"; then
+              exit 0
+            fi
+            echo "Push attempt ${attempt} lost a branch race; rebasing onto origin/${branch}."
+            git fetch origin "${branch}"
+            git rebase "origin/${branch}"
+          done
+          echo 'Unable to persist exact-continuum result after five push attempts.'
+          exit 1
+
+      - name: Upload cross-check artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-exact-planar-continuum-crosscheck
+          path: |
+            experiments/01-vanishing-absorber/numerics/results/paper02_exact_planar_continuum_crosscheck_summary.json
+            experiments/01-vanishing-absorber/numerics/results/PAPER02_EXACT_PLANAR_CONTINUUM_CROSSCHECK.md
+          if-no-files-found: error

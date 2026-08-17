@@ -1,0 +1,58 @@
+name: Paper 02 canonical figure bundle
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_build_figure_bundle.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_independent_velocity_profiles.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_tail_ablation.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_bias_bound_linearization.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_end_to_end_rejection_snr.py'
+      - '.github/workflows/paper02-figure-bundle.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  figures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib
+      - name: Generate independent velocity-profile data
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_independent_velocity_profiles.py
+      - name: Generate kernel-tail ablation data
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_kernel_tail_ablation.py
+      - name: Generate bias-law validation data
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_bias_bound_linearization.py
+      - name: Generate end-to-end rejection data
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_end_to_end_rejection_snr.py
+      - name: Build figure panels
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper02_build_figure_bundle.py
+      - name: Upload canonical figure/data bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-canonical-figure-bundle
+          path: |
+            experiments/01-vanishing-absorber/numerics/paper02_figures/*.pdf
+            experiments/01-vanishing-absorber/numerics/paper02_figures/*.png
+            experiments/01-vanishing-absorber/numerics/paper02_independent_velocity_profiles_results.csv
+            experiments/01-vanishing-absorber/numerics/paper02_kernel_tail_ablation_results.csv
+            experiments/01-vanishing-absorber/numerics/paper02_kernel_tail_ablation_overlap.csv
+            experiments/01-vanishing-absorber/numerics/paper02_bias_bound_linearization.csv
+            experiments/01-vanishing-absorber/numerics/paper02_end_to_end_rejection_bands.csv
+            experiments/01-vanishing-absorber/numerics/paper02_end_to_end_rejection_frequency.csv
+          if-no-files-found: error

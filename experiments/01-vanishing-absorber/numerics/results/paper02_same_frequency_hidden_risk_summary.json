@@ -1,0 +1,89 @@
+{
+  "central_100mhz_ordering": {
+    "positive_D_detectable_first": false,
+    "ratio_rejection_to_D_detection": 0.332179843970082,
+    "snr_one_mode_rejection": 130167.9685245255,
+    "snr_positive_D": 391859.9243373995
+  },
+  "device": {
+    "bias_v": 0.3,
+    "collection_fraction": 1.0,
+    "contact_fraction": 1.0,
+    "dc_ramo_error": 1.1102230246251565e-16,
+    "depletion_width_um": 3.0,
+    "microscopic_D": 0.0,
+    "recombination": 0.0,
+    "space_charge_drop_v": 0.05
+  },
+  "noise_model": {
+    "alpha": 0.0027,
+    "channels": 6,
+    "complex_channels": true,
+    "independent_equal_real_imag_quadrature_noise": true,
+    "power": 0.9,
+    "snr_definition": "S = RMS_m |J_m| / sigma_quadrature"
+  },
+  "rows": [
+    {
+      "D_eff_m2_per_s": 0.0026097950669075887,
+      "channel_residual_dof": 6,
+      "chi2_reject_threshold": 20.061901972375512,
+      "frequency_hz": 100000000.0,
+      "hidden_risk_ratio_Sreject_over_SD": 0.332179843970082,
+      "kernel_fit_rel_full_vector": 1.643839016952084e-05,
+      "lambda_channel_at_snr1": 1.621324028192397e-09,
+      "lambda_required_90pct_power": 27.471227984801992,
+      "one_sided_z_separation_required": 4.063702019329202,
+      "positive_D_detectable_before_one_mode_rejection": false,
+      "residual_norm": 2.3475510693935862e-05,
+      "rms_channel": 0.5830155513850299,
+      "sigma_D_at_channel_snr1_m2_per_s": 251.66070065918356,
+      "snr_required_one_mode_rejection": 130167.9685245255,
+      "snr_required_one_mode_rejection_db": 102.29008254109316,
+      "snr_required_positive_D": 391859.9243373995,
+      "snr_required_positive_D_db": 111.86261700576593,
+      "w_eff_m_per_s": 25700.98361557631
+    },
+    {
+      "D_eff_m2_per_s": 0.0025486032154768343,
+      "channel_residual_dof": 6,
+      "chi2_reject_threshold": 20.061901972375512,
+      "frequency_hz": 500000000.0,
+      "hidden_risk_ratio_Sreject_over_SD": 8.079643637129248,
+      "kernel_fit_rel_full_vector": 8.332491610822727e-05,
+      "lambda_channel_at_snr1": 4.1658249866658686e-08,
+      "lambda_required_90pct_power": 27.471227984801992,
+      "one_sided_z_separation_required": 4.063702019329202,
+      "positive_D_detectable_before_one_mode_rejection": true,
+      "residual_norm": 0.00011764739407589031,
+      "rms_channel": 0.5764103914203441,
+      "sigma_D_at_channel_snr1_m2_per_s": 1.9933184755964808,
+      "snr_required_one_mode_rejection": 25679.61606346922,
+      "snr_required_one_mode_rejection_db": 88.19177052597121,
+      "snr_required_positive_D": 3178.3104820936587,
+      "snr_required_positive_D_db": 70.0439264041462,
+      "w_eff_m_per_s": 25757.75760614757
+    },
+    {
+      "D_eff_m2_per_s": 0.0023489449293112477,
+      "channel_residual_dof": 6,
+      "chi2_reject_threshold": 20.061901972375512,
+      "frequency_hz": 1000000000.0,
+      "hidden_risk_ratio_Sreject_over_SD": 29.482169982203803,
+      "kernel_fit_rel_full_vector": 0.00017384869639463116,
+      "lambda_channel_at_snr1": 1.813402154286759e-07,
+      "lambda_required_90pct_power": 27.471227984801992,
+      "one_sided_z_separation_required": 4.063702019329202,
+      "positive_D_detectable_before_one_mode_rejection": true,
+      "residual_norm": 0.00023683683160861572,
+      "rms_channel": 0.5561631098090943,
+      "sigma_D_at_channel_snr1_m2_per_s": 0.24131454937085,
+      "snr_required_one_mode_rejection": 12308.127116023279,
+      "snr_required_one_mode_rejection_db": 81.80383945820714,
+      "snr_required_positive_D": 417.47697416617507,
+      "snr_required_positive_D_db": 52.412650541621645,
+      "w_eff_m_per_s": 25924.05240248101
+    }
+  ],
+  "status": "CHECKED same-frequency hidden-risk ordering under explicit theoretical noise model"
+}

@@ -1,0 +1,44 @@
+name: Paper 02 same-frequency hidden-risk persisted result
+
+on:
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_same_frequency_hidden_risk.py'
+      - '.github/workflows/paper02-same-frequency-hidden-risk-persist.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  hidden-risk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Run same-frequency ordering test
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          mkdir -p results
+          python paper02_same_frequency_hidden_risk.py \
+            --output-csv results/paper02_same_frequency_hidden_risk.csv \
+            --output-summary results/paper02_same_frequency_hidden_risk_summary.json
+      - name: Persist checked result on branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add experiments/01-vanishing-absorber/numerics/results/paper02_same_frequency_hidden_risk.csv
+          git add experiments/01-vanishing-absorber/numerics/results/paper02_same_frequency_hidden_risk_summary.json
+          if git diff --cached --quiet; then
+            echo 'Result already current.'
+          else
+            git commit -m 'Record same-frequency hidden-risk result'
+            git push
+          fi

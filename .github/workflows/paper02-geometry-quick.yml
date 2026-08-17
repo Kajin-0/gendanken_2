@@ -1,0 +1,58 @@
+name: Paper 02 geometry quick sweep
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_parameter_sweep.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper02-geometry-quick.yml'
+  push:
+    branches:
+      - agent/publication-mining-roadmap
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper02_geometry_parameter_sweep.py'
+      - 'experiments/01-vanishing-absorber/numerics/realistic_geometry_closure_stress.py'
+      - 'experiments/01-vanishing-absorber/numerics/hgcdte_ramo_four_color_gradient_prediction.py'
+      - '.github/workflows/paper02-geometry-quick.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quick-sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out candidate branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Run quick geometry sweep
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python paper02_geometry_parameter_sweep.py \
+            --tier quick \
+            --output-csv paper02_geometry_quick.csv \
+            --output-summary paper02_geometry_quick_summary.json
+
+      - name: Print summary
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: cat paper02_geometry_quick_summary.json
+
+      - name: Upload sweep outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper02-geometry-quick
+          path: |
+            experiments/01-vanishing-absorber/numerics/paper02_geometry_quick.csv
+            experiments/01-vanishing-absorber/numerics/paper02_geometry_quick_summary.json
+          if-no-files-found: error
