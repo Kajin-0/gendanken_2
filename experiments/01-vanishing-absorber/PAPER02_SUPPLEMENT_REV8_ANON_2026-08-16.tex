@@ -138,7 +138,7 @@ A convergence PASS establishes numerical stability of this deterministic surroga
 
 \section{Exact planar continuum primary calculation}
 
-The full-contact central case admits an exact calculation that eliminates the two-dimensional electrostatic mesh. Historically it was introduced after the original mesh-refinement study; in this revision it is the primary full-contact planar result because it removes discretization of electrostatics and trajectories.  In the full-contact planar limit, Eq.~\eqref{eq:planar-poisson} gives the physical potential exactly and the weighting potential is
+The full-contact central case admits an exact calculation that eliminates the two-dimensional electrostatic mesh. It is the primary full-contact planar result because it removes discretization of electrostatics and trajectories.  In the full-contact planar limit, Eq.~\eqref{eq:planar-poisson} gives the physical potential exactly and the weighting potential is
 \begin{equation}
 \phi_w(z)=\frac{z}{L}.
 \end{equation}
@@ -193,8 +193,6 @@ For the affine-depth control, the nominal kernel coordinate $u$ is retained and 
 For signed non-affine perturbations, the exact uniform deterministic null is regenerated with perturbed true kernels while the inverse remains nominal. The channel-linear mode $\delta\lambda_m=A(-1,-0.6,-0.2,0.2,0.6,1)_m$ has local $dD_{\rm eff}/dA=8.513\times10^{-2}\,\mathrm{m^2/(s\,nm)}$ at 100 MHz and an asymptotic rejection-SNR to positive-$D$-SNR ratio of 72.7. It matches the exact heterogeneous target $D_{\rm eff}=2.618164535\times10^{-3}\,\mathrm{m^2/s}$ at $A=+0.0299713\,\mathrm{nm}$, where the maximum kernel-mean shift is $0.205754\,\mathrm{nm}$, the one-mode residual is $3.09\times10^{-8}$, and the thresholds are 115.22 and 156.81 dB. A curvature-shaped signed nuisance reaches the same target at $A=-0.00294205\,\mathrm{nm}$, maximum mean shift $0.020041\,\mathrm{nm}$, and thresholds 115.23 and 138.14 dB.
 
 The amplitudes above are not wavelength-meter specifications, measured calibration errors, or error bars for a real detector. They expose conditioning of the theoretical wavelength-to-kernel map. The local signed tangent calculation, exact affine null, and finite nonlinear inversions are independently executable.
-
-The checked workflows are: covariance run 31953328287; kernel-misspecification run 31953612225; exact-affine run 31953979410; frequency-aware local nuisance projection run 31954048251; and signed-mode threshold run 31954087223. The frequency-aware ``v2'' nuisance projection supersedes only the higher-frequency diffusion-derivative fields of its first version, which had inherited a 100-MHz-fixed angular frequency from a validation helper; the first version's 100-MHz row and channel-space tangent/normal projection were unaffected.
 
 \section{Full-channel multi-frequency rejection comparison}
 
