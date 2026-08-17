@@ -1,96 +1,83 @@
 # Paper 02 — Rev. 8 adversarial-response ledger
 
 **Date:** 2026-08-16  
-**Status:** REV. 7 FROZEN / SUBMISSION READINESS REOPENED / REV. 8 CANDIDATE NOT YET CREATED
+**Status:** **CLOSED / REV. 8 PROMOTED / SCIENTIFIC SUBMISSION GATE RESTORED**
 
 ## Trigger
 
-A new independent extreme adversarial review of the compiled Rev. 7 manuscript + supplement concluded **major revision before submission while the central zero-microscopic-diffusion counterexample appears mathematically sound**.
+A later independent adversarial review of compiled Rev. 7 identified a major carrier-species scope issue plus several methodological/presentation issues. Rev. 7 remains immutable provenance. Rev. 8 was created only after the claim-affecting checks below were executed.
 
-Rev. 7 remains immutable provenance. This ledger governs new scientific work. No Rev. 8 manuscript source is to be created or promoted until the major physics checks below are dispositioned.
+## Disposition
 
-## Priority-ordered issues
+### R8-1 — Carrier-species closure — CLOSED
 
-### R8-1 — Carrier-species closure — MAJOR / OPEN
+The exact planar pair model satisfies the dc full-collection identity to `1.11e-16`, and the uniform two-carrier null recovers numerical-zero diffusion. The heterogeneous pair stress shows that the positive single-carrier apparent-diffusion result is not generically invariant after admitting a second carrier contribution. In the cleaner known-countercarrier-root stress, only `1/21` core speed/frequency cases retains positive downstream inferred diffusion.
 
-The current point-source Shockley–Ramo transfer is a single-mobile-carrier / unipolar contribution. Rev. 7 does not scope this sharply enough while discussing photogenerated carriers broadly.
+**Manuscript action:** Rev. 8 explicitly restricts the theorem/counterexample to a single-mobile-carrier / unipolar Shockley–Ramo observable. No generic two-carrier photodiode claim is made.
 
-Required work before prose revision:
+### R8-2 — Mean-upstream versus `remote` wording — CLOSED
 
-1. derive the exact planar two-carrier terminal transfer with correct charge/velocity signs;
-2. verify the dc full-collection identity for an electron–hole pair;
-3. add an exact-continuum pair stress in which the heterogeneous downstream carrier retains the Rev. 7 velocity profile and the counterpropagating carrier has independently controlled velocity;
-4. sweep the second-carrier velocity ratio broadly and determine whether the apparent-positive-diffusion mechanism survives, changes sign, or becomes non-identifiable;
-5. include limiting one-carrier/unipolar behavior explicitly.
+The baseline demonstrates finite-support coupling while all channel means lie upstream, but does not justify a broad generic `remote` label.
 
-Decision rule: if positive apparent diffusion survives a physically coherent two-carrier family, Rev. 8 may broaden only to that checked family. If not, the manuscript must narrow its claim to a unipolar/single-mobile-carrier observable.
+**Manuscript action:** stronger `remote` language was removed. The result is stated as finite kernel support inside the nonuniform region despite mean generation depths lying upstream.
 
-### R8-2 — Mean-upstream versus genuinely weak-tail coupling — MODERATE/MAJOR / OPEN
+### R8-3 — Exact upstream one-mode bridge — CLOSED
 
-Rev. 7 demonstrates that all kernel means may lie upstream while finite support in the heterogeneous region drives the bias, but the deepest baseline kernel has substantial direct overlap. The stronger word `remote` is therefore not yet justified by the baseline alone.
+For a uniform upstream interval with velocity `v0`, Rev. 8 now gives the exact affine-plus-exponential source-coordinate solution
 
-Required stress: construct a family with maximum heterogeneous-region probability at or below 5%, preferably also 1%, while preserving enough spectral channel diversity to perform the same inverse. Measure apparent D, inverse conditioning, and model residual. If a meaningful effect survives, retain carefully quantified weak-tail language; otherwise replace `remote` with `finite-support coupling to a mean-upstream heterogeneous region` or equivalent.
+```text
+H(z,omega) = v0/(i omega L) + C(omega) exp(i omega z/v0)
+```
 
-### R8-3 — Exact upstream one-mode bridge — MODERATE / OPEN
+with all downstream heterogeneity entering only through the matching constant. This explains why upstream point-source sequences can remain one-mode even though trajectories later cross the heterogeneous region.
 
-For a uniform upstream region with velocity v0, derive explicitly
+### R8-4 — Exact planar continuum as primary calculation — CLOSED
 
-    dH/dz - i omega H/v0 = -1/L
+The mesh-free exact planar continuum is now the primary full-contact calculation. The independent two-dimensional field/trajectory solver is retained as a numerical reproduction/generalization check.
 
-and hence
+Primary exact values:
 
-    H(z,omega) = v0/(i omega L) + C(omega) exp(i omega z/v0)
+```text
+D_eff(100 MHz) = 2.618164535e-3 m^2/s
+D_eff(500 MHz) = 2.550830551e-3 m^2/s
+D_eff(1 GHz)   = 2.350617904e-3 m^2/s
+```
 
-for source positions upstream of the heterogeneous region. Downstream heterogeneity enters only through C(omega). This should explain analytically why upstream point sources remain an affine-plus-single-exponential sequence and return numerical-zero apparent diffusion although their trajectories subsequently cross the heterogeneous region.
+### R8-5 — Root-space versus full-channel rejection — CLOSED
 
-### R8-4 — Exact planar continuum as primary numerical calculation — MODERATE / OPEN
+A direct full-channel homogeneous-manifold test was implemented in addition to the root-space test. Under the declared equal-quadrature covariance, `alpha=0.0027`, 90% power, and amplitude/RMS-channel convention `S_dB=20 log10 S`:
 
-Rev. 7 labels the mesh-free exact planar solution as a post-hoc cross-check. For Rev. 8, invert the presentation: exact continuum is primary for the full-contact planar result; the 2-D mesh/trajectory solver is an independent numerical reproduction/generalization check. Preserve the original predeclared convergence record as provenance but do not present a nonmonotonic mesh sequence as the preferred central value when an exact solution is available.
+```text
+through 1 GHz: root-space 90.37 dB; full-channel 81.51 dB
+through 2 GHz: root-space 73.20 dB; full-channel 72.28 dB
+through 3 GHz: root-space 64.21 dB; full-channel 65.00 dB
+```
 
-### R8-5 — Root-space versus full-channel multi-frequency rejection — MODERATE / OPEN
+The tests are presented as complementary; neither is claimed globally optimal.
 
-Rev. 7 multi-frequency thresholds are based on fitted roots and therefore discard same-frequency normal residual directions. Required work:
+### R8-6 — Manuscript/reproducibility polish — CLOSED
 
-1. relabel the existing thresholds explicitly as `root-space multi-frequency rejection`;
-2. implement a direct full-channel joint GLS/likelihood-ratio stress against the homogeneous transport manifold using the same declared covariance assumptions;
-3. compare required SNR with the root-space test.
+- SNR dB convention made explicit.
+- Internal `hostile review`, failed-run, validation-helper, and raw workflow-ID prose removed from submission-facing PDFs.
+- Anonymity preserved.
+- Source/reproduction statement retained without fabricating an archival DOI.
 
-The full-channel result must not be claimed optimal outside the declared model/covariance family.
+### R8-7 — HgCdTe self-consistency/significance — CLOSED AS A SCOPE LIMITATION
 
-### R8-6 — Manuscript/reproducibility polish — OPEN
+No poorly constrained self-consistent HgCdTe device simulation was manufactured. The HgCdTe construction remains explicitly a conditional optical/field/timing scale example, not a calibrated detector model. This is a significance/scope limitation rather than a correctness defect in the theorem.
 
-Before Rev. 8 compilation:
+## Final gate
 
-- remove phrases such as `hostile review` and internal failed-run/helper-history language from the scientific article and supplement; retain those details in repository provenance records;
-- state the dB convention explicitly as S_dB = 20 log10 S for amplitude/RMS-channel SNR;
-- add a defensible code-availability statement or remove unactionable raw workflow IDs from the submission-facing PDF; do not fabricate a DOI;
-- preserve anonymity/privacy protocol.
+```text
+GitHub Actions run: 31983951996
+job:               95255579031
+artifact:          paper02-manuscript-rev8-package
+artifact id:       9273251646
+artifact SHA-256:  653c996b3166211cb465efceee5ba64944b7e92eab14c0ae38046e7fc89f2b60
+main PDF SHA-256:  97a0916bcc83f94221f78e3315cf21e9b3c593a2a40601470cbf0dcdc685df75
+supp PDF SHA-256:  a7dadfe7289a715f53c09456a315e81d83393a4dd3fc90aee9b683d0d1e717db
+```
 
-### R8-7 — HgCdTe self-consistency/significance — OPEN / NOT A CORRECTNESS GATE
+All claim-affecting science was recomputed on the final branch head; scope guards, canonical figure regeneration, LaTeX/reference resolution, source persistence, artifact upload, and rendered page-by-page inspection passed.
 
-Rev. 7 intentionally uses one theoretical HgCdTe optical-kernel construction and a separate deterministic transport/electrostatic stress. This is acceptable for a systematic-error/theory paper if stated clearly, but it limits device-specific significance.
-
-Potential high-value extension, only if it can be done without importing poorly justified material assumptions:
-
-    x(z) -> Eg(z) -> electrostatic/band-gradient model -> ve(z), vh(z)
-         -> gm(z) -> Jm(omega) -> D_eff
-
-Do not force a nominally self-consistent HgCdTe device model using unvalidated mobility/field/recombination inputs merely to satisfy editorial realism.
-
-## Results from Rev. 7 that remain accepted unless a new stress overturns them
-
-- exact single-carrier point-source ODE;
-- low-frequency tangent equivalence and cubic consistency condition;
-- deterministic velocity-gradient sign result and weak-gradient apparent-diffusion law;
-- independent linear/exponential acceleration/deceleration sign controls;
-- finite-support leakage identity and bound;
-- mean-preserving support ablation;
-- profiled tangent/normal parameter-bias geometry;
-- exact planar single-carrier continuum result;
-- same-frequency conditional hidden-risk ordering under the stated exact-kernel covariance;
-- structured-covariance robustness within the tested family;
-- optical-model uncertainty and affine-depth null results.
-
-## Revision rule
-
-Do not create `PAPER02_MANUSCRIPT_REV8...` merely to change wording. First resolve R8-1. Then resolve R8-2 and R8-5, because they may alter scientific claims/numbers. Only after those gates pass should a deterministic Rev. 8 builder transform the frozen Rev. 7 sources and compile a candidate.
+Canonical status is recorded in `PAPER02_MANUSCRIPT_CURRENT.md` and `PAPER02_CURRENT_STATE_REV8_2026-08-16.md`.
