@@ -1,0 +1,82 @@
+name: Paper 03 Stage A selected-point refinement shards
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEA_REGIME_SELECTION_MANIFEST_2026-08-17.json'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_refine.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_refine_shard.py'
+      - '.github/workflows/paper03-stageA-regime-refine-shards.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEA_REGIME_SELECTION_MANIFEST_2026-08-17.json'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_refine.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_refine_shard.py'
+      - '.github/workflows/paper03-stageA-regime-refine-shards.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refine-point:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - index: 0
+            label: R0_A21
+          - index: 1
+            label: R1_B04
+          - index: 2
+            label: R2_A04
+          - index: 3
+            label: R3_A07
+          - index: 4
+            label: R4_B03
+          - index: 5
+            label: R5_A03
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Run unchanged selected-point refinement shard
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile paper03_stageA_regime_refine.py paper03_stageA_regime_refine_shard.py
+          python paper03_stageA_regime_refine_shard.py \
+            --manifest ../PAPER03_STAGEA_REGIME_SELECTION_MANIFEST_2026-08-17.json \
+            --index ${{ matrix.index }} \
+            --output paper03_stageA_regime_refinement_${{ matrix.label }}.json
+      - name: Verify unchanged refinement gate
+        working-directory: experiments/01-vanishing-absorber/numerics
+        env:
+          EXPECTED_INDEX: ${{ matrix.index }}
+          EXPECTED_LABEL: ${{ matrix.label }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path(f"paper03_stageA_regime_refinement_{os.environ['EXPECTED_LABEL']}.json")
+          r=json.loads(p.read_text())
+          assert r['manifest_index']==int(os.environ['EXPECTED_INDEX'])
+          assert r['science_interpretation_ready'] is False
+          q=r['result']
+          assert q['numerical']['phase_refinement_threshold_fraction']==0.02
+          for d in q['numerical']['case_solver_diagnostics'].values():
+              assert d['max_linear_relative_residual']<1e-8
+              assert d['committor_relative_residual']<1e-8
+          print(q['manifest_id'],q['numerical']['selected_point_refinement_passed'],q['max_refined_mimic_fraction'],q['min_refined_analytic_warning_margin_db'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper03-stageA-regime-refinement-${{ matrix.label }}
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_refinement_${{ matrix.label }}.json
+          if-no-files-found: error
