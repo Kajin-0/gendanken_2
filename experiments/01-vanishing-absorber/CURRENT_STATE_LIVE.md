@@ -1,340 +1,417 @@
-# Current Live State — Experiment 01 / Spectral-Transport Program
+# Current Live State — Spectral-Transport Program
 
 **Date:** 2026-08-17  
-**Status:** Paper 01 preserved; Paper 02 merged/frozen; Paper 03 combined-physics challenge active.  
-**Priority:** execute the predeclared blind combined-physics validation without modifying canonical manuscripts unless a material scientific defect is found.
+**Status:** Paper 01 preserved; Paper 02 merged/frozen; Paper 03 Stage A now supports candidate Outcome A at the nominal finite-geometry coordinate.  
+**Priority:** broaden Paper 03 beyond the nominal geometry before any standalone-paper GO decision.
 
-This is the current state pointer. The complete superseded 2026-08-11 live-state record is preserved byte-for-byte as
+This is the current state pointer. Detailed prior Paper-01 state is preserved byte-for-byte as
 
 ```text
 CURRENT_STATE_ARCHIVE_2026-08-11.md
 ```
 
-Use that archive and the dedicated adversarial records for detailed Paper 01 numerical history. Do not allow the archive's old portfolio numbering to override this file or `PUBLICATION_ROADMAP_CURRENT.md`.
+Current portfolio numbering is controlled by root `PUBLICATION_ROADMAP_CURRENT.md`.
 
 ---
 
-## 1. Current portfolio
+## 1. Portfolio lock
 
 ```text
 Paper 01
-Spectral-depth closure tests for falsifying photocarrier transport
-from Shockley--Ramo current
--> canonical anonymous Rev. 9 retained
+spectral-depth Shockley--Ramo closure / model-order falsification hierarchy
+-> canonical anonymous Rev. 9 preserved
 
 Paper 02
-Apparent diffusion from deterministic velocity gradients in
-wavelength-resolved unipolar photodetector transport
--> Rev. 9 referee-response manuscript merged through PR #18
--> frozen except for a material scientific defect or submission-specific work
+apparent diffusion / transport identifiability
+-> Rev. 9 merged through PR #18
+-> frozen except for material defect or submission-specific work
 
 Paper 03
-Multidimensional geometry + combined ordinary detector physics
+multidimensional geometry + combined ordinary detector physics
 as a false spectral-transport signature
--> predeclared blind challenge
--> Stage A active on PR #19
+-> active draft research branch / PR #19
 
 Paper 04 candidate
-Spatial first-passage semigroup / timing-cumulant nulls
--> novelty gate required before drafting
+first-passage semigroup / timing-cumulant nulls
+-> novelty gate before drafting
 ```
 
-Historical files created when the geometry project was called Paper 02 retain their old filenames for provenance. In particular,
-
-```text
-numerics/paper02_geometry_parameter_sweep.py
-.github/workflows/paper02-geometry-quick.yml
-```
-
-are now development inputs to current Paper 03, not parts of the merged current Paper 02 manuscript.
+Historical geometry filenames containing `paper02` retain that old numbering for provenance only.
 
 ---
 
-## 2. Paper 01 preservation lock
+## 2. Paper 01 preservation and remaining blockers
 
-The canonical Paper 01 manuscript remains the anonymous Rev. 9 baseline:
+The canonical Paper-01 source remains
 
 ```text
 MANUSCRIPT_REV9_ANON_2026-08-11.tex
 SHA-256 = df62813f764f051684ec52162095a5103296b71da1549b4c96829b0168fa1ce4
-compiled pages = 28
-author/PDF metadata = Anonymous
 ```
 
-Its scientific hierarchy remains
+Do not rewrite it merely because Paper 03 advances.
+
+Remaining submission fronts:
 
 ```text
-spectral wavelength
--> calibrated generation coordinate / known kernels
--> Shockley-Ramo terminal-current observable
--> four-channel one-mode falsification
--> DC + RF physical root law
--> six-channel rank-at-most-two test
--> distinct/confluent classification
--> multiplicity/branch/permutation-aware physical admissibility
--> higher ordinary model order before mechanism assignment
+closest-source priority audit;
+calibration feasibility / covariance architecture;
+combined-physics validation.
 ```
 
-The Rev. 9 corrections and all Rev. 4--8 hardening remain mandatory. The archived 2026-08-11 state contains the detailed checklist and numerical values.
-
-Do not rewrite Paper 01 merely to incorporate Paper 03 bookkeeping. Paper 03 is first an external validation attack on the hierarchy.
+Paper 03 is the active attack on the third item.
 
 ---
 
-## 3. Paper 01 remaining blockers
+## 3. Paper 03 governing records
 
-Three substantive fronts remain:
-
-1. **Closest-source priority audit.** Strong priority language still requires direct technical comparison with the closest graded-HgCdTe / spectral-depth source.
-2. **Calibration feasibility.** The nanometer-scale coordinate, common depth scale, phase, optical-kernel, shared-composition, and same-optics covariance requirements require a credible calibration architecture.
-3. **Blind combined-physics validation.** Several ordinary departures must coexist in an independent synthetic detector and be analyzed without giving the hierarchy the generating mechanism labels.
-
-The third blocker is now the active Paper 03 development track.
-
-A safe blind outcome remains
-
-```text
-rank > 2
-mechanism unresolved
-```
-
-because the hierarchy is a falsification structure, not a guaranteed mechanism classifier.
-
----
-
-## 4. Paper 02 — merged and frozen
-
-PR #18 merged the validated Paper 02 Rev. 9 referee-response manuscript to `main`.
-
-Current Paper 02 concerns transport identifiability: a deterministic nonuniform velocity profile can yield a positive fitted effective diffusion coefficient when data are interpreted with the wrong homogeneous drift-diffusion inverse.
-
-Its exact-continuum reference values remain approximately
-
-```text
-100 MHz -> D_eff = 2.6182e-3 m^2/s
-500 MHz -> D_eff = 2.5508e-3 m^2/s
-1 GHz   -> D_eff = 2.3506e-3 m^2/s
-```
-
-with the upstream point-source controls at numerical-zero diffusion under the stated construction.
-
-Paper 02 is not the geometry project. Do not create another Paper 02 revision merely to repair portfolio numbering.
-
----
-
-## 5. Checked geometry seed inherited by Paper 03
-
-The separately auditable deterministic geometry stress remains
-
-```text
-REALISTIC_GEOMETRY_CLOSURE_STRESS.md
-numerics/realistic_geometry_closure_stress.py
-```
-
-For the refined 75%-contact + depletion-like stress, the geometry/depletion four-color excess was approximately
-
-```text
-100 MHz -> 0.738 x the reference 1-D gradient target
-500 MHz -> 0.780 x target
-1 GHz   -> 0.865 x target
-```
-
-At 100 MHz the second-mode witness required about
-
-```text
-84.6 dB current-step amplitude SNR
-```
-
-versus about
-
-```text
-96.1 dB
-```
-
-for the reference transport claim, leaving an approximately `11.5 dB` early-warning margin in that stress family.
-
-The 50%-contact case gave an even larger warning margin. The fitted two-root response also failed the simple RF-independent physical root-sum law.
-
-This result is checked only under its stated deterministic high-Peclet assumptions. It is not a calibrated detector simulation and is not a theorem for arbitrary geometry.
-
-The historical parameterized regime-map implementation is
-
-```text
-numerics/paper02_geometry_parameter_sweep.py
-```
-
-and must be reused rather than duplicated.
-
----
-
-## 6. Paper 03 predeclared combined-physics challenge
-
-The governing record is
+Read in this order for current development:
 
 ```text
 PAPER03_COMBINED_PHYSICS_CHALLENGE_2026-08-17.md
+PAPER03_STAGEA_NUMERICAL_GATE_2026-08-17.md
+PAPER03_STAGEA_RESOLVENT_GATE_2026-08-17.md
+PAPER03_STAGEA_KERNEL_BLIND_GATE_2026-08-17.md
+PAPER03_STAGEA_KERNEL_TWO_MODE_2026-08-17.md
+PAPER03_STAGEA_RECOMBINATION_GATE_2026-08-17.md
+PAPER03_STAGEA_STATISTICAL_PREDECLARATION_2026-08-17.md
+PAPER03_STAGEA_STATISTICAL_BOOTSTRAP_2026-08-17.md
+PAPER03_STAGEA_CROSS_FORMULATION_PREDECLARATION_2026-08-17.md
+PAPER03_STAGEA_CROSS_FORMULATION_RESULT_2026-08-17.md
+PAPER03_STAGEB_MODEL_SPEC_2026-08-17.md
 ```
 
-Scientific question:
+The blind boundary remains mandatory: the analyzer may receive calibrated `J(lambda,omega)`, kernels/frequencies/noise information, but not hidden fields, true `D`, true lifetime, path histories, or generating-mechanism labels.
 
-> When finite geometry, nonuniform electrostatics, diffusion, recombination, realistic optical kernels, and later self-consistent charge/contact/multicarrier effects coexist in an independent forward model, does the hierarchy reject an inadequate low-dimensional transport interpretation before a false microscopic parameter claim becomes statistically defensible?
+---
 
-### Blind boundary
+## 4. Stage-A forward solver status
 
-The forward side may know fields, geometry, diffusion, lifetime, contact rules, and trajectory histories.
+### Brute-force stochastic paths
 
-The blind analysis may receive only legitimate measurement/calibration inputs such as
+The Euler--Maruyama path implementation preserves the discrete endpoint Shockley--Ramo identity to approximately
 
 ```text
-complex J(lambda, omega);
-channel/frequency information;
-known calibrated kernels where required;
-predeclared noise/calibration information.
+1.11e-16.
 ```
 
-It must not receive the hidden mechanism label, true diffusion coefficient, true lifetime, internal field, or trajectory fates.
+However, the predeclared particle-precision gate failed badly: even at 384 particles/source the independent-replica four-color phase half-spread was approximately `7.76 x` the entire frozen transport target rather than `<=0.05 x`.
 
-### Observable lock
+Decision:
 
-The selected-electrode response remains Shockley--Ramo terminal current. Every discrete trajectory accumulates actual weighting-potential increments. At DC,
+```text
+Monte Carlo -> independent stochastic validation only
+not the production estimator of the tiny nonlinear closure signal.
+```
+
+### Deterministic backward resolvent
+
+For fixed-field drift-diffusion with optional exponential recombination,
 
 ```math
-H(0)=phi_w(r_end)-phi_w(r_0).
+(\kappa+i\omega-L)H=L\phi_w.
 ```
 
-Recombination or opposite-contact collection therefore does **not** get forced to the selected-contact endpoint value.
+A positive exponentially fitted nearest-neighbor Markov generator gives an exact discrete dc committor/Ramo identity.
+
+The predeclared 2%-of-target spatial-grid gate passed on 121x91 -> 161x121 with worst phase change
+
+```text
+1.9941% of frozen target.
+```
+
+A post-gate 201x151 refinement strengthened this to
+
+```text
+1.1732%.
+```
+
+At 201x151, sparse linear residuals and the dc committor/Ramo identity remain at approximately `1e-13` and `1e-15` scales respectively.
+
+This resolvent is the preferred Stage-A production formulation.
 
 ---
 
-## 7. Paper 03 staged execution
+## 5. Correct calibrated-kernel one-mode test
 
-### Stage A — active
-
-Reuse the checked 2-D potential/weighting machinery and add stochastic transport
+The six HgCdTe generation kernels change shape with wavelength, so the exact one-mode model is
 
 ```math
-dr=v(r)dt+sqrt(2D)dW
+J_m=A+B M_m(r),
 ```
 
-plus an optional exponential recombination hazard.
+```math
+M_m(r)=\int g_m(z)e^{rz}\,dz.
+```
 
-Current implementation:
+The historical raw translated-kernel closure is retained only as a comparison diagnostic.
+
+For the nominal Stage-A coordinate
 
 ```text
-numerics/paper03_combined_physics_challenge.py
-.github/workflows/paper03-combined-physics-stageA.yml
+finite75 + depletion
+D = 2.5e-3 m^2/s
+tau = infinity
+201 x 151
+17-point lateral quadrature
 ```
 
-Required Stage-A gates:
+the same-physics finite-minus-planar historical phase remains order one relative to the frozen transport target:
 
 ```text
-D=0, tau=infinity -> checked deterministic recovery path;
-DC endpoint-Ramo telescope -> numerical precision;
-fixed-seed reproducibility;
-explicit terminal fates;
-particle-count and step-size convergence before scientific phase interpretation;
-mechanism-blind analysis API.
+100 MHz -> 0.728 x target
+500 MHz -> 0.774 x target
+1 GHz   -> 0.875 x target
 ```
 
-Stage A is a combined-physics seed. It is **not** a self-consistent semiconductor Poisson/drift-diffusion solution.
-
-### Stage B — next after Stage-A numerical lock
-
-Implement and independently validate one charge-coupled semiconductor forward model containing at minimum
+The calibrated-kernel all-six one-mode residual is
 
 ```text
-Poisson electrostatics;
-explicit fixed charge/doping prescription;
-carrier statistics;
-field-dependent drift;
-diffusion;
-recombination;
-contact boundary conditions;
-and a separately solved weighting potential.
+100 MHz -> 2.348e-4
+500 MHz -> 3.485e-4
+1 GHz   -> 6.419e-4
 ```
 
-The forward model must pass soluble-limit or independent-formulation checks before its synthetic currents are used as scientific evidence.
+versus only about `1.5e-6` for the same-physics planar control.
 
-### Stage C
-
-Run the blind hierarchy over the declared combined geometry/transport coordinates, add measurement-noise/SNR analysis only after numerical uncertainty is controlled, and repeat the decisive behavior in a materially different geometry family.
+Thus the surviving mismatch is not explained by the evolving optical-kernel shapes alone.
 
 ---
 
-## 8. Paper 03 GO / NO-GO
+## 6. Kernel-aware model order and physical law
 
-Standalone **GO** requires all of:
+Diagnostic extension:
 
-```text
-numerical recovery and convergence;
-strict blind-analysis separation;
-a broad physically ordinary regime with a clear Outcome A or B;
-a materially different second geometry family;
-an observable/SNR consequence;
-a focused prior-art audit leaving a defensible contribution.
+```math
+J_m=A+B_1M_m(r_1)+B_2M_m(r_2).
 ```
 
-Outcome A:
+This is a model-order diagnostic, not an asserted general arbitrary-kernel rank-two theorem.
+
+For the 201x151 nominal finite case, two-mode residuals fall to approximately
 
 ```text
-large confound self-announces through model order / root-law failure
-before the mechanism-specific claim threshold.
+100 MHz -> 2.356e-6
+500 MHz -> 1.839e-6
+1 GHz   -> 2.349e-6
 ```
 
-Outcome B:
+or approximately the planar one-mode floor, representing roughly `100x`, `190x`, and `273x` reductions from one mode.
+
+The fitted root set is stable under 161x121 -> 201x151 refinement.
+
+However, the homogeneous scalar finite-boundary law requires
+
+```math
+r_1+r_2=-w/D
+```
+
+to be real and RF-independent. The fitted root sums are instead approximately
 
 ```text
-large confound remains hidden at the tested model order and physical root laws
-through the mechanism-specific claim precision.
+DC      -> +0.019686 - 0.000004 i 1/um
+100 MHz -> +0.064608 + 0.258811 i 1/um
+500 MHz -> -0.284871 + 13.309964 i 1/um
+1 GHz   -> -0.035999 + 12.945011 i 1/um
 ```
 
-Outcome B would force a narrowing of the Paper 01 interpretation protocol.
+so the compact two-mode mathematical description does **not** become a false ordinary homogeneous transport mechanism.
 
-A narrow one-geometry sensitivity, a result that disappears under refinement, or an inverse that requires hidden generator labels is standalone **NO-GO**.
+Current hierarchy:
+
+```text
+kernel-aware one mode -> reject
+kernel-aware two-mode diagnostic -> compactly describes response
+homogeneous physical root law -> reject strongly
+```
 
 ---
 
-## 9. Paper 04 candidate
+## 7. Finite-recombination sensitivity
 
-The first-passage/cumulant branch is now current Paper 04 candidate.
-
-Its exact probability structure is not by itself a novelty claim. Before any manuscript drafting, perform the focused primary-source audit against semiconductor time-of-flight, transient-current technique, first-passage spectroscopy, inverse-Gaussian transit models, subordinator/Levy-process system identification, depth-resolved impulse response, photodiode transit-time reconstruction, and cumulant-based diagnostics.
-
-Keep its observable distinction explicit: successful collection/arrival-time transforms are not automatically raw Shockley--Ramo terminal current.
-
----
-
-## 10. Current execution order
+At
 
 ```text
-1. preserve Paper 01 and frozen Paper 02;
-2. finish Paper 03 Stage-A invariant execution and numerical convergence;
-3. implement/validate Paper 03 Stage-B self-consistent forward physics;
-4. run the blind combined regime map;
-5. test a materially different geometry family;
-6. feed only defensible validation consequences back into Paper 01 readiness;
-7. run the Paper 04 novelty gate before drafting.
+D = 2.5e-3 m^2/s
+tau = 5 ns
 ```
 
-Do not start another broad speculative branch while the Paper 03 combined-physics gate is unresolved unless a material contradiction appears.
+the spatial and lateral-quadrature numerical gates pass.
+
+Same-physics finite-minus-planar mimic fractions become approximately
+
+```text
+100 MHz -> 0.745
+500 MHz -> 0.795
+1 GHz   -> 0.908
+```
+
+and the calibrated all-six finite one-mode residual remains roughly two to three orders of magnitude above the planar floor.
+
+Thus this finite-lifetime sensitivity point does not rescue the one-mode interpretation.
 
 ---
 
-## 11. Mandatory recovery order
+## 8. Predeclared statistical gate — current strongest result
 
-For a new agent continuing this program:
+The statistical experiment was locked before execution:
+
+```text
+alpha = 0.002699796063260207
+target power = 0.90
+N_null = 4000 per SNR point
+N_alt = 2000 per SNR point
+SNR grid = analytic threshold + {-4,-2,0,+2,+4} dB
+six complex channels
+nonlinear kernel-aware one-mode refit for every realization
+```
+
+Noise convention:
+
+```math
+n_m=\sigma(\xi_R+i\xi_I),
+```
+
+with `sigma` the standard deviation of each real/imaginary current quadrature and
+
+```math
+SNR_{dB}=20\log_{10}(s_J/\sigma),
+```
+
+where `s_J` is the mean adjacent current-step magnitude.
+
+Authoritative parallel RF run:
+
+```text
+run = 32065068757
+head = ff3be81c695ab872607441b206adc0db47a2bba9
+all three RF jobs = success
+```
+
+The predeclared early-warning condition passes at every RF:
+
+| RF | lowest tested SNR with power >= 0.90 | frozen transport-claim SNR | conservative tested margin |
+|---:|---:|---:|---:|
+| 100 MHz | 76.545 dB | 96.1 dB | **19.55 dB** |
+| 500 MHz | 73.137 dB | 82.3 dB | **9.16 dB** |
+| 1 GHz | 65.892 dB | 76.7 dB | **10.81 dB** |
+
+At 100 and 500 MHz the analytic-threshold bootstrap powers were `0.8945` and `0.8985`, so those points were correctly retained as failures and the next fixed `+2 dB` points were used. At 1 GHz the analytic point produced exactly `0.9000`, which passes the locked `>=0.90` rule; the next already-declared point gives `0.9975` power and still lies `8.81 dB` below the frozen transport-claim SNR.
+
+No statistical threshold, sample count, SNR point, or pass rule was modified after seeing the result.
+
+For the nominal Stage-A geometry this strongly supports candidate
+
+```text
+Outcome A: geometry self-announces before the mechanism-specific claim threshold.
+```
+
+It does **not** establish Outcome A over a broad domain yet.
+
+---
+
+## 9. Independent stochastic/resolvent cross-formulation result
+
+The separately predeclared five-point cross-formulation check is formally
+
+```text
+OVERALL FAIL
+```
+
+and must remain recorded that way.
+
+Reason: four `p_selected` comparisons saturated at `4000/4000` selected-contact trajectories, so the empirical Bernoulli SE was exactly zero while the fine deterministic probability differed from one by only `~1e-11` or less. The literal predeclared tolerance therefore became degenerate at the probability boundary.
+
+Important independent signal result:
+
+```text
+35 / 35 declared direct Shockley--Ramo H components passed
+maximum endpoint-Ramo path error = 1.11e-16
+unresolved path fraction = 0.
+```
+
+Do not relabel the formal probability gate as a pass. If a nondegenerate fate-probability comparison becomes necessary, predeclare new source points and a binomial/exact-tail treatment separately.
+
+---
+
+## 10. Stage-B boundary
+
+`PAPER03_STAGEB_MODEL_SPEC_2026-08-17.md` now reserves **self-consistent** for a coupled semiconductor dark/bias operating-state solve:
+
+```text
+Poisson + carrier continuity
+-> converged operating state
+-> dilute small-signal photocarrier transport
+-> independent weighting-potential solve
+-> blind spectral/RF analysis.
+```
+
+Required validation includes analytic Poisson limits, neutral/zero-space-charge limit, equilibrium current, steady-current conservation, three-mesh convergence, weighting/Ramo invariants, and backward-versus-forward small-signal agreement.
+
+Stage B has not yet been implemented or demonstrated.
+
+---
+
+## 11. Current Paper-03 decision
+
+For the nominal finite75 + depletion Stage-A coordinate:
+
+```text
+order-one geometry mimic -> YES
+kernel-aware one-mode failure -> YES
+compact kernel-aware two-mode description -> YES
+homogeneous physical-root-law failure -> YES
+predeclared early-warning bootstrap at all three RF -> YES
+finite-recombination sensitivity survives -> YES
+independent direct-H stochastic/resolvent agreement -> 35/35 checks
+```
+
+Therefore:
+
+```text
+candidate Outcome A at nominal Stage-A coordinate -> STRONGLY SUPPORTED
+Paper 03 standalone GO -> NOT YET
+science_interpretation_ready -> false
+```
+
+The missing standalone requirements are now concentrated:
+
+```text
+1. broad physically ordinary Stage-A geometry / diffusion / lifetime regime map;
+2. materially different second geometry family;
+3. Stage-B self-consistent semiconductor validation;
+4. focused prior-art audit.
+```
+
+---
+
+## 12. Immediate execution order
+
+```text
+1. predeclare and execute broad Stage-A regime-map screening;
+2. refine predeclared boundary / worst / representative points on 201x151;
+3. bootstrap only the predeclared selected screening points rather than every grid point;
+4. test a materially different second geometry family;
+5. implement and validate Stage B under PAPER03_STAGEB_MODEL_SPEC_2026-08-17.md;
+6. perform focused prior-art audit before standalone manuscript drafting;
+7. feed only defensible consequences back into Paper-01 submission readiness.
+```
+
+Do not launch another speculative manuscript branch while these Paper-03 gates remain unresolved.
+
+---
+
+## 13. Mandatory recovery order
 
 1. root `PRIVACY_PROTOCOL.md`;
 2. root `AGENTS.md`;
 3. root `PUBLICATION_ROADMAP_CURRENT.md`;
-4. `MANUSCRIPT_CURRENT.md` and manuscript preservation records when Paper 01 work is required;
-5. this file;
-6. `CURRENT_STATE_ARCHIVE_2026-08-11.md` for the complete prior Paper 01 live-state detail;
-7. `PAPER03_COMBINED_PHYSICS_CHALLENGE_2026-08-17.md`;
-8. `REALISTIC_GEOMETRY_CLOSURE_STRESS.md`;
-9. `numerics/realistic_geometry_closure_stress.py`;
-10. historical `numerics/paper02_geometry_parameter_sweep.py`;
-11. `numerics/paper03_combined_physics_challenge.py`.
+4. this file;
+5. `PAPER03_COMBINED_PHYSICS_CHALLENGE_2026-08-17.md`;
+6. Stage-A gate records listed in Section 3;
+7. `PAPER03_STAGEB_MODEL_SPEC_2026-08-17.md`;
+8. historical `REALISTIC_GEOMETRY_CLOSURE_STRESS.md` and `numerics/paper02_geometry_parameter_sweep.py` when regime-map provenance is needed;
+9. canonical manuscript/preservation records only when Paper-01 manuscript work is required.
 
 **Preserve first; integrate second; rewrite only when scientifically necessary.**
 
