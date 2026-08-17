@@ -61,17 +61,17 @@ The strongest refined confound in the selected set is `R4_B03`, reaching approxi
 
 | RF | mimic fraction | rho1 all-six | analytic warning margin |
 |---:|---:|---:|---:|
-| 100 MHz | 0.728 | 2.35e-4 | +19.55 dB |
-| 500 MHz | 0.774 | 3.49e-4 | +9.16 dB |
+| 100 MHz | 0.728 | 2.35e-4 | +21.55 dB |
+| 500 MHz | 0.774 | 3.49e-4 | +11.16 dB |
 | 1 GHz | 0.875 | 6.42e-4 | +10.81 dB |
 
-The already completed nominal bootstrap remains authoritative for S0.
+The already completed nominal bootstrap remains authoritative for S0. Its conservative **tested** warning margins are +19.55, +9.16, and +10.81 dB at 100 MHz, 500 MHz, and 1 GHz respectively; these are distinct from the analytic margins tabulated above.
 
 ### R1_B04 — S1/S6 maximum-confound optical-offset stress
 
 | RF | mimic fraction | rho1 all-six | analytic warning margin |
 |---:|---:|---:|---:|
-| 100 MHz | 1.491 | 1.255e-3 | +34.20 dB |
+| 100 MHz | 1.491 | 1.215e-3 | +35.83 dB |
 | 500 MHz | 0.271 | 1.602e-3 | +24.38 dB |
 | 1 GHz | 1.685 | 1.869e-3 | +20.01 dB |
 
