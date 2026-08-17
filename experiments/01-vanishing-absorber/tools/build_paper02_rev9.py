@@ -29,7 +29,7 @@ bib=frozen(BS,BSHA)
 # 1) Make the physical meaning of the unipolar restriction concrete without
 # claiming that the planar surrogate is a UTC-PD device model.
 old='The observable $H$ below is one mobile-carrier contribution. In an ordinary electron--hole pair both carrier trajectories can contribute to terminal current; that more general decomposition is not assumed here. The present equations apply directly to a unipolar observable and to regimes in which the complementary carrier contribution is independently isolated or negligible.'
-new=old+r''' A concrete photodetector class in which strongly carrier-asymmetric transport is deliberately engineered is the Uni-Traveling-Carrier photodiode (UTC-PD), introduced to exploit electron transport in the collection region \cite{ishibashi1997utc}. We cite UTC-PDs only as an existence example for a physically meaningful effectively one-traveling-carrier regime; the planar surrogate below is not a UTC-PD device model.'''
+new=old+r''' A concrete photodetector class in which strongly carrier-asymmetric transport is deliberately engineered is the \mbox{Uni-Traveling-Carrier} photodiode (UTC-PD), introduced to exploit electron transport in the collection region \cite{ishibashi1997utc}. We cite UTC-PDs only as an existence example for a physically meaningful effectively one-traveling-carrier regime; the planar surrogate below is not a UTC-PD device model.'''
 m=once(m,old,new,'unipolar physical context')
 
 # 2) Explicitly link Eq. (10) to the H0 used in the finite-support theorem.
