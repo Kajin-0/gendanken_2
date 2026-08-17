@@ -44,12 +44,12 @@ jobs:
             paper03_stageA_resolvent.py \
             realistic_geometry_closure_stress.py
 
-      - name: Run deterministic backward-resolvent grid gate
+      - name: Run refined deterministic backward-resolvent grid gate
         working-directory: experiments/01-vanishing-absorber/numerics
         run: |
           python paper03_stageA_resolvent.py \
-            --tier quick \
-            --output paper03_stageA_resolvent_grid_gate.json
+            --tier refined \
+            --output paper03_stageA_resolvent_grid_gate_refined.json
 
       - name: Verify invariants and non-claim status
         working-directory: experiments/01-vanishing-absorber/numerics
@@ -58,9 +58,10 @@ jobs:
           import json
           from pathlib import Path
 
-          r = json.loads(Path('paper03_stageA_resolvent_grid_gate.json').read_text())
+          r = json.loads(Path('paper03_stageA_resolvent_grid_gate_refined.json').read_text())
           assert r['science_interpretation_ready'] is False
           assert r['formulation']['stage_B_self_consistent_semiconductor'] is False
+          assert r['tier'] == 'refined'
           assert len(r['cases']) == 3
           for case in r['cases']:
               d = case['solver_diagnostics']
@@ -71,9 +72,9 @@ jobs:
           print(json.dumps(r['grid_pairs'], indent=2))
           PY
 
-      - name: Upload deterministic grid record
+      - name: Upload refined deterministic grid record
         uses: actions/upload-artifact@v4
         with:
-          name: paper03-stageA-resolvent-grid-gate
-          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent_grid_gate.json
+          name: paper03-stageA-resolvent-grid-gate-refined
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent_grid_gate_refined.json
           if-no-files-found: error
