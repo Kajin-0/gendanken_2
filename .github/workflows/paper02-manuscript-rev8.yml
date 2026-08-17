@@ -8,6 +8,11 @@ on:
       - 'experiments/01-vanishing-absorber/numerics/paper02_two_carrier_exact_continuum.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_two_carrier_known_countercarrier.py'
       - 'experiments/01-vanishing-absorber/numerics/paper02_full_channel_rejection.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_independent_velocity_profiles.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_kernel_tail_ablation.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_bias_bound_linearization.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_end_to_end_rejection_snr.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper02_build_figure_bundle.py'
       - '.github/workflows/paper02-manuscript-rev8.yml'
   workflow_dispatch:
 
@@ -73,6 +78,15 @@ jobs:
           for q in ('first-ever','for the first time','universal false diffusion','fundamental new mechanism'):
               assert q.lower() not in t.lower()
           PY
+      - name: Regenerate canonical figure bundle
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python paper02_independent_velocity_profiles.py
+          python paper02_kernel_tail_ablation.py
+          python paper02_bias_bound_linearization.py
+          python paper02_end_to_end_rejection_snr.py
+          python paper02_build_figure_bundle.py
+          test -s paper02_figures/fig1_generation_kernels.pdf
       - name: Install TeX tools
         run: |
           sudo apt-get update -qq
