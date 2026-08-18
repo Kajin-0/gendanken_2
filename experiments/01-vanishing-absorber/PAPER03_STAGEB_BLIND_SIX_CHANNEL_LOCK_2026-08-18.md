@@ -231,19 +231,23 @@ If root stability fails, the correct classification is higher-order / mechanism 
 
 ### B2-A — self-consistent physics self-announces
 
-The self-consistent finite structure produces a transport-like spectral/RF deviation, while calibrated-kernel model inadequacy and/or a numerically stable physical-root-law violation becomes detectable below the frozen false-transport claim precision.
+The self-consistent finite structure produces an order-one transport-like spectral/RF deviation (maximum finite-minus-planar historical mimic fraction >= 0.5), while calibrated-kernel model inadequacy and/or a numerically stable physical-root-law violation becomes detectable below the frozen false-transport claim precision.
 
 This is consistent with Paper-03 Outcome A.
 
 ### B2-B — hidden-risk Stage-B point
 
-The self-consistent structure remains effectively compatible with the homogeneous low-dimensional interpretation through the frozen false-claim precision.
+An order-one self-consistent finite-minus-planar deviation is present, but the self-consistent structure remains effectively compatible with the homogeneous low-dimensional interpretation through the frozen false-claim precision.
 
 This is a genuine adverse result and must narrow the manuscript; it may not be tuned away.
 
+### B2-C — small self-consistent confound
+
+The generic synthetic Stage-B point has maximum finite-minus-planar historical mimic fraction < 0.5. This still validates the self-consistent forward/observable/blind-analysis machinery if all numerical and leakage gates pass, but it is not additional evidence that an order-one self-consistent confound self-announces. The standalone Paper-03 Outcome-A evidence then remains the already-predeclared broad Stage-A domain and materially different coplanar family.
+
 ### B2-D — conservative unresolved higher order
 
-The one-mode model is rejected below false-claim precision, but two-mode roots are unstable or fail to support a unique mechanism-level interpretation.
+An order-one deviation is present and the one-mode model is rejected below false-claim precision, but two-mode roots are unstable or fail to support a unique mechanism-level interpretation.
 
 This is a successful safety/falsification outcome and must be reported as mechanism unresolved.
 
@@ -258,7 +262,7 @@ blind-analysis input contract is respected;
 and the six-channel analysis executes deterministically with finite outputs.
 ```
 
-If B2-A or B2-D is obtained, the self-consistent generic validation does not expose a hidden failure of the Paper-03 falsification logic. Combined with the already-checked broad first-family Outcome-A result, materially different coplanar topology, actionable bootstrap SNR margins, and focused prior-art boundary, this is sufficient to evaluate the predeclared standalone Paper-03 GO criteria.
+If B2-A, B2-C, or B2-D is obtained, the self-consistent generic validation does not expose a hidden failure of the Paper-03 falsification logic. Combined with the already-checked broad first-family Outcome-A result, materially different coplanar topology, actionable bootstrap SNR margins, and focused prior-art boundary, this is sufficient to evaluate the predeclared standalone Paper-03 GO criteria.
 
 If B2-B is obtained, standalone framing must be reconsidered before drafting is frozen.
 
