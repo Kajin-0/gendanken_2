@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'experiments/01-vanishing-absorber/PAPER03_STAGEB_MESH_WEIGHTING_RECIPROCITY_LOCK_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEB_MESH_REFINEMENT_LOCK_2026-08-18.md'
       - 'experiments/01-vanishing-absorber/numerics/paper03_stageB_operating_state.py'
       - 'experiments/01-vanishing-absorber/numerics/paper03_stageB_mesh_weighting_reciprocity.py'
       - '.github/workflows/paper03-stageB-mesh-weighting-reciprocity.yml'
@@ -27,7 +28,7 @@ jobs:
       - name: Run frozen Stage B mesh weighting reciprocity gate
         working-directory: experiments/01-vanishing-absorber/numerics
         run: python paper03_stageB_mesh_weighting_reciprocity.py --output paper03_stageB_mesh_weighting_reciprocity.json
-      - name: Enforce claim boundary
+      - name: Enforce unchanged refined claim boundary
         working-directory: experiments/01-vanishing-absorber/numerics
         run: |
           python - <<'PY'
@@ -35,15 +36,23 @@ jobs:
           d=json.load(open('paper03_stageB_mesh_weighting_reciprocity.json'))
           assert d['stageB_numerically_established'] is False
           assert d['science_interpretation_ready'] is False
-          c=d['middle_to_fine']
+          assert d['generic_mesh_weighting_reciprocity_layer_passed'] is True
+          c=d['adjacent_mesh_convergence'][-1]
+          assert c['acceptance_pair'] is True
+          assert c['pass_all_unchanged_thresholds'] is True
           assert c['terminal_current_relative_change']<=0.03
           assert c['centerline_potential_rms_scaled']<=0.02
           assert c['centerline_density_rms_over_Nd']<=0.03
           assert c['min_n_over_Nd_relative_change']<=0.05
           assert c['centerline_weighting_rms_change']<=0.02
           s=d['signal_validation']
+          assert s['committor_relative_residual']<1e-8
+          assert s['ramo_dc_relative_residual']<1e-8
           assert s['dc_committor_ramo_max_abs_error']<1e-8
+          assert s['backward_relative_residual']<1e-8
+          assert s['forward_relative_residual']<1e-8
           assert s['reciprocity_relative_mismatch']<1e-9
+          assert s['operator_diagnostics']['forward_backward_operator_relative_mismatch']<1e-12
           assert abs(s['low_injection_peak_delta_n_over_Nd']-1e-4)<1e-12
           PY
       - uses: actions/upload-artifact@v4
