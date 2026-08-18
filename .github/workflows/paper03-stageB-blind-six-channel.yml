@@ -7,9 +7,11 @@ on:
       - 'experiments/01-vanishing-absorber/PAPER03_STAGEB_BLIND_SIX_CHANNEL_LOCK_2026-08-18.md'
       - 'experiments/01-vanishing-absorber/PAPER03_STAGEB_BLIND_CLASSIFICATION_CLARIFICATION_2026-08-18.md'
       - 'experiments/01-vanishing-absorber/PAPER03_STAGEB_BLIND_V2_REFINEMENT_LOCK_2026-08-18.md'
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEB_BLIND_V3_ALIGNED_MESH_LOCK_2026-08-18.md'
       - 'experiments/01-vanishing-absorber/numerics/paper03_stageB_blind_six_channel.py'
       - 'experiments/01-vanishing-absorber/numerics/paper03_stageB_blind_six_channel_conservative.py'
       - 'experiments/01-vanishing-absorber/numerics/paper03_stageB_blind_six_channel_v2.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageB_blind_six_channel_v3.py'
       - '.github/workflows/paper03-stageB-blind-six-channel.yml'
   workflow_dispatch:
 
@@ -25,15 +27,16 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: python -m pip install --disable-pip-version-check numpy scipy
-      - name: Compile final Stage B blind v2 gate
+      - name: Compile final Stage B blind v3 gate
         working-directory: experiments/01-vanishing-absorber/numerics
         run: |
           python -m py_compile paper03_stageB_blind_six_channel.py
           python -m py_compile paper03_stageB_blind_six_channel_conservative.py
           python -m py_compile paper03_stageB_blind_six_channel_v2.py
-      - name: Execute predeclared Stage B blind v2 production gate
+          python -m py_compile paper03_stageB_blind_six_channel_v3.py
+      - name: Execute predeclared Stage B blind v3 aligned production gate
         working-directory: experiments/01-vanishing-absorber/numerics
-        run: python paper03_stageB_blind_six_channel_v2.py --output paper03_stageB_blind_six_channel.json
+        run: python paper03_stageB_blind_six_channel_v3.py --output paper03_stageB_blind_six_channel.json
       - name: Enforce locked numerical and blind-contract boundary
         working-directory: experiments/01-vanishing-absorber/numerics
         run: |
@@ -55,8 +58,8 @@ jobs:
           assert s['reciprocity_relative_mismatch'] < 1e-9
           assert s['operator_diagnostics']['forward_backward_operator_relative_mismatch'] < 1e-12
           for key in ('blind_observable_convergence_finite','reference_observable_convergence_planar'):
-              assert d[key]['schema']=='paper03-stageB-blind-observable-convergence-v2'
-              assert d[key]['production_mesh_pair']==[[91,71],[101,79]]
+              assert d[key]['schema']=='paper03-stageB-blind-observable-convergence-v3-aligned'
+              assert d[key]['production_mesh_pair']==[[96,75],[112,87]]
               assert d[key]['pass'] is True
               for r in d[key]['rows']:
                   assert r['complex_affine_shape_residual'] <= 0.02
@@ -77,6 +80,6 @@ jobs:
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: paper03-stageB-blind-six-channel-v2
+          name: paper03-stageB-blind-six-channel-v3
           path: experiments/01-vanishing-absorber/numerics/paper03_stageB_blind_six_channel.json
           if-no-files-found: error
