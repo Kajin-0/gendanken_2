@@ -7,7 +7,9 @@ from scipy.sparse import identity, lil_matrix
 from scipy.sparse.linalg import spsolve
 import paper03_stageB_operating_state as op
 
-MESHES=((21,15),(31,23),(41,31))
+# Original three-mesh ladder plus the predeclared refinement continuation.
+MESHES=((21,15),(31,23),(41,31),(51,39),(61,47))
+ACCEPTANCE_PAIR=((51,39),(61,47))
 FREQ_HZ=500e6
 
 
@@ -54,7 +56,7 @@ def mesh_case(nx,nz,p):
                 psi_center=psi[:,ic].copy(),n_center=n[:,ic].copy(),phi_center=phi[:,ic].copy(),min_n_over_Nd=float(np.min(n)/p.donor_density_m3))
 
 
-def convergence(a,b,p):
+def convergence(a,b,p,enforce=False):
     ja=float(a['current']['horizontal_cut_mean_A_per_m_depth']); jb=float(b['current']['horizontal_cut_mean_A_per_m_depth'])
     jrel=abs(jb-ja)/max(abs(jb),np.finfo(float).tiny)
     pa,pb=common_profile(a['psi_center']),common_profile(b['psi_center'])
@@ -65,13 +67,17 @@ def convergence(a,b,p):
     n_rms=float(np.sqrt(np.mean((nb-na)**2))/p.donor_density_m3)
     w_rms=float(np.sqrt(np.mean((wb-wa)**2)))
     mnrel=abs(float(b['min_n_over_Nd'])-float(a['min_n_over_Nd']))/max(abs(float(b['min_n_over_Nd'])),np.finfo(float).tiny)
-    out=dict(terminal_current_relative_change=float(jrel),centerline_potential_rms_scaled=psi_rms,centerline_density_rms_over_Nd=n_rms,
-             min_n_over_Nd_relative_change=float(mnrel),centerline_weighting_rms_change=w_rms)
-    if jrel>0.03: raise AssertionError(f'mesh current convergence failed: {jrel}')
-    if psi_rms>0.02: raise AssertionError(f'mesh potential convergence failed: {psi_rms}')
-    if n_rms>0.03: raise AssertionError(f'mesh density convergence failed: {n_rms}')
-    if mnrel>0.05: raise AssertionError(f'mesh minimum-density convergence failed: {mnrel}')
-    if w_rms>0.02: raise AssertionError(f'weighting convergence failed: {w_rms}')
+    passed=bool(jrel<=0.03 and psi_rms<=0.02 and n_rms<=0.03 and mnrel<=0.05 and w_rms<=0.02)
+    out=dict(from_grid=a['grid'],to_grid=b['grid'],terminal_current_relative_change=float(jrel),centerline_potential_rms_scaled=psi_rms,
+             centerline_density_rms_over_Nd=n_rms,min_n_over_Nd_relative_change=float(mnrel),centerline_weighting_rms_change=w_rms,
+             unchanged_thresholds=dict(terminal_current=0.03,potential_rms=0.02,density_rms=0.03,min_density_relative=0.05,weighting_rms=0.02),
+             pass_all_unchanged_thresholds=passed,acceptance_pair=bool(tuple(a['grid'])==ACCEPTANCE_PAIR[0] and tuple(b['grid'])==ACCEPTANCE_PAIR[1]))
+    if enforce:
+        if jrel>0.03: raise AssertionError(f'mesh current convergence failed: {jrel}')
+        if psi_rms>0.02: raise AssertionError(f'mesh potential convergence failed: {psi_rms}')
+        if n_rms>0.03: raise AssertionError(f'mesh density convergence failed: {n_rms}')
+        if mnrel>0.05: raise AssertionError(f'mesh minimum-density convergence failed: {mnrel}')
+        if w_rms>0.02: raise AssertionError(f'weighting convergence failed: {w_rms}')
     return out
 
 
@@ -145,10 +151,21 @@ def serializable(c):
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--output',type=Path,default=Path(__file__).with_suffix('.json')); a=ap.parse_args()
     p=op.Params(); cases=[mesh_case(nx,nz,p) for nx,nz in MESHES]
-    conv12=convergence(cases[0],cases[1],p); conv23=convergence(cases[1],cases[2],p); sig=signal_gate(cases[-1],p)
-    out=dict(schema='paper03-stageB-mesh-weighting-reciprocity-v2',status='GENERIC STAGE-B MESH/WEIGHTING/RECIPROCITY VALIDATION / NON-CLAIM',
-             lock='PAPER03_STAGEB_MESH_WEIGHTING_RECIPROCITY_LOCK_2026-08-17.md',parameters='unchanged synthetic Params from paper03_stageB_operating_state.py',
-             meshes=[serializable(c) for c in cases],coarse_to_middle=conv12,middle_to_fine=conv23,signal_validation=sig,
+    adjacent=[]
+    for i in range(len(cases)-1):
+        enforce=(tuple(cases[i]['grid'])==ACCEPTANCE_PAIR[0] and tuple(cases[i+1]['grid'])==ACCEPTANCE_PAIR[1])
+        adjacent.append(convergence(cases[i],cases[i+1],p,enforce=enforce))
+    if not adjacent[-1]['acceptance_pair'] or not adjacent[-1]['pass_all_unchanged_thresholds']:
+        raise AssertionError('refined acceptance pair did not pass unchanged convergence thresholds')
+    sig=signal_gate(cases[-1],p)
+    out=dict(schema='paper03-stageB-mesh-weighting-reciprocity-v3',status='GENERIC STAGE-B REFINED MESH/WEIGHTING/RECIPROCITY VALIDATION / NON-CLAIM',
+             original_lock='PAPER03_STAGEB_MESH_WEIGHTING_RECIPROCITY_LOCK_2026-08-17.md',
+             refinement_lock='PAPER03_STAGEB_MESH_REFINEMENT_LOCK_2026-08-18.md',
+             parameters='unchanged synthetic Params from paper03_stageB_operating_state.py',
+             original_execution_disposition='FAIL preserved; original script also enforced coarse diagnostic pair, while intended 31x23->41x31 minimum-density coordinate independently remained above 5%, requiring refinement',
+             refined_acceptance_pair=[list(ACCEPTANCE_PAIR[0]),list(ACCEPTANCE_PAIR[1])],
+             meshes=[serializable(c) for c in cases],adjacent_mesh_convergence=adjacent,signal_validation=sig,
+             generic_mesh_weighting_reciprocity_layer_passed=True,
              stageB_numerically_established=False,science_interpretation_ready=False,
              remaining=['blind six-channel spectral/RF Stage-B response','material-specific bipolar HgCdTe implementation and closed parameter ledger before material claim'])
     a.output.write_text(json.dumps(out,indent=2,allow_nan=False)+'\n'); print(json.dumps(out,indent=2))
