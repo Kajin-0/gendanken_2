@@ -1,0 +1,389 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{graphicx}
+\emergencystretch=1em
+\hypersetup{pdftitle={Precision-ordered falsification of spectral transport interpretations under multidimensional photodetector physics},pdfauthor={Anonymous}}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\E}{\mathbb{E}}
+
+\title{Precision-ordered falsification of spectral transport interpretations under multidimensional photodetector physics}
+\author{Anonymous}
+\date{Draft: August 19, 2026 -- Revision 1}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Frequency-dependent photodetector signals are commonly interpreted by fitting a low-dimensional transport model and assigning the fitted parameters to microscopic drift, diffusion, recombination, or transit physics. We test a failure mode of that procedure: ordinary multidimensional detector physics can generate a spectral/RF signature of the same order as a targeted microscopic transport signal even when the assumed homogeneous transport model is wrong. The practical question is therefore not only whether a confound exists, but whether the data can reject the inadequate model before the false microscopic parameter becomes statistically defensible. We study that precision ordering with six calibrated optical generation kernels and Shockley--Ramo terminal current. A calibrated-kernel one-mode null, a two-mode diagnostic, and a cross-frequency physical root law are applied blindly to independent forward calculations. In a predeclared 60-point finite-contact/electrostatic/diffusion/recombination screen, 42 of 180 nonzero-frequency rows contain order-one confounds and none is an analytic hidden-risk row. Finite-sample parametric bootstraps at the nominal, maximum-confound, and warning-boundary coordinates reject the inadequate one-mode interpretation before the corresponding false transport claim in all nine tested RF comparisons; the smallest conservative warning margin is 9.16 dB. A materially different coplanar-contact/insulating-bottom topology gives warning margins of 52.86, 39.20, and 40.55 dB at 100 MHz, 500 MHz, and 1 GHz. Finally, a coupled Poisson--Scharfetter--Gummel operating-state calculation with independent weighting-potential and forward/backward signal checks passes refined mesh convergence and, under a blind six-channel analysis, again produces an order-one confound that self-announces before false-claim precision. We do not claim wavelength-dependent photodiode phase, nonuniform-generation effects, finite-exponential model identification, or frequency-domain consistency testing as new. The narrower result is a mechanism-blind, calibrated-kernel \emph{warning-before-claim} criterion: in the tested ordinary detector-physics domains, model inadequacy becomes observable at lower measurement precision than a false homogeneous microscopic transport interpretation would require.
+\end{abstract}
+
+\section{Introduction}
+
+A photodetector transfer function is not a direct measurement of a microscopic transport coefficient. Optical generation, carrier motion, recombination, boundaries, electrostatics, contact geometry, the weighting field, and the readout chain all contribute to the observed complex current. A detailed model may nevertheless fit such data closely, and the resulting numerical parameter can appear precise even when the assumed physical model is incomplete. This creates a model-identifiability problem distinct from ordinary parameter uncertainty: the fitted parameter may be precise within the wrong model.
+
+Several ingredients of this problem are established. Shockley--Ramo signal formation is classical \cite{Shockley1938,Ramo1939,Dabrowski1989}. Spectral response has long been used to infer carrier transport from wavelength-dependent optical penetration \cite{Goodman1961,Geist1980}. Wavelength-dependent absorption depth can also create photodiode RF phase shifts through optoelectronic chromatic dispersion (OED) \cite{Glasser2021,Liokumovitch2021,Dutta2024}, and multi-frequency photodiode amplitude/phase features have been used for computational spectroscopy \cite{Kassa2026}. Nonuniform optical generation can materially alter small-signal transport observables and bias inferred diffusion-related quantities \cite{Halme2008}. Finite sums of exponentials, Hankel structure, and subspace/root-recovery methods belong to the classical Prony, ESPRIT, and matrix-pencil lineages \cite{Prony1795,RoyKailath1989,HuaSarkar1990}; related model identification has also been applied directly to photodetector impulse-response data \cite{Sun2025}.
+
+The question here is narrower. Suppose an experiment seeks a mechanism-specific microscopic transport claim from wavelength-resolved complex current. If ordinary multidimensional detector physics generates a response comparable to the targeted microscopic signal, can a mechanism-blind analysis detect that the low-dimensional interpretation is inadequate \emph{before} the experiment reaches the precision at which the false microscopic claim would otherwise be accepted?
+
+We call this the \emph{warning-before-claim} ordering. It separates two precision scales:
+\begin{equation}
+S_{\rm warn}:\ \text{precision required to reject the inadequate model},
+\end{equation}
+\begin{equation}
+S_{\rm claim}:\ \text{precision required to support the false microscopic claim}.
+\end{equation}
+The desired safety ordering is
+\begin{equation}
+\boxed{S_{\rm warn}<S_{\rm claim}.}
+\label{eq:warning_order}
+\end{equation}
+In decibels we report the warning margin
+\begin{equation}
+\boxed{\Delta S_{\rm warn}=S_{\rm claim,dB}-S_{\rm warn,dB}.}
+\label{eq:warning_margin}
+\end{equation}
+A positive margin means that model inadequacy is detectable first.
+
+The analysis deliberately does not ask the inverse procedure to identify the hidden generating mechanism. The blind analyzer receives only calibrated spectral kernels, complex terminal currents, RF frequencies, and the declared noise convention. Physical fields, carrier-density maps, contact labels, forward generators, and generating parameters remain hidden. The correct outcome may therefore be ``higher order, mechanism unresolved.'' This is a falsification test rather than a forced diagnosis.
+
+Three increasingly independent forward-model layers are used. First, a broad finite-contact geometry family combines two-dimensional physical and weighting fields with diffusion, recombination, and optical-beam coordinates. Second, a materially different coplanar-electrode/insulating-bottom topology changes both physical-field and weighting-field topology. Third, a generic semiconductor operating state is solved self-consistently with Poisson and Scharfetter--Gummel carrier continuity before the same blind spectral/RF analysis is applied. The last model is intentionally synthetic and single-electron; it validates the generic self-consistent forward/observable/blind-analysis chain but is not presented as a material-specific HgCdTe calculation.
+
+\section{Calibrated-kernel falsification hierarchy}
+
+\subsection{One-mode null}
+
+Let the six optical channels have independently calibrated normalized depth kernels $g_m(z)$, $m=0,\ldots,5$. For a homogeneous one-mode propagation law, the complex terminal-current sequence can be written
+\begin{equation}
+\boxed{J_m=A+B M_m(r),}
+\label{eq:onemode}
+\end{equation}
+where
+\begin{equation}
+M_m(r)=\int g_m(z)e^{rz}\,\dd z.
+\label{eq:kernelmoment}
+\end{equation}
+The complex constants $A$ and $B$ absorb wavelength-independent offset and gain. For every trial complex root $r$, $A$ and $B$ are profiled by complex linear least squares, leaving a two-real-parameter nonlinear fit in $r$. This formulation is used rather than assuming that the six wavelength-dependent kernels are exact rigid translations.
+
+The contrast-normalized one-mode residual is
+\begin{equation}
+\rho_1=\frac{\|\bm J-\bm J_{1,\mathrm{fit}}\|_2}{\|\bm J-\bar J\bm 1\|_2}.
+\label{eq:rho1}
+\end{equation}
+The residual is a model-inadequacy statistic; by itself it is not a mechanism label.
+
+\subsection{Two-mode diagnostic and physical root law}
+
+When one mode fails, we use the flexible diagnostic
+\begin{equation}
+J_m=A+B_1M_m(r_1)+B_2M_m(r_2).
+\label{eq:twomode}
+\end{equation}
+This is not asserted to be a general theorem for arbitrary multidimensional devices. It asks whether one additional calibrated-kernel mode compactly describes the observed spectral structure.
+
+If the fitted roots were to arise from an ordinary homogeneous scalar finite-boundary drift--diffusion model,
+\begin{equation}
+D r^2+w r-(\tau^{-1}+i\omega)=0,
+\label{eq:quadratic}
+\end{equation}
+then
+\begin{equation}
+\boxed{r_1+r_2=-w/D}
+\label{eq:rootsum}
+\end{equation}
+must be real and independent of RF frequency. Thus a successful two-mode fit does not automatically rescue a homogeneous microscopic interpretation. Root-set stability is first checked under numerical refinement; only then is Eq.~\eqref{eq:rootsum} tested.
+
+\subsection{Statistical warning threshold}
+
+The finite-sample Stage-A and coplanar tests use the locked noise model
+\begin{equation}
+n_m=\sigma(\xi_{m,R}+i\xi_{m,I}),
+\end{equation}
+with independent standard normal quadratures. Define the current-step amplitude
+\begin{equation}
+s_J=\frac{1}{5}\sum_{m=0}^{4}|J_{m+1}-J_m|
+\end{equation}
+and
+\begin{equation}
+S_{\rm dB}=20\log_{10}(s_J/\sigma).
+\label{eq:snr}
+\end{equation}
+For all-six one-mode fitting the regular residual has six real degrees of freedom. The nominal test uses two-sided $3\sigma$ significance,
+\begin{equation}
+\alpha=0.002699796063260207,
+\end{equation}
+and target power 0.90. At each RF the analytic noncentral-$\chi^2$ threshold supplies a central SNR coordinate; the actual parametric bootstrap is evaluated only on the predeclared five-point grid
+\begin{equation}
+S_{\rm analytic}+\{-4,-2,0,+2,+4\}\ \mathrm{dB}.
+\end{equation}
+Each grid point uses 4000 null and 2000 alternative realizations, and the nonlinear one-mode model is refit for every realization. The warning threshold is the lowest \emph{tested} SNR whose empirical alternative power is at least 0.90; no interpolation is used.
+
+\section{Forward models and blind-analysis contract}
+
+\subsection{Finite-contact two-dimensional family}
+
+The first family uses a $16~\mu\mathrm{m}$ lateral width and $7.6~\mu\mathrm{m}$ absorber thickness. A selected top contact and full bottom electrode define both the physical-field problem and a separate selected-electrode weighting-potential problem. The physical bias is 0.30 V in the Stage-A geometry family. Drift follows the local electric field with a velocity-rolloff prescription, while diffusion is represented by a positive exponentially fitted nearest-neighbor Markov generator. Optional first-order recombination is implemented as independent killing.
+
+The frequency-domain Shockley--Ramo response is obtained from a backward resolvent. If $L$ is the discrete drift--diffusion generator, $\phi_w$ the weighting potential, and $q=L\phi_w$, then
+\begin{equation}
+(\tau^{-1}+i\omega-L)H=q.
+\label{eq:resolvent}
+\end{equation}
+At infinite lifetime and DC the discrete construction obeys the exact committor/Ramo identity
+\begin{equation}
+H(0)=p_{\rm sel}-\phi_w.
+\label{eq:ramoid}
+\end{equation}
+The deterministic resolvent is the production solver; direct stochastic paths are retained only as an independent coarse-observable check because brute-force Monte Carlo was too noisy for the tiny closure residuals.
+
+The predeclared broad screen spans selected-contact fraction, depletion/space-charge coordinate, diffusion coefficient, lifetime, beam width, and beam offset. A 60-point screen is followed by mechanical S0--S7 point selection and independent numerical refinement before expensive bootstrap testing.
+
+\subsection{Coplanar topology}
+
+The second family changes the topology rather than perturbing the first geometry. Two top coplanar electrodes are separated by an insulating gap; the left electrode is the return contact and the right electrode is selected. The top gap, bottom surface, and sidewalls are insulating. There is no full bottom electrode. The physical field is therefore lateral/fringing, and the selected-electrode weighting potential is solved from a separate Laplace problem with right electrode 1 and left electrode 0.
+
+This family uses the same six calibrated optical depth kernels and the same 0, 100 MHz, 500 MHz, and 1 GHz analysis frequencies. Its convergence, source-quadrature, one/two-mode, root-stability, and bootstrap contracts were committed before scientific interpretation.
+
+\subsection{Self-consistent Stage B}
+
+The final generic validation replaces the prescribed Stage-A physical field by a self-consistent semiconductor operating state. For the synthetic single-electron model,
+\begin{equation}
+-\nabla\!\cdot(\epsilon\nabla\psi)=q(N_D-n),
+\label{eq:poisson}
+\end{equation}
+with electron current
+\begin{equation}
+\bm J_n=-q\mu_n n\nabla\psi+qD_n\nabla n,
+\qquad D_n=\mu_n k_BT/q,
+\label{eq:current}
+\end{equation}
+and steady continuity
+\begin{equation}
+\nabla\!\cdot\bm J_n=0.
+\label{eq:continuity}
+\end{equation}
+Poisson and continuity are solved by damped Gummel iteration with Scharfetter--Gummel finite-volume fluxes \cite{Gummel1964,ScharfetterGummel1969}. A separate weighting-potential solve is then performed. The dilute AC signal is propagated through the converged operating state without photocharge feedback; the maximum test perturbation is $\max|\delta n|/N_D=10^{-4}$.
+
+Forward and backward small-signal operators are assembled independently. Their transpose consistency, DC committor/Ramo identity, current conservation, positivity, mesh convergence, and a 500-MHz reciprocity identity are numerical acceptance gates rather than reported physical discoveries.
+
+\subsection{Blind information boundary}
+
+For the final Stage-B analysis the blind routine receives only
+\begin{enumerate}[label=(\roman*)]
+\item six complex selected-terminal currents at each RF,
+\item RF frequencies,
+\item cell-center depth coordinates,
+\item the six normalized calibrated depth-kernel weights, and
+\item the frozen noise/false-claim comparison convention.
+\end{enumerate}
+It does not receive $\psi(x,z)$, $n(x,z)$, electric field, weighting-potential arrays, mobility, diffusion coefficient, contact fraction, forward generator, or a mechanism label. This separation is central: a successful warning cannot depend on telling the inverse which hidden mechanism generated the data.
+
+\section{Broad first-family result}
+
+The coarse predeclared screen contains 60 detector points and 180 nonzero-RF rows. We define an order-one confound as a finite-minus-planar historical phase magnitude at least 0.5 times the frozen reference transport signal. Forty-two RF rows satisfy that criterion. No coarse row simultaneously exhibits an order-one confound and a nonpositive analytic warning margin.
+
+Fourteen of the 60 detector points contain an order-one confound. The mechanical S0--S7 rules select six unique coordinates for refinement: the nominal point, the maximum confound, the smallest warning margin among order-one points, the closest-to-zero warning margin, the largest positive warning margin, the largest one-mode mismatch, a block-B optical-position stress, and the weakest still-order-one case, with exact duplicates removed by precedence. All six selected coordinates pass the fixed refinement gate and retain at least one order-one confound; none develops an analytic hidden-risk row.
+
+The nominal point and the two predeclared adversarial points that require new bootstraps are then evaluated with the finite-sample procedure of Sec.~III.C. Table~\ref{tab:firstfamily} summarizes the conservative tested warning margins. The nominal 100/500/1000-MHz thresholds are 76.545, 73.137, and 65.892 dB; the maximum-confound and warning-boundary points add six further comparisons. Every one of the nine cells reaches at least 90\% power before the frozen false-claim SNR.
+
+\begin{table}[H]
+\centering
+\caption{Finite-sample warning-before-claim result for the broad first-family validation. The table reports the smallest conservative tested warning margin at each representative detector coordinate; all three RF cells pass at every coordinate.}
+\label{tab:firstfamily}
+\begin{tabular}{lrrr}
+\toprule
+Coordinate & Role & max mimic fraction & minimum tested warning margin (dB)\\
+\midrule
+S0 nominal & representative & $\sim0.88$ & 9.16\\
+R1\_B04 & maximum-confound & $>1$ & 20.01\\
+R2\_A04 & warning-boundary & $>1$ & 19.04\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The minimum margin over all nine comparisons is 9.16 dB. Thus the broad first family supports Outcome A: ordinary geometry can mimic the targeted transport signal at order-one amplitude, but the calibrated-kernel model inadequacy is detectable first.
+
+\section{Materially different coplanar result}
+
+The coplanar geometry produces a substantially larger one-mode mismatch than the nominal first family. At the accepted fine grid the all-six one-mode contrast-normalized residuals are approximately 1.08\%, 1.12\%, and 2.01\% at 100 MHz, 500 MHz, and 1 GHz. Adding one calibrated-kernel mode reduces those residuals by roughly 45--114 times.
+
+The compact two-mode description does not become a false homogeneous transport mechanism. The fitted root sets are stable under the frozen grid comparison, but every nonzero RF root sum has a large imaginary component relative to its numerical movement, and every RF pair violates the RF-independent root-sum condition of Eq.~\eqref{eq:rootsum} under the predeclared numerical separation allowance.
+
+Table~\ref{tab:coplanar} gives the finite-sample warning thresholds. The 500-MHz cell required an optimizer-integrity repair after an accelerated fitter failed its locked comparison with the full multistart solver. The repair changed only optimization acceleration; the original noise draws, ensemble sizes, SNR coordinates, significance, power rule, and $\le1.001$ fast/full residual-ratio gate were unchanged. The final maximum fast/full residual-norm ratio is $1.0000000000010196$.
+
+\begin{table}[H]
+\centering
+\caption{Coplanar-topology finite-sample warning-before-claim result.}
+\label{tab:coplanar}
+\begin{tabular}{rrrr}
+\toprule
+RF & lowest tested $\ge90\%$-power SNR & false-claim SNR & warning margin\\
+\midrule
+100 MHz & 43.238 dB & 96.1 dB & \textbf{52.862 dB}\\
+500 MHz & 43.100 dB & 82.3 dB & \textbf{39.200 dB}\\
+1 GHz & 36.146 dB & 76.7 dB & \textbf{40.554 dB}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The result therefore survives a materially different field and weighting-field topology and is not a peculiarity of the selected-top/full-bottom geometry.
+
+\section{Self-consistent Stage-B validation}
+
+\subsection{Operating-state and signal convergence}
+
+The generic Stage-B operating state first passes analytic Poisson polarity/curvature checks, the neutral linear-potential limit, equilibrium zero current, finite-bias current conservation, positivity, and nonlinear residual gates. A subsequent mesh sequence retains all predeclared thresholds. The original $31\times23\rightarrow41\times31$ minimum-density coordinate changed by 7.06\%, exceeding the frozen 5\% threshold; that failure was retained. Refinement was continued without changing the criterion.
+
+The accepted pair is $51\times39\rightarrow61\times47$. Table~\ref{tab:stagebmesh} gives the convergence coordinates. All are inside their frozen tolerances.
+
+\begin{table}[H]
+\centering
+\caption{Accepted Stage-B mesh-convergence pair.}
+\label{tab:stagebmesh}
+\begin{tabular}{lrr}
+\toprule
+Observable & relative/scaled change & threshold\\
+\midrule
+terminal current & 0.01273 & 0.03\\
+centerline potential RMS & 0.002859 & 0.02\\
+centerline density RMS/$N_D$ & 0.002552 & 0.03\\
+minimum density & 0.02836 & 0.05\\
+centerline weighting potential RMS & 0.001798 & 0.02\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Independent operator and signal checks are much tighter than the acceptance thresholds: the forward/backward operator mismatch is $1.13\times10^{-16}$, the DC committor/Ramo maximum error is $3.64\times10^{-15}$, and the 500-MHz forward/backward reciprocity mismatch is $3.94\times10^{-16}$. These numbers establish internal numerical consistency of the declared discrete model; they are not material-accuracy claims.
+
+\subsection{Blind six-channel result}
+
+The final Stage-B six-channel gate is run only after the refined numerical gate passes. The blind analyzer is supplied with the restricted input described above. The finite selected-contact structure is compared with a same-physics full-top reference using identical calibrated optical kernels.
+
+The predeclared result is B2-A: the self-consistent finite structure produces an order-one transport-like confound, the all-six one-mode model is rejectable below the frozen false-claim precision at all three nonzero RFs, and the stable two-root diagnostic rejects the homogeneous scalar root law.
+
+Because Stage B is a self-consistent forward-model validation rather than a new finite-sample statistical campaign, its new warning thresholds are analytic noncentral-$\chi^2$ coordinates. They must not be conflated with the bootstrap thresholds in Tables~\ref{tab:firstfamily} and \ref{tab:coplanar}.
+
+\begin{table}[H]
+\centering
+\caption{Generic self-consistent Stage-B analytic warning coordinates.}
+\label{tab:stagebsnr}
+\begin{tabular}{rrrr}
+\toprule
+RF & analytic one-mode rejection SNR & false-claim SNR & analytic warning margin\\
+\midrule
+100 MHz & 11.708 dB & 96.1 dB & \textbf{84.392 dB}\\
+500 MHz & 11.286 dB & 82.3 dB & \textbf{71.014 dB}\\
+1 GHz & 10.741 dB & 76.7 dB & \textbf{65.959 dB}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The self-consistent calculation therefore does not expose a hidden failure of the falsification ordering seen in the fixed-field studies.
+
+\section{Discussion}
+
+\subsection{What the result establishes}
+
+The central result is not simply that geometry matters. That statement is unsurprising. The stronger and more actionable result is a precision ordering. In the tested detector-physics domains, ordinary multidimensional physics can create a spectral/RF response comparable to, or larger than, a targeted microscopic transport signature; nevertheless, the calibrated-kernel low-dimensional interpretation becomes statistically rejectable before the false microscopic claim reaches its own required precision.
+
+This ordering is demonstrated with finite-sample bootstraps in the broad first geometry family and the coplanar topology. The self-consistent Stage-B model supplies an additional independent validation layer with analytic precision coordinates after the full Poisson/continuity/weighting/signal chain passes its numerical gates. The weakest finite-sample warning margin in the tested broad first-family/adversarial set remains positive at 9.16 dB.
+
+The two-mode diagnostic provides a second defense against false mechanism assignment. In both the finite-contact and coplanar calculations, one additional mode can describe much of the spectral structure, yet the recovered roots fail the homogeneous scalar physical law. Thus ``a compact two-root fit exists'' is not equivalent to ``a homogeneous two-root microscopic transport mechanism is valid.''
+
+\subsection{Why the blind boundary matters}
+
+It would be easy to make an inverse look successful by feeding it the generating field, contact geometry, or true diffusion coefficient. That would not test model falsification. The Stage-B analyzer instead receives only the observables and calibrated kernels available to the declared measurement architecture. Its B2-A classification therefore arises from observable structure rather than mechanism leakage.
+
+This is also why ``mechanism unresolved'' is an acceptable endpoint. The hierarchy is designed to prevent an incorrect microscopic statement; exact reconstruction of the hidden multidimensional device is a different and generally harder inverse problem.
+
+\subsection{Prior-art boundary}
+
+The result should not be interpreted as a claim to the underlying ingredients. Wavelength-dependent absorption depth and RF phase are established OED phenomena \cite{Glasser2021,Liokumovitch2021,Dutta2024}. Spectral response and optical-generation profiles have long been used in transport analysis \cite{Goodman1961,Geist1980,Halme2008}. Finite-exponential/Hankel model identification is classical \cite{Prony1795,RoyKailath1989,HuaSarkar1990}, including modern photodetector model-identification applications \cite{Sun2025}. Self-consistent semiconductor iteration and Scharfetter--Gummel discretization are established numerical tools \cite{Gummel1964,ScharfetterGummel1969}.
+
+The candidate contribution is the combination of independently calibrated spectral kernels, mechanism-blind model-order/physical-law falsification, and an explicit comparison between the precision needed to reject model inadequacy and the precision needed to defend a false microscopic transport claim. The present work validates that warning-before-claim ordering over a broad ordinary geometry family, a materially different topology, and a self-consistent semiconductor forward model. No first-ever or superlative priority claim is made.
+
+\subsection{Limitations}
+
+First, the Stage-B semiconductor is generic and single-electron. It is not a material-specific HgCdTe device model. A low-doped, elevated-temperature HgCdTe instantiation may require bipolar transport, material-specific recombination, and a closed parameter ledger before any material claim is defensible. The present manuscript does not make such a claim.
+
+Second, the paper is numerical/theoretical. It does not demonstrate the required spectral-kernel calibration, RF phase stability, optical-power normalization, or current-step SNR experimentally. Equation~\eqref{eq:warning_order} is therefore a measurement-design criterion supported by synthetic tests, not a report of completed laboratory validation.
+
+Third, the Stage-B precision thresholds are analytic. The expensive finite-sample parametric bootstrap was predeclared and executed for the broad first-family nominal/adversarial coordinates and the materially different coplanar topology; it was not repeated for Stage B. The Stage-B result should be read as an independent self-consistent forward-model validation of the ordering, not an additional bootstrap claim.
+
+Fourth, the two-mode arbitrary-kernel fit is a diagnostic rather than a universal theorem. Physical interpretation is made only after numerical root stability and the cross-frequency root law are tested. More complicated ordinary physics can increase effective model order; in that case the appropriate conclusion is higher order/mechanism unresolved rather than forced two-root diagnosis.
+
+Finally, the tested parameter domains are broad enough to satisfy the predeclared standalone criterion, but they are not an exhaustive map of all possible photodetectors. A hidden-confound region may exist outside the tested domain. The present statement is therefore empirical/theoretical and domain-bounded: no hidden-risk point was found in the declared broad screen, the materially different topology preserved the safety ordering, and the independent self-consistent validation returned the same qualitative result.
+
+\section{Conclusion}
+
+A precise fit is not sufficient evidence that a microscopic photodetector transport model is correct. Ordinary multidimensional device physics can generate wavelength- and RF-dependent terminal-current structure comparable to the signal attributed to a homogeneous microscopic transport mechanism.
+
+The useful question is whether the inadequacy of that mechanism becomes visible first. Across a predeclared broad finite-contact family, mechanically selected adversarial coordinates, a materially different coplanar topology, and a self-consistent semiconductor forward model, the answer is yes. Calibrated-kernel one-mode failure, higher model order, and cross-frequency physical-root constraints provide observable warnings before the frozen false-claim precision is reached. In the finite-sample tests the smallest conservative warning margin is 9.16 dB; the coplanar topology provides margins of approximately 39--53 dB.
+
+The resulting prescription is deliberately conservative:
+\begin{equation*}
+\boxed{\text{test model adequacy before interpreting fitted microscopic parameters.}}
+\end{equation*}
+If the low-dimensional model fails first, the correct scientific result is not a more elaborate parameter estimate from the same inadequate model. It is that the microscopic interpretation has not yet earned the precision of the measurement.
+
+\begin{thebibliography}{99}
+
+\bibitem{Shockley1938}
+W.~Shockley, ``Currents to Conductors Induced by a Moving Point Charge,'' \emph{Journal of Applied Physics} \textbf{9}, 635--636 (1938). DOI: 10.1063/1.1710367.
+
+\bibitem{Ramo1939}
+S.~Ramo, ``Currents Induced by Electron Motion,'' \emph{Proceedings of the IRE} \textbf{27}, 584--585 (1939). DOI: 10.1109/JRPROC.1939.228757.
+
+\bibitem{Dabrowski1989}
+W.~Dabrowski, ``Transport equations and Ramo's theorem: Applications to the impulse response of a semiconductor detector and to the generation-recombination noise in a semiconductor junction,'' \emph{Progress in Quantum Electronics} \textbf{13}, 233--266 (1989). DOI: 10.1016/0079-6727(89)90004-9.
+
+\bibitem{Goodman1961}
+A.~M. Goodman, ``A Method for the Measurement of Short Minority Carrier Diffusion Lengths in Semiconductors,'' \emph{Journal of Applied Physics} \textbf{32}(12), 2550--2552 (1961). DOI: 10.1063/1.1728351.
+
+\bibitem{Geist1980}
+J.~Geist, E.~F. Zalewski, and A.~R. Schaefer, ``Spectral response self-calibration and interpolation of silicon photodiodes,'' \emph{Applied Optics} \textbf{19}(22), 3795--3799 (1980). DOI: 10.1364/AO.19.003795.
+
+\bibitem{Glasser2021}
+Z.~Glasser, P.~K. Dubey, A.~Dutta, E.~Liokumovitch, R.~Abramov, and S.~Sternklar, ``Optoelectronic chromatic dispersion and wavelength monitoring in a photodiode,'' \emph{Optics Express} \textbf{29}(13), 19839--19852 (2021). DOI: 10.1364/OE.424157.
+
+\bibitem{Liokumovitch2021}
+E.~Liokumovitch, Z.~Glasser, L.~Singh, R.~Abramov, and S.~Sternklar, ``Optoelectronic chromatic dispersion in germanium PN photodiodes: wavelength monitoring and FBG interrogation,'' \emph{Optics Letters} \textbf{46}(16), 4061--4064 (2021). DOI: 10.1364/OL.435159.
+
+\bibitem{Dutta2024}
+A.~Dutta, E.~Liokumovitch, Z.~Glaser, and S.~Sternklar, ``Large and tunable optoelectronic chromatic dispersion in PIN-type photodiodes,'' \emph{Optics Letters} \textbf{49}(8), 2057--2060 (2024). DOI: 10.1364/OL.519164.
+
+\bibitem{Kassa2026}
+E.~E. Kassa, Z.~Glasser, U.~K. Saint, R.~Yozevitch, and S.~Sternklar, ``Optoelectronic Chromatic Dispersion in a Single Photodiode for Machine-Learning-Based Computational Spectroscopy,'' \emph{CLEO 2026}, JW2A.46 (2026). DOI: 10.1364/CLEO\_AT.2026.JW2A.46; related preprint arXiv:2605.18014.
+
+\bibitem{Halme2008}
+J.~Halme, K.~Miettunen, and P.~Lund, ``Effect of Nonuniform Generation and Inefficient Collection of Electrons on the Dynamic Photocurrent and Photovoltage Response of Nanostructured Photoelectrodes,'' \emph{Journal of Physical Chemistry C} \textbf{112}(51), 20491--20504 (2008). DOI: 10.1021/jp806512k.
+
+\bibitem{Sun2025}
+Y.~Sun, Z.~Zhang, X.~Xing, P.~Hu, and J.~Tan, ``Complete model identification for measuring photodetector's data age in high-speed and high-precision interferometry,'' \emph{Optics Express} \textbf{33}(7), 15125--15140 (2025). DOI: 10.1364/OE.550721.
+
+\bibitem{Prony1795}
+G.~R.~B. de Prony, ``Essai exp\'erimental et analytique sur les lois de la dilatabilit\'e des fluides \`elastiques et sur celles de la force expansive de la vapeur de l'eau et de la vapeur de l'alkool, \`a diff\'erentes temp\'eratures,'' \emph{Journal de l'\'Ecole Polytechnique} \textbf{1}(2), 24--76 (1795).
+
+\bibitem{RoyKailath1989}
+R.~Roy and T.~Kailath, ``ESPRIT---Estimation of Signal Parameters Via Rotational Invariance Techniques,'' \emph{IEEE Transactions on Acoustics, Speech, and Signal Processing} \textbf{37}(7), 984--995 (1989). DOI: 10.1109/29.32276.
+
+\bibitem{HuaSarkar1990}
+Y.~Hua and T.~K.~Sarkar, ``Matrix pencil method for estimating parameters of exponentially damped/undamped sinusoids in noise,'' \emph{IEEE Transactions on Acoustics, Speech, and Signal Processing} \textbf{38}(5), 814--824 (1990). DOI: 10.1109/29.56027.
+
+\bibitem{Gummel1964}
+H.~K. Gummel, ``A self-consistent iterative scheme for one-dimensional steady state transistor calculations,'' \emph{IEEE Transactions on Electron Devices} \textbf{11}(10), 455--465 (1964). DOI: 10.1109/T-ED.1964.15364.
+
+\bibitem{ScharfetterGummel1969}
+D.~L. Scharfetter and H.~K. Gummel, ``Large-signal analysis of a silicon Read diode oscillator,'' \emph{IEEE Transactions on Electron Devices} \textbf{16}(1), 64--77 (1969). DOI: 10.1109/T-ED.1969.16566.
+
+\end{thebibliography}
+\end{document}
