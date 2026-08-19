@@ -1,0 +1,92 @@
+name: Paper 03 Stage A statistical bootstrap RF shards
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEA_STATISTICAL_PREDECLARATION_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_statistical_bootstrap.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_statistical_bootstrap_shard.py'
+      - '.github/workflows/paper03-stageA-statistical-bootstrap-shards.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEA_STATISTICAL_PREDECLARATION_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_statistical_bootstrap.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_statistical_bootstrap_shard.py'
+      - '.github/workflows/paper03-stageA-statistical-bootstrap-shards.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rf-bootstrap:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rf_index: 1
+            rf_label: 100MHz
+          - rf_index: 2
+            rf_label: 500MHz
+          - rf_index: 3
+            rf_label: 1GHz
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Run unchanged predeclared RF bootstrap shard
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile \
+            paper03_stageA_statistical_bootstrap.py \
+            paper03_stageA_statistical_bootstrap_shard.py
+          python paper03_stageA_statistical_bootstrap_shard.py \
+            --rf-index ${{ matrix.rf_index }} \
+            --output paper03_stageA_statistical_bootstrap_${{ matrix.rf_label }}.json
+
+      - name: Verify unchanged predeclared coordinates
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          label = os.environ['RF_LABEL']
+          idx = int(os.environ['RF_INDEX'])
+          r = json.loads(Path(f'paper03_stageA_statistical_bootstrap_{label}.json').read_text())
+          assert r['execution_only_shard'] is True
+          assert r['rf_index'] == idx
+          assert r['science_interpretation_ready'] is False
+          assert r['bootstrap']['alpha'] == 0.002699796063260207
+          assert r['bootstrap']['target_power'] == 0.90
+          assert r['bootstrap']['n_null_per_candidate'] == 4000
+          assert r['bootstrap']['n_alternative_per_candidate'] == 2000
+          assert r['bootstrap']['snr_offsets_from_analytic_db'] == [-4.0,-2.0,0.0,2.0,4.0]
+          assert len(r['rf_gate']['bootstrap_rows']) == 5
+          for check in r['rf_gate']['fast_refit_spot_checks_at_analytic_snr'].values():
+              assert check['max_fast_over_full_residual_norm_ratio'] <= 1.001
+          print(r['rf_gate']['frequency_hz'])
+          print(r['rf_gate']['analytic']['required_snr_db'])
+          print(r['rf_gate']['lowest_tested_snr_with_power_ge_0p90_db'])
+          print(r['rf_gate']['frozen_transport_claim_snr_db'])
+          print(r['rf_gate']['predeclared_early_warning_condition_supported'])
+          PY
+        env:
+          RF_LABEL: ${{ matrix.rf_label }}
+          RF_INDEX: ${{ matrix.rf_index }}
+
+      - name: Upload RF bootstrap shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-stageA-statistical-bootstrap-${{ matrix.rf_label }}
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_statistical_bootstrap_${{ matrix.rf_label }}.json
+          if-no-files-found: error

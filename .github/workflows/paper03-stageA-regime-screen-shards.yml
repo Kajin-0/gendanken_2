@@ -1,0 +1,86 @@
+name: Paper 03 Stage A regime screen shards
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_screen.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_screen_shard.py'
+      - '.github/workflows/paper03-stageA-regime-screen-shards.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_screen.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_screen_shard.py'
+      - '.github/workflows/paper03-stageA-regime-screen-shards.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  screen-shard:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - start: 0
+            stop: 10
+            label: 00-09
+          - start: 10
+            stop: 20
+            label: 10-19
+          - start: 20
+            stop: 30
+            label: 20-29
+          - start: 30
+            stop: 40
+            label: 30-39
+          - start: 40
+            stop: 50
+            label: 40-49
+          - start: 50
+            stop: 60
+            label: 50-59
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Run unchanged screen shard
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile paper03_stageA_regime_screen.py paper03_stageA_regime_screen_shard.py
+          python paper03_stageA_regime_screen_shard.py \
+            --start ${{ matrix.start }} --stop ${{ matrix.stop }} \
+            --output paper03_stageA_regime_screen_${{ matrix.label }}.json
+      - name: Verify shard structure
+        working-directory: experiments/01-vanishing-absorber/numerics
+        env:
+          EXPECTED_START: ${{ matrix.start }}
+          EXPECTED_STOP: ${{ matrix.stop }}
+        run: |
+          python - <<'PY'
+          import glob,json,os
+          p=glob.glob('paper03_stageA_regime_screen_*.json')[0]
+          r=json.load(open(p))
+          a=int(os.environ['EXPECTED_START']); b=int(os.environ['EXPECTED_STOP'])
+          assert r['start_zero_based']==a and r['stop_exclusive']==b
+          assert len(r['screen_points'])==b-a
+          assert len(r['frequency_rows'])==3*(b-a)
+          assert r['science_interpretation_ready'] is False
+          for x in r['screen_points']:
+              d=x['solver_diagnostics']
+              assert d['max_linear_relative_residual']<1e-8
+              assert d['committor_relative_residual']<1e-8
+          print(a,b,len(r['frequency_rows']))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper03-stageA-regime-screen-${{ matrix.label }}
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_regime_screen_${{ matrix.label }}.json
+          if-no-files-found: error

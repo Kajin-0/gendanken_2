@@ -1,0 +1,69 @@
+name: Paper 03 Stage A cross-formulation check
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEA_CROSS_FORMULATION_PREDECLARATION_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_cross_formulation.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_combined_physics_challenge.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent.py'
+      - '.github/workflows/paper03-stageA-cross-formulation.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEA_CROSS_FORMULATION_PREDECLARATION_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_cross_formulation.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_combined_physics_challenge.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent.py'
+      - '.github/workflows/paper03-stageA-cross-formulation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cross-formulation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Run predeclared coarse-observable cross-check
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile paper03_stageA_cross_formulation.py
+          python paper03_stageA_cross_formulation.py \
+            --output paper03_stageA_cross_formulation.json
+
+      - name: Verify execution and non-claim boundary
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('paper03_stageA_cross_formulation.json').read_text())
+          assert r['science_interpretation_ready'] is False
+          assert r['stochastic']['paths_per_source'] == 4000
+          assert r['acceptance']['monte_carlo_se_multiplier'] == 4.0
+          assert r['acceptance']['maximum_unresolved_fate_fraction'] == 0.001
+          assert len(r['points']) == 5
+          assert r['summary']['scalar_observable_count'] == 40
+          print(json.dumps(r['summary'], indent=2))
+          for p in r['points']:
+              print(p['source_point_um'], p['point_passed'], p['monte_carlo']['fates'])
+          PY
+
+      - name: Upload cross-formulation record
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-stageA-cross-formulation
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_cross_formulation.json
+          if-no-files-found: error

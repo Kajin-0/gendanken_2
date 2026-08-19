@@ -1,0 +1,71 @@
+name: Paper 03 second-geometry numerical gate
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_SECOND_GEOMETRY_PREDECLARATION_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/PAPER03_SECOND_GEOMETRY_NUMERICAL_LOCK_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_second_geometry_gate.py'
+      - '.github/workflows/paper03-second-geometry-gate.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_SECOND_GEOMETRY_NUMERICAL_LOCK_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_second_geometry_gate.py'
+      - '.github/workflows/paper03-second-geometry-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  coplanar-numerical-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Compile second-family solver
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python -m py_compile paper03_second_geometry_gate.py
+      - name: Run predeclared second-family numerical gate
+        id: numerical
+        continue-on-error: true
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper03_second_geometry_gate.py --output paper03_second_geometry_gate.json
+      - name: Upload second-family numerical record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-second-geometry-numerical-gate
+          path: experiments/01-vanishing-absorber/numerics/paper03_second_geometry_gate.json
+          if-no-files-found: error
+      - name: Enforce frozen numerical decision
+        if: always()
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('paper03_second_geometry_gate.json')
+          if not p.exists():
+              raise SystemExit('second-family numerical record missing')
+          r = json.loads(p.read_text())
+          assert r['science_interpretation_ready'] is False
+          assert r['physics']['stage_B_self_consistent_semiconductor'] is False
+          for g in r['grids']:
+              assert g['electrostatics']['physical_potential_backward_error'] < 1e-8
+              assert g['electrostatics']['weighting_potential_backward_error'] < 1e-8
+              assert g['electrostatics']['discrete_ramo_source_relative_error'] < 1e-8
+              assert g['transport']['max_linear_relative_residual'] < 1e-8
+              assert g['transport']['committor_relative_residual'] < 1e-8
+              assert g['transport']['dc_committor_ramo_max_abs_error'] < 1e-8
+          if not r['numerical_gate_passed']:
+              raise SystemExit('formal second-family numerical gate FAIL; retain artifact and refine without moving thresholds')
+          print('formal second-family numerical gate PASS')
+          PY

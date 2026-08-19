@@ -1,0 +1,44 @@
+name: Paper 03 targeted unresolved gates
+
+on:
+  pull_request:
+    branches: [agent/paper03-combined-physics]
+    paths:
+      - '.github/workflows/paper03-targeted-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  coplanar-500-bootstrap-repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Run unchanged statistical experiment with integrity-gated optimizer acceleration
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile paper03_second_geometry_bootstrap_500_fast_taylor.py
+          python paper03_second_geometry_bootstrap_500_fast_taylor.py
+      - name: Verify unchanged statistical contract and full-multistart integrity
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('paper03_second_geometry_bootstrap_500_fast_taylor.json'))
+          assert d['statistical_contract_changed'] is False
+          assert d['bootstrap']=={'alpha':0.002699796063260207,'target_power':0.9,'n_null':4000,'n_alt':2000,'snr_offsets_db':[-4.0,-2.0,0.0,2.0,4.0]}
+          assert d['rf_gate']['frequency_hz']==500000000.0
+          assert d['science_interpretation_ready'] is False
+          assert d['optimizer']['max_fast_over_full_residual_norm_ratio']<=1.001
+          for c in d['rf_gate']['fast_refit_spot_checks_at_analytic_snr'].values():
+              assert c['max_fast_over_full_residual_norm_ratio']<=1.001
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper03-targeted-coplanar-500-fast-taylor
+          path: experiments/01-vanishing-absorber/numerics/paper03_second_geometry_bootstrap_500_fast_taylor.json
+          if-no-files-found: error

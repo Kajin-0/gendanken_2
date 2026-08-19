@@ -1,0 +1,55 @@
+name: Paper 03 Stage A particle convergence
+
+# Brute-force sampling failed the predeclared precision gate in authoritative
+# run 32061188941. Retain this workflow as an explicit stochastic cross-check,
+# but do not spend minutes rerunning it on every Paper-03 branch synchronization.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  particle-convergence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out candidate branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Run particle-count convergence gate
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python paper03_stageA_particle_convergence.py \
+            --tier quick \
+            --output paper03_stageA_particle_convergence.json
+
+      - name: Verify non-claim record and DC invariants
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('paper03_stageA_particle_convergence.json').read_text())
+          assert r['science_interpretation_ready'] is False
+          assert len(r['particle_rows']) == 3
+          for row in r['particle_rows']:
+              assert row['max_endpoint_ramo_error'] < 1e-12
+          print(json.dumps(r['initial_phase_precision_gate'], indent=2))
+          print(json.dumps(r['sampling_scaling'], indent=2))
+          PY
+
+      - name: Upload convergence record
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-stageA-particle-convergence
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_particle_convergence.json
+          if-no-files-found: error

@@ -1,0 +1,72 @@
+name: Paper 03 Stage A statistical bootstrap
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEA_STATISTICAL_PREDECLARATION_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_statistical_bootstrap.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_kernel_blind_gate.py'
+      - '.github/workflows/paper03-stageA-statistical-bootstrap.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_STAGEA_STATISTICAL_PREDECLARATION_2026-08-17.md'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_statistical_bootstrap.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_kernel_blind_gate.py'
+      - '.github/workflows/paper03-stageA-statistical-bootstrap.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  statistical-bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Run predeclared parametric bootstrap
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile paper03_stageA_statistical_bootstrap.py
+          python paper03_stageA_statistical_bootstrap.py \
+            --output paper03_stageA_statistical_bootstrap.json
+
+      - name: Verify predeclared structure and non-claim boundary
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('paper03_stageA_statistical_bootstrap.json').read_text())
+          assert r['science_interpretation_ready'] is False
+          assert r['bootstrap']['alpha'] == 0.002699796063260207
+          assert r['bootstrap']['target_power'] == 0.90
+          assert r['bootstrap']['n_null_per_candidate'] == 4000
+          assert r['bootstrap']['n_alternative_per_candidate'] == 2000
+          assert r['bootstrap']['snr_offsets_from_analytic_db'] == [-4.0,-2.0,0.0,2.0,4.0]
+          assert len(r['rf_gates']) == 3
+          for g in r['rf_gates']:
+              assert len(g['bootstrap_rows']) == 5
+              for check in g['fast_refit_spot_checks_at_analytic_snr'].values():
+                  assert check['max_fast_over_full_residual_norm_ratio'] <= 1.001
+          print('all-three early warning:', r['all_three_predeclared_early_warning_conditions_supported'])
+          for g in r['rf_gates']:
+              print(g['frequency_hz'], g['analytic']['required_snr_db'], g['lowest_tested_snr_with_power_ge_0p90_db'], g['frozen_transport_claim_snr_db'], g['predeclared_early_warning_condition_supported'])
+          PY
+
+      - name: Upload statistical bootstrap record
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-stageA-statistical-bootstrap
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_statistical_bootstrap.json
+          if-no-files-found: error

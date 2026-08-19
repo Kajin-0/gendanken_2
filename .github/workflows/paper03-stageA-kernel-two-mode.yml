@@ -1,0 +1,69 @@
+name: Paper 03 Stage A kernel-aware two-mode diagnostic
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_kernel_two_mode.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_kernel_blind_gate.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent.py'
+      - '.github/workflows/paper03-stageA-kernel-two-mode.yml'
+  push:
+    branches:
+      - agent/paper03-combined-physics
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_kernel_two_mode.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_kernel_blind_gate.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_stageA_resolvent.py'
+      - '.github/workflows/paper03-stageA-kernel-two-mode.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  two-mode-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install numerical dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy
+
+      - name: Run kernel-aware two-mode diagnostic
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python -m py_compile paper03_stageA_kernel_two_mode.py
+          python paper03_stageA_kernel_two_mode.py \
+            --output paper03_stageA_kernel_two_mode.json
+
+      - name: Verify regression and non-claim boundaries
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('paper03_stageA_kernel_two_mode.json').read_text())
+          assert r['science_interpretation_ready'] is False
+          assert r['model']['physical_root_assignment_allowed'] is False
+          assert r['model']['is_paper01_rev9_arbitrary_kernel_rank2_theorem'] is False
+          assert r['exact_two_mode_regression']['contrast_normalized_residual'] < 1e-8
+          assert r['exact_two_mode_regression']['max_root_error_per_um'] < 2e-4
+          assert len(r['finite75_depletion']['grid_201x151']) == 4
+          for row in r['finite75_depletion']['grid_201x151']:
+              fit = row['fit']
+              assert fit['two_mode_contrast_normalized_residual'] <= fit['one_mode_contrast_normalized_residual'] * 1.001
+          print(json.dumps(r['exact_two_mode_regression'], indent=2))
+          print(json.dumps(r['finite75_depletion']['root_set_grid_stability'], indent=2))
+          PY
+
+      - name: Upload two-mode diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-stageA-kernel-two-mode
+          path: experiments/01-vanishing-absorber/numerics/paper03_stageA_kernel_two_mode.json
+          if-no-files-found: error

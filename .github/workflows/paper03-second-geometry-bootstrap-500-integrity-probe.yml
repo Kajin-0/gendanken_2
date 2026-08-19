@@ -1,0 +1,37 @@
+name: Paper 03 coplanar 500 MHz optimizer integrity probe
+on:
+  pull_request:
+    paths:
+      - 'experiments/01-vanishing-absorber/numerics/paper03_second_geometry_bootstrap_500_integrity_probe.py'
+      - 'experiments/01-vanishing-absorber/numerics/paper03_second_geometry_bootstrap_500_repair.py'
+      - '.github/workflows/paper03-second-geometry-bootstrap-500-integrity-probe.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  integrity-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Run exact fixed-draw integrity probe
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: python paper03_second_geometry_bootstrap_500_integrity_probe.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paper03-coplanar-500-integrity-probe
+          path: experiments/01-vanishing-absorber/numerics/paper03_second_geometry_bootstrap_500_integrity_probe.json
+          if-no-files-found: error
+      - name: Enforce unchanged integrity gate
+        working-directory: experiments/01-vanishing-absorber/numerics
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('paper03_second_geometry_bootstrap_500_integrity_probe.json'))
+          assert d['statistical_contract_changed'] is False
+          assert d['frozen_integrity_gate']==1.001
+          assert d['integrity_pass'] is True
+          PY
