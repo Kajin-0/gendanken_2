@@ -1,0 +1,88 @@
+name: One-shot Paper 03 manuscript source repair
+
+on:
+  push:
+    branches: [agent/paper03-manuscript-rev1]
+    paths:
+      - '.github/workflows/paper03-manuscript-source-repair.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/paper03-manuscript-rev1
+          fetch-depth: 0
+
+      - name: Apply exact manuscript repairs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('experiments/01-vanishing-absorber/PAPER03_MANUSCRIPT_REV2_ANON_2026-08-19.tex')
+          t = p.read_text()
+
+          replacements = [
+              (
+                  r'\usepackage[T1]{fontenc}' + '\n',
+                  r'\usepackage[T1]{fontenc}' + '\n' + r'\usepackage{lmodern}' + '\n',
+              ),
+              (
+                  'In a predeclared 60-point finite-contact/electrostatic/diffusion/recombination screen,',
+                  'In a predeclared 60-row finite-contact/electrostatic/diffusion/recombination screen,',
+              ),
+              (
+                  'A 60-point screen is followed by mechanical S0--S7 point selection and independent numerical refinement before expensive bootstrap testing.',
+                  'A 60-row predeclared screen, with deliberate Block-B overlap at several Block-A anchors, is followed by mechanical S0--S7 point selection and independent numerical refinement before expensive bootstrap testing.',
+              ),
+              (
+                  'The coarse predeclared screen contains 60 detector points and 180 nonzero-RF rows.',
+                  'The coarse predeclared screen contains 60 predeclared detector rows and 180 nonzero-RF rows; these are not 60 unique physical coordinates because Block B deliberately overlaps several Block-A anchors.',
+              ),
+              (
+                  'Fourteen of the 60 detector points contain an order-one confound.',
+                  'Fourteen of the 60 screen rows contain an order-one confound.',
+              ),
+          ]
+
+          for old, new in replacements:
+              count = t.count(old)
+              assert count == 1, (old, count)
+              t = t.replace(old, new, 1)
+
+          anchor = 'The warning threshold is the lowest \\emph{tested} SNR whose empirical alternative power is at least 0.90; no interpolation is used.\n'
+          assert t.count(anchor) == 1
+          clarification = (
+              '\nThe warning and false-claim SNRs are deliberately not identically calibrated statistical tests. '
+              '$S_{\\rm warn}$ is the lowest tested model-rejection SNR achieving 90\\% power at '
+              '$\\alpha=0.002699796063260207$, whereas $S_{\\rm claim}$ is the pre-existing frozen '
+              '$3\\sigma$ current-step threshold. Requiring both a $3\\sigma$-level rejection criterion '
+              'and 90\\% power on the warning side makes the comparison conservative for establishing the '
+              'warning-before-claim ordering; the reported dB margin should not be interpreted as the '
+              'difference between two identically constructed hypothesis tests.\n'
+          )
+          t = t.replace(anchor, anchor + clarification, 1)
+
+          assert t.count(r'\usepackage{lmodern}') == 1
+          assert '60-point' not in t
+          assert '60 detector points' not in t
+          assert 'not identically calibrated statistical tests' in t
+          assert 'pre-existing frozen $3\\sigma$ current-step threshold' in t
+
+          p.write_text(t)
+          PY
+
+      - name: Remove one-shot workflow and commit repairs
+        run: |
+          rm .github/workflows/paper03-manuscript-source-repair.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add experiments/01-vanishing-absorber/PAPER03_MANUSCRIPT_REV2_ANON_2026-08-19.tex .github/workflows/paper03-manuscript-source-repair.yml
+          git diff --cached --check
+          git commit -m 'Harden Paper 03 Rev2 manuscript'
+          git push origin HEAD:agent/paper03-manuscript-rev1
