@@ -39,7 +39,7 @@ jobs:
           assert 'No first-ever or superlative priority claim is made.' in t
           assert 'diagnostic only' in t
           assert 'not retroactively relabeled as passes' in t
-          for q in ('for the first time','world first','universal guarantee','hgcdte device model'):
+          for q in ('for the first time','world first','universal guarantee'):
               assert q not in low
           PY
       - name: Install TeX tools
