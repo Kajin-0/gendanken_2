@@ -31,6 +31,7 @@ jobs:
           t=p.read_text(); low=t.lower()
           assert t.count(r'\author{Anonymous}') == 1
           assert 'pdfauthor={Anonymous}' in t
+          assert r'\usepackage{lmodern}' in t
           for s in ('9.16 dB','43.100 dB','39.200 dB','B2-A','96\\times75','112\\times87'):
               assert s in t
           assert 'generic and single-electron' in t
@@ -39,13 +40,17 @@ jobs:
           assert 'No first-ever or superlative priority claim is made.' in t
           assert 'diagnostic only' in t
           assert 'not retroactively relabeled as passes' in t
+          assert 'predeclared 60-row' in t
+          assert '60-point' not in t
+          assert 'not identically calibrated statistical tests' in t
+          assert 'pre-existing frozen $3\\sigma$ current-step threshold' in t
           for q in ('for the first time','world first','universal guarantee'):
               assert q not in low
           PY
       - name: Install TeX tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq latexmk texlive-latex-extra texlive-science poppler-utils
+          sudo apt-get install -y -qq latexmk lmodern texlive-latex-extra texlive-science poppler-utils
       - name: Compile anonymous Rev2
         working-directory: experiments/01-vanishing-absorber
         run: |
