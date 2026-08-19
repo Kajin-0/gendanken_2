@@ -1,0 +1,73 @@
+name: Paper 03 manuscript Rev1 gate
+
+on:
+  push:
+    branches: [agent/paper03-manuscript-rev1]
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.tex'
+      - '.github/workflows/paper03-manuscript-rev1.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'experiments/01-vanishing-absorber/PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.tex'
+      - '.github/workflows/paper03-manuscript-rev1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  manuscript-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce frozen claim and privacy boundary
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.tex')
+          t=p.read_text()
+          low=t.lower()
+          assert t.count(r'\author{Anonymous}') == 1
+          assert 'pdfauthor={Anonymous}' in t
+          assert '9.16 dB' in t
+          assert '43.100 dB' in t
+          assert '39.200 dB' in t
+          assert 'B2-A' in t
+          assert 'generic and single-electron' in t
+          assert 'not a material-specific HgCdTe' in t
+          assert 'Stage-B precision thresholds are analytic' in t
+          assert 'No first-ever or superlative priority claim is made.' in t
+          for q in ('first-ever','for the first time','world first','universal guarantee','hgcdte device model'):
+              assert q not in low
+          PY
+      - name: Install TeX tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq latexmk texlive-latex-extra texlive-science poppler-utils
+      - name: Compile anonymous Rev1
+        working-directory: experiments/01-vanishing-absorber
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.tex
+          log=PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.log
+          if grep -E "LaTeX Warning: (Citation|Reference).*undefined|There were undefined references|There were undefined citations" "$log"; then exit 1; fi
+          pdftotext PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.pdf paper03_rev1.txt
+          grep -q 'Precision-ordered falsification' paper03_rev1.txt
+          grep -q 'Anonymous' paper03_rev1.txt
+          grep -q '9.16 dB' paper03_rev1.txt
+          grep -q '39.200 dB' paper03_rev1.txt
+          pdfinfo PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.pdf | tee paper03_rev1_pdfinfo.txt
+          pdfinfo PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.pdf | grep -q 'Author:.*Anonymous'
+          sha256sum PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.pdf | tee paper03_rev1_sha256.txt
+      - name: Upload Rev1 manuscript package
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper03-manuscript-rev1
+          path: |
+            experiments/01-vanishing-absorber/PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.tex
+            experiments/01-vanishing-absorber/PAPER03_MANUSCRIPT_REV1_ANON_2026-08-19.pdf
+            experiments/01-vanishing-absorber/paper03_rev1_pdfinfo.txt
+            experiments/01-vanishing-absorber/paper03_rev1_sha256.txt
+          if-no-files-found: error
