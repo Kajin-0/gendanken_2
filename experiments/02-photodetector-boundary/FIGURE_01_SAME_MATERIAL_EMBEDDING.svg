@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#111"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="620" fill="white"/>
+  <style>
+    .title { font: 700 30px Arial, sans-serif; fill:#111; }
+    .label { font: 700 24px Arial, sans-serif; fill:#111; }
+    .text { font: 20px Arial, sans-serif; fill:#111; }
+    .math { font: italic 19px Georgia, serif; fill:#111; }
+    .small { font: 17px Arial, sans-serif; fill:#111; }
+    .box { fill:white; stroke:#111; stroke-width:3; rx:12; }
+    .fixed { fill:#f2f2f2; stroke:#111; stroke-width:4; rx:12; }
+    .arrow { stroke:#111; stroke-width:3; fill:none; marker-end:url(#arrow); }
+  </style>
+  <text x="600" y="48" text-anchor="middle" class="title">Same light-sensitive material, different downstream embedding</text>
+  <rect x="45" y="245" width="220" height="115" class="box"/>
+  <text x="155" y="287" text-anchor="middle" class="label">Optical input</text>
+  <text x="155" y="326" text-anchor="middle" class="math">H0 or H1</text>
+  <rect x="345" y="205" width="290" height="195" class="fixed"/>
+  <text x="490" y="248" text-anchor="middle" class="label">Fixed material M</text>
+  <text x="490" y="286" text-anchor="middle" class="math">Phi_M: rho_S -&gt; rho_Q</text>
+  <text x="490" y="326" text-anchor="middle" class="small">same atoms, composition,</text>
+  <text x="490" y="352" text-anchor="middle" class="small">Hamiltonian and transduction</text>
+  <text x="490" y="378" text-anchor="middle" class="small">in both architectures</text>
+  <path d="M265 303 L335 303" class="arrow"/>
+  <path d="M635 270 C690 270 705 155 755 155" class="arrow"/>
+  <path d="M635 335 C690 335 705 465 755 465" class="arrow"/>
+  <rect x="765" y="90" width="250" height="130" class="box"/>
+  <text x="890" y="130" text-anchor="middle" class="label">Measure</text>
+  <text x="890" y="166" text-anchor="middle" class="math">M(rho_Q)</text>
+  <text x="890" y="196" text-anchor="middle" class="small">preserve hypothesis information</text>
+  <rect x="765" y="400" width="250" height="130" class="box"/>
+  <text x="890" y="440" text-anchor="middle" class="label">Discard</text>
+  <text x="890" y="476" text-anchor="middle" class="math">T(rho_Q) = sigma_0</text>
+  <text x="890" y="506" text-anchor="middle" class="small">erase hypothesis information</text>
+  <path d="M1015 155 L1060 155" class="arrow"/>
+  <path d="M1015 465 L1060 465" class="arrow"/>
+  <text x="1120" y="126" text-anchor="middle" class="label">A</text>
+  <text x="1120" y="163" text-anchor="middle" class="math">P_e &lt; 1/2</text>
+  <text x="1120" y="193" text-anchor="middle" class="small">nontrivial detection</text>
+  <text x="1120" y="436" text-anchor="middle" class="label">B</text>
+  <text x="1120" y="473" text-anchor="middle" class="math">P_e = 1/2</text>
+  <text x="1120" y="503" text-anchor="middle" class="small">random guessing</text>
+  <line x1="80" y1="570" x2="1120" y2="570" stroke="#111" stroke-width="2"/>
+  <text x="600" y="603" text-anchor="middle" class="text">Intrinsic properties of M are unchanged; completed measurement performance changes only through the embedding.</text>
+</svg>
