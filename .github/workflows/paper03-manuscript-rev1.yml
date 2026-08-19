@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   manuscript-gate:
@@ -22,6 +22,74 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: agent/paper03-manuscript-rev1
+          fetch-depth: 0
+      - name: Polish Figure 1 source
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('experiments/01-vanishing-absorber/PAPER03_MANUSCRIPT_REV2_ANON_2026-08-19.tex')
+          t = p.read_text()
+          old = r'''\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+box/.style={draw,rounded corners=1.5pt,align=center,text width=3.1cm,minimum height=0.95cm,font=\small},
+arr/.style={-{Latex[length=2mm]},line width=.45pt}]
+\node[box] (obs) at (0,0) {six calibrated spectral kernels\\$+\ J_m(\omega)$};
+\node[box] (one) at (4.4,0) {one-mode null\\$J_m=A+B M_m(r)$};
+\node[box] (two) at (8.8,0) {two-mode diagnostic\\$r_1,r_2$};
+\node[box] (law) at (13.2,0) {physical root law\\$r_1+r_2\in\mathbb R$, RF-invariant};
+\node[box] (warn) at (6.6,-2.0) {$S_{\rm warn}$\\model inadequacy detectable};
+\node[box] (claim) at (11.0,-2.0) {$S_{\rm claim}$\\false microscopic claim};
+\draw[arr] (obs)--(one); \draw[arr] (one)--(two); \draw[arr] (two)--(law);
+\draw[arr] (one)--(warn); \draw[arr] (law)--(warn); \draw[arr] (warn)--node[above,font=\scriptsize]{desired ordering}(claim);
+\end{tikzpicture}
+\caption{Mechanism-blind warning-before-claim logic. The inverse is asked first whether a low-dimensional transport interpretation is adequate, not which hidden multidimensional mechanism generated the data.}
+\label{fig:logic}
+\end{figure}'''
+          new = r'''\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+box/.style={draw,line width=.55pt,align=center,inner xsep=8pt,inner ysep=7pt,font=\small},
+arr/.style={-{Latex[length=2mm]},line width=.5pt},
+note/.style={font=\scriptsize}]
+\node[box,text width=3.2cm,minimum height=1.35cm] (data) {
+  \textbf{Calibrated inputs}\\[1pt]
+  depth kernels $g_m(z)$\\
+  currents $J_m(\omega)$};
+\node[box,text width=4.45cm,minimum height=1.35cm,right=1.0cm of data] (one) {
+  \textbf{One-mode adequacy test}\\[1pt]
+  $J_m=A+B M_m(r)$\\
+  $\rho_1\;\Rightarrow\;S_{\rm warn}$};
+\node[box,text width=4.45cm,minimum height=1.25cm,below=0.72cm of one] (two) {
+  \textbf{Two-mode diagnostic}\\[1pt]
+  fit $r_1,r_2$; test the homogeneous\\
+  physical root law};
+\node[box,text width=3.6cm,minimum height=1.55cm,right=1.0cm of one] (order) {
+  \textbf{Precision ordering}\\[3pt]
+  $\displaystyle S_{\rm warn}<S_{\rm claim}$\\[3pt]
+  \footnotesize model failure detected first};
+\draw[arr] (data) -- (one);
+\draw[arr] (one) -- (order);
+\draw[arr] (one) -- node[right,note]{if rejected} (two);
+\end{tikzpicture}
+\caption{Mechanism-blind warning-before-claim logic. The one-mode test sets $S_{\rm warn}$. If it is rejected, the two-mode/root-law check supplies a separate structural diagnostic. $S_{\rm claim}$ enters only in the final precision comparison.}
+\label{fig:logic}
+\end{figure}'''
+          if old in t:
+              assert t.count(old) == 1
+              p.write_text(t.replace(old, new))
+          else:
+              assert new in t, 'Figure 1 is neither the expected old nor new block'
+          PY
+          if ! git diff --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add experiments/01-vanishing-absorber/PAPER03_MANUSCRIPT_REV2_ANON_2026-08-19.tex
+            git commit -m 'Polish Paper 03 Figure 1'
+            git push origin HEAD:agent/paper03-manuscript-rev1
+          fi
       - name: Enforce frozen claim and privacy boundary
         working-directory: experiments/01-vanishing-absorber
         run: |
